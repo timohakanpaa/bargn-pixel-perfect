@@ -5,6 +5,7 @@ import BusinessSection from "@/components/BusinessSection";
 import Pricing from "@/components/Pricing";
 import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
@@ -25,6 +26,8 @@ const Index = () => {
           </h2>
         </div>
       </section>
+      
+      <Footer />
     </div>
   );
 };
