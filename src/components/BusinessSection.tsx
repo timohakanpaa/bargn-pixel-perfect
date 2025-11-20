@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Shield, Heart, Users } from "lucide-react";
+import { useInView } from "@/hooks/use-in-view";
 
 const BusinessSection = () => {
+  const { ref, isInView } = useInView();
+
   return (
-    <section className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-6">
+    <section ref={ref} className="py-24 relative overflow-hidden">
+      <div className={`container mx-auto px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
         <div className="grid md:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
           <div>
             <h2 className="text-5xl md:text-6xl font-black mb-6">

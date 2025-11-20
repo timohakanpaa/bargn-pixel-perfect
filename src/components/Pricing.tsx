@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Check, Sparkles, MapPin } from "lucide-react";
+import { useInView } from "@/hooks/use-in-view";
 
 const Pricing = () => {
+  const { ref, isInView } = useInView();
+
   return (
-    <section className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-6">
+    <section ref={ref} className="py-24 relative overflow-hidden">
+      <div className={`container mx-auto px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
         <h2 className="text-6xl md:text-7xl font-black text-center mb-6 text-primary">
           50% OFF
         </h2>
