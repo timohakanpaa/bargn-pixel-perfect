@@ -48,6 +48,32 @@ All colors MUST be HSL.
     --glow-orange: 0 0 60px hsl(25 95% 53% / 0.4);
     --glow-yellow: 0 0 60px hsl(48 96% 53% / 0.4);
   }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(12deg); }
+    50% { transform: translateY(-20px) rotate(12deg); }
+  }
+
+  @keyframes float-reverse {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(20px); }
+  }
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: var(--glow-pink); }
+    50% { box-shadow: 0 0 80px hsl(328 86% 70% / 0.6); }
+  }
 }
 
 @layer base {

@@ -5,15 +5,15 @@ const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
       {/* Floating Icons */}
-      <div className="absolute top-32 left-20 w-24 h-24 bg-gradient-pink-orange rounded-3xl rotate-12 flex items-center justify-center shadow-glow-pink animate-pulse">
+      <div className="absolute top-32 left-20 w-24 h-24 bg-gradient-pink-orange rounded-3xl flex items-center justify-center shadow-glow-pink animate-float">
         <span className="text-4xl">%</span>
       </div>
-      <div className="absolute top-40 right-32 w-20 h-20 bg-gradient-orange-yellow rounded-full flex items-center justify-center shadow-glow-orange">
+      <div className="absolute top-40 right-32 w-20 h-20 bg-gradient-orange-yellow rounded-full flex items-center justify-center shadow-glow-orange animate-float-reverse">
         <span className="text-3xl">📱</span>
       </div>
 
       <div className="container mx-auto px-6 text-center relative z-10">
-        <div className="inline-block mb-8 px-6 py-3 bg-muted/50 backdrop-blur-sm rounded-full border border-border">
+        <div className="inline-block mb-8 px-6 py-3 bg-muted/50 backdrop-blur-sm rounded-full border border-border animate-fade-in-up">
           <span className="text-accent font-bold mr-2">✨</span>
           <span className="text-accent font-bold">AI THAT ACTUALLY SLAPS</span>
           <span className="text-accent ml-2">✨</span>
@@ -40,11 +40,11 @@ const Hero = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
-          <Button className="bg-gradient-pink-orange text-foreground font-bold rounded-full px-8 py-6 text-lg shadow-glow-pink hover:scale-105 transition-transform">
+          <Button className="bg-gradient-pink-orange text-foreground font-bold rounded-full px-8 py-6 text-lg shadow-glow-pink hover:scale-110 hover:shadow-glow-pink transition-all duration-300 animate-pulse-glow">
             <Zap className="mr-2 w-5 h-5" />
             Let's Go
           </Button>
-          <Button variant="outline" className="border-secondary text-secondary font-bold rounded-full px-8 py-6 text-lg hover:bg-secondary/10">
+          <Button variant="outline" className="border-secondary text-secondary font-bold rounded-full px-8 py-6 text-lg hover:bg-secondary/10 hover:scale-105 transition-all duration-300">
             <Users className="mr-2 w-5 h-5" />
             Partner Up (We're Cool Like That)
           </Button>

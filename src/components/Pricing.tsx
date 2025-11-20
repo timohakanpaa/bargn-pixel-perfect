@@ -15,8 +15,8 @@ const Pricing = () => {
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* Premium Plan */}
           <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-pink-yellow opacity-20 blur-3xl group-hover:opacity-30 transition-opacity rounded-3xl"></div>
-            <div className="relative bg-card border-2 border-primary rounded-3xl overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-pink-yellow opacity-20 blur-3xl group-hover:opacity-30 transition-opacity rounded-3xl animate-pulse-glow"></div>
+            <div className="relative bg-card border-2 border-primary rounded-3xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all duration-300">
               <div className="bg-gradient-pink-yellow p-8 relative">
                 <div className="absolute top-4 right-4 bg-accent text-accent-foreground px-4 py-1 rounded-full text-sm font-bold">
                   AI THAT ACTUALLY SLAPS
@@ -64,7 +64,7 @@ const Pricing = () => {
                   <span className="text-muted-foreground">/yearly</span>
                 </div>
 
-                <Button className="w-full bg-gradient-pink-orange text-foreground font-bold rounded-full py-6 text-lg shadow-glow-pink hover:scale-105 transition-transform">
+                <Button className="w-full bg-gradient-pink-orange text-foreground font-bold rounded-full py-6 text-lg shadow-glow-pink hover:scale-110 hover:shadow-glow-yellow transition-all duration-300">
                   Join Now
                 </Button>
               </div>
@@ -74,7 +74,7 @@ const Pricing = () => {
           {/* Standard Plan */}
           <div className="relative group">
             <div className="absolute inset-0 bg-gradient-purple-pink opacity-20 blur-3xl group-hover:opacity-30 transition-opacity rounded-3xl"></div>
-            <div className="relative bg-card border border-border rounded-3xl overflow-hidden">
+            <div className="relative bg-card border border-border rounded-3xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all duration-300">
               <div className="bg-gradient-to-br from-[#8B5CF6] to-[#EC4899] p-8 relative">
                 <div className="absolute top-4 right-4 bg-accent text-accent-foreground px-4 py-1 rounded-full text-sm font-bold">
                   BEST VALUE
@@ -122,7 +122,7 @@ const Pricing = () => {
                   <span className="text-muted-foreground">/yearly</span>
                 </div>
 
-                <Button variant="outline" className="w-full border-accent text-accent font-bold rounded-full py-6 text-lg hover:bg-accent/10">
+                <Button variant="outline" className="w-full border-accent text-accent font-bold rounded-full py-6 text-lg hover:bg-accent/10 hover:scale-110 transition-all duration-300">
                   Join Now
                 </Button>
               </div>
