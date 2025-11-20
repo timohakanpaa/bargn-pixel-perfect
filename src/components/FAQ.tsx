@@ -4,11 +4,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useInView } from "@/hooks/use-in-view";
 
 const FAQ = () => {
+  const { ref, isInView } = useInView();
+
   return (
-    <section className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-6 max-w-5xl">
+    <section ref={ref} className="py-24 relative overflow-hidden">
+      <div className={`container mx-auto px-6 max-w-5xl transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
         <h2 className="text-5xl md:text-6xl font-black text-center mb-4 text-primary">
           Questions? We Got Answers
         </h2>

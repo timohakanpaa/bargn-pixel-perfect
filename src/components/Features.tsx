@@ -1,9 +1,12 @@
 import { Brain, Shield, TrendingUp } from "lucide-react";
+import { useInView } from "@/hooks/use-in-view";
 
 const Features = () => {
+  const { ref, isInView } = useInView();
+
   return (
-    <section className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-6">
+    <section ref={ref} className="py-24 relative overflow-hidden">
+      <div className={`container mx-auto px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
         <h2 className="text-5xl md:text-6xl font-black text-center mb-6">
           <span className="text-foreground">Why We're Your New Favorite</span>
           <br />
