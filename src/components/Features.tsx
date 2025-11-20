@@ -15,9 +15,9 @@ const Features = () => {
         </p>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <div className="bg-card border border-border rounded-3xl p-8 hover:border-primary transition-colors">
-            <div className="w-16 h-16 bg-gradient-purple-pink rounded-2xl flex items-center justify-center mb-6 shadow-glow-pink">
-              <Brain className="w-8 h-8 text-foreground" />
+          <div className="bg-card border border-border rounded-3xl p-8 hover:border-primary hover:scale-105 hover:-translate-y-2 transition-all duration-300 group">
+            <div className="w-16 h-16 bg-gradient-purple-pink rounded-2xl flex items-center justify-center mb-6 shadow-glow-pink group-hover:animate-pulse-glow">
+              <Brain className="w-8 h-8 text-foreground group-hover:scale-110 transition-transform" />
             </div>
             <h3 className="text-2xl font-bold text-foreground mb-4">
               AI That Gets Your Vibe
@@ -27,9 +27,9 @@ const Features = () => {
             </p>
           </div>
 
-          <div className="bg-card border border-border rounded-3xl p-8 hover:border-secondary transition-colors">
-            <div className="w-16 h-16 bg-gradient-orange-yellow rounded-2xl flex items-center justify-center mb-6 shadow-glow-orange">
-              <Shield className="w-8 h-8 text-foreground" />
+          <div className="bg-card border border-border rounded-3xl p-8 hover:border-secondary hover:scale-105 hover:-translate-y-2 transition-all duration-300 group">
+            <div className="w-16 h-16 bg-gradient-orange-yellow rounded-2xl flex items-center justify-center mb-6 shadow-glow-orange group-hover:animate-pulse-glow">
+              <Shield className="w-8 h-8 text-foreground group-hover:scale-110 transition-transform" />
             </div>
             <h3 className="text-2xl font-bold text-foreground mb-4">
               No Hidden Fees, No Sketchy Business
@@ -39,9 +39,9 @@ const Features = () => {
             </p>
           </div>
 
-          <div className="bg-card border border-border rounded-3xl p-8 hover:border-accent transition-colors">
-            <div className="w-16 h-16 bg-gradient-pink-yellow rounded-2xl flex items-center justify-center mb-6 shadow-glow-yellow">
-              <TrendingUp className="w-8 h-8 text-foreground" />
+          <div className="bg-card border border-border rounded-3xl p-8 hover:border-accent hover:scale-105 hover:-translate-y-2 transition-all duration-300 group">
+            <div className="w-16 h-16 bg-gradient-pink-yellow rounded-2xl flex items-center justify-center mb-6 shadow-glow-yellow group-hover:animate-pulse-glow">
+              <TrendingUp className="w-8 h-8 text-foreground group-hover:scale-110 transition-transform" />
             </div>
             <h3 className="text-2xl font-bold text-foreground mb-4">
               Recommendations That Don't Suck

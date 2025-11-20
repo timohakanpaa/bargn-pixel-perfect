@@ -64,15 +64,15 @@ const BusinessSection = () => {
               </div>
             </div>
 
-            <Button className="bg-gradient-to-r from-secondary to-accent text-foreground font-bold rounded-full px-8 py-6 text-lg shadow-glow-orange hover:scale-105 transition-transform">
+            <Button className="bg-gradient-to-r from-secondary to-accent text-foreground font-bold rounded-full px-8 py-6 text-lg shadow-glow-orange hover:scale-110 hover:shadow-glow-yellow transition-all duration-300">
               <Users className="mr-2 w-5 h-5" />
               Partner Up (We're Cool Like That)
             </Button>
           </div>
 
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-purple-pink opacity-20 blur-3xl rounded-3xl"></div>
-            <div className="relative bg-gradient-to-br from-[#6B21A8] to-[#EC4899] rounded-3xl p-8 shadow-2xl">
+            <div className="absolute inset-0 bg-gradient-purple-pink opacity-20 blur-3xl rounded-3xl animate-pulse-glow"></div>
+            <div className="relative bg-gradient-to-br from-[#6B21A8] to-[#EC4899] rounded-3xl p-8 shadow-2xl hover:scale-105 transition-transform duration-300">
               <div className="bg-background/10 backdrop-blur-sm rounded-2xl p-6 mb-4">
                 <div className="text-sm text-accent mb-2">You saved 160.00 CHF</div>
                 <div className="bg-background/20 rounded-xl p-4 mb-4">
