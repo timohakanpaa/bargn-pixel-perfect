@@ -12,27 +12,27 @@ const Footer = () => {
               Bargn
             </h3>
             <p className="text-foreground/60 text-sm">
-              Jäsenyyspohjainen etu- ja alennuspalvelu ravintoloihin ja palveluihin.
+              Membership-based benefits and discount service for restaurants and services.
             </p>
           </div>
 
           {/* Navigation Links */}
           <div>
-            <h4 className="text-foreground font-bold mb-4">Sivut</h4>
+            <h4 className="text-foreground font-bold mb-4">Pages</h4>
             <ul className="space-y-2">
               <li>
                 <NavLink to="/" className="text-foreground/60 hover:text-accent transition-colors">
-                  Etusivu
+                  Home
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/partners" className="text-foreground/60 hover:text-accent transition-colors">
-                  Yrityksille
+                  For Businesses
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/campaign" className="text-foreground/60 hover:text-accent transition-colors">
-                  Vaikuttajakampanja
+                  Influencer Campaign
                 </NavLink>
               </li>
             </ul>
@@ -40,26 +40,26 @@ const Footer = () => {
 
           {/* Info Links */}
           <div>
-            <h4 className="text-foreground font-bold mb-4">Tietoa</h4>
+            <h4 className="text-foreground font-bold mb-4">About</h4>
             <ul className="space-y-2">
               <li>
                 <a href="#" className="text-foreground/60 hover:text-accent transition-colors">
-                  Tietoa meistä
+                  About Us
                 </a>
               </li>
               <li>
                 <a href="#" className="text-foreground/60 hover:text-accent transition-colors">
-                  Yhteystiedot
+                  Contact
                 </a>
               </li>
               <li>
                 <a href="#" className="text-foreground/60 hover:text-accent transition-colors">
-                  Tietosuoja
+                  Privacy
                 </a>
               </li>
               <li>
                 <a href="#" className="text-foreground/60 hover:text-accent transition-colors">
-                  Käyttöehdot
+                  Terms of Service
                 </a>
               </li>
             </ul>
@@ -67,7 +67,7 @@ const Footer = () => {
 
           {/* Social Media */}
           <div>
-            <h4 className="text-foreground font-bold mb-4">Seuraa meitä</h4>
+            <h4 className="text-foreground font-bold mb-4">Follow Us</h4>
             <div className="flex gap-4">
               <a
                 href="#"
@@ -100,7 +100,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-primary/20 text-center">
           <p className="text-foreground/60 text-sm">
-            © 2024 Bargn Oy. Kaikki oikeudet pidätetään.
+            © 2024 Bargn Oy. All rights reserved.
           </p>
         </div>
       </div>
