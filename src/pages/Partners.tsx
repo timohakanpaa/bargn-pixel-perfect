@@ -5,6 +5,7 @@ import CurrentPartners from "@/components/partners/CurrentPartners";
 import PartnerTestimonials from "@/components/partners/PartnerTestimonials";
 import PartnershipProcess from "@/components/partners/PartnershipProcess";
 import PartnerCTA from "@/components/partners/PartnerCTA";
+import Footer from "@/components/Footer";
 
 const Partners = () => {
   return (
@@ -16,6 +17,7 @@ const Partners = () => {
       <PartnerTestimonials />
       <PartnershipProcess />
       <PartnerCTA />
+      <Footer />
     </div>
   );
 };

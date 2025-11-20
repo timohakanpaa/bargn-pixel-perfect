@@ -1,5 +1,6 @@
 import { Search, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { NavLink } from "@/components/NavLink";
 
 const Navigation = () => {
   return (
@@ -17,12 +18,12 @@ const Navigation = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-8">
-            <a href="#members" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+            <NavLink to="/" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
               Members
-            </a>
-            <a href="#partners" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+            </NavLink>
+            <NavLink to="/partners" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
               Partners
-            </a>
+            </NavLink>
             <a href="#how-it-works" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
               How It Works
             </a>
@@ -32,9 +33,9 @@ const Navigation = () => {
             <a href="#blog" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
               Blog
             </a>
-            <a href="#campaign" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+            <NavLink to="/campaign" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
               Campaign
-            </a>
+            </NavLink>
           </div>
 
           <div className="flex items-center gap-4">
