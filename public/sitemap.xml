@@ -44,6 +44,14 @@
     <priority>0.8</priority>
   </url>
   
+  <!-- Performance Dashboard - Medium priority, updated frequently -->
+  <url>
+    <loc>https://bargn.app/performance</loc>
+    <lastmod>2025-01-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
   <!-- About Page - Medium priority, updated rarely -->
   <url>
     <loc>https://bargn.app/about</loc>

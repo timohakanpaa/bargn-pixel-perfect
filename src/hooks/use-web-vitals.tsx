@@ -18,9 +18,36 @@ interface WebVitalsMetric {
   rating: 'good' | 'needs-improvement' | 'poor';
   delta: number;
   id: string;
+  timestamp: number;
 }
 
+// Store metrics in localStorage for dashboard
+const storeMetric = (metric: Metric) => {
+  try {
+    const stored = localStorage.getItem('web-vitals-history');
+    const history: WebVitalsMetric[] = stored ? JSON.parse(stored) : [];
+    
+    history.push({
+      name: metric.name,
+      value: metric.value,
+      rating: metric.rating,
+      delta: metric.delta,
+      id: metric.id,
+      timestamp: Date.now(),
+    });
+    
+    // Keep only last 100 entries
+    const trimmed = history.slice(-100);
+    localStorage.setItem('web-vitals-history', JSON.stringify(trimmed));
+  } catch (error) {
+    console.error('Failed to store web vitals:', error);
+  }
+};
+
 const sendToAnalytics = (metric: Metric) => {
+  // Store metric for dashboard
+  storeMetric(metric);
+  
   // Log to console in development
   if (import.meta.env.DEV) {
     console.log('📊 Core Web Vitals:', {
