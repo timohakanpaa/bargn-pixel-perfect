@@ -312,6 +312,17 @@ const translations: Record<Language, Record<string, string>> = {
     "blog.article3.title": "50 New Partners Just Joined – Here's Where",
     "blog.article3.excerpt": "We're expanding faster than ever. Check out the new spots where you can save.",
     "blog.article3.category": "Partner Spotlights",
+    // Footer
+    "footer.newsletter.title": "Newsletter (No Spam, Just Vibes)",
+    "footer.newsletter.placeholder": "your@email.com",
+    "footer.newsletter.button": "Subscribe",
+    "footer.links.privacy": "Privacy Policy",
+    "footer.links.terms": "Terms of Service",
+    "footer.links.cookies": "Cookie Policy",
+    "footer.info.address": "Helsinki, Finland",
+    "footer.info.businessId": "Y-tunnus: 1234567-8",
+    "footer.copyright": "© 2024 Bargn. All rights reserved.",
+    "footer.tagline": "Discover. Save. Repeat.",
   },
   fi: {
     home: "Koti",
@@ -616,6 +627,17 @@ const translations: Record<Language, Record<string, string>> = {
     "blog.article3.title": "50 Uutta Kumppania Liitty – Tässä Missä",
     "blog.article3.excerpt": "Me laajennetaan nopeemmin ku koskaan. Katso uudet paikat missä voit säästää.",
     "blog.article3.category": "Kumppaninostot",
+    // Footer
+    "footer.newsletter.title": "Uutiskirje (Ei Spämmiä, Pelkkää Vibeä)",
+    "footer.newsletter.placeholder": "sun@email.com",
+    "footer.newsletter.button": "Tilaa",
+    "footer.links.privacy": "Tietosuoja",
+    "footer.links.terms": "Käyttöehdot",
+    "footer.links.cookies": "Evästekäytäntö",
+    "footer.info.address": "Helsinki, Suomi",
+    "footer.info.businessId": "Y-tunnus: 1234567-8",
+    "footer.copyright": "© 2024 Bargn. Kaikki oikeudet pidätetään.",
+    "footer.tagline": "Löydä. Säästä. Toista.",
   },
 };
 

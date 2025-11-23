@@ -1,106 +1,176 @@
-import { NavLink } from "@/components/NavLink";
-import { Instagram, Facebook, Twitter, Mail } from "lucide-react";
+import { Instagram, Linkedin, Mail } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import bargnLogo from "@/assets/bargn-logo.png";
+import { z } from "zod";
+
+const newsletterSchema = z.object({
+  email: z
+    .string()
+    .trim()
+    .email({ message: "Invalid email address" })
+    .max(255, { message: "Email must be less than 255 characters" })
+});
 
 const Footer = () => {
+  const { t } = useLanguage();
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    try {
+      // Validate email with zod
+      const result = newsletterSchema.safeParse({ email });
+      
+      if (!result.success) {
+        const errorMessage = result.error.issues[0]?.message || "Invalid email";
+        toast({
+          title: "Invalid email",
+          description: errorMessage,
+          variant: "destructive",
+        });
+        return;
+      }
+
+      setIsSubmitting(true);
+      
+      // Simulate newsletter signup
+      setTimeout(() => {
+        toast({
+          title: "Subscribed!",
+          description: "You've been added to our newsletter",
+        });
+        setEmail("");
+        setIsSubmitting(false);
+      }, 1000);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <footer className="bg-gradient-to-br from-[#1a0b2e] via-[#2d1b4e] to-[#0f172a] border-t border-primary/20 py-12">
-      <div className="container mx-auto px-6">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
-          {/* Logo & Description */}
-          <div className="md:col-span-1">
-            <h3 className="text-2xl font-black bg-gradient-to-r from-[#ec4899] via-[#f97316] to-[#f59e0b] bg-clip-text text-transparent mb-4">
-              Bargn
-            </h3>
-            <p className="text-foreground/60 text-sm">
-              Membership-based benefits and discount service for restaurants and services.
-            </p>
-          </div>
-
-          {/* Navigation Links */}
+    <footer className="bg-[#050505] border-t border-[#FF9B7D]/20 relative">
+      {/* Top gradient glow */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#E94B96] to-transparent opacity-50"></div>
+      
+      <div className="container mx-auto px-6 py-16">
+        <div className="grid md:grid-cols-4 gap-12 mb-12">
+          {/* Col 1: Logo & Social */}
           <div>
-            <h4 className="text-foreground font-bold mb-4">Pages</h4>
-            <ul className="space-y-2">
-              <li>
-                <NavLink to="/" className="text-foreground/60 hover:text-accent transition-colors">
-                  Home
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/partners" className="text-foreground/60 hover:text-accent transition-colors">
-                  For Businesses
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/campaign" className="text-foreground/60 hover:text-accent transition-colors">
-                  Influencer Campaign
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-
-          {/* Info Links */}
-          <div>
-            <h4 className="text-foreground font-bold mb-4">About</h4>
-            <ul className="space-y-2">
-              <li>
-                <a href="#" className="text-foreground/60 hover:text-accent transition-colors">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-foreground/60 hover:text-accent transition-colors">
-                  Contact
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-foreground/60 hover:text-accent transition-colors">
-                  Privacy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-foreground/60 hover:text-accent transition-colors">
-                  Terms of Service
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Social Media */}
-          <div>
-            <h4 className="text-foreground font-bold mb-4">Follow Us</h4>
-            <div className="flex gap-4">
+            <img 
+              src={bargnLogo} 
+              alt="Bargn" 
+              className="h-12 mb-6"
+            />
+            <div className="flex gap-3">
               <a
-                href="#"
-                className="w-10 h-10 bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-full flex items-center justify-center hover:bg-accent/20 hover:border-accent/30 transition-all hover:scale-110"
+                href="https://instagram.com/bargn"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-glass backdrop-blur-xl border border-[#FF9B7D]/20 rounded-full flex items-center justify-center hover:border-[#E94B96] hover:shadow-[0_0_20px_rgba(233,75,150,0.4)] transition-all"
               >
-                <Instagram className="w-5 h-5 text-foreground" />
+                <Instagram className="w-5 h-5 text-[#FF9B7D]" />
               </a>
               <a
-                href="#"
-                className="w-10 h-10 bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-full flex items-center justify-center hover:bg-accent/20 hover:border-accent/30 transition-all hover:scale-110"
+                href="https://tiktok.com/@bargn"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-glass backdrop-blur-xl border border-[#FF9B7D]/20 rounded-full flex items-center justify-center hover:border-[#E94B96] hover:shadow-[0_0_20px_rgba(233,75,150,0.4)] transition-all"
               >
-                <Facebook className="w-5 h-5 text-foreground" />
+                <svg className="w-5 h-5 text-[#FF9B7D]" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/>
+                </svg>
               </a>
               <a
-                href="#"
-                className="w-10 h-10 bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-full flex items-center justify-center hover:bg-accent/20 hover:border-accent/30 transition-all hover:scale-110"
+                href="https://linkedin.com/company/bargn"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-glass backdrop-blur-xl border border-[#FF9B7D]/20 rounded-full flex items-center justify-center hover:border-[#E94B96] hover:shadow-[0_0_20px_rgba(233,75,150,0.4)] transition-all"
               >
-                <Twitter className="w-5 h-5 text-foreground" />
+                <Linkedin className="w-5 h-5 text-[#FF9B7D]" />
               </a>
               <a
                 href="mailto:info@bargn.fi"
-                className="w-10 h-10 bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-full flex items-center justify-center hover:bg-accent/20 hover:border-accent/30 transition-all hover:scale-110"
+                className="w-10 h-10 bg-glass backdrop-blur-xl border border-[#FF9B7D]/20 rounded-full flex items-center justify-center hover:border-[#E94B96] hover:shadow-[0_0_20px_rgba(233,75,150,0.4)] transition-all"
               >
-                <Mail className="w-5 h-5 text-foreground" />
+                <Mail className="w-5 h-5 text-[#FF9B7D]" />
               </a>
             </div>
+          </div>
+
+          {/* Col 2: Newsletter */}
+          <div>
+            <h4 className="text-white font-bold mb-4">{t('footer.newsletter.title')}</h4>
+            <form onSubmit={handleNewsletterSubmit} className="space-y-3">
+              <Input
+                type="email"
+                placeholder={t('footer.newsletter.placeholder')}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={isSubmitting}
+                className="bg-background/50 border-glass text-white"
+                maxLength={255}
+              />
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-gradient-to-r from-[#E94B96] to-[#FF9B7D] text-white hover:shadow-[0_0_20px_rgba(233,75,150,0.6)] transition-all"
+              >
+                {isSubmitting ? "..." : t('footer.newsletter.button')}
+              </Button>
+            </form>
+          </div>
+
+          {/* Col 3: Links */}
+          <div>
+            <h4 className="text-white font-bold mb-4">Legal</h4>
+            <ul className="space-y-2">
+              <li>
+                <a href="/privacy" className="text-white/60 hover:text-[#FF9B7D] transition-colors">
+                  {t('footer.links.privacy')}
+                </a>
+              </li>
+              <li>
+                <a href="/terms" className="text-white/60 hover:text-[#FF9B7D] transition-colors">
+                  {t('footer.links.terms')}
+                </a>
+              </li>
+              <li>
+                <a href="/cookies" className="text-white/60 hover:text-[#FF9B7D] transition-colors">
+                  {t('footer.links.cookies')}
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 4: Info */}
+          <div>
+            <h4 className="text-white font-bold mb-4">Info</h4>
+            <ul className="space-y-2 text-white/60">
+              <li>{t('footer.info.address')}</li>
+              <li>{t('footer.info.businessId')}</li>
+            </ul>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-primary/20 text-center">
-          <p className="text-foreground/60 text-sm">
-            © 2024 Bargn Oy. All rights reserved.
+        <div className="pt-8 border-t border-[#FF9B7D]/20 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-white/60 text-sm">
+            {t('footer.copyright')}
+          </p>
+          <p className="text-[#FF9B7D] font-semibold text-sm">
+            {t('footer.tagline')}
           </p>
         </div>
       </div>
