@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Check, Sparkles, MapPin } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
+import { TiltCard } from "@/components/animations/TiltCard";
 
 const Pricing = () => {
   const { ref, isInView } = useInView();
@@ -17,9 +18,9 @@ const Pricing = () => {
 
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* Premium Plan */}
-          <div className="relative group">
+          <TiltCard className="relative group" tiltDegree={15} scale={1.08}>
             <div className="absolute inset-0 bg-gradient-purple-yellow opacity-30 blur-3xl group-hover:opacity-40 transition-opacity rounded-3xl animate-pulse-glow"></div>
-            <div className="relative bg-glass backdrop-blur-2xl border-2 border-purple shadow-glow-purple rounded-3xl overflow-hidden hover:scale-105 hover:-translate-y-2 hover:shadow-glow-yellow transition-all duration-300">
+            <div className="relative bg-glass backdrop-blur-2xl border-2 border-purple shadow-glow-purple rounded-3xl overflow-hidden hover:shadow-glow-yellow transition-all duration-300">
               <div className="bg-gradient-purple-yellow p-8 relative">
                 <div className="absolute top-4 right-4 bg-accent text-accent-foreground px-4 py-1 rounded-full text-sm font-bold">
                   AI THAT ACTUALLY SLAPS
@@ -67,17 +68,17 @@ const Pricing = () => {
                   <span className="text-muted-foreground">/yearly</span>
                 </div>
 
-                <Button className="w-full bg-gradient-pink-orange text-foreground font-bold rounded-full py-6 text-lg shadow-glow-pink hover:scale-110 hover:shadow-glow-yellow transition-all duration-300">
+                <Button className="w-full bg-gradient-pink-orange text-foreground font-bold rounded-full py-6 text-lg shadow-[0_0_25px_rgba(239,29,242,0.6)] hover:shadow-[0_0_40px_rgba(239,29,242,0.9)]">
                   Join Now
                 </Button>
               </div>
             </div>
-          </div>
+          </TiltCard>
 
           {/* Standard Plan */}
-          <div className="relative group">
+          <TiltCard className="relative group" tiltDegree={15} scale={1.08}>
             <div className="absolute inset-0 bg-gradient-coral-purple opacity-30 blur-3xl group-hover:opacity-40 transition-opacity rounded-3xl"></div>
-            <div className="relative bg-glass backdrop-blur-2xl border-2 border-glass rounded-3xl overflow-hidden hover:scale-105 hover:-translate-y-2 hover:shadow-glow-coral transition-all duration-300">
+            <div className="relative bg-glass backdrop-blur-2xl border-2 border-glass rounded-3xl overflow-hidden hover:shadow-glow-coral transition-all duration-300">
               <div className="bg-gradient-coral-purple p-8 relative">
                 <div className="absolute top-4 right-4 bg-accent text-accent-foreground px-4 py-1 rounded-full text-sm font-bold">
                   BEST VALUE
@@ -125,12 +126,12 @@ const Pricing = () => {
                   <span className="text-muted-foreground">/yearly</span>
                 </div>
 
-                <Button variant="outline" className="w-full border-accent text-accent font-bold rounded-full py-6 text-lg hover:bg-accent/10 hover:scale-110 transition-all duration-300">
+                <Button variant="outline" className="w-full border-accent text-accent font-bold rounded-full py-6 text-lg hover:bg-accent/10">
                   Join Now
                 </Button>
               </div>
             </div>
-          </div>
+          </TiltCard>
         </div>
       </div>
     </section>

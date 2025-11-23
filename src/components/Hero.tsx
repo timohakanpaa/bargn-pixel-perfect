@@ -18,10 +18,24 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
-      {/* Giant Blurry Gradient Blob */}
+      {/* Giant Blurry Gradient Blob with Pulsing Glow */}
       <motion.div 
         style={{ scale }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-coral-purple opacity-30 blur-[120px] rounded-full animate-pulse-glow"
+        animate={{
+          boxShadow: [
+            "0 0 100px 40px rgba(239,29,242,0.4)",
+            "0 0 150px 60px rgba(239,29,242,0.6)",
+            "0 0 100px 40px rgba(239,29,242,0.4)",
+          ]
+        }}
+        transition={{
+          boxShadow: {
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }
+        }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-coral-purple opacity-30 blur-[120px] rounded-full"
       />
       
       {/* Orbiting Floating Icons */}
@@ -131,7 +145,7 @@ const Hero = () => {
         >
           <Button 
             variant="neon"
-            className="rounded-full px-10 py-7 text-xl"
+            className="rounded-full px-10 py-7 text-xl shadow-[0_0_25px_rgba(255,220,74,0.7)] hover:shadow-[0_0_40px_rgba(255,220,74,1)]"
             onClick={() => trackButtonClick("hero_lets_go_cta", t("letsGo"))}
           >
             <Zap className="mr-2 w-6 h-6" />
