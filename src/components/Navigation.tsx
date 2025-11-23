@@ -11,9 +11,20 @@ const Navigation = () => {
   const { language, setLanguage, t } = useLanguage();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [dragThresholdReached, setDragThresholdReached] = useState(false);
+
+  // Haptic feedback helper
+  const triggerHaptic = (pattern: number | number[]) => {
+    if ('vibrate' in navigator) {
+      navigator.vibrate(pattern);
+    }
+  };
 
   // Close mobile menu when route changes
   useEffect(() => {
+    if (isMobileMenuOpen) {
+      triggerHaptic(50); // Light haptic on close
+    }
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
 
@@ -112,7 +123,11 @@ const Navigation = () => {
             variant="ghost"
             size="icon"
             className="lg:hidden text-foreground"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            onClick={() => {
+              const newState = !isMobileMenuOpen;
+              setIsMobileMenuOpen(newState);
+              triggerHaptic(newState ? 30 : 50); // Light haptic on open, slightly stronger on close
+            }}
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </Button>
@@ -131,7 +146,10 @@ const Navigation = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="fixed inset-0 bg-black/80 backdrop-blur-xl z-[150]"
-            onClick={() => setIsMobileMenuOpen(false)}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              triggerHaptic(50);
+            }}
           />
 
           {/* Menu Content */}
@@ -143,10 +161,21 @@ const Navigation = () => {
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={{ left: 0, right: 0.5 }}
+            onDrag={(e, { offset }) => {
+              // Trigger haptic when drag threshold is reached (only once)
+              if (offset.x > 150 && !dragThresholdReached) {
+                triggerHaptic(20);
+                setDragThresholdReached(true);
+              } else if (offset.x <= 150 && dragThresholdReached) {
+                setDragThresholdReached(false);
+              }
+            }}
             onDragEnd={(e, { offset, velocity }) => {
               if (offset.x > 150 || velocity.x > 500) {
+                triggerHaptic(50); // Stronger haptic on successful close
                 setIsMobileMenuOpen(false);
               }
+              setDragThresholdReached(false);
             }}
             className="fixed top-[108px] right-0 bottom-0 w-full sm:w-96 bg-background/95 backdrop-blur-2xl z-[200] border-l border-glass overflow-y-auto cursor-grab active:cursor-grabbing"
           >
