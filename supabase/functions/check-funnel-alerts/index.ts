@@ -97,17 +97,7 @@ Deno.serve(async (req) => {
       }
 
       if (shouldAlert) {
-        // Check if we already logged this alert recently (within last hour)
-        const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
-        const { data: recentAlerts } = await supabase
-          .from('alert_logs')
-          .select('id')
-          .eq('alert_config_id', config.id)
-          .gte('triggered_at', oneHourAgo)
-          .limit(1);
-
-        if (!recentAlerts || recentAlerts.length === 0) {
-          // Log the alert
+        // Log the alert
           const { error: logError } = await supabase
             .from('alert_logs')
             .insert({
@@ -150,7 +140,6 @@ Deno.serve(async (req) => {
               }
             }
           }
-        }
       }
     }
 
