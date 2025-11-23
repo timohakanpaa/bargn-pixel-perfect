@@ -10,7 +10,7 @@ export const usePartnersSchema = () => {
       "@type": "WebPage",
       "name": "Bargn Partners Program",
       "description": "Join 500+ businesses partnering with Bargn. Zero commission, zero BS, just results.",
-      "url": "https://bargn.fi/partners",
+      "url": "https://bargn.app/partners",
       "mainEntity": {
         "@type": "Offer",
         "name": "Bargn Business Partnership",
@@ -21,7 +21,7 @@ export const usePartnersSchema = () => {
         "seller": {
           "@type": "Organization",
           "name": "Bargn",
-          "url": "https://bargn.fi"
+          "url": "https://bargn.app"
         },
         "itemOffered": {
           "@type": "Service",
