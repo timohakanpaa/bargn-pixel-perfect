@@ -1,14 +1,31 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useInView } from "@/hooks/use-in-view";
 import { Download, Map, ScanFace, Smartphone, Gift, Shield, Zap, Brain, Lightbulb, Sparkles } from "lucide-react";
 import { Button } from "./ui/button";
+import { useRef } from "react";
 
 const HowItWorks = () => {
   const { t } = useLanguage();
   const { ref: heroRef, isInView: heroInView } = useInView({ threshold: 0.1 });
   const { ref: timelineRef, isInView: timelineInView } = useInView({ threshold: 0.1 });
   const { ref: whyRef, isInView: whyInView } = useInView({ threshold: 0.1 });
+  
+  // Parallax scroll refs
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"]
+  });
+
+  // Create different parallax speeds for depth
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -200]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, -300]);
+  const y4 = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const rotate1 = useTransform(scrollYProgress, [0, 1], [0, 360]);
+  const rotate2 = useTransform(scrollYProgress, [0, 1], [0, -360]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.8, 0.4]);
 
   const steps = [
     {
@@ -89,30 +106,53 @@ const HowItWorks = () => {
     }
   ];
 
-  // Floating icons for decoration
+  // Floating icons for decoration with parallax
   const floatingIcons = [
-    { Icon: Download, className: "top-20 left-10 animate-[float_6s_ease-in-out_infinite]", gradient: "from-[hsl(328,86%,70%)] to-[hsl(297,89%,60%)]", glow: "shadow-[0_0_60px_hsl(328_86%_70%_/_0.6)]" },
-    { Icon: Sparkles, className: "top-40 right-20 animate-[float_8s_ease-in-out_infinite]", gradient: "from-[hsl(25,95%,53%)] to-[hsl(48,100%,50%)]", glow: "shadow-[0_0_60px_hsl(25_95%_53%_/_0.6)]" },
-    { Icon: Lightbulb, className: "bottom-32 left-20 animate-[float-reverse_7s_ease-in-out_infinite]", gradient: "from-[hsl(297,89%,60%)] to-[hsl(328,86%,70%)]", glow: "shadow-[0_0_60px_hsl(297_89%_60%_/_0.6)]" },
-    { Icon: Zap, className: "top-1/3 right-10 animate-[float_9s_ease-in-out_infinite]", gradient: "from-[hsl(48,100%,50%)] to-[hsl(328,86%,70%)]", glow: "shadow-[0_0_60px_hsl(48_100%_50%_/_0.6)]" },
+    { Icon: Download, className: "top-20 left-10 animate-[float_6s_ease-in-out_infinite]", gradient: "from-[hsl(328,86%,70%)] to-[hsl(297,89%,60%)]", glow: "shadow-[0_0_60px_hsl(328_86%_70%_/_0.6)]", y: y1, rotate: rotate1 },
+    { Icon: Sparkles, className: "top-40 right-20 animate-[float_8s_ease-in-out_infinite]", gradient: "from-[hsl(25,95%,53%)] to-[hsl(48,100%,50%)]", glow: "shadow-[0_0_60px_hsl(25_95%_53%_/_0.6)]", y: y2, rotate: rotate2 },
+    { Icon: Lightbulb, className: "bottom-32 left-20 animate-[float-reverse_7s_ease-in-out_infinite]", gradient: "from-[hsl(297,89%,60%)] to-[hsl(328,86%,70%)]", glow: "shadow-[0_0_60px_hsl(297_89%_60%_/_0.6)]", y: y3, rotate: rotate1 },
+    { Icon: Zap, className: "top-1/3 right-10 animate-[float_9s_ease-in-out_infinite]", gradient: "from-[hsl(48,100%,50%)] to-[hsl(328,86%,70%)]", glow: "shadow-[0_0_60px_hsl(48_100%_50%_/_0.6)]", y: y4, rotate: rotate2 },
   ];
 
   return (
-    <section id="how-it-works" className="relative py-24 overflow-hidden">
+    <section ref={sectionRef} id="how-it-works" className="relative py-24 overflow-hidden">
+      {/* Parallax Background Gradients */}
+      <motion.div 
+        style={{ opacity }}
+        className="absolute inset-0 pointer-events-none"
+      >
+        <motion.div 
+          style={{ y: y1 }}
+          className="absolute top-0 left-0 w-[600px] h-[600px] bg-gradient-to-br from-[hsl(328,86%,70%)]/20 to-transparent rounded-full blur-3xl"
+        />
+        <motion.div 
+          style={{ y: y2 }}
+          className="absolute top-1/4 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-[hsl(297,89%,60%)]/20 to-transparent rounded-full blur-3xl"
+        />
+        <motion.div 
+          style={{ y: y3 }}
+          className="absolute bottom-1/4 left-1/4 w-[700px] h-[700px] bg-gradient-to-tr from-[hsl(48,100%,50%)]/15 to-transparent rounded-full blur-3xl"
+        />
+      </motion.div>
+
       {/* Hero Section */}
       <div ref={heroRef} className="relative container mx-auto px-6 mb-32">
-        {/* Floating Decorative Icons */}
+        {/* Floating Decorative Icons with Parallax */}
         {floatingIcons.map((item, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0, scale: 0 }}
             animate={heroInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
             transition={{ delay: index * 0.2, duration: 0.6 }}
+            style={{ y: item.y, rotate: item.rotate }}
             className={`absolute ${item.className} hidden lg:block`}
           >
-            <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${item.gradient} ${item.glow} flex items-center justify-center rotate-12`}>
+            <motion.div 
+              whileHover={{ scale: 1.2, rotate: 15 }}
+              className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${item.gradient} ${item.glow} flex items-center justify-center rotate-12`}
+            >
               <item.Icon className="w-8 h-8 text-background" />
-            </div>
+            </motion.div>
           </motion.div>
         ))}
 
@@ -231,13 +271,21 @@ const HowItWorks = () => {
                   </div>
                 </div>
 
-                {/* Visual Card Side */}
-                <div className="flex-1 flex justify-center">
+                {/* Visual Card Side with Parallax */}
+                <motion.div 
+                  className="flex-1 flex justify-center"
+                  style={{ y: useTransform(scrollYProgress, [0, 1], [0, index % 2 === 0 ? -50 : 50]) }}
+                >
                   <motion.div
                     whileHover={{ scale: 1.05, rotate: 0 }}
                     className={`w-80 h-80 rounded-[3rem] ${step.cardGradient} ${step.glow} flex flex-col items-center justify-center p-8 rotate-3 transition-transform`}
                   >
-                    <StepIcon className="w-24 h-24 text-background mb-4" strokeWidth={2} />
+                    <motion.div
+                      animate={{ rotate: [0, 5, -5, 0] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <StepIcon className="w-24 h-24 text-background mb-4" strokeWidth={2} />
+                    </motion.div>
                     <p className="text-2xl font-bold text-background text-center">
                       {step.title.split(' ')[0]}
                     </p>
@@ -245,7 +293,7 @@ const HowItWorks = () => {
                       {step.bullets[0].split(' ').slice(0, 3).join(' ')}
                     </p>
                   </motion.div>
-                </div>
+                </motion.div>
               </motion.div>
             );
           })}
