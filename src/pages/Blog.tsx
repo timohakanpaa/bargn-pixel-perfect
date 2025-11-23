@@ -83,7 +83,7 @@ const Blog = () => {
       keywords: ["student savings", "discount apps", "Finland", "money saving tips", "Gen Z finance"],
       articleSection: "Success Stories",
       wordCount: 1200,
-      url: "https://bargn.fi/blog#success-story"
+      url: "https://bargn.app/blog#success-story"
     },
     {
       headline: t("blog.article2.title"),
@@ -96,7 +96,7 @@ const Blog = () => {
       keywords: ["discount apps", "coupon comparison", "savings guide", "Helsinki deals", "best discount app"],
       articleSection: "Guides",
       wordCount: 1500,
-      url: "https://bargn.fi/blog#discount-apps"
+      url: "https://bargn.app/blog#discount-apps"
     },
     {
       headline: t("blog.article3.title"),
@@ -109,7 +109,7 @@ const Blog = () => {
       keywords: ["new restaurants", "Helsinki food scene", "partner announcements", "restaurant discounts", "dining deals"],
       articleSection: "Partner Spotlights",
       wordCount: 800,
-      url: "https://bargn.fi/blog#new-partners"
+      url: "https://bargn.app/blog#new-partners"
     }
   ]);
 

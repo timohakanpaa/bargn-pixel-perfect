@@ -27,27 +27,27 @@ const HowItWorks = () => {
       {
         name: t("how.step1.title"),
         text: `${t("how.step1.description")} ${t("how.step1.bullet1")} ${t("how.step1.bullet2")}`,
-        url: "https://bargn.fi/how-it-works#step-1"
+        url: "https://bargn.app/how-it-works#step-1"
       },
       {
         name: t("how.step2.title"),
         text: `${t("how.step2.description")} ${t("how.step2.bullet1")} ${t("how.step2.bullet2")}`,
-        url: "https://bargn.fi/how-it-works#step-2"
+        url: "https://bargn.app/how-it-works#step-2"
       },
       {
         name: t("how.step3.title"),
         text: `${t("how.step3.description")} ${t("how.step3.bullet1")} ${t("how.step3.bullet2")}`,
-        url: "https://bargn.fi/how-it-works#step-3"
+        url: "https://bargn.app/how-it-works#step-3"
       },
       {
         name: t("how.step4.title"),
         text: `${t("how.step4.description")} ${t("how.step4.bullet1")} ${t("how.step4.bullet2")}`,
-        url: "https://bargn.fi/how-it-works#step-4"
+        url: "https://bargn.app/how-it-works#step-4"
       },
       {
         name: t("how.step5.title"),
         text: `${t("how.step5.description")} ${t("how.step5.bullet1")} ${t("how.step5.bullet2")}`,
-        url: "https://bargn.fi/how-it-works#step-5"
+        url: "https://bargn.app/how-it-works#step-5"
       }
     ]
   });

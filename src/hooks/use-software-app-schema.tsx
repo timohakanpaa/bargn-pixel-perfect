@@ -59,12 +59,12 @@ export const useSoftwareAppSchema = (data: SoftwareAppSchemaData) => {
       "author": {
         "@type": "Organization",
         "name": "Bargn",
-        "url": "https://bargn.fi"
+        "url": "https://bargn.app"
       },
       "publisher": {
         "@type": "Organization",
         "name": "Bargn",
-        "url": "https://bargn.fi",
+        "url": "https://bargn.app",
         "logo": {
           "@type": "ImageObject",
           "url": "https://storage.googleapis.com/gpt-engineer-file-uploads/SWwdRfTou4NwpSgFbdofc5xLsAp1/uploads/1763629516807-accent1.png"

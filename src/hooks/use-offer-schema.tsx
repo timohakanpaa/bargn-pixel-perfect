@@ -33,7 +33,7 @@ export const useOfferSchema = (offers: OfferSchemaData[]) => {
       "provider": {
         "@type": "Organization",
         "name": "Bargn",
-        "url": "https://bargn.fi"
+        "url": "https://bargn.app"
       },
       "areaServed": {
         "@type": "City",

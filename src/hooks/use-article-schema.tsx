@@ -40,10 +40,10 @@ export const useArticleSchema = (articles: ArticleSchemaData[]) => {
       "keywords": article.keywords.join(", "),
       "articleSection": article.articleSection || "Lifestyle",
       "wordCount": article.wordCount || 1000,
-      "url": article.url || "https://bargn.fi/blog",
+      "url": article.url || "https://bargn.app/blog",
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": article.url || "https://bargn.fi/blog"
+        "@id": article.url || "https://bargn.app/blog"
       },
       "inLanguage": "en-US"
     }));

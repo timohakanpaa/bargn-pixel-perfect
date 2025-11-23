@@ -78,7 +78,7 @@ export const useBreadcrumbSchema = () => {
         "@type": "ListItem",
         "position": index + 1,
         "name": item.name,
-        "item": `https://bargn.fi${item.path}`
+        "item": `https://bargn.app${item.path}`
       }))
     };
     

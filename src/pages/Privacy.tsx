@@ -90,8 +90,8 @@ const Privacy = () => {
             <h2 className="text-2xl font-bold text-foreground mb-4">6. Contact Us</h2>
             <p>
               If you have any questions about this Privacy Policy, please contact us at:{" "}
-              <a href="mailto:privacy@bargn.fi" className="text-primary hover:underline">
-                privacy@bargn.fi
+              <a href="mailto:privacy@bargn.app" className="text-primary hover:underline">
+                privacy@bargn.app
               </a>
             </p>
           </section>
