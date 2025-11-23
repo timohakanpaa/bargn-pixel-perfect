@@ -22,6 +22,7 @@ import BlogAdmin from "./pages/BlogAdmin";
 import ChatAnalytics from "./pages/ChatAnalytics";
 import Analytics from "./pages/Analytics";
 import Funnels from "./pages/Funnels";
+import Performance from "./pages/Performance";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import Cookies from "./pages/Cookies";
@@ -60,6 +61,7 @@ const AppContent = () => {
         <Route path="/analytics/chat" element={<ChatAnalytics />} />
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/funnels" element={<Funnels />} />
+        <Route path="/performance" element={<Performance />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/cookies" element={<Cookies />} />
