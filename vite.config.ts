@@ -133,6 +133,7 @@ export default defineConfig(({ mode }) => ({
     
     // Optimize dependencies
     commonjsOptions: {
+      include: [/node_modules/],
       transformMixedEsModules: true,
     },
   },
@@ -146,6 +147,10 @@ export default defineConfig(({ mode }) => ({
       'framer-motion',
       'lucide-react',
     ],
-    exclude: ['@supabase/supabase-js'], // Exclude large deps that don't need optimization
+    exclude: [], // Allow all deps to be optimized
+    esbuildOptions: {
+      // Handle CJS/ESM interop
+      mainFields: ['module', 'main'],
+    },
   },
 }));
