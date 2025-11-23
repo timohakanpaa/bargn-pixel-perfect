@@ -2,17 +2,20 @@ import { Search, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NavLink } from "@/components/NavLink";
 import UpdateBanner from "@/components/UpdateBanner";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Navigation = () => {
+  const { language, setLanguage, t } = useLanguage();
+  
   return (
     <>
       <UpdateBanner />
-      <nav className="fixed top-[52px] left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
+      <nav className="fixed top-[52px] left-0 right-0 z-50 bg-glass backdrop-blur-2xl border-b border-glass">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-pink-orange rounded-xl flex items-center justify-center shadow-glow-pink">
-              <span className="text-2xl">🎲</span>
+            <div className="w-12 h-12 bg-gradient-coral-purple rounded-2xl flex items-center justify-center shadow-glow-coral">
+              <span className="text-3xl font-bold text-foreground">%</span>
             </div>
             <div>
               <h1 className="text-xl font-bold text-foreground">Bargn</h1>
@@ -22,43 +25,60 @@ const Navigation = () => {
 
           <div className="hidden md:flex items-center gap-8">
             <NavLink to="/" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
-              Members
+              {t("home")}
+            </NavLink>
+            <NavLink to="/" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+              {t("members")}
             </NavLink>
             <NavLink to="/partners" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
-              Partners
+              {t("partners")}
             </NavLink>
             <a href="#how-it-works" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
-              How It Works
+              {t("howItWorks")}
             </a>
             <a href="#about" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
-              About
+              {t("about")}
             </a>
             <a href="#blog" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
-              Blog
+              {t("blog")}
             </a>
             <NavLink to="/campaign" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
-              Campaign
+              {t("campaign")}
             </NavLink>
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 bg-muted rounded-full px-4 py-2">
-              <button className="px-3 py-1 bg-accent text-accent-foreground rounded-full text-sm font-bold">
+            <div className="flex items-center gap-2 bg-glass backdrop-blur-xl border border-glass rounded-full px-4 py-2">
+              <button 
+                onClick={() => setLanguage("en")}
+                className={`px-3 py-1 rounded-full text-sm font-bold transition-all ${
+                  language === "en" 
+                    ? "bg-accent text-accent-foreground shadow-glow-yellow" 
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
                 EN
               </button>
               <span className="text-muted-foreground">|</span>
-              <button className="px-3 py-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+              <button 
+                onClick={() => setLanguage("fi")}
+                className={`px-3 py-1 rounded-full text-sm font-bold transition-all ${
+                  language === "fi" 
+                    ? "bg-accent text-accent-foreground shadow-glow-yellow" 
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
                 FI
               </button>
             </div>
-            <Button variant="ghost" size="icon" className="text-foreground">
+            <Button variant="ghost" size="icon" className="text-foreground hover:shadow-glow-coral">
               <Search className="w-5 h-5" />
             </Button>
-            <Button variant="ghost" size="icon" className="text-foreground">
+            <Button variant="ghost" size="icon" className="text-foreground hover:shadow-glow-coral">
               <User className="w-5 h-5" />
             </Button>
-            <Button className="bg-gradient-purple-pink text-foreground font-bold rounded-full px-6 shadow-glow-pink hover:scale-105 transition-transform">
-              Let's Go
+            <Button variant="neon" className="rounded-full px-6">
+              {t("letsGo")}
             </Button>
           </div>
         </div>
