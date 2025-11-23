@@ -1,12 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Shield, Heart, Users } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
+import { useParallax } from "@/hooks/use-parallax";
 
 const BusinessSection = () => {
   const { ref, isInView } = useInView();
+  const parallax1 = useParallax({ speed: 0.3, direction: 'up' });
+  const parallax2 = useParallax({ speed: 0.5, direction: 'down' });
 
   return (
     <section ref={ref} className="py-24 relative overflow-hidden">
+      {/* Parallax background blobs */}
+      <div 
+        ref={parallax1.ref}
+        className="absolute top-20 left-10 w-96 h-96 bg-gradient-coral-purple opacity-20 blur-3xl rounded-full pointer-events-none"
+        style={{ transform: `translateY(${parallax1.offset}px)` }}
+      />
+      <div 
+        ref={parallax2.ref}
+        className="absolute bottom-20 right-10 w-80 h-80 bg-gradient-purple-yellow opacity-20 blur-3xl rounded-full pointer-events-none"
+        style={{ transform: `translateY(${parallax2.offset}px)` }}
+      />
       <div className={`container mx-auto px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
         <div className="max-w-5xl mx-auto text-center">
           <div>
