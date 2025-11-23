@@ -25,9 +25,9 @@ interface DailySummary {
   total_events: number;
   unique_sessions: number;
   page_views: number;
-  button_clicks: number;
-  form_submissions: number;
-  navigation_events: number;
+  clicks: number;
+  conversions: number;
+  avg_screen_width: number;
 }
 
 interface PageView {
@@ -43,7 +43,7 @@ interface ButtonClick {
   event_name: string;
   element_text: string;
   page_path: string;
-  clicks: number;
+  click_count: number;
   unique_users: number;
 }
 
@@ -100,11 +100,10 @@ const Analytics = () => {
       events: acc.events + day.total_events,
       sessions: acc.sessions + day.unique_sessions,
       pageViews: acc.pageViews + day.page_views,
-      clicks: acc.clicks + day.button_clicks,
-      forms: acc.forms + day.form_submissions,
-      navigation: acc.navigation + day.navigation_events,
+      clicks: acc.clicks + day.clicks,
+      conversions: acc.conversions + day.conversions,
     }),
-    { events: 0, sessions: 0, pageViews: 0, clicks: 0, forms: 0, navigation: 0 }
+    { events: 0, sessions: 0, pageViews: 0, clicks: 0, conversions: 0 }
   );
 
   return (
@@ -146,7 +145,7 @@ const Analytics = () => {
           ) : (
             <>
               {/* Key Metrics */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">Total Events</CardTitle>
@@ -193,23 +192,12 @@ const Analytics = () => {
 
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Form Submits</CardTitle>
-                    <FileText className="h-4 w-4 text-muted-foreground" />
+                    <CardTitle className="text-sm font-medium">Conversions</CardTitle>
+                    <TrendingUp className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">{totalStats.forms.toLocaleString()}</div>
-                    <p className="text-xs text-muted-foreground">Conversions</p>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Navigation</CardTitle>
-                    <NavigationIcon className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">{totalStats.navigation.toLocaleString()}</div>
-                    <p className="text-xs text-muted-foreground">Link clicks</p>
+                    <div className="text-2xl font-bold">{totalStats.conversions.toLocaleString()}</div>
+                    <p className="text-xs text-muted-foreground">Form submissions</p>
                   </CardContent>
                 </Card>
               </div>
@@ -271,7 +259,7 @@ const Analytics = () => {
                                 <p className="text-xs text-muted-foreground">{click.page_path}</p>
                               </div>
                               <div className="ml-4 flex items-center gap-4 text-sm">
-                                <span>{click.clicks.toLocaleString()} clicks</span>
+                                <span>{click.click_count.toLocaleString()} clicks</span>
                                 <span className="text-muted-foreground">
                                   {click.unique_users.toLocaleString()} users
                                 </span>
@@ -304,8 +292,8 @@ const Analytics = () => {
                             </div>
                             <div className="ml-4 grid grid-cols-3 gap-4 text-xs">
                               <span>{day.page_views.toLocaleString()} views</span>
-                              <span>{day.button_clicks.toLocaleString()} clicks</span>
-                              <span>{day.form_submissions.toLocaleString()} forms</span>
+                              <span>{day.clicks.toLocaleString()} clicks</span>
+                              <span>{day.conversions.toLocaleString()} conversions</span>
                             </div>
                           </div>
                         ))}
