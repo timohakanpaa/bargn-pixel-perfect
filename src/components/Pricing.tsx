@@ -2,12 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Check, Sparkles, MapPin } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { TiltCard } from "@/components/animations/TiltCard";
-
 const Pricing = () => {
-  const { ref, isInView } = useInView();
-
-  return (
-    <section ref={ref} className="py-16 sm:py-24 relative overflow-hidden">
+  const {
+    ref,
+    isInView
+  } = useInView();
+  return <section ref={ref} className="py-16 sm:py-24 relative overflow-hidden">
       <div className={`container mx-auto px-4 sm:px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
         <h2 className="text-4xl sm:text-6xl md:text-7xl font-black text-center mb-4 sm:mb-6 text-primary">
           50% OFF
@@ -64,7 +64,16 @@ const Pricing = () => {
                 </div>
 
                 <div className="flex items-baseline gap-2 mb-6">
-                  <span className="text-5xl font-black text-accent">€53</span>
+                  <span className="text-5xl font-black text-accent">€8.8
+
+
+
+
+
+
+
+
+                </span>
                   <span className="text-muted-foreground">/yearly</span>
                 </div>
 
@@ -134,8 +143,6 @@ const Pricing = () => {
           </TiltCard>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Pricing;
