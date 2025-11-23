@@ -5,6 +5,7 @@ import { Crown, Users, Percent, CreditCard, Check, Brain, Shield, Zap, Rocket, G
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 const Members = () => {
   const { t } = useLanguage();
@@ -121,7 +122,9 @@ const Members = () => {
               viewport={{ once: true }}
               className="text-center"
             >
-              <div className="text-5xl md:text-7xl font-black text-accent mb-2">10000+</div>
+              <div className="text-5xl md:text-7xl font-black text-accent mb-2">
+                <AnimatedCounter end={10000} suffix="+" />
+              </div>
               <div className="text-primary font-bold text-lg">{t("happyMembers")}</div>
             </motion.div>
             <motion.div
@@ -131,7 +134,9 @@ const Members = () => {
               transition={{ delay: 0.1 }}
               className="text-center"
             >
-              <div className="text-5xl md:text-7xl font-black bg-gradient-coral-purple bg-clip-text text-transparent mb-2">50%</div>
+              <div className="text-5xl md:text-7xl font-black bg-gradient-coral-purple bg-clip-text text-transparent mb-2">
+                <AnimatedCounter end={50} suffix="%" />
+              </div>
               <div className="text-secondary font-bold text-lg">{t("avgSavings")}</div>
             </motion.div>
             <motion.div
@@ -141,7 +146,9 @@ const Members = () => {
               transition={{ delay: 0.2 }}
               className="text-center"
             >
-              <div className="text-5xl md:text-7xl font-black bg-gradient-purple-yellow bg-clip-text text-transparent mb-2">€2400</div>
+              <div className="text-5xl md:text-7xl font-black bg-gradient-purple-yellow bg-clip-text text-transparent mb-2">
+                <AnimatedCounter end={2400} prefix="€" />
+              </div>
               <div className="text-primary font-bold text-lg">{t("avgAnnualSavings")}</div>
             </motion.div>
             <motion.div
@@ -151,7 +158,9 @@ const Members = () => {
               transition={{ delay: 0.3 }}
               className="text-center"
             >
-              <div className="text-5xl md:text-7xl font-black text-accent mb-2">500+</div>
+              <div className="text-5xl md:text-7xl font-black text-accent mb-2">
+                <AnimatedCounter end={500} suffix="+" />
+              </div>
               <div className="text-secondary font-bold text-lg">{t("partnerOutlets")}</div>
             </motion.div>
           </div>

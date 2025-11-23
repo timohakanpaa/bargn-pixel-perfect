@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Zap, Users, Pizza, Ticket, Smartphone } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 const Hero = () => {
   const { t } = useLanguage();
@@ -154,7 +155,7 @@ const Hero = () => {
             className="bg-glass backdrop-blur-2xl border-2 border-glass rounded-3xl p-8 shadow-glow-coral hover:border-primary transition-all duration-300"
           >
             <div className="text-6xl md:text-7xl font-black bg-gradient-coral-purple bg-clip-text text-transparent mb-2">
-              50%
+              <AnimatedCounter end={50} suffix="%" />
             </div>
             <div className="text-primary font-bold text-lg">{t("heroDiscountRate")}</div>
           </motion.div>
@@ -164,7 +165,7 @@ const Hero = () => {
             className="bg-glass backdrop-blur-2xl border-2 border-glass rounded-3xl p-8 shadow-glow-purple hover:border-secondary transition-all duration-300"
           >
             <div className="text-6xl md:text-7xl font-black text-secondary mb-2">
-              500+
+              <AnimatedCounter end={500} suffix="+" />
             </div>
             <div className="text-secondary font-bold text-lg">{t("heroPartners")}</div>
           </motion.div>
@@ -174,7 +175,7 @@ const Hero = () => {
             className="bg-glass backdrop-blur-2xl border-2 border-glass rounded-3xl p-8 shadow-glow-yellow hover:border-accent transition-all duration-300"
           >
             <div className="text-6xl md:text-7xl font-black text-accent mb-2">
-              €2M+
+              <AnimatedCounter end={2} prefix="€" suffix="M+" />
             </div>
             <div className="text-accent font-bold text-lg">{t("heroSaved")}</div>
           </motion.div>
