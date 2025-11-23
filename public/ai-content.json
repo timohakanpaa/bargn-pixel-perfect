@@ -1,0 +1,137 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Bargn",
+  "url": "https://bargn.app",
+  "description": "AI-powered discount membership platform offering 50% off at restaurants, bars, gyms, and spas in Helsinki. Smart spending made simple with personalized recommendations.",
+  "inLanguage": "en",
+  "audience": {
+    "@type": "PeopleAudience",
+    "audienceType": "Consumers seeking lifestyle discounts and smart spending solutions"
+  },
+  "about": {
+    "@type": "Thing",
+    "name": "Discount Membership Platform",
+    "description": "AI-powered platform connecting consumers with local businesses through 50% discount memberships"
+  },
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Bargn Membership",
+      "description": "Unlimited 50% discounts at partner venues",
+      "price": "8.80",
+      "priceCurrency": "EUR",
+      "priceValidUntil": "2026-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://bargn.app/members"
+    }
+  ],
+  "mainEntity": [
+    {
+      "@type": "Service",
+      "name": "Consumer Discount Membership",
+      "description": "AI-powered personalized discount recommendations for restaurants, bars, gyms, and spas",
+      "provider": {
+        "@type": "Organization",
+        "name": "Bargn"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Helsinki",
+        "containedIn": {
+          "@type": "Country",
+          "name": "Finland"
+        }
+      },
+      "category": "Lifestyle Savings"
+    },
+    {
+      "@type": "Service",
+      "name": "Business Partnership Platform",
+      "description": "Zero-commission platform for businesses to attract new customers with 50% discounts",
+      "provider": {
+        "@type": "Organization",
+        "name": "Bargn"
+      },
+      "url": "https://bargn.app/partners",
+      "category": "Business Services"
+    },
+    {
+      "@type": "Service",
+      "name": "Creator Partnership Program",
+      "description": "40% revenue share program for content creators and influencers",
+      "provider": {
+        "@type": "Organization",
+        "name": "Bargn"
+      },
+      "url": "https://bargn.app/campaign",
+      "category": "Influencer Marketing"
+    }
+  ],
+  "potentialAction": [
+    {
+      "@type": "JoinAction",
+      "target": "https://bargn.app/members",
+      "name": "Join as Member"
+    },
+    {
+      "@type": "RegisterAction",
+      "target": "https://bargn.app/partners",
+      "name": "Become a Partner"
+    },
+    {
+      "@type": "ApplyAction",
+      "target": "https://bargn.app/campaign",
+      "name": "Apply as Creator"
+    }
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Bargn Discount Categories",
+    "itemListElement": [
+      {
+        "@type": "OfferCatalog",
+        "name": "Restaurants",
+        "description": "50% off at Helsinki restaurants"
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "Bars & Nightlife",
+        "description": "50% off at Helsinki bars and clubs"
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "Fitness & Wellness",
+        "description": "50% off at gyms and fitness centers"
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "Beauty & Spa",
+        "description": "50% off at spas and beauty salons"
+      }
+    ]
+  },
+  "knowsAbout": [
+    "discount memberships",
+    "lifestyle savings",
+    "AI-powered recommendations",
+    "restaurant discounts",
+    "Helsinki nightlife",
+    "fitness memberships",
+    "spa treatments",
+    "smart spending",
+    "business partnerships",
+    "influencer marketing",
+    "zero commission platform",
+    "revenue sharing"
+  ],
+  "keywords": "AI discounts, Helsinki restaurants, membership app, 50% off, lifestyle savings, smart spending, restaurant deals, bar discounts, gym memberships, spa treatments, business partnerships, creator program, zero commission, revenue share",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Bargn",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://storage.googleapis.com/gpt-engineer-file-uploads/SWwdRfTou4NwpSgFbdofc5xLsAp1/uploads/1763629516807-accent1.png"
+    }
+  }
+}
