@@ -8,6 +8,8 @@ import ChatWidget from "@/components/ChatWidget";
 import CookieConsent from "@/components/CookieConsent";
 import { useCookieConsent } from "@/hooks/use-cookie-consent";
 import { useGoogleAnalytics } from "@/hooks/use-google-analytics";
+import { useFacebookPixel } from "@/hooks/use-facebook-pixel";
+import { useTikTokPixel } from "@/hooks/use-tiktok-pixel";
 import Index from "./pages/Index";
 import Members from "./pages/Members";
 import Partners from "./pages/Partners";
@@ -29,9 +31,16 @@ const queryClient = new QueryClient();
 const AppContent = () => {
   const consent = useCookieConsent();
   const hasAnalyticsConsent = consent?.analytics ?? false;
+  const hasMarketingConsent = consent?.marketing ?? false;
 
   // Load Google Analytics based on consent
   useGoogleAnalytics(hasAnalyticsConsent);
+  
+  // Load Facebook Pixel based on consent
+  useFacebookPixel(hasMarketingConsent);
+  
+  // Load TikTok Pixel based on consent
+  useTikTokPixel(hasMarketingConsent);
 
   return (
     <>
