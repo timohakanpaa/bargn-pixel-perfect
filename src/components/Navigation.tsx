@@ -5,6 +5,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import bargnLogo from "@/assets/bargn-logo.webp";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -67,21 +68,19 @@ const Navigation = () => {
   return (
     <>
       <nav className="relative z-[100] bg-glass backdrop-blur-2xl border-b border-glass">
-      <div className="container mx-auto px-4 sm:px-6 py-4">
-        <div className="flex items-center justify-between">
+      <div className="w-full max-w-[1280px] mx-auto px-6 lg:px-8 py-4">
+        <div className="flex items-center justify-between gap-4">
           {/* Logo */}
-          <NavLink to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-coral-purple rounded-2xl flex items-center justify-center shadow-glow-coral">
-              <span className="text-2xl sm:text-3xl font-bold text-foreground">%</span>
-            </div>
-            <div className="hidden sm:block">
-              <h1 className="text-xl font-bold text-foreground">Bargn</h1>
-              <p className="text-xs text-muted-foreground">Discover. Save. Repeat</p>
-            </div>
+          <NavLink to="/" className="flex items-center gap-3 flex-shrink-0">
+            <img 
+              src={bargnLogo} 
+              alt="Bargn Logo" 
+              className="h-10 sm:h-12 w-auto"
+            />
           </NavLink>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-6 flex-1 justify-center">
             {menuItems.map((item) => (
               <NavLink 
                 key={item.to}
@@ -126,12 +125,12 @@ const Navigation = () => {
           </div>
 
           {/* Desktop Right Section */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
             {/* Language Toggle */}
-            <div className="flex items-center gap-2 bg-glass backdrop-blur-xl border border-glass rounded-full px-4 py-2">
+            <div className="flex items-center gap-1 bg-glass backdrop-blur-xl border border-glass rounded-full px-3 py-1.5">
               <button 
                 onClick={() => setLanguage("en")}
-                className={`px-3 py-1 rounded-full text-sm font-bold transition-all ${
+                className={`px-2.5 py-1 rounded-full text-xs font-bold transition-all ${
                   language === "en" 
                     ? "bg-accent text-accent-foreground shadow-glow-yellow" 
                     : "text-muted-foreground hover:text-foreground"
@@ -139,10 +138,10 @@ const Navigation = () => {
               >
                 EN
               </button>
-              <span className="text-muted-foreground">|</span>
+              <span className="text-muted-foreground text-xs">|</span>
               <button 
                 onClick={() => setLanguage("fi")}
-                className={`px-3 py-1 rounded-full text-sm font-bold transition-all ${
+                className={`px-2.5 py-1 rounded-full text-xs font-bold transition-all ${
                   language === "fi" 
                     ? "bg-accent text-accent-foreground shadow-glow-yellow" 
                     : "text-muted-foreground hover:text-foreground"
@@ -151,13 +150,13 @@ const Navigation = () => {
                 FI
               </button>
             </div>
-            <Button variant="ghost" size="icon" className="text-foreground hover:shadow-glow-coral">
+            <Button variant="ghost" size="icon" className="text-foreground hover:shadow-glow-coral flex-shrink-0">
               <Search className="w-5 h-5" />
             </Button>
-            <Button variant="ghost" size="icon" className="text-foreground hover:shadow-glow-coral">
+            <Button variant="ghost" size="icon" className="text-foreground hover:shadow-glow-coral flex-shrink-0">
               <User className="w-5 h-5" />
             </Button>
-            <Button variant="neon" className="rounded-full px-6">
+            <Button variant="neon" className="rounded-full px-6 flex-shrink-0">
               {t("letsGo")}
             </Button>
           </div>
