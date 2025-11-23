@@ -14,6 +14,115 @@ export type Database = {
   }
   public: {
     Tables: {
+      alert_configurations: {
+        Row: {
+          alert_type: string
+          comparison: string
+          created_at: string
+          enabled: boolean
+          funnel_id: string | null
+          id: string
+          notification_email: string | null
+          threshold: number
+          updated_at: string
+        }
+        Insert: {
+          alert_type: string
+          comparison: string
+          created_at?: string
+          enabled?: boolean
+          funnel_id?: string | null
+          id?: string
+          notification_email?: string | null
+          threshold: number
+          updated_at?: string
+        }
+        Update: {
+          alert_type?: string
+          comparison?: string
+          created_at?: string
+          enabled?: boolean
+          funnel_id?: string | null
+          id?: string
+          notification_email?: string | null
+          threshold?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "alert_configurations_funnel_id_fkey"
+            columns: ["funnel_id"]
+            isOneToOne: false
+            referencedRelation: "conversion_funnels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "alert_configurations_funnel_id_fkey"
+            columns: ["funnel_id"]
+            isOneToOne: false
+            referencedRelation: "funnel_analytics"
+            referencedColumns: ["funnel_id"]
+          },
+        ]
+      }
+      alert_logs: {
+        Row: {
+          alert_config_id: string | null
+          funnel_id: string | null
+          id: string
+          message: string
+          metadata: Json | null
+          metric_value: number
+          notification_sent: boolean | null
+          threshold: number
+          triggered_at: string
+        }
+        Insert: {
+          alert_config_id?: string | null
+          funnel_id?: string | null
+          id?: string
+          message: string
+          metadata?: Json | null
+          metric_value: number
+          notification_sent?: boolean | null
+          threshold: number
+          triggered_at?: string
+        }
+        Update: {
+          alert_config_id?: string | null
+          funnel_id?: string | null
+          id?: string
+          message?: string
+          metadata?: Json | null
+          metric_value?: number
+          notification_sent?: boolean | null
+          threshold?: number
+          triggered_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "alert_logs_alert_config_id_fkey"
+            columns: ["alert_config_id"]
+            isOneToOne: false
+            referencedRelation: "alert_configurations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "alert_logs_funnel_id_fkey"
+            columns: ["funnel_id"]
+            isOneToOne: false
+            referencedRelation: "conversion_funnels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "alert_logs_funnel_id_fkey"
+            columns: ["funnel_id"]
+            isOneToOne: false
+            referencedRelation: "funnel_analytics"
+            referencedColumns: ["funnel_id"]
+          },
+        ]
+      }
       analytics_events: {
         Row: {
           created_at: string | null
