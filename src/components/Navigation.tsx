@@ -57,6 +57,7 @@ const Navigation = () => {
   ];
 
   const adminItems = [
+    { to: "/auth", label: "Admin Login", icon: User },
     { to: "/performance", label: "Performance", icon: Activity },
     { to: "/analytics", label: "Analytics", icon: BarChart3 },
     { to: "/analytics/chat", label: "Chat Analytics", icon: MessageSquare },
