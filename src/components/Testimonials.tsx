@@ -6,9 +6,9 @@ const Testimonials = () => {
   const { ref, isInView } = useInView();
 
   return (
-    <section ref={ref} className="py-16 sm:py-24 relative overflow-hidden">
+    <section ref={ref} className="py-16 sm:py-24 relative overflow-hidden bg-background">
       {/* Single optimized background element */}
-      <div className="absolute inset-0 bg-gradient-pink-orange opacity-8 blur-3xl pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-coral-purple opacity-10 blur-3xl pointer-events-none" />
       <div className={`container mx-auto px-4 sm:px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-center mb-12 sm:mb-16 text-foreground">
           What Our Community Says
