@@ -39,16 +39,17 @@ const processBatch = async () => {
   const analyticEvents = eventsToSend.filter(e => e.type === 'analytics').map(e => e.data);
   const funnelEvents = eventsToSend.filter(e => e.type === 'funnel').map(e => e.data);
 
-  // Send batched inserts
+  // Send batched inserts via edge function
   try {
-    const promises = [];
-    if (analyticEvents.length > 0) {
-      promises.push(supabase.from("analytics_events").insert(analyticEvents));
+    if (analyticEvents.length > 0 || funnelEvents.length > 0) {
+      const { data, error } = await supabase.functions.invoke('track-analytics', {
+        body: { analyticEvents, funnelEvents }
+      });
+      
+      if (error) {
+        console.error("Batch analytics error:", error);
+      }
     }
-    if (funnelEvents.length > 0) {
-      promises.push(supabase.from("funnel_progress").insert(funnelEvents));
-    }
-    await Promise.all(promises);
   } catch (error) {
     console.error("Batch analytics error:", error);
   }
