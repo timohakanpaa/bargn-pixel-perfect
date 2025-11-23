@@ -75,16 +75,16 @@ const PartnerSignup = () => {
           <div className="grid md:grid-cols-3 gap-8">
             {steps.map((step, index) => (
               <div
-                key={index}
-                className={`relative p-8 bg-glass backdrop-blur-xl border-2 border-glass rounded-3xl hover:scale-105 transition-all duration-300 ${step.glow}`}
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="absolute -top-4 -right-4 w-12 h-12 bg-accent rounded-full flex items-center justify-center text-background font-black text-xl shadow-glow-yellow">
-                  {step.number}
-                </div>
-                <div className={`w-20 h-20 ${step.gradient} rounded-3xl flex items-center justify-center mb-6 animate-pulse-glow`}>
-                  <step.icon className="w-10 h-10 text-foreground" />
-                </div>
+              key={index}
+              className={`relative p-8 bg-glass backdrop-blur-2xl border-2 border-glass rounded-3xl hover:scale-105 transition-all duration-300 ${step.glow}`}
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <div className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-purple-yellow rounded-full flex items-center justify-center text-foreground font-black text-xl shadow-glow-yellow">
+                {step.number}
+              </div>
+              <div className={`w-20 h-20 ${step.gradient} rounded-3xl flex items-center justify-center mb-6 animate-pulse-glow`}>
+                <step.icon className="w-10 h-10 text-foreground" />
+              </div>
                 <h3 className="text-2xl font-black mb-4 text-foreground">
                   {step.title}
                 </h3>
@@ -103,7 +103,7 @@ const PartnerSignup = () => {
         </div>
 
         {/* Application Form */}
-        <div className="max-w-3xl mx-auto bg-glass backdrop-blur-2xl border-2 border-glass rounded-3xl p-12 shadow-glow-pink">
+        <div className="max-w-3xl mx-auto bg-glass backdrop-blur-2xl border-2 border-glass rounded-3xl p-12 shadow-glow-yellow">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block text-foreground font-bold mb-2 text-lg">
@@ -114,7 +114,7 @@ const PartnerSignup = () => {
                 value={formData.venueName}
                 onChange={(e) => setFormData({ ...formData, venueName: e.target.value })}
                 placeholder={t("partners.signup.form.venueNamePlaceholder")}
-                className="bg-background/50 backdrop-blur-xl border-2 border-border/50 rounded-xl h-14 text-lg focus:border-accent"
+                className="bg-background/50 backdrop-blur-xl border-2 border-glass rounded-xl h-14 text-lg focus:border-accent"
               />
             </div>
             <div>
@@ -126,7 +126,7 @@ const PartnerSignup = () => {
                 value={formData.city}
                 onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                 placeholder={t("partners.signup.form.cityPlaceholder")}
-                className="bg-background/50 backdrop-blur-xl border-2 border-border/50 rounded-xl h-14 text-lg focus:border-accent"
+                className="bg-background/50 backdrop-blur-xl border-2 border-glass rounded-xl h-14 text-lg focus:border-accent"
               />
             </div>
             <div>
@@ -138,7 +138,7 @@ const PartnerSignup = () => {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 placeholder={t("partners.signup.form.emailPlaceholder")}
-                className="bg-background/50 backdrop-blur-xl border-2 border-border/50 rounded-xl h-14 text-lg focus:border-accent"
+                className="bg-background/50 backdrop-blur-xl border-2 border-glass rounded-xl h-14 text-lg focus:border-accent"
               />
             </div>
             <Button

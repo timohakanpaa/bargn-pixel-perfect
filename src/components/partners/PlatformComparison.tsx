@@ -37,7 +37,7 @@ const PlatformComparison = () => {
           <p className="text-accent text-lg font-bold mb-4 uppercase tracking-wider">
             {t("partners.comparison.badge")}
           </p>
-          <h2 className="text-5xl md:text-6xl font-black mb-6">
+          <h2 className="text-5xl md:text-6xl font-black mb-6 text-foreground">
             {t("partners.comparison.headline")}
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
