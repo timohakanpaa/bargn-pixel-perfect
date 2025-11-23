@@ -9,7 +9,7 @@ const BusinessSection = () => {
     <section ref={ref} className="py-24 relative overflow-hidden">
       {/* Single optimized background element */}
       <div className="absolute inset-0 bg-gradient-coral-purple opacity-10 blur-3xl pointer-events-none" />
-      <div className={`container mx-auto px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
+      <div className={`container mx-auto px-6 max-w-7xl transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
         <div className="max-w-5xl mx-auto text-center">
           <div>
             <h2 className="text-5xl md:text-6xl font-black mb-6">

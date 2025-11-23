@@ -11,7 +11,7 @@ const Pricing = () => {
     <section ref={ref} className="py-16 sm:py-24 relative overflow-hidden bg-background">
       {/* Single optimized background element */}
       <div className="absolute inset-0 bg-gradient-coral-purple opacity-10 blur-3xl pointer-events-none" />
-      <div className={`container mx-auto px-4 sm:px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
+      <div className={`container mx-auto px-4 sm:px-6 max-w-7xl transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
         <h2 className="text-4xl sm:text-6xl md:text-7xl font-black text-center mb-4 sm:mb-6 text-primary">
           50% OFF
         </h2>
@@ -19,7 +19,7 @@ const Pricing = () => {
           Because we're generous like that
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
           {/* Premium Plan */}
           <TiltCard className="relative group" tiltDegree={15} scale={1.08}>
             <div className="absolute inset-0 bg-gradient-purple-yellow opacity-30 blur-3xl group-hover:opacity-40 transition-opacity rounded-3xl animate-pulse-glow"></div>
@@ -73,8 +73,17 @@ const Pricing = () => {
                   <span className="text-muted-foreground">/monthly</span>
                 </div>
 
-                <Button className="w-full bg-gradient-pink-orange text-foreground font-bold rounded-full py-6 text-lg shadow-[0_0_25px_rgba(239,29,242,0.6)] hover:shadow-[0_0_40px_rgba(239,29,242,0.9)]">
-                  Join Now
+                <Button 
+                  asChild
+                  className="w-full bg-gradient-pink-orange text-foreground font-bold rounded-full py-6 text-lg shadow-[0_0_25px_rgba(239,29,242,0.6)] hover:shadow-[0_0_40px_rgba(239,29,242,0.9)] hover:animate-wobble"
+                >
+                  <a 
+                    href="https://buy.stripe.com/test_8wM7wB9gR3EP7Eg3cc" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    Join Now
+                  </a>
                 </Button>
               </div>
             </div>
@@ -133,8 +142,18 @@ const Pricing = () => {
                   <span className="text-muted-foreground">/yearly</span>
                 </div>
 
-                <Button variant="outline" className="w-full border-accent text-accent font-bold rounded-full py-6 text-lg hover:bg-accent/10">
-                  Join Now
+                <Button 
+                  asChild
+                  variant="outline" 
+                  className="w-full border-accent text-accent font-bold rounded-full py-6 text-lg hover:bg-accent/10 hover:animate-wobble"
+                >
+                  <a 
+                    href="https://buy.stripe.com/test_4gw6sxfFfdtv7Eg144" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    Join Now
+                  </a>
                 </Button>
               </div>
             </div>
