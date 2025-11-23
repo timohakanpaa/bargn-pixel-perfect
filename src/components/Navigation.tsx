@@ -1,7 +1,6 @@
 import { Search, User, Menu, X, ChevronDown, Activity, BarChart3, MessageSquare, GitBranch } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NavLink } from "@/components/NavLink";
-import UpdateBanner from "@/components/UpdateBanner";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -67,7 +66,6 @@ const Navigation = () => {
   
   return (
     <>
-      <UpdateBanner />
       <nav className="relative z-[100] bg-glass backdrop-blur-2xl border-b border-glass">
       <div className="container mx-auto px-4 sm:px-6 py-4">
         <div className="flex items-center justify-between">
