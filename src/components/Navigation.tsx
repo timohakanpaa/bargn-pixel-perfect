@@ -5,7 +5,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import bargnLogo from "@/assets/bargn-logo.webp";
+import bargnLogo from "@/assets/bargn-logo.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
