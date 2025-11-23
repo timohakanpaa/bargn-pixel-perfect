@@ -140,7 +140,15 @@ const Navigation = () => {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed top-[108px] right-0 bottom-0 w-full sm:w-96 bg-background/95 backdrop-blur-2xl z-[200] border-l border-glass overflow-y-auto"
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={{ left: 0, right: 0.5 }}
+            onDragEnd={(e, { offset, velocity }) => {
+              if (offset.x > 150 || velocity.x > 500) {
+                setIsMobileMenuOpen(false);
+              }
+            }}
+            className="fixed top-[108px] right-0 bottom-0 w-full sm:w-96 bg-background/95 backdrop-blur-2xl z-[200] border-l border-glass overflow-y-auto cursor-grab active:cursor-grabbing"
           >
             <div className="p-6 space-y-6">
               {/* Language Toggle - Mobile */}
