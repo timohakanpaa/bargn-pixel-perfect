@@ -4,13 +4,16 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
-import ChatWidget from "@/components/ChatWidget";
 import CookieConsent from "@/components/CookieConsent";
 import { useCookieConsent } from "@/hooks/use-cookie-consent";
 import { useGoogleAnalytics } from "@/hooks/use-google-analytics";
 import { useFacebookPixel } from "@/hooks/use-facebook-pixel";
 import { useTikTokPixel } from "@/hooks/use-tiktok-pixel";
 import { useWebVitals } from "@/hooks/use-web-vitals";
+import { lazy, Suspense } from "react";
+
+// Lazy load heavy components for better performance
+const ChatWidget = lazy(() => import("@/components/ChatWidget"));
 import Index from "./pages/Index";
 import Members from "./pages/Members";
 import Partners from "./pages/Partners";
@@ -68,7 +71,9 @@ const AppContent = () => {
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <ChatWidget />
+      <Suspense fallback={<div />}>
+        <ChatWidget />
+      </Suspense>
       <CookieConsent />
     </>
   );

@@ -59,6 +59,9 @@ const BlogAdmin = () => {
                         key={refreshKey}
                         src={getBlogImageUrl(article.filename)}
                         alt={article.title}
+                        width="400"
+                        height="225"
+                        loading="lazy"
                         className="w-full h-full object-cover"
                         onError={(e) => {
                           const target = e.currentTarget;
