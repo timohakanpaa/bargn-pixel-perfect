@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -24,19 +24,98 @@ interface AnalyticsEvent {
   metadata?: Record<string, any>;
 }
 
+interface FunnelStep {
+  step_number: number;
+  step_name: string;
+  page_path?: string;
+  event_type: string;
+  event_name?: string;
+}
+
+interface ConversionFunnel {
+  id: string;
+  name: string;
+  steps: FunnelStep[];
+}
+
 export const useAnalytics = () => {
   const location = useLocation();
   const { language } = useLanguage();
   const sessionId = useRef(getSessionId());
+  const [activeFunnels, setActiveFunnels] = useState<ConversionFunnel[]>([]);
 
-  // Track page view
+  // Load active funnels on mount
+  useEffect(() => {
+    const loadFunnels = async () => {
+      const { data, error } = await supabase
+        .from("conversion_funnels")
+        .select("*")
+        .eq("is_active", true);
+      
+      if (!error && data) {
+        setActiveFunnels(data as unknown as ConversionFunnel[]);
+      }
+    };
+    loadFunnels();
+  }, []);
+
+  // Track funnel progress automatically
+  const trackFunnelProgress = useCallback(async (
+    eventType: string,
+    eventName?: string,
+    pagePath?: string
+  ) => {
+    if (activeFunnels.length === 0) return;
+
+    const currentPath = pagePath || location.pathname;
+
+    for (const funnel of activeFunnels) {
+      // Find matching step
+      const matchingStep = (funnel.steps as FunnelStep[]).find(step => {
+        const pathMatches = step.page_path === currentPath;
+        const eventTypeMatches = step.event_type === eventType;
+        const eventNameMatches = !step.event_name || step.event_name === eventName;
+        
+        return pathMatches && eventTypeMatches && eventNameMatches;
+      });
+
+      if (matchingStep) {
+        // Check if this is a new step or progression
+        const { data: existingProgress } = await supabase
+          .from("funnel_progress")
+          .select("*")
+          .eq("session_id", sessionId.current)
+          .eq("funnel_id", funnel.id)
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .maybeSingle();
+
+        const isNewStep = !existingProgress || existingProgress.current_step < matchingStep.step_number;
+        const isCompleted = matchingStep.step_number === funnel.steps.length;
+
+        if (isNewStep) {
+          await supabase.from("funnel_progress").insert({
+            session_id: sessionId.current,
+            funnel_id: funnel.id,
+            current_step: matchingStep.step_number,
+            completed: isCompleted,
+            completed_at: isCompleted ? new Date().toISOString() : null,
+          });
+        }
+      }
+    }
+  }, [activeFunnels, location.pathname]);
+
+  // Enhanced trackPageView with funnel tracking
   const trackPageView = useCallback(async (pagePath?: string, pageTitle?: string) => {
+    const path = pagePath || location.pathname;
+    
     try {
       await supabase.from("analytics_events").insert({
         session_id: sessionId.current,
         event_type: "page_view",
-        event_name: `page_view_${pagePath || location.pathname}`,
-        page_path: pagePath || location.pathname,
+        event_name: `page_view_${path}`,
+        page_path: path,
         page_title: pageTitle || document.title,
         user_agent: navigator.userAgent,
         language,
@@ -44,12 +123,15 @@ export const useAnalytics = () => {
         screen_width: window.screen.width,
         screen_height: window.screen.height,
       });
+
+      // Track funnel progress
+      await trackFunnelProgress("page_view", undefined, path);
     } catch (error) {
       console.error("Analytics tracking error:", error);
     }
-  }, [location.pathname, language]);
+  }, [location.pathname, language, trackFunnelProgress]);
 
-  // Track button click
+  // Enhanced trackButtonClick with funnel tracking
   const trackButtonClick = useCallback(async (
     buttonName: string,
     buttonText?: string,
@@ -67,12 +149,15 @@ export const useAnalytics = () => {
         language,
         metadata: metadata || {},
       });
+
+      // Track funnel progress
+      await trackFunnelProgress("button_click", buttonName);
     } catch (error) {
       console.error("Analytics tracking error:", error);
     }
-  }, [location.pathname, language]);
+  }, [location.pathname, language, trackFunnelProgress]);
 
-  // Track custom event
+  // Track custom event with funnel tracking
   const trackEvent = useCallback(async (event: AnalyticsEvent) => {
     try {
       await supabase.from("analytics_events").insert({
@@ -83,10 +168,13 @@ export const useAnalytics = () => {
         language,
         ...event,
       });
+
+      // Track funnel progress
+      await trackFunnelProgress(event.event_type, event.event_name);
     } catch (error) {
       console.error("Analytics tracking error:", error);
     }
-  }, [location.pathname, language]);
+  }, [location.pathname, language, trackFunnelProgress]);
 
   // Track form submission
   const trackFormSubmit = useCallback(async (
@@ -142,6 +230,7 @@ export const useAnalytics = () => {
     trackEvent,
     trackFormSubmit,
     trackNavigation,
+    trackFunnelProgress,
     sessionId: sessionId.current,
   };
 };
