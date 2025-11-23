@@ -52,15 +52,15 @@ const PartnershipBenefits = () => {
           {benefits.map((benefit, index) => (
             <div
               key={index}
-              className="group bg-card/50 backdrop-blur-xl rounded-3xl p-8 border-2 border-glass hover:border-primary/50 hover:scale-105 hover:-translate-y-2 transition-all duration-300"
+              className="group bg-card/50 backdrop-blur-xl rounded-3xl p-8 border-2 border-glass hover:border-primary/50 hover:scale-105 hover:-translate-y-2 transition-all duration-300 cursor-pointer"
             >
-              <div className={`w-16 h-16 ${benefit.gradient} rounded-2xl flex items-center justify-center mb-6 ${benefit.shadow} group-hover:scale-110 transition-transform duration-300`}>
-                <benefit.icon className="w-8 h-8 text-foreground" />
+              <div className={`w-16 h-16 ${benefit.gradient} rounded-2xl flex items-center justify-center mb-6 ${benefit.shadow} group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
+                <benefit.icon className="w-8 h-8 text-foreground group-hover:scale-110 transition-transform duration-300" />
               </div>
-              <h3 className={`text-xl font-bold mb-3 ${index === 1 ? 'text-accent' : 'text-foreground'}`}>
+              <h3 className={`text-xl font-bold mb-3 ${index === 1 ? 'text-accent' : 'text-foreground'} group-hover:text-primary transition-colors duration-300`}>
                 {benefit.title}
               </h3>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed group-hover:text-foreground transition-colors duration-300">
                 {benefit.description}
               </p>
             </div>
