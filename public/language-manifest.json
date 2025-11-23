@@ -1,0 +1,90 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Bargn",
+  "url": "https://bargn.app",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://bargn.app/blog?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  },
+  "inLanguage": [
+    {
+      "@type": "Language",
+      "name": "English",
+      "alternateName": "en"
+    },
+    {
+      "@type": "Language",
+      "name": "Finnish",
+      "alternateName": "fi"
+    },
+    {
+      "@type": "Language",
+      "name": "Swedish",
+      "alternateName": "sv"
+    }
+  ],
+  "availableLanguage": [
+    {
+      "@type": "Language",
+      "name": "English",
+      "alternateName": "en",
+      "url": "https://bargn.app/?lang=en"
+    },
+    {
+      "@type": "Language",
+      "name": "Finnish - Suomi",
+      "alternateName": "fi",
+      "url": "https://bargn.app/?lang=fi"
+    },
+    {
+      "@type": "Language",
+      "name": "Swedish - Svenska",
+      "alternateName": "sv",
+      "url": "https://bargn.app/?lang=sv"
+    }
+  ],
+  "targetAudience": [
+    {
+      "@type": "PeopleAudience",
+      "name": "English-speaking consumers",
+      "geographicArea": {
+        "@type": "Country",
+        "name": "Global"
+      }
+    },
+    {
+      "@type": "PeopleAudience",
+      "name": "Finnish-speaking consumers",
+      "geographicArea": {
+        "@type": "Country",
+        "name": "Finland"
+      }
+    },
+    {
+      "@type": "PeopleAudience",
+      "name": "Swedish-speaking consumers",
+      "geographicArea": [
+        {
+          "@type": "Country",
+          "name": "Sweden"
+        },
+        {
+          "@type": "Country",
+          "name": "Finland"
+        }
+      ]
+    }
+  ],
+  "description": {
+    "en": "AI-powered discount membership platform offering 50% off at restaurants, bars, gyms, and spas in Helsinki. Smart spending made simple with personalized recommendations.",
+    "fi": "Tekoälypohjainen alennusjäsenalusta, joka tarjoaa 50% alennusta ravintoloihin, baareihin, kuntosaleihin ja kylpylöihin Helsingissä. Älykäs kuluttaminen yksinkertaiseksi personoiduilla suosituksilla.",
+    "sv": "AI-driven rabattmedlemsplattform som erbjuder 50% rabatt på restauranger, barer, gym och spa i Helsingfors. Smart shopping gjord enkel med personliga rekommendationer."
+  },
+  "keywords": {
+    "en": "AI discounts, Helsinki restaurants, membership app, 50% off, lifestyle savings, smart spending, restaurant deals, bar discounts, gym memberships, spa treatments",
+    "fi": "AI alennukset, Helsingin ravintolat, jäsensovellus, 50% alennus, lifestyle säästöt, älykäs kuluttaminen, ravintolatarjoukset, baarialennukset, kuntosalijäsenyydet, kylpylähoiteet",
+    "sv": "AI-rabatter, Helsingfors restauranger, medlemsapp, 50% rabatt, livsstilsbesparingar, smart shopping, restaurangerbjudanden, barrabatter, gymmedlemskap, spabehandlingar"
+  }
+}

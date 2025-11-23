@@ -15,11 +15,13 @@ import { useAnalytics } from "@/hooks/use-analytics";
 import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 import { useMetaTags } from "@/hooks/use-meta-tags";
 import { useCampaignSchema } from "@/hooks/use-campaign-schema";
+import { useHreflang } from "@/hooks/use-hreflang";
 
 const Campaign = () => {
   useAnalytics(); // Auto-track page view
   useBreadcrumbSchema();
   useCampaignSchema();
+  useHreflang(["en", "fi", "sv"]); // Multi-language SEO
   useMetaTags({
     title: "Bargn Creators - Make Bank While You Create",
     description: "40% Revenue Share. No BS. Actual Money. Tired of getting paid in 'exposure'? We're literally throwing money at creators. Join the gold rush.",
