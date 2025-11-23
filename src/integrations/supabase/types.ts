@@ -14,6 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
+      analytics_events: {
+        Row: {
+          created_at: string | null
+          element_class: string | null
+          element_id: string | null
+          element_text: string | null
+          event_name: string
+          event_type: string
+          id: string
+          language: string | null
+          metadata: Json | null
+          page_path: string | null
+          page_title: string | null
+          referrer: string | null
+          screen_height: number | null
+          screen_width: number | null
+          session_id: string
+          user_agent: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          element_class?: string | null
+          element_id?: string | null
+          element_text?: string | null
+          event_name: string
+          event_type: string
+          id?: string
+          language?: string | null
+          metadata?: Json | null
+          page_path?: string | null
+          page_title?: string | null
+          referrer?: string | null
+          screen_height?: number | null
+          screen_width?: number | null
+          session_id: string
+          user_agent?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          element_class?: string | null
+          element_id?: string | null
+          element_text?: string | null
+          event_name?: string
+          event_type?: string
+          id?: string
+          language?: string | null
+          metadata?: Json | null
+          page_path?: string | null
+          page_title?: string | null
+          referrer?: string | null
+          screen_height?: number | null
+          screen_width?: number | null
+          session_id?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       chat_analytics: {
         Row: {
           ai_response: string | null
@@ -52,6 +109,50 @@ export type Database = {
       }
     }
     Views: {
+      analytics_button_clicks: {
+        Row: {
+          clicks: number | null
+          date: string | null
+          element_text: string | null
+          event_name: string | null
+          page_path: string | null
+          unique_users: number | null
+        }
+        Relationships: []
+      }
+      analytics_daily_summary: {
+        Row: {
+          button_clicks: number | null
+          date: string | null
+          form_submissions: number | null
+          navigation_events: number | null
+          page_views: number | null
+          total_events: number | null
+          unique_sessions: number | null
+        }
+        Relationships: []
+      }
+      analytics_navigation_flow: {
+        Row: {
+          created_at: string | null
+          next_page: string | null
+          page_path: string | null
+          page_title: string | null
+          previous_page: string | null
+          session_id: string | null
+        }
+        Relationships: []
+      }
+      analytics_page_views: {
+        Row: {
+          date: string | null
+          page_path: string | null
+          page_title: string | null
+          unique_visitors: number | null
+          views: number | null
+        }
+        Relationships: []
+      }
       chat_analytics_summary: {
         Row: {
           avg_response_time_ms: number | null
@@ -65,7 +166,18 @@ export type Database = {
       }
     }
     Functions: {
-      [_ in never]: never
+      get_top_events: {
+        Args: {
+          days_back?: number
+          event_type_filter: string
+          limit_count?: number
+        }
+        Returns: {
+          event_count: number
+          event_name: string
+          unique_sessions: number
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
