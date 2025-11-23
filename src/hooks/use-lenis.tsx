@@ -7,27 +7,32 @@ let lenisInstance: Lenis | null = null;
 export const getLenis = () => lenisInstance;
 
 export const useLenis = () => {
+  const rafHandleRef = useRef<number | null>(null);
+
   useEffect(() => {
     // Only enable on desktop (viewport width > 768px)
     const isDesktop = window.innerWidth > 768;
     if (!isDesktop) return;
 
-    // Initialize Lenis
+    // Initialize Lenis with minimal configuration
     lenisInstance = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    } as any);
+    });
 
     // Animation frame loop
     function raf(time: number) {
       lenisInstance?.raf(time);
-      requestAnimationFrame(raf);
+      rafHandleRef.current = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafHandleRef.current = requestAnimationFrame(raf);
 
     // Cleanup
     return () => {
+      if (rafHandleRef.current) {
+        cancelAnimationFrame(rafHandleRef.current);
+      }
       lenisInstance?.destroy();
       lenisInstance = null;
     };
