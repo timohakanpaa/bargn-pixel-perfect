@@ -49,16 +49,22 @@ export default {
         },
       },
       backgroundImage: {
-        'gradient-pink-orange': 'var(--gradient-pink-orange)',
-        'gradient-pink-yellow': 'var(--gradient-pink-yellow)',
-        'gradient-orange-yellow': 'var(--gradient-orange-yellow)',
-        'gradient-purple-pink': 'var(--gradient-purple-pink)',
-        'gradient-blue-purple': 'var(--gradient-blue-purple)',
+        'gradient-coral': 'var(--gradient-coral)',
+        'gradient-purple': 'var(--gradient-purple)',
+        'gradient-yellow': 'var(--gradient-yellow)',
+        'gradient-coral-purple': 'var(--gradient-coral-purple)',
+        'gradient-purple-yellow': 'var(--gradient-purple-yellow)',
       },
       boxShadow: {
-        'glow-pink': 'var(--glow-pink)',
-        'glow-orange': 'var(--glow-orange)',
+        'glow-coral': 'var(--glow-coral)',
+        'glow-purple': 'var(--glow-purple)',
         'glow-yellow': 'var(--glow-yellow)',
+      },
+      backgroundColor: {
+        'glass': 'var(--glass-bg)',
+      },
+      borderColor: {
+        'glass': 'var(--glass-border)',
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -134,6 +140,11 @@ export default {
             transform: "translateX(0)",
           },
         },
+        "wobble": {
+          "0%, 100%": { transform: "rotate(0deg)" },
+          "25%": { transform: "rotate(-3deg)" },
+          "75%": { transform: "rotate(3deg)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -145,6 +156,7 @@ export default {
         "slide-up": "slide-up 0.6s ease-out",
         "slide-in-left": "slide-in-left 0.6s ease-out",
         "slide-in-right": "slide-in-right 0.6s ease-out",
+        "wobble": "wobble 0.3s ease-in-out",
       },
     },
   },

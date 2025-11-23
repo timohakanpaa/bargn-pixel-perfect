@@ -12,45 +12,48 @@ All colors MUST be HSL.
   }
 
   :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 0 6% 4%;
+    --foreground: 0 0% 100%;
 
-    --card: 240 10% 8%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 6% 4%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 240 10% 8%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 6% 4%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 328 86% 70%;
+    --primary: 7 96% 71%;
     --primary-foreground: 0 0% 10%;
 
-    --secondary: 25 95% 53%;
-    --secondary-foreground: 0 0% 10%;
+    --secondary: 297 89% 60%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 240 6% 20%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 48 96% 53%;
+    --accent: 48 100% 50%;
     --accent-foreground: 0 0% 10%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 240 6% 20%;
-    --input: 240 6% 20%;
-    --ring: 328 86% 70%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 7 96% 71%;
 
     --radius: 1rem;
 
-    --gradient-pink-orange: linear-gradient(135deg, hsl(328, 86%, 70%), hsl(25, 95%, 53%));
-    --gradient-pink-yellow: linear-gradient(135deg, hsl(328, 86%, 70%), hsl(48, 96%, 53%));
-    --gradient-orange-yellow: linear-gradient(135deg, hsl(25, 95%, 53%), hsl(48, 96%, 53%));
-    --gradient-purple-pink: linear-gradient(135deg, hsl(280, 86%, 60%), hsl(328, 86%, 70%));
-    --gradient-blue-purple: linear-gradient(135deg, hsl(230, 60%, 50%), hsl(280, 86%, 60%));
+    --gradient-coral: linear-gradient(135deg, hsl(7, 96%, 71%), hsl(7, 96%, 81%));
+    --gradient-purple: linear-gradient(135deg, hsl(297, 89%, 60%), hsl(297, 89%, 70%));
+    --gradient-yellow: linear-gradient(135deg, hsl(48, 100%, 50%), hsl(48, 100%, 60%));
+    --gradient-coral-purple: linear-gradient(135deg, hsl(7, 96%, 71%), hsl(297, 89%, 60%));
+    --gradient-purple-yellow: linear-gradient(135deg, hsl(297, 89%, 60%), hsl(48, 100%, 50%));
     
-    --glow-pink: 0 0 60px hsl(328 86% 70% / 0.4);
-    --glow-orange: 0 0 60px hsl(25 95% 53% / 0.4);
-    --glow-yellow: 0 0 60px hsl(48 96% 53% / 0.4);
+    --glow-coral: 0 0 40px hsl(7 96% 71% / 0.6), 0 0 80px hsl(7 96% 71% / 0.3);
+    --glow-purple: 0 0 40px hsl(297 89% 60% / 0.6), 0 0 80px hsl(297 89% 60% / 0.3);
+    --glow-yellow: 0 0 40px hsl(48 100% 50% / 0.6), 0 0 80px hsl(48 100% 50% / 0.3);
+    
+    --glass-bg: hsl(0 0% 100% / 0.05);
+    --glass-border: hsl(0 0% 100% / 0.1);
   }
 
   @keyframes float {
@@ -110,6 +113,12 @@ All colors MUST be HSL.
       opacity: 1;
       transform: translateX(0);
     }
+  }
+
+  @keyframes wobble {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-3deg); }
+    75% { transform: rotate(3deg); }
   }
 }
 
