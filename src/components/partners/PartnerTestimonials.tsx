@@ -1,5 +1,6 @@
 import { Star } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
+import { TiltCard } from "@/components/animations/TiltCard";
 
 const PartnerTestimonials = () => {
   const { ref, isInView } = useInView();
@@ -47,27 +48,28 @@ const PartnerTestimonials = () => {
 
         <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {testimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              className={`bg-gradient-to-br ${testimonial.gradient} backdrop-blur-xl rounded-3xl p-8 border-2 border-glass hover:scale-105 hover:-translate-y-2 transition-all duration-300 ${testimonial.featured ? 'md:col-span-1' : ''}`}
-            >
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-16 bg-gradient-orange-yellow rounded-full border-2 border-accent/50"></div>
-                <div>
-                  <h4 className="font-bold text-foreground">{testimonial.name}</h4>
-                  <p className="text-sm text-muted-foreground">{testimonial.business}</p>
-                  <div className="flex gap-1 mt-1">
-                    {[...Array(testimonial.stars)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-accent text-accent" />
-                    ))}
+            <TiltCard key={index} tiltDegree={10} scale={1.05}>
+              <div
+                className={`bg-gradient-to-br ${testimonial.gradient} backdrop-blur-xl rounded-3xl p-8 border-2 border-glass hover:shadow-glow-coral transition-all duration-300 h-full ${testimonial.featured ? 'md:col-span-1' : ''}`}
+              >
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 bg-gradient-orange-yellow rounded-full border-2 border-accent/50"></div>
+                  <div>
+                    <h4 className="font-bold text-foreground">{testimonial.name}</h4>
+                    <p className="text-sm text-muted-foreground">{testimonial.business}</p>
+                    <div className="flex gap-1 mt-1">
+                      {[...Array(testimonial.stars)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                      ))}
+                    </div>
                   </div>
                 </div>
+                <p className="text-foreground/90 italic leading-relaxed mb-4">
+                  "{testimonial.quote}"
+                </p>
+                <p className="text-sm text-accent font-semibold">{testimonial.role}</p>
               </div>
-              <p className="text-foreground/90 italic leading-relaxed mb-4">
-                "{testimonial.quote}"
-              </p>
-              <p className="text-sm text-accent font-semibold">{testimonial.role}</p>
-            </div>
+            </TiltCard>
           ))}
         </div>
       </div>
