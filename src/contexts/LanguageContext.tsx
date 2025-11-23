@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
 
-type Language = "en" | "fi" | "sv";
+type Language = "en" | "fi";
 
 interface LanguageContextType {
   language: Language;
@@ -735,106 +735,6 @@ const translations: Record<Language, Record<string, string>> = {
     "cookieConsent.savePreferences": "Tallenna Valintani",
     "cookieConsent.back": "Takaisin",
   },
-  sv: {
-    // Navigation
-    home: "Hem",
-    members: "Medlemmar",
-    partners: "Partners",
-    howItWorks: "Hur Det Fungerar",
-    about: "Om Oss",
-    blog: "Blogg",
-    campaign: "Kampanj",
-    letsGo: "Kör Igång",
-    updateBanner: "Webbplatsen uppdateras",
-    
-    // Hero Section
-    heroHeadline: "50% Rabatt På Allt",
-    heroSubhead: "AI-drivna rabatter som faktiskt fungerar",
-    heroText: "Gå med tusentals som knäckt koden för smart shopping. Vår AI lär sig dina preferenser och serverar personliga 50% rabatter på lokala hotspots.",
-    heroDiscountRate: "Rabattsats",
-    heroPartners: "Partners",
-    heroSaved: "Sparat",
-    
-    // Members page
-    membersHero: "Gå med 10K+ Legender Som Aldrig Betalar Fulla Priser",
-    membersHeroSub: "",
-    membersHeroDesc: "Välkommen till klubben där att betala fullt pris är basically olagligt. Vår AI är bokstavligen smartare än ditt ex och hittar deals som får din plånbok att dansa.",
-    startSaving: "Börja Spara Nu",
-    becomePartner: "Bli En Partner",
-    happyMembers: "Nöjda Medlemmar",
-    avgSavings: "Genomsnittligt Sparande",
-    avgAnnualSavings: "Genomsnittligt Årligt Sparande",
-    partnerOutlets: "Partner-Ställen",
-    
-    // Pricing
-    pricingTitle: "Prissättning Som Inte Rånar Dig",
-    pricingDesc: "Två alternativ: spara pengar månadsvis eller spara ännu mer pengar årligen. Oavsett vilket vinner du.",
-    monthlyFlex: "Månadsflex",
-    annualPower: "Årligt Power Move",
-    bestValue: "Bästa Värdet",
-    perMonth: "/månad",
-    perYear: "/år",
-    saveAnnually: "Spara €52.6 årligen",
-    joinNow: "Gå Med Nu",
-    cancelAnytime: "Avbryt när som helst",
-    monthsFree: "2 månader GRATIS bonus",
-    
-    // Partners
-    "partners.hero.badge": "AFFÄRSPARTNERSKAP",
-    "partners.hero.headline1": "500+ Företag Kan Inte Ha Fel",
-    "partners.hero.headline2": "(Men Din Konkurrent Kanske Har Det)",
-    "partners.hero.body": "Titta, medan dina konkurrenter fortfarande betalar höga provisioner... skrattar våra partners hela vägen till banken.",
-    "partners.hero.cta.primary": "Ansök Nu",
-    "partners.hero.cta.secondary": "Gå Med Som Medlem",
-    
-    // Campaign
-    "campaign.hero.badge": "🔥 40% INTÄKTSDELNING ✨",
-    "campaign.hero.headline": "Tjäna Pengar Medan Du Skapar",
-    "campaign.hero.subheadline": "40% Intäktsdelning • Inget BS • Riktiga Pengar",
-    "campaign.hero.description": "Trött på att få betalt i 'exponering'? Vi kastar bokstavligen pengar på skapare som kan göra vår rabattapp viral. Inga följarkrav, inga själsdödande kontrakt, bara kalla hårda kontanter för kvalitetsinnehåll.",
-    
-    // FAQ
-    faqTitle: "FAQ",
-    faqHeading: "Har Du Frågor? Vi Har Svar",
-    "faq.subheading": "(Och de är förmodligen sassigare än du förväntade dig)",
-    "faq.q1": "Hur fungerar denna 50% rabatt magi egentligen?",
-    "faq.a1": "Enkelt AF. Vår AI lär sig vad du gillar (lagligt stalkar dina preferenser), matchar dig med partnerställen, och boom - 50% rabatt på allt. Inga tricks, inget finstilt som kräver en jurist att förstå.",
-    "faq.q2": "Är detta verkligen legit eller något sketchy pyramidspel?",
-    "faq.a2": "Bruh, vi är så legit som det går. Noll provision modell betyder att partners sparar pengar, du sparar pengar, alla är glada. Vi är basically rabatternas Robin Hood, men med bättre teknik och mindre bågskytte.",
-    "faq.q3": "Tänk om jag är för fattig för medlemsavgiften?",
-    "faq.a3": "€8.8/månad är bokstavligen mindre än två överprissatta kaffe. Plus, du sparar tillbaka det på ditt första deal. Om du fortfarande tvekar, årsplanen är €53 - det är typ €4.42/månad. Ditt framtida jag kommer tacka dig.",
-    "faq.q4": "Kan jag avbryta när som helst eller kommer ni hålla mina pengar som gisslan?",
-    "faq.a4": "Avbryt när som helst, inget drama, inga skuldkänslor, ingen 47-stegs avbokningsprocess. Vi är säkra på att du kommer älska det, men vi kommer inte fånga dig som något gym-medlemskap från helvetet.",
-    "faq.q5": "Hur många partners har ni egentligen?",
-    "faq.a5": "500+ och växer dagligen. Restauranger, kaféer, gym, spa, nöjesställen - basically överallt du vill spendera pengar. Vi expanderar snabbare än ditt exs dejting-historia.",
-    "faq.q6": "Vad är denna AI-grej som alla pratar om?",
-    "faq.a6": "Vår AI är basically din personliga deal-jägare som aldrig sover. Den lär sig din smak, spårar din plats (med tillstånd, vi är inte creeps), och serverar deals du faktiskt använder. Inga fler slumpmässiga pizza-rabatter när du är laktosintolerant.",
-    "faq.q7": "Måste jag visa någon pinsam kupong vid kassan?",
-    "faq.a7": "Helvete nej. Visa bara den snygga Bargn-appen på din telefon. Det ser faktiskt coolt ut, inte någon janky kupong som skriker 'jag är snål.' Du kommer se smart ut medan andra betalar fullt pris som om det var 2019.",
-    "faq.q8": "Tänk om en partner inte hedrar rabatten?",
-    "faq.a8": "Det är vad vi kallar en 'partner-överträdelse' och vi tar det personligt. Kontakta oss och vi ordnar det snabbare än du kan säga 'återbetalning.' Plus, vi ser till att det inte händer igen.",
-    faqQ1: "Kan jag avsluta när jag vill?",
-    faqA1: "Självklart! Avbryt när som helst, inga skuldkänslor eller konstiga exitenkäter. Vi är inte ditt kletiga ex.",
-    faqQ2: "Hur fungerar denna magi?",
-    faqA2: "Visa det Bargn-medlemskapet som VIP:en du är. Boom - 50% rabatt direkt. Inga kuponger, inget krångel, inget cap.",
-    faqQ3: "Är jag fast i ett kontrakt?",
-    faqA3: "Helvete nej! Vi är inte ett gym-medlemskap. Månad-till-månad eller årligen - ditt val. Avbryt när som helst, vi är fortfarande vänner.",
-    
-    // Cookie Consent
-    "cookieConsent.title": "Vi Använder Cookies (För Din Skull, Inte Våran)",
-    "cookieConsent.description": "Vi använder cookies för att förbättra din upplevelse. Du bestämmer vilka.",
-    "cookieConsent.acceptAll": "Acceptera Alla",
-    "cookieConsent.rejectAll": "Avvisa Alla",
-    "cookieConsent.customize": "Anpassa",
-    "cookieConsent.necessary": "Nödvändiga",
-    "cookieConsent.necessary.description": "Dessa är obligatoriska. De låter sajten faktiskt fungera. Utan dem skulle ingenting funka.",
-    "cookieConsent.analytics": "Analytiska",
-    "cookieConsent.analytics.description": "Hjälper oss förstå vad folk klickar på så vi kan göra saker mindre suga.",
-    "cookieConsent.marketing": "Marknadsföring",
-    "cookieConsent.marketing.description": "Dessa följer dig runt internet som din crush från högstadiet. De visar annonser som faktiskt kan vara relevanta istället för slumpmässig skit.",
-    "cookieConsent.savePreferences": "Spara Mina Val",
-    "cookieConsent.back": "Tillbaka",
-  },
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -845,7 +745,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   // Detect browser language on mount
   useEffect(() => {
     const browserLang = navigator.language.split('-')[0];
-    if (browserLang === 'fi' || browserLang === 'sv') {
+    if (browserLang === 'fi') {
       setLanguage(browserLang as Language);
     }
   }, []);

@@ -150,17 +150,6 @@ const Navigation = () => {
               >
                 FI
               </button>
-              <span className="text-muted-foreground">|</span>
-              <button 
-                onClick={() => setLanguage("sv")}
-                className={`px-3 py-1 rounded-full text-sm font-bold transition-all ${
-                  language === "sv" 
-                    ? "bg-accent text-accent-foreground shadow-glow-yellow" 
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                SV
-              </button>
             </div>
             <Button variant="ghost" size="icon" className="text-foreground hover:shadow-glow-coral">
               <Search className="w-5 h-5" />
@@ -259,17 +248,6 @@ const Navigation = () => {
                   aria-label="Switch to Finnish"
                 >
                   FI
-                </button>
-                <button 
-                  onClick={() => setLanguage("sv")}
-                  className={`flex-1 px-3 py-3 min-h-[44px] rounded-full text-base font-bold transition-all ${
-                    language === "sv" 
-                      ? "bg-accent text-accent-foreground shadow-glow-yellow" 
-                      : "text-muted-foreground"
-                  }`}
-                  aria-label="Switch to Swedish"
-                >
-                  SV
                 </button>
               </div>
 
