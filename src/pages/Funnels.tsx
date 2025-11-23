@@ -10,6 +10,7 @@ import { useAnalytics } from "@/hooks/use-analytics";
 import { AlertConfigurations } from "@/components/funnel/AlertConfigurations";
 import { AlertLogs } from "@/components/funnel/AlertLogs";
 import { CohortAnalysis } from "@/components/funnel/CohortAnalysis";
+import { RealtimeMonitor } from "@/components/funnel/RealtimeMonitor";
 
 interface FunnelData {
   funnel_id: string;
@@ -106,6 +107,7 @@ const Funnels = () => {
           <Tabs defaultValue="overview" className="space-y-6">
             <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="realtime">Live Monitor</TabsTrigger>
               <TabsTrigger value="cohorts">Cohort Analysis</TabsTrigger>
               <TabsTrigger value="alerts">Alerts</TabsTrigger>
             </TabsList>
@@ -269,6 +271,10 @@ const Funnels = () => {
               )}
             </>
           )}
+            </TabsContent>
+
+            <TabsContent value="realtime" className="space-y-6">
+              <RealtimeMonitor />
             </TabsContent>
 
             <TabsContent value="cohorts" className="space-y-6">
