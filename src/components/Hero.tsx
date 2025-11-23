@@ -5,6 +5,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import { useAnalytics } from "@/hooks/use-analytics";
 import AppStoreBadges from "@/components/AppStoreBadges";
+import { trackAllPlatforms } from "@/utils/tracking";
 
 const Hero = () => {
   const { t } = useLanguage();
@@ -147,7 +148,14 @@ const Hero = () => {
           <Button 
             variant="neon"
             className="w-full sm:w-auto rounded-full px-8 sm:px-10 py-6 sm:py-7 text-lg sm:text-xl shadow-[0_0_25px_rgba(255,220,74,0.7)] hover:shadow-[0_0_40px_rgba(255,220,74,1)]"
-            onClick={() => trackButtonClick("hero_lets_go_cta", t("letsGo"))}
+            onClick={() => {
+              trackButtonClick("hero_lets_go_cta", t("letsGo"));
+              trackAllPlatforms("button_click", {
+                button_name: "hero_lets_go",
+                conversion_type: "membership_signup_intent",
+                location: "hero_section"
+              });
+            }}
           >
             <Zap className="mr-2 w-5 h-5 sm:w-6 sm:h-6" />
             {t("letsGo")}
@@ -155,7 +163,14 @@ const Hero = () => {
           <Button 
             variant="secondary"
             className="w-full sm:w-auto rounded-full px-8 sm:px-10 py-6 sm:py-7 text-lg sm:text-xl"
-            onClick={() => trackButtonClick("hero_partner_up_cta", t("partnerUp"))}
+            onClick={() => {
+              trackButtonClick("hero_partner_up_cta", t("partnerUp"));
+              trackAllPlatforms("button_click", {
+                button_name: "hero_partner_up",
+                conversion_type: "partner_signup_intent",
+                location: "hero_section"
+              });
+            }}
           >
             <Users className="mr-2 w-5 h-5 sm:w-6 sm:h-6" />
             {t("partnerUp")}
