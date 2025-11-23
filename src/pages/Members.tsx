@@ -396,8 +396,18 @@ const Members = () => {
                       </div>
                     ))}
                   </div>
-                  <Button variant="neon" className="w-full rounded-full py-6 text-lg">
-                    {t("joinNow")}
+                  <Button 
+                    asChild
+                    variant="neon" 
+                    className="w-full rounded-full py-6 text-lg hover:animate-wobble"
+                  >
+                    <a 
+                      href="https://buy.stripe.com/test_8wM7wB9gR3EP7Eg3cc" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      {t("joinNow")}
+                    </a>
                   </Button>
                 </div>
               </div>
@@ -442,8 +452,17 @@ const Members = () => {
                       </div>
                     ))}
                   </div>
-                  <Button className="w-full rounded-full py-6 text-lg bg-gradient-purple-yellow text-foreground font-bold hover:scale-105 transition-transform">
-                    {t("joinNow")}
+                  <Button 
+                    asChild
+                    className="w-full rounded-full py-6 text-lg bg-gradient-purple-yellow text-foreground font-bold hover:scale-105 hover:animate-wobble transition-transform"
+                  >
+                    <a 
+                      href="https://buy.stripe.com/test_4gw6sxfFfdtv7Eg144" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      {t("joinNow")}
+                    </a>
                   </Button>
                 </div>
               </div>

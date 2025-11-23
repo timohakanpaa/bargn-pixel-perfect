@@ -72,7 +72,7 @@ const FAQ = () => {
 
   return (
     <section ref={ref} className="py-24 relative overflow-hidden">
-      <div className={`container mx-auto px-6 max-w-5xl transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
+      <div className={`container mx-auto px-6 max-w-7xl transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
         <h2 className="text-5xl md:text-6xl font-black text-center mb-4 text-primary">
           {t("faqHeading")}
         </h2>

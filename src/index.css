@@ -13,11 +13,11 @@ All colors MUST be HSL.
   }
 
   :root {
-    --background: 0 6% 4%;
+    --background: 0 5% 4%;
     --foreground: 0 0% 100%;
     
     /* Dark theme background for campaign pages */
-    --background-dark: 240 10% 2%;
+    --background-dark: 0 5% 4%;
 
     --card: 0 6% 4%;
     --card-foreground: 0 0% 100%;
