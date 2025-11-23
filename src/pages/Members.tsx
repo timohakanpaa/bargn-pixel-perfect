@@ -8,10 +8,12 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import AnimatedCounter from "@/components/AnimatedCounter";
 import SavingsCalculator from "@/components/SavingsCalculator";
 import { useAnalytics } from "@/hooks/use-analytics";
+import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 import { useEffect } from "react";
 
 const Members = () => {
   useAnalytics(); // Auto-track page view
+  useBreadcrumbSchema();
   const { t } = useLanguage();
   const { scrollY } = useScroll();
   

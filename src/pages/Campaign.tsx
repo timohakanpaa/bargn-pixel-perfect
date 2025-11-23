@@ -12,9 +12,11 @@ import CampaignCTA from "@/components/campaign/CampaignCTA";
 import Footer from "@/components/Footer";
 import CampaignFloatingCTA from "@/components/campaign/CampaignFloatingCTA";
 import { useAnalytics } from "@/hooks/use-analytics";
+import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 
 const Campaign = () => {
   useAnalytics(); // Auto-track page view
+  useBreadcrumbSchema();
   
   return (
     <div className="min-h-screen bg-background-dark">

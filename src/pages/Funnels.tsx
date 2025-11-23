@@ -12,6 +12,7 @@ import { AlertLogs } from "@/components/funnel/AlertLogs";
 import { CohortAnalysis } from "@/components/funnel/CohortAnalysis";
 import { RealtimeMonitor } from "@/components/funnel/RealtimeMonitor";
 import { OptimizationDashboard } from "@/components/funnel/OptimizationDashboard";
+import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 
 interface FunnelData {
   funnel_id: string;
@@ -38,6 +39,7 @@ interface DropOffData {
 
 const Funnels = () => {
   useAnalytics();
+  useBreadcrumbSchema();
   
   const [funnels, setFunnels] = useState<FunnelData[]>([]);
   const [selectedFunnel, setSelectedFunnel] = useState<string | null>(null);

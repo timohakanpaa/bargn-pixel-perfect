@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useAnalytics } from "@/hooks/use-analytics";
+import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 
 interface DailySummary {
   date: string;
@@ -48,6 +49,7 @@ interface ButtonClick {
 
 const Analytics = () => {
   useAnalytics(); // Track page view
+  useBreadcrumbSchema();
   
   const [dailySummary, setDailySummary] = useState<DailySummary[]>([]);
   const [pageViews, setPageViews] = useState<PageView[]>([]);
