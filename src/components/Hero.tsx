@@ -1,83 +1,185 @@
 import { Button } from "@/components/ui/button";
-import { Zap, Users } from "lucide-react";
+import { Zap, Users, Pizza, Ticket, Smartphone } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Hero = () => {
+  const { t } = useLanguage();
+  const { scrollY } = useScroll();
+  
+  // Parallax transforms
+  const y1 = useTransform(scrollY, [0, 500], [0, 150]);
+  const y2 = useTransform(scrollY, [0, 500], [0, -100]);
+  const scale = useTransform(scrollY, [0, 300], [1, 1.2]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
-      {/* Floating Icons */}
-      <div className="absolute top-32 left-20 w-24 h-24 bg-gradient-pink-orange rounded-3xl flex items-center justify-center shadow-glow-pink animate-float">
-        <span className="text-4xl">%</span>
-      </div>
-      <div className="absolute top-40 right-32 w-20 h-20 bg-gradient-orange-yellow rounded-full flex items-center justify-center shadow-glow-orange animate-float-reverse">
-        <span className="text-3xl">📱</span>
-      </div>
+      {/* Giant Blurry Gradient Blob */}
+      <motion.div 
+        style={{ scale }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-coral-purple opacity-30 blur-[120px] rounded-full animate-pulse-glow"
+      />
+      
+      {/* Orbiting Floating Icons */}
+      <motion.div
+        style={{ y: y1 }}
+        animate={{ 
+          rotate: 360,
+        }}
+        transition={{ 
+          rotate: { duration: 20, repeat: Infinity, ease: "linear" }
+        }}
+        className="absolute top-32 left-[15%] w-28 h-28"
+      >
+        <motion.div
+          whileHover={{ scale: 1.2, rotate: 15 }}
+          className="w-full h-full bg-glass backdrop-blur-2xl border-2 border-primary rounded-3xl flex items-center justify-center shadow-glow-coral cursor-pointer"
+        >
+          <Pizza className="w-14 h-14 text-primary" />
+        </motion.div>
+      </motion.div>
 
-      <div className="container mx-auto px-6 text-center relative z-10">
-        <div className="inline-block mb-8 px-6 py-3 bg-muted/50 backdrop-blur-sm rounded-full border border-border animate-fade-in-up">
+      <motion.div
+        style={{ y: y2 }}
+        animate={{ 
+          rotate: -360,
+        }}
+        transition={{ 
+          rotate: { duration: 25, repeat: Infinity, ease: "linear" }
+        }}
+        className="absolute top-40 right-[15%] w-24 h-24"
+      >
+        <motion.div
+          whileHover={{ scale: 1.2, rotate: -15 }}
+          className="w-full h-full bg-glass backdrop-blur-2xl border-2 border-accent rounded-full flex items-center justify-center shadow-glow-yellow cursor-pointer"
+        >
+          <Ticket className="w-12 h-12 text-accent" />
+        </motion.div>
+      </motion.div>
+
+      <motion.div
+        style={{ y: y1 }}
+        animate={{ 
+          rotate: 360,
+        }}
+        transition={{ 
+          rotate: { duration: 30, repeat: Infinity, ease: "linear" }
+        }}
+        className="absolute bottom-32 left-[20%] w-32 h-32"
+      >
+        <motion.div
+          whileHover={{ scale: 1.2, rotate: 10 }}
+          className="w-full h-full bg-glass backdrop-blur-2xl border-2 border-secondary rounded-2xl flex items-center justify-center shadow-glow-purple cursor-pointer"
+        >
+          <Smartphone className="w-16 h-16 text-secondary" />
+        </motion.div>
+      </motion.div>
+
+      <motion.div 
+        style={{ opacity }}
+        className="container mx-auto px-6 text-center relative z-10"
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="inline-block mb-8 px-6 py-3 bg-glass backdrop-blur-xl rounded-full border-2 border-glass shadow-glow-yellow"
+        >
           <span className="text-accent font-bold mr-2">✨</span>
           <span className="text-accent font-bold">AI THAT ACTUALLY SLAPS</span>
           <span className="text-accent ml-2">✨</span>
-        </div>
+        </motion.div>
 
-        <h1 className="text-6xl md:text-8xl font-black mb-8 leading-tight">
-          <span className="bg-gradient-to-r from-[#FF6B9D] via-[#FF8E53] to-[#FFA830] bg-clip-text text-transparent">
-            50% Off
+        <motion.h1 
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-7xl md:text-9xl font-black mb-8 leading-tight"
+        >
+          <span className="bg-gradient-coral-purple bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(248,129,112,0.5)]">
+            {t("heroHeadline")}
           </span>
-          <br />
-          <span className="bg-gradient-to-r from-[#FF8E53] via-[#FFA830] to-[#FFB84D] bg-clip-text text-transparent">
-            Everything
-          </span>
-        </h1>
+        </motion.h1>
 
-        <h2 className="text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-[#D97706] via-[#F59E0B] to-[#FFA830] bg-clip-text text-transparent">
-          AI-powered discounts that
-          <br />
-          actually work
-        </h2>
+        <motion.h2 
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-3xl md:text-5xl font-bold mb-6 text-foreground"
+        >
+          {t("heroSubhead")}
+        </motion.h2>
 
-        <p className="text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto mb-12">
-          Join thousands who've cracked the code to smart spending. Our AI learns your preferences and serves up personalized 50% discounts at local hotspots. It's like having a deal-hunting sidekick that never sleeps (and never judges your shopping choices).
-        </p>
+        <motion.p 
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12"
+        >
+          {t("heroText")}
+        </motion.p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
-          <Button className="bg-gradient-pink-orange text-foreground font-bold rounded-full px-8 py-6 text-lg shadow-glow-pink hover:scale-110 hover:shadow-glow-pink transition-all duration-300 animate-pulse-glow">
-            <Zap className="mr-2 w-5 h-5" />
-            Let's Go
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-20"
+        >
+          <Button 
+            variant="neon"
+            className="rounded-full px-10 py-7 text-xl"
+          >
+            <Zap className="mr-2 w-6 h-6" />
+            {t("letsGo")}
           </Button>
-          <Button variant="outline" className="border-secondary text-secondary font-bold rounded-full px-8 py-6 text-lg hover:bg-secondary/10 hover:scale-105 transition-all duration-300">
-            <Users className="mr-2 w-5 h-5" />
-            Partner Up (We're Cool Like That)
+          <Button 
+            variant="secondary"
+            className="rounded-full px-10 py-7 text-xl"
+          >
+            <Users className="mr-2 w-6 h-6" />
+            {t("partnerUp")}
           </Button>
-        </div>
+        </motion.div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
-          <div>
-            <div className="text-5xl md:text-6xl font-black bg-gradient-to-r from-[#D97706] to-[#F59E0B] bg-clip-text text-transparent mb-2">
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1 }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
+        >
+          <motion.div
+            whileHover={{ scale: 1.05, y: -5 }}
+            className="bg-glass backdrop-blur-2xl border-2 border-glass rounded-3xl p-8 shadow-glow-coral hover:border-primary transition-all duration-300"
+          >
+            <div className="text-6xl md:text-7xl font-black bg-gradient-coral-purple bg-clip-text text-transparent mb-2">
               50%
             </div>
-            <div className="text-secondary font-bold">Discount Rate</div>
-          </div>
-          <div>
-            <div className="text-5xl md:text-6xl font-black text-primary mb-2">
+            <div className="text-primary font-bold text-lg">{t("heroDiscountRate")}</div>
+          </motion.div>
+          
+          <motion.div
+            whileHover={{ scale: 1.05, y: -5 }}
+            className="bg-glass backdrop-blur-2xl border-2 border-glass rounded-3xl p-8 shadow-glow-purple hover:border-secondary transition-all duration-300"
+          >
+            <div className="text-6xl md:text-7xl font-black text-secondary mb-2">
               500+
             </div>
-            <div className="text-secondary font-bold">Partners</div>
-          </div>
-          <div>
-            <div className="text-5xl md:text-6xl font-black text-secondary mb-2">
-              10000+
-            </div>
-            <div className="text-secondary font-bold">Happy Members</div>
-          </div>
-          <div>
-            <div className="text-5xl md:text-6xl font-black text-accent mb-2">
+            <div className="text-secondary font-bold text-lg">{t("heroPartners")}</div>
+          </motion.div>
+          
+          <motion.div
+            whileHover={{ scale: 1.05, y: -5 }}
+            className="bg-glass backdrop-blur-2xl border-2 border-glass rounded-3xl p-8 shadow-glow-yellow hover:border-accent transition-all duration-300"
+          >
+            <div className="text-6xl md:text-7xl font-black text-accent mb-2">
               €2M+
             </div>
-            <div className="text-secondary font-bold">Saved Total</div>
-          </div>
-        </div>
-      </div>
+            <div className="text-accent font-bold text-lg">{t("heroSaved")}</div>
+          </motion.div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 };

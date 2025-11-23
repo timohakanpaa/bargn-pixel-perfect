@@ -19,6 +19,13 @@ const translations: Record<Language, Record<string, string>> = {
     campaign: "Campaign",
     letsGo: "Let's Go",
     updateBanner: "Website is under update",
+    heroHeadline: "50% Off Everything",
+    heroSubhead: "AI-powered discounts that actually work",
+    heroText: "Join thousands who've cracked the code to smart spending.",
+    heroDiscountRate: "Discount Rate",
+    heroPartners: "Partners",
+    heroSaved: "Saved",
+    partnerUp: "Partner Up (We're Cool Like That)",
   },
   fi: {
     home: "Koti",
@@ -30,6 +37,13 @@ const translations: Record<Language, Record<string, string>> = {
     campaign: "Kampanja",
     letsGo: "Aloitetaan",
     updateBanner: "Verkkosivusto päivitetään",
+    heroHeadline: "50% Alennus Kaikesta",
+    heroSubhead: "AI-vetoisia alennuksia jotka oikeesti toimii",
+    heroText: "Liity tuhansien joukkoon jotka on crackannu koodin fiksun kuluttamisen.",
+    heroDiscountRate: "Alennusprosentti",
+    heroPartners: "Kumppania",
+    heroSaved: "Säästetty",
+    partnerUp: "Kumppani (Ollaan Cooli Sillä Tavalla)",
   },
 };
 
