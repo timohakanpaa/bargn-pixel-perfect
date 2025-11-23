@@ -11,6 +11,7 @@ import { AlertConfigurations } from "@/components/funnel/AlertConfigurations";
 import { AlertLogs } from "@/components/funnel/AlertLogs";
 import { CohortAnalysis } from "@/components/funnel/CohortAnalysis";
 import { RealtimeMonitor } from "@/components/funnel/RealtimeMonitor";
+import { OptimizationDashboard } from "@/components/funnel/OptimizationDashboard";
 
 interface FunnelData {
   funnel_id: string;
@@ -107,6 +108,7 @@ const Funnels = () => {
           <Tabs defaultValue="overview" className="space-y-6">
             <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="optimization">AI Optimization</TabsTrigger>
               <TabsTrigger value="realtime">Live Monitor</TabsTrigger>
               <TabsTrigger value="cohorts">Cohort Analysis</TabsTrigger>
               <TabsTrigger value="alerts">Alerts</TabsTrigger>
@@ -271,6 +273,10 @@ const Funnels = () => {
               )}
             </>
           )}
+            </TabsContent>
+
+            <TabsContent value="optimization" className="space-y-6">
+              <OptimizationDashboard />
             </TabsContent>
 
             <TabsContent value="realtime" className="space-y-6">
