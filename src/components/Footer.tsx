@@ -64,16 +64,16 @@ const Footer = () => {
       {/* Top gradient glow */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#E94B96] to-transparent opacity-50"></div>
       
-      <div className="container mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-4 gap-12 mb-12">
+      <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 mb-8 sm:mb-12">
           {/* Col 1: Logo & Social */}
-          <div>
+          <div className="text-center sm:text-left">
             <img 
               src={bargnLogo} 
               alt="Bargn" 
-              className="h-12 mb-6"
+              className="h-10 sm:h-12 mb-4 sm:mb-6 mx-auto sm:mx-0"
             />
-            <div className="flex gap-3">
+            <div className="flex gap-3 justify-center sm:justify-start">
               <a
                 href="https://instagram.com/bargn"
                 target="_blank"
@@ -110,8 +110,8 @@ const Footer = () => {
           </div>
 
           {/* Col 2: Newsletter */}
-          <div>
-            <h4 className="text-white font-bold mb-4">{t('footer.newsletter.title')}</h4>
+          <div className="text-center sm:text-left">
+            <h4 className="text-white font-bold mb-4 text-base sm:text-lg">{t('footer.newsletter.title')}</h4>
             <form onSubmit={handleNewsletterSubmit} className="space-y-3">
               <Input
                 type="email"
@@ -133,21 +133,21 @@ const Footer = () => {
           </div>
 
           {/* Col 3: Links */}
-          <div>
-            <h4 className="text-white font-bold mb-4">Legal</h4>
+          <div className="text-center sm:text-left">
+            <h4 className="text-white font-bold mb-4 text-base sm:text-lg">Legal</h4>
             <ul className="space-y-2">
               <li>
-                <a href="/privacy" className="text-white/60 hover:text-[#FF9B7D] transition-colors">
+                <a href="/privacy" className="text-white/60 hover:text-[#FF9B7D] transition-colors text-sm sm:text-base">
                   {t('footer.links.privacy')}
                 </a>
               </li>
               <li>
-                <a href="/terms" className="text-white/60 hover:text-[#FF9B7D] transition-colors">
+                <a href="/terms" className="text-white/60 hover:text-[#FF9B7D] transition-colors text-sm sm:text-base">
                   {t('footer.links.terms')}
                 </a>
               </li>
               <li>
-                <a href="/cookies" className="text-white/60 hover:text-[#FF9B7D] transition-colors">
+                <a href="/cookies" className="text-white/60 hover:text-[#FF9B7D] transition-colors text-sm sm:text-base">
                   {t('footer.links.cookies')}
                 </a>
               </li>
@@ -155,9 +155,9 @@ const Footer = () => {
           </div>
 
           {/* Col 4: Info */}
-          <div>
-            <h4 className="text-white font-bold mb-4">Info</h4>
-            <ul className="space-y-2 text-white/60">
+          <div className="text-center sm:text-left">
+            <h4 className="text-white font-bold mb-4 text-base sm:text-lg">Info</h4>
+            <ul className="space-y-2 text-white/60 text-sm sm:text-base">
               <li>{t('footer.info.address')}</li>
               <li>{t('footer.info.businessId')}</li>
             </ul>
@@ -165,11 +165,11 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-[#FF9B7D]/20 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-white/60 text-sm">
+        <div className="pt-6 sm:pt-8 border-t border-[#FF9B7D]/20 flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-4 text-center md:text-left">
+          <p className="text-white/60 text-xs sm:text-sm">
             {t('footer.copyright')}
           </p>
-          <p className="text-[#FF9B7D] font-semibold text-sm">
+          <p className="text-[#FF9B7D] font-semibold text-xs sm:text-sm">
             {t('footer.tagline')}
           </p>
         </div>
