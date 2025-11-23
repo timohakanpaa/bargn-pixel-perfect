@@ -2,11 +2,25 @@ import { Plus } from "lucide-react";
 import { useState } from "react";
 import { useInView } from "@/hooks/use-in-view";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { motion } from "framer-motion";
+import confetti from "canvas-confetti";
+import { useEffect } from "react";
 
 const CampaignFAQ = () => {
   const { ref, isInView } = useInView();
   const { t } = useLanguage();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  useEffect(() => {
+    if (isInView) {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#FF9B7D', '#E94B96', '#FFE500']
+      });
+    }
+  }, [isInView]);
 
   const faqs = [
     {
@@ -16,43 +30,47 @@ const CampaignFAQ = () => {
   ];
 
   return (
-    <section ref={ref} className="py-24 bg-gradient-to-b from-[#0c0a1f] via-[#1a0b2e] to-[#0f172a] relative">
+    <section ref={ref} className="py-24 bg-gradient-to-b from-[#0f0f23] via-[#1a0b2e] to-[#0f0f23] relative">
       <div className="container mx-auto px-6">
         <div className={`text-center mb-16 transition-all duration-1000 ${isInView ? 'animate-fade-in-up' : 'opacity-0'}`}>
           <h2 className="text-4xl md:text-6xl font-black mb-4">
-            <span className="bg-gradient-to-r from-[#ec4899] via-[#f97316] to-[#fbbf24] bg-clip-text text-transparent">
+            <span className="bg-gradient-pink-yellow bg-clip-text text-transparent">
               {t('campaign.faq.title')}
             </span>
           </h2>
-          <p className="text-lg text-[#f97316] font-semibold">
+          <p className="text-lg text-primary font-semibold">
             {t('campaign.faq.subtitle')}
           </p>
         </div>
 
         <div className="max-w-4xl mx-auto space-y-4">
           {faqs.map((faq, index) => (
-            <div
+            <motion.div
               key={index}
-              className={`bg-[#1a1a2e]/60 backdrop-blur-sm border border-[#ec4899]/20 rounded-2xl overflow-hidden transition-all duration-300 ${isInView ? 'animate-fade-in' : 'opacity-0'}`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className={`bg-glass backdrop-blur-xl border-2 border-glass rounded-2xl overflow-hidden hover:border-primary hover:shadow-glow-coral transition-all duration-300 ${isInView ? 'animate-fade-in' : 'opacity-0'}`}
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 className="w-full flex items-center justify-between p-6 text-left hover:bg-white/5 transition-colors"
               >
-                <h3 className="text-xl font-bold text-white pr-8">{faq.question}</h3>
+                <h3 className="text-xl font-bold text-foreground pr-8">{faq.question}</h3>
                 <Plus 
-                  className={`w-6 h-6 text-[#ec4899] flex-shrink-0 transition-transform duration-300 ${openIndex === index ? 'rotate-45' : ''}`}
+                  className={`w-6 h-6 text-primary flex-shrink-0 transition-transform duration-300 ${openIndex === index ? 'rotate-45' : ''}`}
                 />
               </button>
               <div 
                 className={`overflow-hidden transition-all duration-300 ${openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
               >
-                <div className="px-6 pb-6 text-foreground/80 leading-relaxed">
+                <div className="px-6 pb-6 text-muted-foreground leading-relaxed">
                   {faq.answer}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

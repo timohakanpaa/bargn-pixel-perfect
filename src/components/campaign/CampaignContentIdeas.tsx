@@ -1,42 +1,56 @@
 import { Video, Target, Eye } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { motion } from "framer-motion";
+import confetti from "canvas-confetti";
+import { useEffect } from "react";
 
 const CampaignContentIdeas = () => {
   const { ref, isInView } = useInView();
   const { t } = useLanguage();
+
+  useEffect(() => {
+    if (isInView) {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#FF9B7D', '#E94B96', '#FFE500']
+      });
+    }
+  }, [isInView]);
 
   const ideas = [
     {
       icon: Video,
       title: t('campaign.contentIdeas.idea1.title'),
       description: t('campaign.contentIdeas.idea1.description'),
-      gradient: "from-[#ec4899] to-[#f97316]"
+      gradient: "bg-gradient-pink-orange"
     },
     {
       icon: Target,
       title: t('campaign.contentIdeas.idea2.title'),
       description: t('campaign.contentIdeas.idea2.description'),
-      gradient: "from-[#f97316] to-[#fbbf24]"
+      gradient: "bg-gradient-orange-yellow"
     },
     {
       icon: Eye,
       title: t('campaign.contentIdeas.idea3.title'),
       description: t('campaign.contentIdeas.idea3.description'),
-      gradient: "from-[#fbbf24] to-[#ec4899]"
+      gradient: "bg-gradient-purple-yellow"
     }
   ];
 
   return (
-    <section ref={ref} className="py-24 bg-gradient-to-b from-[#0f172a] to-[#1e1b4b] relative">
+    <section ref={ref} className="py-24 bg-gradient-to-b from-[#0f0f23] to-[#1a0b2e] relative">
       <div className="container mx-auto px-6">
         <div className={`text-center mb-16 transition-all duration-1000 ${isInView ? 'animate-fade-in-up' : 'opacity-0'}`}>
           <h2 className="text-4xl md:text-6xl font-black mb-4">
-            <span className="bg-gradient-to-r from-[#f97316] to-[#fbbf24] bg-clip-text text-transparent">
+            <span className="bg-gradient-orange-yellow bg-clip-text text-transparent">
               {t('campaign.contentIdeas.title')}
             </span>
           </h2>
-          <p className="text-lg text-[#f97316] font-semibold">
+          <p className="text-lg text-primary font-semibold">
             {t('campaign.contentIdeas.subtitle')}
           </p>
         </div>
@@ -45,17 +59,22 @@ const CampaignContentIdeas = () => {
           {ideas.map((idea, index) => {
             const Icon = idea.icon;
             return (
-              <div
+              <motion.div
                 key={index}
-                className={`bg-[#1a1a2e]/60 backdrop-blur-sm border border-white/10 rounded-3xl p-8 hover:scale-105 transition-all duration-300 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.15 }}
+                whileHover={{ scale: 1.05, y: -10 }}
+                className={`bg-glass backdrop-blur-xl border-2 border-glass rounded-3xl p-8 hover:border-primary hover:shadow-glow-coral transition-all duration-300 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}
                 style={{ animationDelay: `${index * 150}ms` }}
               >
-                <div className={`w-16 h-16 mb-6 bg-gradient-to-br ${idea.gradient} rounded-2xl flex items-center justify-center`}>
-                  <Icon className="w-8 h-8 text-white" />
+                <div className={`w-16 h-16 mb-6 ${idea.gradient} rounded-2xl flex items-center justify-center shadow-glow-coral`}>
+                  <Icon className="w-8 h-8 text-foreground" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4">{idea.title}</h3>
-                <p className="text-foreground/70 leading-relaxed">{idea.description}</p>
-              </div>
+                <h3 className="text-xl font-bold text-foreground mb-4">{idea.title}</h3>
+                <p className="text-muted-foreground leading-relaxed">{idea.description}</p>
+              </motion.div>
             );
           })}
         </div>
