@@ -13,6 +13,82 @@ const getSessionId = (): string => {
   return sessionId;
 };
 
+// Event batching and deduplication
+interface QueuedEvent {
+  type: 'analytics' | 'funnel';
+  data: any;
+  timestamp: number;
+  dedupeKey: string;
+}
+
+const eventQueue: QueuedEvent[] = [];
+const processedEvents = new Set<string>();
+let batchTimeout: ReturnType<typeof setTimeout> | null = null;
+
+const BATCH_DELAY = 300; // ms - wait before sending batch
+const DEDUPE_WINDOW = 5000; // ms - time window to prevent duplicates
+
+// Process queued events in batch
+const processBatch = async () => {
+  if (eventQueue.length === 0) return;
+
+  const eventsToSend = [...eventQueue];
+  eventQueue.length = 0; // Clear queue
+
+  // Group events by type
+  const analyticEvents = eventsToSend.filter(e => e.type === 'analytics').map(e => e.data);
+  const funnelEvents = eventsToSend.filter(e => e.type === 'funnel').map(e => e.data);
+
+  // Send batched inserts
+  try {
+    const promises = [];
+    if (analyticEvents.length > 0) {
+      promises.push(supabase.from("analytics_events").insert(analyticEvents));
+    }
+    if (funnelEvents.length > 0) {
+      promises.push(supabase.from("funnel_progress").insert(funnelEvents));
+    }
+    await Promise.all(promises);
+  } catch (error) {
+    console.error("Batch analytics error:", error);
+  }
+
+  // Clean up old dedupe entries
+  const now = Date.now();
+  Array.from(processedEvents).forEach(key => {
+    const [timestamp] = key.split(':');
+    if (now - parseInt(timestamp) > DEDUPE_WINDOW) {
+      processedEvents.delete(key);
+    }
+  });
+};
+
+// Queue an event for batched sending
+const queueEvent = (type: 'analytics' | 'funnel', data: any, dedupeKey: string) => {
+  const now = Date.now();
+  const fullDedupeKey = `${now}:${dedupeKey}`;
+
+  // Check for duplicate within time window
+  const isDuplicate = Array.from(processedEvents).some(key => {
+    const [timestamp, existingKey] = key.split(':');
+    const timeDiff = now - parseInt(timestamp);
+    return timeDiff < DEDUPE_WINDOW && existingKey === dedupeKey;
+  });
+
+  if (isDuplicate) {
+    console.debug('Duplicate event prevented:', dedupeKey);
+    return;
+  }
+
+  // Add to queue and dedupe set
+  eventQueue.push({ type, data, timestamp: now, dedupeKey });
+  processedEvents.add(fullDedupeKey);
+
+  // Schedule batch processing
+  if (batchTimeout) clearTimeout(batchTimeout);
+  batchTimeout = setTimeout(processBatch, BATCH_DELAY);
+};
+
 interface AnalyticsEvent {
   event_type: string;
   event_name: string;
@@ -43,6 +119,7 @@ export const useAnalytics = () => {
   const { language } = useLanguage();
   const sessionId = useRef(getSessionId());
   const [activeFunnels, setActiveFunnels] = useState<ConversionFunnel[]>([]);
+  const lastTrackedPath = useRef<string>('');
 
   // Load active funnels on mount
   useEffect(() => {
@@ -94,13 +171,17 @@ export const useAnalytics = () => {
         const isCompleted = matchingStep.step_number === funnel.steps.length;
 
         if (isNewStep) {
-          await supabase.from("funnel_progress").insert({
+          const funnelData = {
             session_id: sessionId.current,
             funnel_id: funnel.id,
             current_step: matchingStep.step_number,
             completed: isCompleted,
             completed_at: isCompleted ? new Date().toISOString() : null,
-          });
+          };
+          
+          // Use batching with deduplication
+          const dedupeKey = `funnel_${funnel.id}_${matchingStep.step_number}_${sessionId.current}`;
+          queueEvent("funnel", funnelData, dedupeKey);
         }
       }
     }
@@ -110,8 +191,14 @@ export const useAnalytics = () => {
   const trackPageView = useCallback(async (pagePath?: string, pageTitle?: string) => {
     const path = pagePath || location.pathname;
     
+    // Prevent duplicate page view tracking for same path
+    if (lastTrackedPath.current === path) {
+      return;
+    }
+    lastTrackedPath.current = path;
+    
     try {
-      await supabase.from("analytics_events").insert({
+      const eventData = {
         session_id: sessionId.current,
         event_type: "page_view",
         event_name: `page_view_${path}`,
@@ -122,14 +209,18 @@ export const useAnalytics = () => {
         referrer: document.referrer || null,
         screen_width: window.screen.width,
         screen_height: window.screen.height,
-      });
+      };
 
-      // Track funnel progress
+      // Use batching with deduplication
+      const dedupeKey = `pageview_${path}_${sessionId.current}`;
+      queueEvent("analytics", eventData, dedupeKey);
+
+      // Track funnel progress (also uses batching)
       await trackFunnelProgress("page_view", undefined, path);
     } catch (error) {
       console.error("Analytics tracking error:", error);
     }
-  }, [location.pathname, language, trackFunnelProgress]);
+  }, [language, trackFunnelProgress]);
 
   // Enhanced trackButtonClick with funnel tracking
   const trackButtonClick = useCallback(async (
@@ -138,7 +229,7 @@ export const useAnalytics = () => {
     metadata?: Record<string, any>
   ) => {
     try {
-      await supabase.from("analytics_events").insert({
+      const eventData = {
         session_id: sessionId.current,
         event_type: "button_click",
         event_name: buttonName,
@@ -148,7 +239,11 @@ export const useAnalytics = () => {
         user_agent: navigator.userAgent,
         language,
         metadata: metadata || {},
-      });
+      };
+
+      // Use batching with deduplication
+      const dedupeKey = `click_${buttonName}_${Date.now()}`;
+      queueEvent("analytics", eventData, dedupeKey);
 
       // Track funnel progress
       await trackFunnelProgress("button_click", buttonName);
@@ -160,14 +255,18 @@ export const useAnalytics = () => {
   // Track custom event with funnel tracking
   const trackEvent = useCallback(async (event: AnalyticsEvent) => {
     try {
-      await supabase.from("analytics_events").insert({
+      const eventData = {
         session_id: sessionId.current,
         page_path: location.pathname,
         page_title: document.title,
         user_agent: navigator.userAgent,
         language,
         ...event,
-      });
+      };
+
+      // Use batching with deduplication
+      const dedupeKey = `event_${event.event_type}_${event.event_name}_${Date.now()}`;
+      queueEvent("analytics", eventData, dedupeKey);
 
       // Track funnel progress
       await trackFunnelProgress(event.event_type, event.event_name);
@@ -182,7 +281,7 @@ export const useAnalytics = () => {
     metadata?: Record<string, any>
   ) => {
     try {
-      await supabase.from("analytics_events").insert({
+      const eventData = {
         session_id: sessionId.current,
         event_type: "form_submit",
         event_name: formName,
@@ -191,7 +290,11 @@ export const useAnalytics = () => {
         user_agent: navigator.userAgent,
         language,
         metadata: metadata || {},
-      });
+      };
+
+      // Use batching with deduplication
+      const dedupeKey = `form_${formName}_${Date.now()}`;
+      queueEvent("analytics", eventData, dedupeKey);
     } catch (error) {
       console.error("Analytics tracking error:", error);
     }
@@ -203,7 +306,7 @@ export const useAnalytics = () => {
     linkText?: string
   ) => {
     try {
-      await supabase.from("analytics_events").insert({
+      const eventData = {
         session_id: sessionId.current,
         event_type: "navigation",
         event_name: `navigate_to_${destination}`,
@@ -213,7 +316,11 @@ export const useAnalytics = () => {
         user_agent: navigator.userAgent,
         language,
         metadata: { destination },
-      });
+      };
+
+      // Use batching with deduplication
+      const dedupeKey = `nav_${destination}_${Date.now()}`;
+      queueEvent("analytics", eventData, dedupeKey);
     } catch (error) {
       console.error("Analytics tracking error:", error);
     }
