@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import { useAnalytics } from "@/hooks/use-analytics";
+import AppStoreBadges from "@/components/AppStoreBadges";
 
 const Hero = () => {
   const { t } = useLanguage();
@@ -166,7 +167,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1 }}
-          className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 max-w-4xl mx-auto"
+          className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 max-w-4xl mx-auto mb-12 sm:mb-16"
         >
           <motion.div
             whileHover={{ scale: 1.05, y: -5 }}
@@ -195,8 +196,17 @@ const Hero = () => {
             <div className="text-5xl sm:text-6xl md:text-7xl font-black text-accent mb-2">
               <AnimatedCounter end={2} prefix="€" suffix="M+" />
             </div>
-            <div className="text-accent font-bold text-base sm:text-lg">{t("heroSaved")}</div>
+          <div className="text-accent font-bold text-base sm:text-lg">{t("heroSaved")}</div>
           </motion.div>
+        </motion.div>
+
+        {/* App Store Badges */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+        >
+          <AppStoreBadges />
         </motion.div>
       </motion.div>
     </section>

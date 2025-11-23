@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import bargnLogo from "@/assets/bargn-logo.png";
 import { z } from "zod";
+import AppStoreBadges from "@/components/AppStoreBadges";
 
 const newsletterSchema = z.object({
   email: z
@@ -162,6 +163,11 @@ const Footer = () => {
               <li>{t('footer.info.businessId')}</li>
             </ul>
           </div>
+        </div>
+
+        {/* App Store Badges */}
+        <div className="mb-8 sm:mb-12">
+          <AppStoreBadges />
         </div>
 
         {/* Bottom Bar */}
