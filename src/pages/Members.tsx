@@ -9,11 +9,13 @@ import AnimatedCounter from "@/components/AnimatedCounter";
 import SavingsCalculator from "@/components/SavingsCalculator";
 import { useAnalytics } from "@/hooks/use-analytics";
 import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
+import { useAggregateRatingSchema } from "@/hooks/use-aggregate-rating-schema";
 import { useEffect } from "react";
 
 const Members = () => {
   useAnalytics(); // Auto-track page view
   useBreadcrumbSchema();
+  useAggregateRatingSchema();
   const { t } = useLanguage();
   const { scrollY } = useScroll();
   
