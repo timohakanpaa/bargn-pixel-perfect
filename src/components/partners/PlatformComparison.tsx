@@ -88,10 +88,10 @@ const PlatformComparison = () => {
         {/* Comparison Cards */}
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {/* Traditional Platform */}
-          <div className="bg-card/50 backdrop-blur-xl border-2 border-destructive/50 rounded-3xl p-8 hover:scale-105 transition-all duration-300 shadow-lg">
+          <div className="bg-card/50 backdrop-blur-xl border-2 border-coral rounded-3xl p-8 hover:scale-105 transition-all duration-300 shadow-glow-coral">
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-16 h-16 bg-destructive/20 rounded-2xl flex items-center justify-center">
-                <TrendingDown className="w-8 h-8 text-destructive" />
+              <div className="w-16 h-16 bg-gradient-coral rounded-2xl flex items-center justify-center shadow-glow-coral">
+                <TrendingDown className="w-8 h-8 text-foreground" />
               </div>
               <div>
                 <h3 className="text-2xl font-black text-foreground">
@@ -117,20 +117,20 @@ const PlatformComparison = () => {
                 <span className="text-muted-foreground">{t("partners.comparison.revenue")}</span>
                 <span className="text-xl font-bold text-foreground">€<AnimatedCounter end={traditionalRevenue} duration={500} decimals={2} /></span>
               </div>
-              <div className="flex justify-between items-center p-4 bg-destructive/20 rounded-xl border-2 border-destructive">
-                <span className="text-destructive font-semibold">{t("partners.comparison.platformTakes")} ({platformCommission}%)</span>
-                <span className="text-xl font-bold text-destructive">-€<AnimatedCounter end={traditionalCommissionAmount} duration={500} decimals={2} /></span>
+              <div className="flex justify-between items-center p-4 bg-coral/20 rounded-xl border-2 border-coral">
+                <span className="text-coral font-semibold">{t("partners.comparison.platformTakes")} ({platformCommission}%)</span>
+                <span className="text-xl font-bold text-coral">-€<AnimatedCounter end={traditionalCommissionAmount} duration={500} decimals={2} /></span>
               </div>
             </div>
 
             {/* Final Result */}
-            <div className="p-6 bg-destructive/10 rounded-2xl border-2 border-destructive">
+            <div className="p-6 bg-coral/10 rounded-2xl border-2 border-coral">
               <p className="text-sm text-muted-foreground mb-2">{t("partners.comparison.youKeep")}</p>
-              <div className="text-5xl font-black text-destructive mb-2">
+              <div className="text-5xl font-black text-coral mb-2">
                 €<AnimatedCounter end={traditionalPartnerKeeps} duration={1000} decimals={2} />
               </div>
               <div className="flex items-center gap-2">
-                <div className="text-2xl font-bold text-destructive">
+                <div className="text-2xl font-bold text-coral">
                   <AnimatedCounter end={traditionalMargin} duration={1000} decimals={1} />%
                 </div>
                 <span className="text-sm text-muted-foreground">{t("partners.comparison.margin")}</span>
