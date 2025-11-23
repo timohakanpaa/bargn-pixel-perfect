@@ -13,15 +13,17 @@ const Campaign = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      <CampaignHero />
+      <div className="pt-[132px]">
+        <CampaignHero />
       <CampaignTestimonial />
       <CampaignStats />
       <CampaignAbout />
       <CampaignCommission />
       <CampaignProcess />
       <CampaignFAQ />
-      <CampaignCTA />
-      <Footer />
+        <CampaignCTA />
+        <Footer />
+      </div>
     </div>
   );
 };

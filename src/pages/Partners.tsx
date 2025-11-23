@@ -14,7 +14,8 @@ const Partners = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      <PartnerHero />
+      <div className="pt-[132px]">
+        <PartnerHero />
       <PartnerStats />
       <PlatformComparison />
       <PartnershipBenefits />
@@ -22,8 +23,9 @@ const Partners = () => {
       <PartnerTestimonials />
       <PartnershipProcess />
       <PartnerSignup />
-      <PartnerCTA />
-      <Footer />
+        <PartnerCTA />
+        <Footer />
+      </div>
     </div>
   );
 };
