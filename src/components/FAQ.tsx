@@ -5,7 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useInView } from "@/hooks/use-in-view";
-import { useEffect } from "react";
+import { useFAQSchema } from "@/hooks/use-faq-schema";
 
 const FAQ = () => {
   const { ref, isInView } = useInView();
@@ -37,28 +37,7 @@ const FAQ = () => {
     }
   ];
 
-  useEffect(() => {
-    // Inject FAQ Schema
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.text = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqData.map(faq => ({
-        "@type": "Question",
-        "name": faq.question,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": faq.answer
-        }
-      }))
-    });
-    document.head.appendChild(script);
-    
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
+  useFAQSchema(faqData, "main-faq-schema");
 
   return (
     <section ref={ref} className="py-24 relative overflow-hidden">
