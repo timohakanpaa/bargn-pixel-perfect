@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { MessageSquare, Users, Clock, AlertCircle } from "lucide-react";
+import { MessageSquare, Users, Clock, AlertCircle, LogOut } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
+import { useAuth } from "@/hooks/use-auth";
+import { Button } from "@/components/ui/button";
 
 interface AnalyticsSummary {
   date: string;
@@ -23,13 +25,16 @@ interface TopQuery {
 
 const ChatAnalytics = () => {
   useBreadcrumbSchema();
+  const { loading: authLoading, isAdmin, signOut } = useAuth(true);
   const [summaryData, setSummaryData] = useState<AnalyticsSummary[]>([]);
   const [topQueries, setTopQueries] = useState<TopQuery[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchAnalytics();
-  }, []);
+    if (!authLoading && isAdmin) {
+      fetchAnalytics();
+    }
+  }, [authLoading, isAdmin]);
 
   const fetchAnalytics = async () => {
     try {
@@ -83,17 +88,27 @@ const ChatAnalytics = () => {
 
   const avgResponseTime = summaryData.length > 0 ? totalStats.avgTime / summaryData.length : 0;
 
+  if (authLoading || !isAdmin) {
+    return null;
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Navigation />
       
       <main className="flex-1 container mx-auto px-4 py-24">
         <div className="max-w-6xl mx-auto space-y-8">
-          <div>
-            <h1 className="text-4xl font-bold mb-2">Chat Analytics</h1>
-            <p className="text-muted-foreground">
-              Track user interactions and understand what people are asking about
-            </p>
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-4xl font-bold mb-2">Chat Analytics</h1>
+              <p className="text-muted-foreground">
+                Track user interactions and understand what people are asking about
+              </p>
+            </div>
+            <Button onClick={signOut} variant="outline" size="sm">
+              <LogOut className="h-4 w-4 mr-2" />
+              Sign Out
+            </Button>
           </div>
 
           {loading ? (

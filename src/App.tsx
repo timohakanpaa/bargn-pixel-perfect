@@ -22,6 +22,7 @@ const HowItWorks = lazy(() => import("./pages/HowItWorks"));
 const About = lazy(() => import("./pages/About"));
 const Blog = lazy(() => import("./pages/Blog"));
 const BlogAdmin = lazy(() => import("./pages/BlogAdmin"));
+const Auth = lazy(() => import("./pages/Auth"));
 const ChatAnalytics = lazy(() => import("./pages/ChatAnalytics"));
 const Analytics = lazy(() => import("./pages/Analytics"));
 const Funnels = lazy(() => import("./pages/Funnels"));
@@ -64,6 +65,7 @@ const AppContent = () => {
           <Route path="/about" element={<About />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/admin" element={<BlogAdmin />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/analytics/chat" element={<ChatAnalytics />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/funnels" element={<Funnels />} />

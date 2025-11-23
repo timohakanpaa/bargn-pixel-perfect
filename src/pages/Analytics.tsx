@@ -12,13 +12,15 @@ import {
   TrendingUp,
   Navigation as NavigationIcon,
   FileText,
-  Target
+  Target,
+  LogOut
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useAnalytics } from "@/hooks/use-analytics";
 import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
+import { useAuth } from "@/hooks/use-auth";
 
 interface DailySummary {
   date: string;
@@ -50,6 +52,7 @@ interface ButtonClick {
 const Analytics = () => {
   useAnalytics(); // Track page view
   useBreadcrumbSchema();
+  const { loading: authLoading, isAdmin, signOut } = useAuth(true);
   
   const [dailySummary, setDailySummary] = useState<DailySummary[]>([]);
   const [pageViews, setPageViews] = useState<PageView[]>([]);
@@ -57,8 +60,10 @@ const Analytics = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchAnalytics();
-  }, []);
+    if (!authLoading && isAdmin) {
+      fetchAnalytics();
+    }
+  }, [authLoading, isAdmin]);
 
   const fetchAnalytics = async () => {
     try {
@@ -106,6 +111,10 @@ const Analytics = () => {
     { events: 0, sessions: 0, pageViews: 0, clicks: 0, conversions: 0 }
   );
 
+  if (authLoading || !isAdmin) {
+    return null;
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Navigation />
@@ -120,12 +129,18 @@ const Analytics = () => {
                   Track every interaction across your application
                 </p>
               </div>
-              <Link to="/funnels">
-                <Button variant="secondary" className="gap-2">
-                  <Target className="w-4 h-4" />
-                  View Conversion Funnels
+              <div className="flex gap-2">
+                <Link to="/funnels">
+                  <Button variant="secondary" className="gap-2">
+                    <Target className="w-4 h-4" />
+                    View Conversion Funnels
+                  </Button>
+                </Link>
+                <Button onClick={signOut} variant="outline" size="sm">
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Sign Out
                 </Button>
-              </Link>
+              </div>
             </div>
           </div>
 
