@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Slider } from "@/components/ui/slider";
-import { TrendingUp, Sparkles } from "lucide-react";
+import { TrendingUp, Sparkles, PartyPopper } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import confetti from "canvas-confetti";
+import { useToast } from "@/hooks/use-toast";
 
 const SavingsCalculator = () => {
   const { language } = useLanguage();
+  const { toast } = useToast();
   const [monthlySpending, setMonthlySpending] = useState(500);
+  const [hasTriggeredConfetti, setHasTriggeredConfetti] = useState<{[key: number]: boolean}>({});
   
   // Calculate savings (50% discount on spending)
   const monthlySavings = Math.round(monthlySpending * 0.5);
@@ -20,12 +24,103 @@ const SavingsCalculator = () => {
   // Progress bar percentage (max at €5000 annual savings for visual purposes)
   const progressPercentage = Math.min((annualSavings / 5000) * 100, 100);
 
+  // Confetti celebration thresholds
+  const celebrationThresholds = [1000, 2000, 3000, 5000, 10000];
+
+  // Trigger confetti when crossing thresholds
+  useEffect(() => {
+    celebrationThresholds.forEach((threshold) => {
+      if (annualSavings >= threshold && !hasTriggeredConfetti[threshold]) {
+        triggerConfetti(threshold);
+        setHasTriggeredConfetti(prev => ({ ...prev, [threshold]: true }));
+      } else if (annualSavings < threshold && hasTriggeredConfetti[threshold]) {
+        // Reset if going below threshold
+        setHasTriggeredConfetti(prev => {
+          const newState = { ...prev };
+          delete newState[threshold];
+          return newState;
+        });
+      }
+    });
+  }, [annualSavings, hasTriggeredConfetti]);
+
+  const triggerConfetti = (threshold: number) => {
+    // Different confetti styles based on threshold
+    const count = threshold >= 5000 ? 200 : threshold >= 3000 ? 150 : 100;
+    const spread = threshold >= 5000 ? 100 : 70;
+
+    // Fire confetti from multiple positions
+    const duration = threshold >= 5000 ? 3000 : 2000;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 30, spread, ticks: 60, zIndex: 9999 };
+
+    function randomInRange(min: number, max: number) {
+      return Math.random() * (max - min) + min;
+    }
+
+    const interval: any = setInterval(function() {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+
+      const particleCount = count * (timeLeft / duration);
+
+      // Confetti from left
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+        colors: ['#f88170', '#ef1df2', '#ffe500', '#ff6b9d']
+      });
+      
+      // Confetti from right
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+        colors: ['#f88170', '#ef1df2', '#ffe500', '#ff6b9d']
+      });
+    }, 250);
+
+    // Show toast message
+    const messages = {
+      1000: { en: "€1K+ in savings! You're on fire! 🔥", fi: "€1K+ säästöissä! Olet tulessa! 🔥" },
+      2000: { en: "€2K savings! Financial genius unlocked! 🧠", fi: "€2K säästöjä! Talousnerouden lukitus avattu! 🧠" },
+      3000: { en: "€3K+! You're basically a savings legend! ⭐", fi: "€3K+! Oot periaatteessa säästölegenda! ⭐" },
+      5000: { en: "€5K+!! ABSOLUTE LEGEND STATUS! 👑", fi: "€5K+!! ABSOLUUTTINEN LEGENDA! 👑" },
+      10000: { en: "€10K+!!! ARE YOU EVEN REAL?! 🚀🎉", fi: "€10K+!!! OLETKO EDES OIKEA?! 🚀🎉" }
+    };
+
+    toast({
+      title: messages[threshold as keyof typeof messages][language as 'en' | 'fi'],
+      description: language === "en" 
+        ? "Keep sliding to see what's possible!" 
+        : "Jatka liukumista nähdäksesi mitä on mahdollista!",
+      duration: 3000,
+    });
+  };
+
   const formatCurrency = (amount: number) => {
     return `€${amount.toLocaleString()}`;
   };
 
   return (
-    <div className="bg-glass backdrop-blur-2xl border-2 border-glass rounded-3xl p-8 md:p-12 hover:border-primary hover:shadow-glow-coral transition-all duration-300">
+    <div className="bg-glass backdrop-blur-2xl border-2 border-glass rounded-3xl p-8 md:p-12 hover:border-primary hover:shadow-glow-coral transition-all duration-300 relative overflow-hidden">
+      {/* Celebration indicator */}
+      {annualSavings >= 3000 && (
+        <motion.div
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ scale: 1, rotate: 0 }}
+          className="absolute top-4 right-4"
+        >
+          <div className="w-16 h-16 bg-gradient-purple-yellow rounded-full flex items-center justify-center shadow-glow-yellow animate-pulse">
+            <PartyPopper className="w-8 h-8 text-foreground" />
+          </div>
+        </motion.div>
+      )}
+
       <div className="flex items-center justify-center gap-3 mb-8">
         <div className="w-14 h-14 bg-gradient-purple-yellow rounded-2xl flex items-center justify-center shadow-glow-yellow">
           <TrendingUp className="w-7 h-7 text-foreground" />
