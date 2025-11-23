@@ -260,6 +260,15 @@ const translations: Record<Language, Record<string, string>> = {
     "404.headline": "Wrong Turn, Right App",
     "404.subtext": "Page missing, deals not. Let's get you back to the gold rush.",
     "404.cta": "Back to Home",
+    // Privacy Policy
+    "privacy.intro": "The lawyers made us write this. Grab a coffee, it's dry.",
+    "privacy.title": "Privacy Policy",
+    // Terms of Service
+    "terms.intro": "Yes, you have to read this. No, we don't like it either.",
+    "terms.title": "Terms of Service",
+    // Cookie Policy
+    "cookies.intro": "Not the chocolate chip kind. The internet stalker kind.",
+    "cookies.title": "Cookie Policy",
     "campaign.contentIdeas.title": "Content Ideas That Don't Make You Cringe",
     "campaign.contentIdeas.subtitle": "Here's some inspo that won't make your followers unfollow you:",
     "campaign.contentIdeas.idea1.title": "'I Tried the Discount App Everyone's Talking About'",
@@ -648,6 +657,15 @@ const translations: Record<Language, Record<string, string>> = {
     "404.headline": "Väärä Suunta, Oikea Appi",
     "404.subtext": "Sivu hukassa, diilit ei. Mennään takaisin kultasuoneen.",
     "404.cta": "Takaisin Kotiin",
+    // Privacy Policy
+    "privacy.intro": "Lakimiehet pakotti. Ota kahvia, tää on kuivaa.",
+    "privacy.title": "Tietosuojakäytäntö",
+    // Terms of Service
+    "terms.intro": "Joo, sun täytyy lukee tää. Ei, me ei tykkää tästä myöskään.",
+    "terms.title": "Käyttöehdot",
+    // Cookie Policy
+    "cookies.intro": "Ei suklaakeksi. Internet stalker tyyppiä.",
+    "cookies.title": "Evästekäytäntö",
   },
 };
 

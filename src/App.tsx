@@ -16,6 +16,9 @@ import BlogAdmin from "./pages/BlogAdmin";
 import ChatAnalytics from "./pages/ChatAnalytics";
 import Analytics from "./pages/Analytics";
 import Funnels from "./pages/Funnels";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
+import Cookies from "./pages/Cookies";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +42,9 @@ const App = () => (
             <Route path="/analytics/chat" element={<ChatAnalytics />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/funnels" element={<Funnels />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/cookies" element={<Cookies />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
