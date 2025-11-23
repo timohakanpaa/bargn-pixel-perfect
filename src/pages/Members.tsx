@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import SavingsCalculator from "@/components/SavingsCalculator";
 
 const Members = () => {
   const { t } = useLanguage();
@@ -209,6 +210,20 @@ const Members = () => {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Savings Calculator Section */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto"
+          >
+            <SavingsCalculator />
+          </motion.div>
         </div>
       </section>
 
