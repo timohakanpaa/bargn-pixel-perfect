@@ -8,8 +8,10 @@ import { useInView } from "@/hooks/use-in-view";
 import confetti from "canvas-confetti";
 import { useEffect, useState } from "react";
 import { getBlogImageUrl } from "@/utils/generateBlogImages";
+import { useAnalytics } from "@/hooks/use-analytics";
 
 const Blog = () => {
+  useAnalytics(); // Auto-track page view
   const { t } = useLanguage();
   const { scrollY } = useScroll();
   const [activeCategory, setActiveCategory] = useState("all");

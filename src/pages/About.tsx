@@ -7,8 +7,10 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useInView } from "@/hooks/use-in-view";
 import confetti from "canvas-confetti";
 import { useEffect, useState } from "react";
+import { useAnalytics } from "@/hooks/use-analytics";
 
 const About = () => {
+  useAnalytics(); // Auto-track page view
   const { t } = useLanguage();
   const { scrollY } = useScroll();
   const [hasTriggeredConfetti, setHasTriggeredConfetti] = useState(false);
