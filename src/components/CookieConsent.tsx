@@ -85,44 +85,45 @@ const CookieConsent = () => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed bottom-0 left-0 right-0 z-[9999] p-4 sm:p-6"
+            className="fixed bottom-4 left-4 right-4 sm:left-6 sm:right-6 md:left-auto md:right-6 md:w-[480px] z-[9999]"
           >
-            <div className="max-w-4xl mx-auto bg-background border-2 border-primary rounded-3xl shadow-[0_0_40px_rgba(239,29,242,0.4)] overflow-hidden">
+            <div className="bg-background border-2 border-primary rounded-2xl shadow-[0_0_30px_rgba(239,29,242,0.4)] overflow-hidden">
               {/* Close Button */}
               <button
                 onClick={handleClose}
-                className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors z-10"
+                className="absolute top-3 right-3 text-muted-foreground hover:text-foreground transition-colors z-10"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5" />
               </button>
 
-              <div className="p-6 sm:p-8">
+              <div className="p-4 sm:p-5">
                 {!showSettings ? (
                   <>
                     {/* Main View */}
-                    <div className="flex items-start gap-4 mb-6">
+                    <div className="flex items-start gap-3 mb-4">
                       <div className="flex-shrink-0">
                         <motion.div
                           animate={{ rotate: [0, -10, 10, -10, 0] }}
                           transition={{ duration: 1, repeat: Infinity, repeatDelay: 3 }}
-                          className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-coral-purple rounded-2xl flex items-center justify-center shadow-glow-coral"
+                          className="w-10 h-10 bg-gradient-coral-purple rounded-xl flex items-center justify-center shadow-glow-coral"
                         >
-                          <Cookie className="w-6 h-6 sm:w-8 sm:h-8 text-foreground" />
+                          <Cookie className="w-5 h-5 text-foreground" />
                         </motion.div>
                       </div>
                       
-                      <div className="flex-1">
-                        <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
+                      <div className="flex-1 pr-6">
+                        <h3 className="text-base sm:text-lg font-bold text-foreground mb-1">
                           {t("cookieConsent.title")}
                         </h3>
-                        <p className="text-sm sm:text-base text-muted-foreground mb-4">
+                        <p className="text-xs sm:text-sm text-muted-foreground mb-2">
                           {t("cookieConsent.description")}
                         </p>
-                        <p className="text-xs sm:text-sm text-muted-foreground/80">
+                        <p className="text-xs text-muted-foreground/80">
                           {t("cookieConsent.moreInfo")}{" "}
                           <a
                             href="/cookies"
                             className="text-primary hover:underline font-semibold"
+                            onClick={() => setIsVisible(false)}
                           >
                             {t("cookieConsent.learnMore")}
                           </a>
@@ -131,63 +132,68 @@ const CookieConsent = () => {
                     </div>
 
                     {/* Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-3">
+                    <div className="flex flex-col gap-2">
                       <Button
                         variant="neon"
                         onClick={handleAcceptAll}
-                        className="flex-1 rounded-full shadow-[0_0_20px_rgba(255,220,74,0.6)]"
+                        size="sm"
+                        className="w-full rounded-full shadow-[0_0_15px_rgba(255,220,74,0.6)] text-sm"
                       >
                         {t("cookieConsent.acceptAll")}
                       </Button>
-                      <Button
-                        variant="outline"
-                        onClick={handleRejectAll}
-                        className="flex-1 rounded-full border-2 hover:border-primary hover:bg-primary/10"
-                      >
-                        {t("cookieConsent.rejectAll")}
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        onClick={() => setShowSettings(true)}
-                        className="flex-1 rounded-full hover:bg-glass"
-                      >
-                        <Settings className="w-4 h-4 mr-2" />
-                        {t("cookieConsent.customize")}
-                      </Button>
+                      <div className="flex gap-2">
+                        <Button
+                          variant="outline"
+                          onClick={handleRejectAll}
+                          size="sm"
+                          className="flex-1 rounded-full border hover:border-primary hover:bg-primary/10 text-xs"
+                        >
+                          {t("cookieConsent.rejectAll")}
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          onClick={() => setShowSettings(true)}
+                          size="sm"
+                          className="flex-1 rounded-full hover:bg-glass text-xs"
+                        >
+                          <Settings className="w-3 h-3 mr-1" />
+                          {t("cookieConsent.customize")}
+                        </Button>
+                      </div>
                     </div>
                   </>
                 ) : (
                   <>
                     {/* Settings View */}
-                    <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-6">
+                    <h3 className="text-base sm:text-lg font-bold text-foreground mb-3 pr-6">
                       {t("cookieConsent.settingsTitle")}
                     </h3>
 
-                    <div className="space-y-6 mb-6">
+                    <div className="space-y-3 mb-4 max-h-[50vh] overflow-y-auto">
                       {/* Essential Cookies */}
-                      <div className="flex items-start justify-between gap-4 p-4 bg-glass rounded-xl border border-glass">
+                      <div className="flex items-start justify-between gap-3 p-3 bg-glass rounded-lg border border-glass">
                         <div className="flex-1">
-                          <Label className="text-base font-semibold text-foreground mb-1 block">
+                          <Label className="text-sm font-semibold text-foreground mb-0.5 block">
                             {t("cookieConsent.essential.title")}
                           </Label>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-xs text-muted-foreground">
                             {t("cookieConsent.essential.description")}
                           </p>
                         </div>
                         <Switch
                           checked={preferences.essential}
                           disabled
-                          className="opacity-50 cursor-not-allowed"
+                          className="opacity-50 cursor-not-allowed flex-shrink-0"
                         />
                       </div>
 
                       {/* Analytics Cookies */}
-                      <div className="flex items-start justify-between gap-4 p-4 bg-glass rounded-xl border border-glass">
+                      <div className="flex items-start justify-between gap-3 p-3 bg-glass rounded-lg border border-glass">
                         <div className="flex-1">
-                          <Label className="text-base font-semibold text-foreground mb-1 block">
+                          <Label className="text-sm font-semibold text-foreground mb-0.5 block">
                             {t("cookieConsent.analytics.title")}
                           </Label>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-xs text-muted-foreground">
                             {t("cookieConsent.analytics.description")}
                           </p>
                         </div>
@@ -196,16 +202,17 @@ const CookieConsent = () => {
                           onCheckedChange={(checked) =>
                             setPreferences({ ...preferences, analytics: checked })
                           }
+                          className="flex-shrink-0"
                         />
                       </div>
 
                       {/* Marketing Cookies */}
-                      <div className="flex items-start justify-between gap-4 p-4 bg-glass rounded-xl border border-glass">
+                      <div className="flex items-start justify-between gap-3 p-3 bg-glass rounded-lg border border-glass">
                         <div className="flex-1">
-                          <Label className="text-base font-semibold text-foreground mb-1 block">
+                          <Label className="text-sm font-semibold text-foreground mb-0.5 block">
                             {t("cookieConsent.marketing.title")}
                           </Label>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-xs text-muted-foreground">
                             {t("cookieConsent.marketing.description")}
                           </p>
                         </div>
@@ -214,23 +221,26 @@ const CookieConsent = () => {
                           onCheckedChange={(checked) =>
                             setPreferences({ ...preferences, marketing: checked })
                           }
+                          className="flex-shrink-0"
                         />
                       </div>
                     </div>
 
                     {/* Settings Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-3">
+                    <div className="flex gap-2">
                       <Button
                         variant="neon"
                         onClick={handleSavePreferences}
-                        className="flex-1 rounded-full shadow-[0_0_20px_rgba(255,220,74,0.6)]"
+                        size="sm"
+                        className="flex-1 rounded-full shadow-[0_0_15px_rgba(255,220,74,0.6)] text-sm"
                       >
                         {t("cookieConsent.savePreferences")}
                       </Button>
                       <Button
                         variant="ghost"
                         onClick={() => setShowSettings(false)}
-                        className="flex-1 rounded-full hover:bg-glass"
+                        size="sm"
+                        className="flex-1 rounded-full hover:bg-glass text-sm"
                       >
                         {t("cookieConsent.back")}
                       </Button>
