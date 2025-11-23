@@ -11,11 +11,34 @@ import { useAnalytics } from "@/hooks/use-analytics";
 import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 import { useAggregateRatingSchema } from "@/hooks/use-aggregate-rating-schema";
 import { useSoftwareAppSchema } from "@/hooks/use-software-app-schema";
+import { useLocalBusinessSchema } from "@/hooks/use-local-business-schema";
 
 const Index = () => {
   useAnalytics(); // Auto-track page view
   useBreadcrumbSchema();
   useAggregateRatingSchema();
+  
+  // Inject LocalBusiness schema for AI platforms
+  useLocalBusinessSchema({
+    name: "Bargn",
+    description: "AI-powered discount membership platform offering 50% off at restaurants, bars, gyms, and spas in Helsinki. Smart spending made simple with personalized recommendations.",
+    address: {
+      streetAddress: "Mannerheimintie 12",
+      addressLocality: "Helsinki",
+      addressRegion: "Uusimaa",
+      postalCode: "00100",
+      addressCountry: "FI"
+    },
+    geo: {
+      latitude: 60.1699,
+      longitude: 24.9384
+    },
+    email: "hello@bargn.app",
+    priceRange: "€€",
+    openingHours: ["Mo-Su 00:00-24:00"],
+    paymentAccepted: ["Credit Card", "Debit Card", "Mobile Payment"],
+    currenciesAccepted: ["EUR"]
+  });
   
   // Inject SoftwareApplication schema for mobile app
   useSoftwareAppSchema({

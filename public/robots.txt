@@ -1,17 +1,65 @@
+# Allow major search engines
 User-agent: Googlebot
 Allow: /
 
 User-agent: Bingbot
 Allow: /
 
+# Allow AI crawlers - OpenAI
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Allow AI crawlers - Google AI
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+# Allow AI crawlers - Anthropic Claude
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# Allow AI crawlers - Meta AI
+User-agent: FacebookBot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+# Allow AI crawlers - Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Allow AI crawlers - Cohere
+User-agent: cohere-ai
+Allow: /
+
+# Allow social media crawlers
 User-agent: Twitterbot
 Allow: /
 
 User-agent: facebookexternalhit
 Allow: /
 
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+# Allow all other bots
 User-agent: *
 Allow: /
 
 # Sitemap location
 Sitemap: https://bargn.app/sitemap.xml
+
+# Additional AI-friendly directives
+Crawl-delay: 1
