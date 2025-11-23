@@ -38,6 +38,7 @@ const CookieConsent = () => {
       timestamp: new Date().toISOString(),
     };
     localStorage.setItem("bargn_cookie_consent", JSON.stringify(allAccepted));
+    window.dispatchEvent(new Event("cookieConsentUpdated"));
     setIsVisible(false);
   };
 
@@ -49,6 +50,7 @@ const CookieConsent = () => {
       timestamp: new Date().toISOString(),
     };
     localStorage.setItem("bargn_cookie_consent", JSON.stringify(onlyEssential));
+    window.dispatchEvent(new Event("cookieConsentUpdated"));
     setIsVisible(false);
   };
 
@@ -58,6 +60,7 @@ const CookieConsent = () => {
       timestamp: new Date().toISOString(),
     };
     localStorage.setItem("bargn_cookie_consent", JSON.stringify(savedPreferences));
+    window.dispatchEvent(new Event("cookieConsentUpdated"));
     setIsVisible(false);
   };
 
