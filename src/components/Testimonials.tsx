@@ -1,26 +1,14 @@
 import { Star } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { TiltCard } from "@/components/animations/TiltCard";
-import { useParallax } from "@/hooks/use-parallax";
 
 const Testimonials = () => {
   const { ref, isInView } = useInView();
-  const parallax1 = useParallax({ speed: 0.45, direction: 'up' });
-  const parallax2 = useParallax({ speed: 0.55, direction: 'down' });
 
   return (
     <section ref={ref} className="py-16 sm:py-24 relative overflow-hidden">
-      {/* Parallax background elements */}
-      <div 
-        ref={parallax1.ref}
-        className="absolute top-20 left-20 w-72 h-72 bg-gradient-pink-orange opacity-15 blur-3xl rounded-full pointer-events-none"
-        style={{ transform: `translateY(${parallax1.offset}px)` }}
-      />
-      <div 
-        ref={parallax2.ref}
-        className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-purple-yellow opacity-15 blur-3xl rounded-full pointer-events-none"
-        style={{ transform: `translateY(${parallax2.offset}px)` }}
-      />
+      {/* Single optimized background element */}
+      <div className="absolute inset-0 bg-gradient-pink-orange opacity-8 blur-3xl pointer-events-none" />
       <div className={`container mx-auto px-4 sm:px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-center mb-12 sm:mb-16 text-foreground">
           What Our Community Says

@@ -3,26 +3,14 @@ import { Check, Sparkles, MapPin } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { TiltCard } from "@/components/animations/TiltCard";
 import AnimatedCounter from "@/components/AnimatedCounter";
-import { useParallax } from "@/hooks/use-parallax";
 
 const Pricing = () => {
   const { ref, isInView } = useInView();
-  const parallax1 = useParallax({ speed: 0.5, direction: 'down' });
-  const parallax2 = useParallax({ speed: 0.4, direction: 'up' });
 
   return (
     <section ref={ref} className="py-16 sm:py-24 relative overflow-hidden">
-      {/* Parallax background elements */}
-      <div 
-        ref={parallax1.ref}
-        className="absolute top-0 right-10 w-80 h-80 bg-gradient-purple-yellow opacity-20 blur-3xl rounded-full pointer-events-none"
-        style={{ transform: `translateY(${parallax1.offset}px)` }}
-      />
-      <div 
-        ref={parallax2.ref}
-        className="absolute bottom-0 left-10 w-96 h-96 bg-gradient-coral-purple opacity-20 blur-3xl rounded-full pointer-events-none"
-        style={{ transform: `translateY(${parallax2.offset}px)` }}
-      />
+      {/* Single optimized background element */}
+      <div className="absolute inset-0 bg-gradient-purple-yellow opacity-8 blur-3xl pointer-events-none" />
       <div className={`container mx-auto px-4 sm:px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
         <h2 className="text-4xl sm:text-6xl md:text-7xl font-black text-center mb-4 sm:mb-6 text-primary">
           50% OFF
