@@ -13,7 +13,7 @@ interface AnalyticsSummary {
   unique_sessions: number;
   avg_response_time_ms: number;
   error_count: number;
-  language: string;
+  success_rate: number;
 }
 
 interface TopQuery {
