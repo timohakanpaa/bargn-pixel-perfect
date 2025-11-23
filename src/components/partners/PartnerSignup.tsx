@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { toast } from "sonner";
 import confetti from "canvas-confetti";
+import { trackAllPlatforms } from "@/utils/tracking";
 
 const PartnerSignup = () => {
   const { ref, isInView } = useInView();
@@ -85,6 +86,14 @@ const PartnerSignup = () => {
         colors: ['#f88170', '#ef1df2', '#ffe500', '#ff6b9d']
       });
     }, 250);
+
+    // Track partner application conversion
+    trackAllPlatforms("form_submit", {
+      form_name: "partner_application",
+      venue_name: formData.venueName,
+      city: formData.city,
+      conversion_type: "partner_signup"
+    });
 
     toast.success(t("partners.signup.form.success"));
     setFormData({ venueName: "", city: "", email: "" });

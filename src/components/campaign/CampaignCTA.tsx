@@ -3,12 +3,20 @@ import { Rocket } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { useLanguage } from "@/contexts/LanguageContext";
 import confetti from "canvas-confetti";
+import { trackAllPlatforms } from "@/utils/tracking";
 
 const CampaignCTA = () => {
   const { ref, isInView } = useInView();
   const { t } = useLanguage();
 
   const handleClick = () => {
+    // Track campaign registration intent
+    trackAllPlatforms("button_click", {
+      button_name: "campaign_registration",
+      campaign_type: "creator_campaign",
+      conversion_type: "campaign_signup_intent"
+    });
+
     const count = 200;
     const defaults = {
       origin: { y: 0.7 },
