@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import bargnLogo from "@/assets/bargn-logo.png";
+import { useAuth } from "@/hooks/use-auth";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,6 +17,7 @@ import {
 const Navigation = () => {
   const { language, setLanguage, t } = useLanguage();
   const location = useLocation();
+  const { isAdmin } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [dragThresholdReached, setDragThresholdReached] = useState(false);
 
@@ -93,36 +95,38 @@ const Navigation = () => {
               </NavLink>
             ))}
             
-            {/* Admin Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className={`text-sm font-medium transition-colors flex items-center gap-1 ${
-                  isAdminRoute 
-                    ? "text-primary font-bold" 
-                    : "text-foreground hover:text-primary"
-                }`}>
-                  Admin
-                  <ChevronDown className="w-4 h-4" />
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56 bg-background/95 backdrop-blur-xl border-glass">
-                {adminItems.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <DropdownMenuItem key={item.to} asChild>
-                      <NavLink
-                        to={item.to}
-                        className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-foreground hover:text-primary cursor-pointer"
-                        activeClassName="text-primary font-bold bg-glass"
-                      >
-                        <Icon className="w-4 h-4" />
-                        {item.label}
-                      </NavLink>
-                    </DropdownMenuItem>
-                  );
-                })}
-              </DropdownMenuContent>
-            </DropdownMenu>
+            {/* Admin Dropdown - Only visible to authenticated admins */}
+            {isAdmin && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className={`text-sm font-medium transition-colors flex items-center gap-1 ${
+                    isAdminRoute 
+                      ? "text-primary font-bold" 
+                      : "text-foreground hover:text-primary"
+                  }`}>
+                    Admin
+                    <ChevronDown className="w-4 h-4" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56 bg-background/95 backdrop-blur-xl border-glass">
+                  {adminItems.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <DropdownMenuItem key={item.to} asChild>
+                        <NavLink
+                          to={item.to}
+                          className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-foreground hover:text-primary cursor-pointer"
+                          activeClassName="text-primary font-bold bg-glass"
+                        >
+                          <Icon className="w-4 h-4" />
+                          {item.label}
+                        </NavLink>
+                      </DropdownMenuItem>
+                    );
+                  })}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </div>
 
           {/* Desktop Right Section */}
@@ -271,32 +275,34 @@ const Navigation = () => {
                 ))}
               </nav>
 
-              {/* Admin Section - Mobile */}
-              <div className="pt-4 border-t border-glass">
-                <p className="text-xs font-bold text-muted-foreground uppercase px-4 mb-2">Admin</p>
-                <nav className="space-y-2">
-                  {adminItems.map((item, index) => {
-                    const Icon = item.icon;
-                    return (
-                      <motion.div
-                        key={item.to}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: (menuItems.length + index) * 0.05 }}
-                      >
-                        <NavLink
-                          to={item.to}
-                          className="flex items-center gap-3 px-4 py-4 text-lg font-medium text-foreground hover:bg-glass rounded-xl transition-all"
-                          activeClassName="bg-glass text-primary font-bold border-l-4 border-primary"
+              {/* Admin Section - Mobile - Only visible to authenticated admins */}
+              {isAdmin && (
+                <div className="pt-4 border-t border-glass">
+                  <p className="text-xs font-bold text-muted-foreground uppercase px-4 mb-2">Admin</p>
+                  <nav className="space-y-2">
+                    {adminItems.map((item, index) => {
+                      const Icon = item.icon;
+                      return (
+                        <motion.div
+                          key={item.to}
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: (menuItems.length + index) * 0.05 }}
                         >
-                          <Icon className="w-5 h-5" />
-                          {item.label}
-                        </NavLink>
-                      </motion.div>
-                    );
-                  })}
-                </nav>
-              </div>
+                          <NavLink
+                            to={item.to}
+                            className="flex items-center gap-3 px-4 py-4 text-lg font-medium text-foreground hover:bg-glass rounded-xl transition-all"
+                            activeClassName="bg-glass text-primary font-bold border-l-4 border-primary"
+                          >
+                            <Icon className="w-5 h-5" />
+                            {item.label}
+                          </NavLink>
+                        </motion.div>
+                      );
+                    })}
+                  </nav>
+                </div>
+              )}
 
               {/* Mobile Actions - min 44px touch targets */}
               <div className="space-y-3 pt-6 border-t border-glass">
