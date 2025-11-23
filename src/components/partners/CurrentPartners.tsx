@@ -15,11 +15,9 @@ const CurrentPartners = () => {
     <section ref={ref} className="py-24 relative overflow-hidden">
       <div className={`container mx-auto px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
         <div className="text-center mb-16">
-          <p className="text-accent text-lg font-bold mb-4">Current Partners</p>
-          <h2 className="text-5xl md:text-6xl font-black mb-6">
-            <span className="bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent">
-              The Cool Kids' Table (And You're Invited)
-            </span>
+          <p className="text-accent text-lg font-bold mb-4 uppercase tracking-wider">Current Partners</p>
+          <h2 className="text-5xl md:text-6xl font-black mb-6 text-foreground">
+            The Cool Kids' Table (And You're Invited)
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             From that hipster coffee shop you Instagram to the spa where influencers get 'work done' - yeah, they're all here.

@@ -54,11 +54,17 @@ export default {
         'gradient-yellow': 'var(--gradient-yellow)',
         'gradient-coral-purple': 'var(--gradient-coral-purple)',
         'gradient-purple-yellow': 'var(--gradient-purple-yellow)',
+        'gradient-pink-orange': 'var(--gradient-pink-orange)',
+        'gradient-orange-yellow': 'var(--gradient-orange-yellow)',
+        'gradient-pink-yellow': 'var(--gradient-pink-yellow)',
+        'gradient-purple-pink': 'var(--gradient-purple-pink)',
       },
       boxShadow: {
         'glow-coral': 'var(--glow-coral)',
         'glow-purple': 'var(--glow-purple)',
         'glow-yellow': 'var(--glow-yellow)',
+        'glow-pink': 'var(--glow-pink)',
+        'glow-orange': 'var(--glow-orange)',
       },
       backgroundColor: {
         'glass': 'var(--glass-bg)',

@@ -36,8 +36,8 @@ const PartnerTestimonials = () => {
     <section ref={ref} className="py-24 relative overflow-hidden">
       <div className={`container mx-auto px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
         <div className="text-center mb-16">
-          <p className="text-primary text-lg font-bold mb-4">Partner Success Stories</p>
-          <h2 className="text-5xl md:text-6xl font-black mb-6">
+          <p className="text-accent text-lg font-bold mb-4 uppercase tracking-wider">Partner Success Stories</p>
+          <h2 className="text-5xl md:text-6xl font-black mb-6 text-foreground">
             Success Stories (Not Paid Actors, We Promise)
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -49,7 +49,7 @@ const PartnerTestimonials = () => {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className={`bg-gradient-to-br ${testimonial.gradient} backdrop-blur-sm rounded-3xl p-8 border border-border/30 hover:scale-105 hover:-translate-y-2 transition-all duration-300 ${testimonial.featured ? 'md:col-span-1' : ''}`}
+              className={`bg-gradient-to-br ${testimonial.gradient} backdrop-blur-xl rounded-3xl p-8 border-2 border-glass hover:scale-105 hover:-translate-y-2 transition-all duration-300 ${testimonial.featured ? 'md:col-span-1' : ''}`}
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-16 h-16 bg-gradient-orange-yellow rounded-full border-2 border-accent/50"></div>
