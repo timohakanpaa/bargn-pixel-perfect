@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import bargnLogo from "@/assets/bargn-logo.png";
 import { useAuth } from "@/hooks/use-auth";
+import { Link } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,7 +18,7 @@ import {
 const Navigation = () => {
   const { language, setLanguage, t } = useLanguage();
   const location = useLocation();
-  const { isAdmin } = useAuth();
+  const { isAdmin, user } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [dragThresholdReached, setDragThresholdReached] = useState(false);
 
@@ -158,9 +159,18 @@ const Navigation = () => {
             <Button variant="ghost" size="icon" className="text-foreground hover:shadow-glow-coral flex-shrink-0">
               <Search className="w-5 h-5" />
             </Button>
-            <Button variant="ghost" size="icon" className="text-foreground hover:shadow-glow-coral flex-shrink-0">
-              <User className="w-5 h-5" />
-            </Button>
+            {!user && (
+              <Link to="/auth">
+                <Button variant="ghost" size="icon" className="text-foreground hover:shadow-glow-coral flex-shrink-0">
+                  <User className="w-5 h-5" />
+                </Button>
+              </Link>
+            )}
+            {user && (
+              <Button variant="ghost" size="icon" className="text-foreground hover:shadow-glow-coral flex-shrink-0">
+                <User className="w-5 h-5" />
+              </Button>
+            )}
             <Button variant="neon" className="rounded-full px-6 flex-shrink-0">
               {t("letsGo")}
             </Button>
@@ -315,15 +325,30 @@ const Navigation = () => {
                   <Search className="w-5 h-5 mr-3" aria-hidden="true" />
                   Search
                 </Button>
-                <Button 
-                  variant="ghost" 
-                  className="w-full justify-start text-foreground hover:bg-glass min-h-[44px]"
-                  size="lg"
-                  aria-label="Account"
-                >
-                  <User className="w-5 h-5 mr-3" aria-hidden="true" />
-                  Account
-                </Button>
+                {!user && (
+                  <Link to="/auth" className="block">
+                    <Button 
+                      variant="ghost" 
+                      className="w-full justify-start text-foreground hover:bg-glass min-h-[44px]"
+                      size="lg"
+                      aria-label="Sign In"
+                    >
+                      <User className="w-5 h-5 mr-3" aria-hidden="true" />
+                      Sign In
+                    </Button>
+                  </Link>
+                )}
+                {user && (
+                  <Button 
+                    variant="ghost" 
+                    className="w-full justify-start text-foreground hover:bg-glass min-h-[44px]"
+                    size="lg"
+                    aria-label="Account"
+                  >
+                    <User className="w-5 h-5 mr-3" aria-hidden="true" />
+                    Account
+                  </Button>
+                )}
                 <Button 
                   variant="neon" 
                   className="w-full rounded-full shadow-[0_0_25px_rgba(255,220,74,0.7)] min-h-[44px]"
