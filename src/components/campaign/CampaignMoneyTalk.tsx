@@ -45,7 +45,7 @@ const CampaignMoneyTalk = () => {
   ];
 
   return (
-    <section ref={ref} className="py-24 bg-gradient-to-b from-[#0a0118] via-[#1a0b2e] to-[#0a0118] relative">
+    <section ref={ref} className="py-24 bg-[#050308] relative">
       <div className="container mx-auto px-6">
         <div className={`text-center mb-16 transition-all duration-1000 ${isInView ? 'animate-fade-in-up' : 'opacity-0'}`}>
           <h2 className="text-4xl md:text-6xl font-black mb-4 text-white">

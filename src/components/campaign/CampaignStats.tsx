@@ -60,7 +60,7 @@ const CampaignStats = () => {
   ];
 
   return (
-    <section ref={ref} className="py-16 bg-gradient-to-b from-[#0a0118] to-[#1a0b2e] relative">
+    <section ref={ref} className="py-16 bg-[#050308] relative">
       <div className="container mx-auto px-6">
         <div className="grid md:grid-cols-4 gap-6">
           {stats.map((stat, index) => {

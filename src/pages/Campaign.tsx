@@ -14,7 +14,7 @@ import CampaignFloatingCTA from "@/components/campaign/CampaignFloatingCTA";
 
 const Campaign = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#050308]">
       <Navigation />
       <div className="pt-[132px]">
         <CampaignHero />
