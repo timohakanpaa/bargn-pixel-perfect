@@ -361,6 +361,20 @@ export type Database = {
       }
     }
     Functions: {
+      get_funnel_cohort_analysis: {
+        Args: {
+          cohort_type: string
+          days_back?: number
+          funnel_id_param: string
+        }
+        Returns: {
+          avg_time_to_complete: number
+          cohort_name: string
+          completion_rate: number
+          completions: number
+          total_entries: number
+        }[]
+      }
       get_funnel_dropoff: {
         Args: { days_back?: number; funnel_id_param: string }
         Returns: {
