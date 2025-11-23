@@ -68,7 +68,7 @@ const Blog = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#050308]">
+    <div className="min-h-screen bg-background-dark">
       <Navigation />
       <div className="pt-[132px]">
         {/* Hero Section */}
@@ -77,7 +77,7 @@ const Blog = () => {
           className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
         >
           {/* Solid dark background */}
-          <div className="absolute inset-0 bg-[#050308]"></div>
+          <div className="absolute inset-0 bg-background-dark"></div>
           
           {/* Giant gradient blob */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-[radial-gradient(circle_at_center,_#E94B96_0%,_#FF9B7D_35%,_transparent_70%)] opacity-45 blur-[150px] rounded-full animate-pulse-glow"></div>
@@ -135,7 +135,7 @@ const Blog = () => {
         </section>
 
         {/* Featured Post */}
-        <section className="py-16 bg-[#050308] relative">
+        <section className="py-16 bg-background-dark relative">
           <div className="container mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -191,7 +191,7 @@ const Blog = () => {
         </section>
 
         {/* Category Filters */}
-        <section className="py-12 bg-[#050308] relative">
+        <section className="py-12 bg-background-dark relative">
           <div className="container mx-auto px-6">
             <div className="flex flex-wrap items-center justify-center gap-4">
               {categories.map((category, index) => (
@@ -226,7 +226,7 @@ const Blog = () => {
         </section>
 
         {/* Article Grid */}
-        <section ref={postsRef} className="py-24 bg-[#050308] relative">
+        <section ref={postsRef} className="py-24 bg-background-dark relative">
           <div className="container mx-auto px-6">
             <div className="grid md:grid-cols-3 gap-8">
               {articles.map((article, index) => (

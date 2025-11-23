@@ -1,16 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { Zap, Users, Pizza, Ticket, Smartphone } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import { useAnalytics } from "@/hooks/use-analytics";
 import AppStoreBadges from "@/components/AppStoreBadges";
 import { trackAllPlatforms } from "@/utils/tracking";
+import { useEffect, useState } from "react";
 
 const Hero = () => {
   const { t } = useLanguage();
   const { trackButtonClick } = useAnalytics();
   const { scrollY } = useScroll();
+  const [isPaused, setIsPaused] = useState(false);
+  
+  // Pause animations when scrolled past hero section
+  useEffect(() => {
+    const unsubscribe = scrollY.on("change", (latest) => {
+      setIsPaused(latest > 800);
+    });
+    return () => unsubscribe();
+  }, [scrollY]);
   
   // Parallax transforms
   const y1 = useTransform(scrollY, [0, 500], [0, 150]);
@@ -43,7 +53,7 @@ const Hero = () => {
       {/* Orbiting Floating Icons */}
       <motion.div
         style={{ y: y1 }}
-        animate={{ 
+        animate={isPaused ? {} : { 
           rotate: 360,
         }}
         transition={{ 
@@ -54,14 +64,15 @@ const Hero = () => {
         <motion.div
           whileHover={{ scale: 1.2, rotate: 15 }}
           className="w-full h-full bg-glass backdrop-blur-2xl border-2 border-primary rounded-3xl flex items-center justify-center shadow-glow-coral cursor-pointer"
+          aria-label="Pizza discount icon"
         >
-          <Pizza className="w-10 h-10 sm:w-14 sm:h-14 text-primary" />
+          <Pizza className="w-10 h-10 sm:w-14 sm:h-14 text-primary" aria-hidden="true" />
         </motion.div>
       </motion.div>
 
       <motion.div
         style={{ y: y2 }}
-        animate={{ 
+        animate={isPaused ? {} : { 
           rotate: -360,
         }}
         transition={{ 
@@ -72,14 +83,15 @@ const Hero = () => {
         <motion.div
           whileHover={{ scale: 1.2, rotate: -15 }}
           className="w-full h-full bg-glass backdrop-blur-2xl border-2 border-accent rounded-full flex items-center justify-center shadow-glow-yellow cursor-pointer"
+          aria-label="Ticket deals icon"
         >
-          <Ticket className="w-8 h-8 sm:w-12 sm:h-12 text-accent" />
+          <Ticket className="w-8 h-8 sm:w-12 sm:h-12 text-accent" aria-hidden="true" />
         </motion.div>
       </motion.div>
 
       <motion.div
         style={{ y: y1 }}
-        animate={{ 
+        animate={isPaused ? {} : { 
           rotate: 360,
         }}
         transition={{ 
@@ -90,8 +102,9 @@ const Hero = () => {
         <motion.div
           whileHover={{ scale: 1.2, rotate: 10 }}
           className="w-full h-full bg-glass backdrop-blur-2xl border-2 border-secondary rounded-2xl flex items-center justify-center shadow-glow-purple cursor-pointer"
+          aria-label="Mobile app icon"
         >
-          <Smartphone className="w-12 h-12 sm:w-16 sm:h-16 text-secondary" />
+          <Smartphone className="w-12 h-12 sm:w-16 sm:h-16 text-secondary" aria-hidden="true" />
         </motion.div>
       </motion.div>
 

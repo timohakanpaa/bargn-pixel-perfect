@@ -50,7 +50,7 @@ const CampaignCTA = () => {
         <Button 
           onClick={handleClick}
           size="lg"
-          className="bg-[#0a0118] text-white hover:bg-[#1a0b2e] font-bold rounded-full px-12 py-8 text-xl shadow-2xl hover:scale-110 hover:shadow-[0_0_60px_rgba(255,255,255,0.6)] transition-all duration-300"
+          className="bg-background-dark text-white hover:bg-muted font-bold rounded-full px-12 py-8 text-xl shadow-2xl hover:scale-110 hover:shadow-glow-yellow transition-all duration-300"
         >
           <Rocket className="mr-3 w-6 h-6" />
           {t('campaign.cta.button')}

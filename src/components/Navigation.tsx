@@ -118,18 +118,19 @@ const Navigation = () => {
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - min 44px touch target */}
           <Button
             variant="ghost"
             size="icon"
-            className="lg:hidden text-foreground"
+            className="lg:hidden text-foreground min-w-[44px] min-h-[44px]"
             onClick={() => {
               const newState = !isMobileMenuOpen;
               setIsMobileMenuOpen(newState);
               triggerHaptic(newState ? 30 : 50); // Light haptic on open, slightly stronger on close
             }}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMobileMenuOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
           </Button>
         </div>
       </div>
@@ -180,25 +181,27 @@ const Navigation = () => {
             className="fixed top-[108px] right-0 bottom-0 w-full sm:w-96 bg-background/95 backdrop-blur-2xl z-[200] border-l border-glass overflow-y-auto cursor-grab active:cursor-grabbing"
           >
             <div className="p-6 space-y-6">
-              {/* Language Toggle - Mobile */}
+              {/* Language Toggle - Mobile - min 44px touch target */}
               <div className="flex items-center justify-center gap-2 bg-glass backdrop-blur-xl border-2 border-glass rounded-full p-2">
                 <button 
                   onClick={() => setLanguage("en")}
-                  className={`flex-1 px-4 py-3 rounded-full text-base font-bold transition-all ${
+                  className={`flex-1 px-4 py-3 min-h-[44px] rounded-full text-base font-bold transition-all ${
                     language === "en" 
                       ? "bg-accent text-accent-foreground shadow-glow-yellow" 
                       : "text-muted-foreground"
                   }`}
+                  aria-label="Switch to English"
                 >
                   EN
                 </button>
                 <button 
                   onClick={() => setLanguage("fi")}
-                  className={`flex-1 px-4 py-3 rounded-full text-base font-bold transition-all ${
+                  className={`flex-1 px-4 py-3 min-h-[44px] rounded-full text-base font-bold transition-all ${
                     language === "fi" 
                       ? "bg-accent text-accent-foreground shadow-glow-yellow" 
                       : "text-muted-foreground"
                   }`}
+                  aria-label="Switch to Finnish"
                 >
                   FI
                 </button>
@@ -224,27 +227,29 @@ const Navigation = () => {
                 ))}
               </nav>
 
-              {/* Mobile Actions */}
+              {/* Mobile Actions - min 44px touch targets */}
               <div className="space-y-3 pt-6 border-t border-glass">
                 <Button 
                   variant="ghost" 
-                  className="w-full justify-start text-foreground hover:bg-glass"
+                  className="w-full justify-start text-foreground hover:bg-glass min-h-[44px]"
                   size="lg"
+                  aria-label="Search"
                 >
-                  <Search className="w-5 h-5 mr-3" />
+                  <Search className="w-5 h-5 mr-3" aria-hidden="true" />
                   Search
                 </Button>
                 <Button 
                   variant="ghost" 
-                  className="w-full justify-start text-foreground hover:bg-glass"
+                  className="w-full justify-start text-foreground hover:bg-glass min-h-[44px]"
                   size="lg"
+                  aria-label="Account"
                 >
-                  <User className="w-5 h-5 mr-3" />
+                  <User className="w-5 h-5 mr-3" aria-hidden="true" />
                   Account
                 </Button>
                 <Button 
                   variant="neon" 
-                  className="w-full rounded-full shadow-[0_0_25px_rgba(255,220,74,0.7)]"
+                  className="w-full rounded-full shadow-[0_0_25px_rgba(255,220,74,0.7)] min-h-[44px]"
                   size="lg"
                 >
                   {t("letsGo")}
