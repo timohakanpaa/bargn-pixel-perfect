@@ -37,7 +37,7 @@ const CampaignTestimonial = () => {
     <section ref={ref} className="py-24 bg-gradient-to-b from-[#1a0b2e] to-[#0f0f23] relative">
       <div className="container mx-auto px-6">
         <div className={`text-center mb-16 transition-all duration-1000 ${isInView ? 'animate-fade-in-up' : 'opacity-0'}`}>
-          <h2 className="text-4xl md:text-6xl font-black mb-4 text-foreground">
+          <h2 className="text-4xl md:text-6xl font-black mb-4 text-white">
             {t('campaign.testimonials.title')}
           </h2>
         </div>
@@ -51,20 +51,20 @@ const CampaignTestimonial = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.15 }}
               whileHover={{ scale: 1.05, y: -10 }}
-              className={`bg-glass backdrop-blur-xl border-2 border-glass rounded-3xl p-8 hover:border-primary hover:shadow-glow-coral transition-all duration-300 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}
+              className={`bg-glass backdrop-blur-xl border-2 border-glass rounded-3xl p-8 hover:border-[#E94B96] hover:shadow-[0_0_40px_rgba(233,75,150,0.4)] transition-all duration-300 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}
               style={{ animationDelay: `${index * 150}ms` }}
             >
               <div className="flex items-center gap-4 mb-6">
                 <img 
                   src={testimonial.avatar}
                   alt={testimonial.name}
-                  className="w-16 h-16 rounded-full border-2 border-primary shadow-glow-coral"
+                  className="w-16 h-16 rounded-full border-2 border-[#E94B96] shadow-[0_0_40px_rgba(233,75,150,0.6)]"
                 />
                 <div>
-                  <h3 className="font-bold text-foreground">{testimonial.name}</h3>
+                  <h3 className="font-bold text-white">{testimonial.name}</h3>
                   <div className="flex gap-1">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                      <Star key={i} className="w-4 h-4 fill-[#FFE500] text-[#FFE500]" />
                     ))}
                   </div>
                 </div>

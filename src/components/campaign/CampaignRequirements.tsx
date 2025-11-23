@@ -28,13 +28,15 @@ const CampaignRequirements = () => {
   ];
 
   return (
-    <section ref={ref} className="py-24 bg-gradient-to-b from-[#1a0b2e] via-[#16213e] to-[#0f0f23] relative">
+    <section ref={ref} className="py-24 bg-gradient-to-b from-[#1a0b2e] via-[#0f0f23] to-[#0a0118] relative">
       <div className="container mx-auto px-6">
         <div className={`text-center mb-16 transition-all duration-1000 ${isInView ? 'animate-fade-in-up' : 'opacity-0'}`}>
-          <h2 className="text-4xl md:text-6xl font-black mb-4 text-foreground">
-            {t('campaign.requirements.title')}
+          <h2 className="text-4xl md:text-6xl font-black mb-4">
+            <span className="bg-gradient-to-r from-[#8B5CF6] to-[#FFE500] bg-clip-text text-transparent">
+              {t('campaign.requirements.title')}
+            </span>
           </h2>
-          <p className="text-lg text-primary font-semibold">
+          <p className="text-lg text-[#FF9B7D] font-semibold">
             {t('campaign.requirements.subtitle')}
           </p>
         </div>
@@ -48,13 +50,13 @@ const CampaignRequirements = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ scale: 1.02, x: 10 }}
-              className={`bg-glass backdrop-blur-xl border-2 border-glass rounded-2xl p-6 flex items-center gap-4 hover:border-primary hover:shadow-glow-coral transition-all duration-300 ${isInView ? 'animate-fade-in' : 'opacity-0'}`}
+              className={`bg-glass backdrop-blur-xl border-2 border-glass rounded-2xl p-6 flex items-center gap-4 hover:border-[#E94B96] hover:shadow-[0_0_40px_rgba(233,75,150,0.4)] transition-all duration-300 ${isInView ? 'animate-fade-in' : 'opacity-0'}`}
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <div className="flex-shrink-0">
-                <CheckCircle className="w-8 h-8 text-primary" />
+                <CheckCircle className="w-8 h-8 text-[#FF9B7D]" />
               </div>
-              <p className="text-lg text-foreground">{req}</p>
+              <p className="text-lg text-white">{req}</p>
             </motion.div>
           ))}
         </div>

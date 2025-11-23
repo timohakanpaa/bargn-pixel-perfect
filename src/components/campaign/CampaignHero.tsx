@@ -49,43 +49,43 @@ const CampaignHero = () => {
       ref={ref}
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
     >
-      {/* Background gradient - using dark purples/blues like screenshots */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#1a0b2e] via-[#16213e] to-[#0f0f23]"></div>
+      {/* Background gradient - dark navy/purple like screenshots */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0a0118] via-[#1a0b2e] to-[#0f0f23]"></div>
       
-      {/* Giant gradient blob */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-gradient-coral-purple opacity-20 blur-[150px] rounded-full animate-pulse-glow"></div>
+      {/* Giant gradient blob with pink/purple glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-[radial-gradient(ellipse_at_center,_#E94B96_0%,_#8B5CF6_50%,_transparent_100%)] opacity-20 blur-[150px] rounded-full animate-pulse-glow"></div>
       
-      {/* Floating icons */}
-      <div className="absolute top-32 left-[10%] w-20 h-20 bg-gradient-orange-yellow rounded-3xl flex items-center justify-center shadow-glow-yellow animate-float hover:scale-110 transition-transform">
-        <DollarSign className="w-10 h-10 text-background" />
+      {/* Floating icons with yellow/pink gradients */}
+      <div className="absolute top-32 left-[10%] w-20 h-20 bg-gradient-to-br from-[#FFE500] to-[#E94B96] rounded-3xl flex items-center justify-center shadow-[0_0_60px_rgba(255,229,0,0.6)] animate-float hover:scale-110 transition-transform">
+        <DollarSign className="w-10 h-10 text-[#0a0118]" />
       </div>
 
-      <div className="absolute top-40 right-[10%] w-16 h-16 bg-gradient-pink-orange rounded-3xl flex items-center justify-center shadow-glow-pink animate-float-delayed hover:scale-110 transition-transform">
-        <TrendingUp className="w-8 h-8 text-foreground" />
+      <div className="absolute top-40 right-[10%] w-16 h-16 bg-gradient-to-br from-[#E94B96] to-[#FF9B7D] rounded-3xl flex items-center justify-center shadow-[0_0_60px_rgba(233,75,150,0.6)] animate-float-delayed hover:scale-110 transition-transform">
+        <TrendingUp className="w-8 h-8 text-white" />
       </div>
 
-      <div className="absolute bottom-40 left-[15%] w-14 h-14 bg-gradient-orange-yellow rounded-3xl flex items-center justify-center shadow-glow-orange animate-float hover:scale-110 transition-transform">
-        <Rocket className="w-7 h-7 text-background" />
+      <div className="absolute bottom-40 left-[15%] w-14 h-14 bg-gradient-to-br from-[#FF9B7D] to-[#FFE500] rounded-3xl flex items-center justify-center shadow-[0_0_60px_rgba(255,155,125,0.6)] animate-float hover:scale-110 transition-transform">
+        <Rocket className="w-7 h-7 text-[#0a0118]" />
       </div>
 
       <div className={`container mx-auto px-6 text-center relative z-10 transition-all duration-1000 ${isInView ? 'animate-fade-in-up' : 'opacity-0'}`}>
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 bg-glass backdrop-blur-xl border-2 border-accent rounded-full px-6 py-3 mb-8 shadow-glow-yellow">
-          <span className="text-accent font-bold uppercase tracking-wider text-sm">
+        {/* Badge with yellow glow */}
+        <div className="inline-flex items-center gap-2 bg-glass backdrop-blur-xl border-2 border-[#FFE500] rounded-full px-6 py-3 mb-8 shadow-[0_0_40px_rgba(255,229,0,0.6)]">
+          <span className="text-[#FFE500] font-bold uppercase tracking-wider text-sm">
             {t('campaign.hero.badge')}
           </span>
         </div>
 
-        {/* Main headline with gradient using homepage colors */}
+        {/* Main headline - Pink to Coral gradient */}
         <h1 className="text-6xl md:text-8xl font-black mb-4 leading-tight">
-          <span className="bg-gradient-pink-orange bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[#E94B96] via-[#FF9B7D] to-[#FF9B7D] bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(233,75,150,0.5)]">
             {t('campaign.hero.headline')}
           </span>
         </h1>
 
-        {/* Subheadline */}
+        {/* Subheadline - Coral to Orange gradient */}
         <h2 className="text-3xl md:text-5xl font-bold mb-8 leading-tight">
-          <span className="bg-gradient-orange-yellow bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[#FF9B7D] via-[#FF8C61] to-[#FF9B7D] bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,155,125,0.5)]">
             {t('campaign.hero.subheadline')}
           </span>
         </h2>
@@ -99,16 +99,14 @@ const CampaignHero = () => {
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
           <Button 
             onClick={handleButtonClick}
-            variant="neon"
-            className="rounded-full px-8 py-6 text-lg group"
+            className="bg-gradient-to-r from-[#E94B96] to-[#FF9B7D] hover:shadow-[0_0_40px_rgba(233,75,150,0.6)] text-white font-bold rounded-full px-8 py-6 text-lg group transition-all duration-300"
           >
             <DollarSign className="mr-2 w-5 h-5 group-hover:animate-wobble" />
             {t('campaign.hero.cta1')}
           </Button>
           <Button 
             onClick={handleButtonClick}
-            variant="outline"
-            className="border-2 border-primary text-primary font-bold rounded-full px-8 py-6 text-lg hover:bg-primary/10 transition-all duration-300"
+            className="border-2 border-[#FF9B7D] text-[#FF9B7D] bg-transparent font-bold rounded-full px-8 py-6 text-lg hover:bg-[#FF9B7D]/10 hover:shadow-[0_0_40px_rgba(255,155,125,0.4)] transition-all duration-300"
           >
             <Rocket className="mr-2 w-5 h-5" />
             {t('campaign.hero.cta2')}
