@@ -11,10 +11,19 @@ import PartnerCTA from "@/components/partners/PartnerCTA";
 import Footer from "@/components/Footer";
 import { useAnalytics } from "@/hooks/use-analytics";
 import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
+import { useMetaTags } from "@/hooks/use-meta-tags";
 
 const Partners = () => {
   useAnalytics(); // Auto-track page view
   useBreadcrumbSchema();
+  useMetaTags({
+    title: "Bargn Partners - 500+ Businesses Can't Be Wrong",
+    description: "While your competitors are still paying hefty commissions, our partners are laughing all the way to the bank. Zero commission. Zero BS. Just results.",
+    ogTitle: "Bargn Partners - 500+ Businesses Can't Be Wrong",
+    ogDescription: "While your competitors are still paying hefty commissions, our partners are laughing all the way to the bank. Zero commission. Zero BS. Just results.",
+    twitterTitle: "Bargn Partners - 500+ Businesses Can't Be Wrong",
+    twitterDescription: "While your competitors are still paying hefty commissions, our partners are laughing all the way to the bank. Zero commission. Zero BS. Just results.",
+  });
   
   return (
     <div className="min-h-screen bg-background">
