@@ -120,8 +120,8 @@ const Cookies = () => {
             <h2 className="text-2xl font-bold text-foreground mb-4">7. Contact Us</h2>
             <p>
               If you have questions about our use of cookies, please contact us at:{" "}
-              <a href="mailto:privacy@bargn.fi" className="text-primary hover:underline">
-                privacy@bargn.fi
+              <a href="mailto:privacy@bargn.app" className="text-primary hover:underline">
+                privacy@bargn.app
               </a>
             </p>
           </section>

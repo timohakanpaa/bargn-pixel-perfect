@@ -125,8 +125,8 @@ const Terms = () => {
             <h2 className="text-2xl font-bold text-foreground mb-4">10. Contact</h2>
             <p>
               For questions about these Terms, contact us at:{" "}
-              <a href="mailto:legal@bargn.fi" className="text-primary hover:underline">
-                legal@bargn.fi
+              <a href="mailto:legal@bargn.app" className="text-primary hover:underline">
+                legal@bargn.app
               </a>
             </p>
           </section>

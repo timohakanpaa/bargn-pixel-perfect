@@ -57,10 +57,10 @@ const Members = () => {
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
       validFrom: "2024-01-01T00:00:00Z",
-      url: "https://bargn.fi/members#monthly",
+      url: "https://bargn.app/members#monthly",
       seller: {
         name: "Bargn",
-        url: "https://bargn.fi"
+        url: "https://bargn.app"
       },
       itemOffered: {
         name: "Monthly Membership Access",
@@ -76,10 +76,10 @@ const Members = () => {
       priceCurrency: "EUR",
       availability: "https://schema.org/InStock",
       validFrom: "2024-01-01T00:00:00Z",
-      url: "https://bargn.fi/members#annual",
+      url: "https://bargn.app/members#annual",
       seller: {
         name: "Bargn",
-        url: "https://bargn.fi"
+        url: "https://bargn.app"
       },
       itemOffered: {
         name: "Annual Membership Access",
@@ -119,7 +119,7 @@ const Members = () => {
           "price": "8.80",
           "priceCurrency": "EUR",
           "availability": "https://schema.org/InStock",
-          "url": "https://bargn.fi/members"
+          "url": "https://bargn.app/members"
         },
         {
           "@type": "Offer",
@@ -127,7 +127,7 @@ const Members = () => {
           "price": "53.00",
           "priceCurrency": "EUR",
           "availability": "https://schema.org/InStock",
-          "url": "https://bargn.fi/members"
+          "url": "https://bargn.app/members"
         }
       ]
     });
