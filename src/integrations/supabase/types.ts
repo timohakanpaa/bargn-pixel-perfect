@@ -107,6 +107,74 @@ export type Database = {
         }
         Relationships: []
       }
+      conversion_funnels: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          is_active: boolean | null
+          name: string
+          steps: Json
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          name: string
+          steps: Json
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          steps?: Json
+        }
+        Relationships: []
+      }
+      funnel_progress: {
+        Row: {
+          completed: boolean | null
+          completed_at: string | null
+          created_at: string | null
+          current_step: number
+          funnel_id: string | null
+          id: string
+          metadata: Json | null
+          session_id: string
+        }
+        Insert: {
+          completed?: boolean | null
+          completed_at?: string | null
+          created_at?: string | null
+          current_step: number
+          funnel_id?: string | null
+          id?: string
+          metadata?: Json | null
+          session_id: string
+        }
+        Update: {
+          completed?: boolean | null
+          completed_at?: string | null
+          created_at?: string | null
+          current_step?: number
+          funnel_id?: string | null
+          id?: string
+          metadata?: Json | null
+          session_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "funnel_progress_funnel_id_fkey"
+            columns: ["funnel_id"]
+            isOneToOne: false
+            referencedRelation: "conversion_funnels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       analytics_button_clicks: {
