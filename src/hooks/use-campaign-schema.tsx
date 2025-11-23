@@ -10,7 +10,7 @@ export const useCampaignSchema = () => {
       "@type": "WebPage",
       "name": "Bargn Creator Partnership",
       "description": "Make bank while you create. 40% revenue share for content creators and influencers.",
-      "url": "https://bargn.fi/campaign",
+      "url": "https://bargn.app/campaign",
       "mainEntity": {
         "@type": "JobPosting",
         "title": "Content Creator Partnership",
@@ -20,7 +20,7 @@ export const useCampaignSchema = () => {
         "hiringOrganization": {
           "@type": "Organization",
           "name": "Bargn",
-          "url": "https://bargn.fi",
+          "url": "https://bargn.app",
           "logo": "https://storage.googleapis.com/gpt-engineer-file-uploads/SWwdRfTou4NwpSgFbdofc5xLsAp1/uploads/1763629516807-accent1.png"
         },
         "jobLocationType": "TELECOMMUTE",
