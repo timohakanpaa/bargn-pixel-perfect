@@ -4,6 +4,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
 import confetti from "canvas-confetti";
 import { useEffect } from "react";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 const CampaignStats = () => {
   const { ref, isInView } = useInView();
@@ -23,7 +24,8 @@ const CampaignStats = () => {
   const stats = [
     {
       icon: DollarSign,
-      value: "40%",
+      value: 40,
+      suffix: "%",
       label: t('campaign.stats.revenueShare'),
       valueColor: "text-[#FFE500]",
       labelColor: "text-[#FF9B7D]",
@@ -32,7 +34,8 @@ const CampaignStats = () => {
     },
     {
       icon: Users,
-      value: "200+",
+      value: 200,
+      suffix: "+",
       label: t('campaign.stats.activeCreators'),
       valueColor: "text-[#E94B96]",
       labelColor: "text-[#FF9B7D]",
@@ -41,7 +44,9 @@ const CampaignStats = () => {
     },
     {
       icon: Wallet,
-      value: "€50k+",
+      value: 50,
+      prefix: "€",
+      suffix: "k+",
       label: t('campaign.stats.paidOut'),
       valueColor: "text-[#FF9B7D]",
       labelColor: "text-[#FF9B7D]",
@@ -50,7 +55,8 @@ const CampaignStats = () => {
     },
     {
       icon: Zap,
-      value: "€5",
+      value: 5,
+      prefix: "€",
       label: t('campaign.stats.minPayout'),
       valueColor: "text-[#FFE500]",
       labelColor: "text-[#FF9B7D]",
@@ -80,7 +86,12 @@ const CampaignStats = () => {
                   <Icon className="w-6 h-6 text-white" />
                 </div>
                 <div className={`text-4xl md:text-5xl font-black ${stat.valueColor} mb-2`}>
-                  {stat.value}
+                  <AnimatedCounter 
+                    end={stat.value} 
+                    prefix={stat.prefix}
+                    suffix={stat.suffix}
+                    duration={2000}
+                  />
                 </div>
                 <p className={`${stat.labelColor} text-sm font-semibold uppercase tracking-wider`}>{stat.label}</p>
               </motion.div>

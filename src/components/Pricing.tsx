@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Check, Sparkles, MapPin } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { TiltCard } from "@/components/animations/TiltCard";
+import AnimatedCounter from "@/components/AnimatedCounter";
 const Pricing = () => {
   const {
     ref,
@@ -131,7 +132,9 @@ const Pricing = () => {
                 </div>
 
                 <div className="flex items-baseline gap-2 mb-6">
-                  <span className="text-5xl font-black text-accent">€53</span>
+                  <span className="text-5xl font-black text-accent">
+                    <AnimatedCounter end={53} prefix="€" duration={2000} />
+                  </span>
                   <span className="text-muted-foreground">/yearly</span>
                 </div>
 
