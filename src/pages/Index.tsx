@@ -6,6 +6,7 @@ import Pricing from "@/components/Pricing";
 import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
+import Preloader from "@/components/Preloader";
 import { useAnalytics } from "@/hooks/use-analytics";
 import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 import { useAggregateRatingSchema } from "@/hooks/use-aggregate-rating-schema";
@@ -47,6 +48,7 @@ const Index = () => {
   
   return (
     <div className="min-h-screen bg-background">
+      <Preloader />
       <Navigation />
       <div className="pt-[132px]">
         <Hero />
