@@ -8,7 +8,7 @@ const BusinessSection = () => {
   return (
     <section ref={ref} className="py-24 relative overflow-hidden">
       <div className={`container mx-auto px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
-        <div className="grid md:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
+        <div className="max-w-5xl mx-auto text-center">
           <div>
             <h2 className="text-5xl md:text-6xl font-black mb-6">
               <span className="bg-gradient-to-r from-secondary via-accent to-secondary bg-clip-text text-transparent">
@@ -19,12 +19,12 @@ const BusinessSection = () => {
               (Plot twist: We're not trying to bankrupt them)
             </p>
 
-            <p className="text-lg text-muted-foreground mb-12 leading-relaxed">
+            <p className="text-lg text-muted-foreground mb-12 leading-relaxed max-w-3xl mx-auto">
               While other platforms treat businesses like personal ATMs, we're out here building actual partnerships. Shocking business model: help everyone win instead of just helping ourselves to their wallets.
             </p>
 
-            <div className="space-y-6 mb-12">
-              <div className="flex items-start gap-4 bg-glass backdrop-blur-2xl border-2 border-glass hover:border-primary hover:shadow-glow-coral p-6 rounded-2xl transition-all duration-300 hover:scale-105">
+            <div className="space-y-6 mb-12 max-w-4xl mx-auto">
+              <div className="flex items-start gap-4 bg-glass backdrop-blur-2xl border-2 border-glass hover:border-primary hover:shadow-glow-coral p-6 rounded-2xl transition-all duration-300 hover:scale-105 text-left">
                 <div className="w-14 h-14 bg-gradient-coral-purple rounded-2xl flex items-center justify-center flex-shrink-0 shadow-glow-coral">
                   <TrendingUp className="w-7 h-7 text-foreground" />
                 </div>
@@ -38,7 +38,7 @@ const BusinessSection = () => {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 bg-glass backdrop-blur-2xl border-2 border-glass hover:border-secondary hover:shadow-glow-coral p-6 rounded-2xl transition-all duration-300 hover:scale-105">
+              <div className="flex items-start gap-4 bg-glass backdrop-blur-2xl border-2 border-glass hover:border-secondary hover:shadow-glow-coral p-6 rounded-2xl transition-all duration-300 hover:scale-105 text-left">
                 <div className="w-14 h-14 bg-gradient-coral rounded-2xl flex items-center justify-center flex-shrink-0 shadow-glow-coral">
                   <Shield className="w-7 h-7 text-foreground" />
                 </div>
@@ -52,7 +52,7 @@ const BusinessSection = () => {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 bg-glass backdrop-blur-2xl border-2 border-glass hover:border-accent hover:shadow-glow-yellow p-6 rounded-2xl transition-all duration-300 hover:scale-105">
+              <div className="flex items-start gap-4 bg-glass backdrop-blur-2xl border-2 border-glass hover:border-accent hover:shadow-glow-yellow p-6 rounded-2xl transition-all duration-300 hover:scale-105 text-left">
                 <div className="w-14 h-14 bg-gradient-purple-yellow rounded-2xl flex items-center justify-center flex-shrink-0 shadow-glow-yellow">
                   <Heart className="w-7 h-7 text-foreground" />
                 </div>
