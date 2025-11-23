@@ -8,6 +8,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import AnimatedCounter from "@/components/AnimatedCounter";
 import SavingsCalculator from "@/components/SavingsCalculator";
 import { useAnalytics } from "@/hooks/use-analytics";
+import { useEffect } from "react";
 
 const Members = () => {
   useAnalytics(); // Auto-track page view
@@ -16,6 +17,49 @@ const Members = () => {
   
   const y1 = useTransform(scrollY, [0, 500], [0, 150]);
   const y2 = useTransform(scrollY, [0, 500], [0, -100]);
+  
+  useEffect(() => {
+    // Inject Product Schema for Membership
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "Bargn Membership",
+      "description": "AI-powered membership for 50% discounts at restaurants, bars, and gyms in Helsinki",
+      "brand": {
+        "@type": "Brand",
+        "name": "Bargn"
+      },
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Gen Z, Students, Young Adults"
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Monthly Membership",
+          "price": "8.80",
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/InStock",
+          "url": "https://bargn.fi/members"
+        },
+        {
+          "@type": "Offer",
+          "name": "Annual Membership",
+          "price": "53.00",
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/InStock",
+          "url": "https://bargn.fi/members"
+        }
+      ]
+    });
+    document.head.appendChild(script);
+    
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen">
