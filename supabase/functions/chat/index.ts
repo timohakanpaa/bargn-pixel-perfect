@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -10,13 +11,30 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  const startTime = Date.now();
+  let sessionId = "";
+  let language = "en";
+  let userMessage = "";
+
   try {
-    const { messages } = await req.json();
+    const body = await req.json();
+    const messages = body.messages;
+    sessionId = body.sessionId || crypto.randomUUID();
+    language = body.language || "en";
+    
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     
     if (!LOVABLE_API_KEY) {
       throw new Error("LOVABLE_API_KEY is not configured");
     }
+
+    // Initialize Supabase client for analytics
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+    // Extract the user's message (last message in the array)
+    userMessage = messages[messages.length - 1]?.content || "";
 
     const systemPrompt = `You are Bargn AI, a helpful assistant for the Bargn discount platform. 
 
@@ -50,7 +68,9 @@ Partnership Benefits:
 
 Keep responses helpful, friendly, and concise. Focus on the value Bargn provides to both members and partners.`;
 
-    console.log("Calling Lovable AI with", messages.length, "messages");
+    console.log("Calling Lovable AI with", messages.length, "messages for session", sessionId);
+
+    let aiResponse = "";
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -71,6 +91,19 @@ Keep responses helpful, friendly, and concise. Focus on the value Bargn provides
     if (!response.ok) {
       const errorText = await response.text();
       console.error("AI gateway error:", response.status, errorText);
+      const errorMessage = `AI gateway error: ${response.status}`;
+      
+      // Log error to analytics before returning
+      const responseTime = Date.now() - startTime;
+      await supabase.from("chat_analytics").insert({
+        session_id: sessionId,
+        user_message: userMessage,
+        ai_response: null,
+        language,
+        response_time_ms: responseTime,
+        error_occurred: true,
+        error_message: errorMessage,
+      });
       
       if (response.status === 429) {
         return new Response(
@@ -95,7 +128,56 @@ Keep responses helpful, friendly, and concise. Focus on the value Bargn provides
       throw new Error(`AI gateway error: ${response.status}`);
     }
 
-    return new Response(response.body, {
+    // Create a transform stream to capture the AI response while streaming
+    const { readable, writable } = new TransformStream();
+    const writer = writable.getWriter();
+    const reader = response.body!.getReader();
+    const decoder = new TextDecoder();
+
+    // Stream and capture response in background
+    (async () => {
+      try {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          
+          // Capture response content
+          const chunk = decoder.decode(value, { stream: true });
+          const lines = chunk.split("\n");
+          for (const line of lines) {
+            if (line.startsWith("data: ") && line !== "data: [DONE]") {
+              try {
+                const json = JSON.parse(line.slice(6));
+                const content = json.choices?.[0]?.delta?.content;
+                if (content) aiResponse += content;
+              } catch (e) {
+                // Ignore parse errors for partial chunks
+              }
+            }
+          }
+          
+          await writer.write(value);
+        }
+        
+        // Log successful interaction to analytics
+        const responseTime = Date.now() - startTime;
+        await supabase.from("chat_analytics").insert({
+          session_id: sessionId,
+          user_message: userMessage,
+          ai_response: aiResponse || "Stream completed",
+          language,
+          response_time_ms: responseTime,
+          error_occurred: false,
+        });
+        
+        await writer.close();
+      } catch (error) {
+        console.error("Stream error:", error);
+        await writer.abort(error);
+      }
+    })();
+
+    return new Response(readable, {
       headers: { 
         ...corsHeaders, 
         "Content-Type": "text/event-stream",
@@ -105,6 +187,27 @@ Keep responses helpful, friendly, and concise. Focus on the value Bargn provides
     });
   } catch (error) {
     console.error("Chat error:", error);
+    
+    // Log error to analytics
+    try {
+      const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+      const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+      const supabase = createClient(supabaseUrl, supabaseServiceKey);
+      const responseTime = Date.now() - startTime;
+      
+      await supabase.from("chat_analytics").insert({
+        session_id: sessionId || crypto.randomUUID(),
+        user_message: userMessage || "Error before message capture",
+        ai_response: null,
+        language,
+        response_time_ms: responseTime,
+        error_occurred: true,
+        error_message: error instanceof Error ? error.message : "Unknown error",
+      });
+    } catch (logError) {
+      console.error("Failed to log error to analytics:", logError);
+    }
+    
     return new Response(
       JSON.stringify({ 
         error: error instanceof Error ? error.message : "An unexpected error occurred" 
