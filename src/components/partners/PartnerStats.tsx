@@ -13,14 +13,16 @@ const PartnerStats = () => {
       value: 500,
       suffix: "+",
       label: t("partners.stats.activePartners"),
-      gradient: "bg-gradient-yellow",
-      glow: "shadow-glow-yellow",
+      textColor: "text-[#f59e0b]", // Yellow
+      gradient: "bg-gradient-coral",
+      glow: "shadow-glow-coral",
     },
     {
       icon: Percent,
       value: 0,
       suffix: "%",
       label: t("partners.stats.commissionFees"),
+      textColor: "text-[#ec4899]", // Magenta/Pink
       gradient: "bg-gradient-pink-orange",
       glow: "shadow-glow-pink",
     },
@@ -29,6 +31,7 @@ const PartnerStats = () => {
       value: 40,
       suffix: "%",
       label: t("partners.stats.avgIncrease"),
+      textColor: "text-[#f97316]", // Coral/Orange
       gradient: "bg-gradient-coral",
       glow: "shadow-glow-coral",
     },
@@ -37,8 +40,9 @@ const PartnerStats = () => {
       value: 10000,
       suffix: "+",
       label: t("partners.stats.qualityMembers"),
-      gradient: "bg-gradient-purple-yellow",
-      glow: "shadow-glow-purple",
+      textColor: "text-[#f59e0b]", // Yellow
+      gradient: "bg-gradient-yellow",
+      glow: "shadow-glow-yellow",
     },
   ];
 
@@ -57,7 +61,7 @@ const PartnerStats = () => {
               <div className={`w-16 h-16 ${stat.gradient} rounded-2xl flex items-center justify-center mb-4 animate-pulse-glow`}>
                 <stat.icon className="w-8 h-8 text-foreground" />
               </div>
-              <div className="text-5xl font-black mb-2">
+              <div className={`text-5xl font-black mb-2 ${stat.textColor}`}>
                 <AnimatedCounter end={stat.value} duration={2000} />
                 {stat.suffix}
               </div>
