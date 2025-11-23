@@ -42,6 +42,25 @@
       ]
     }
   </script>
+  
+  <!-- WebSite Schema with SearchAction -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Bargn",
+      "url": "https://bargn.fi",
+      "description": "AI-powered membership for 50% discounts at restaurants, bars, and gyms in Helsinki",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://bargn.fi/blog?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
 </head>
 
   <body>
