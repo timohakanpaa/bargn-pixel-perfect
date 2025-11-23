@@ -12,10 +12,12 @@ import Footer from "@/components/Footer";
 import { useAnalytics } from "@/hooks/use-analytics";
 import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 import { useMetaTags } from "@/hooks/use-meta-tags";
+import { usePartnersSchema } from "@/hooks/use-partners-schema";
 
 const Partners = () => {
   useAnalytics(); // Auto-track page view
   useBreadcrumbSchema();
+  usePartnersSchema();
   useMetaTags({
     title: "Bargn Partners - 500+ Businesses Can't Be Wrong",
     description: "While your competitors are still paying hefty commissions, our partners are laughing all the way to the bank. Zero commission. Zero BS. Just results.",
