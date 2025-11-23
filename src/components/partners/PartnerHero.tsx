@@ -1,4 +1,4 @@
-import { Building2, DollarSign, Sparkles, Users } from "lucide-react";
+import { Building2, DollarSign, Sparkles, Users, Percent, TrendingUp, Zap, Gift, Crown, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -73,6 +73,127 @@ const PartnerHero = () => {
           className="w-full h-full bg-glass backdrop-blur-2xl border-2 border-secondary rounded-2xl flex items-center justify-center shadow-glow-purple cursor-pointer"
         >
           <Sparkles className="w-16 h-16 text-secondary" />
+        </motion.div>
+      </motion.div>
+
+      {/* Additional Confetti-style Floating Icons */}
+      <motion.div
+        style={{ y: y2 }}
+        animate={{ 
+          rotate: 360,
+          y: [0, -20, 0]
+        }}
+        transition={{ 
+          rotate: { duration: 22, repeat: Infinity, ease: "linear" },
+          y: { duration: 3.5, repeat: Infinity }
+        }}
+        className="absolute bottom-40 right-[18%] w-20 h-20"
+      >
+        <motion.div
+          whileHover={{ scale: 1.3, rotate: 20 }}
+          className="w-full h-full bg-glass backdrop-blur-2xl border-2 border-accent rounded-2xl flex items-center justify-center shadow-glow-yellow cursor-pointer"
+        >
+          <Percent className="w-10 h-10 text-accent" />
+        </motion.div>
+      </motion.div>
+
+      <motion.div
+        style={{ y: y1 }}
+        animate={{ 
+          rotate: -360,
+          y: [0, 15, 0]
+        }}
+        transition={{ 
+          rotate: { duration: 28, repeat: Infinity, ease: "linear" },
+          y: { duration: 4, repeat: Infinity }
+        }}
+        className="absolute top-1/3 left-[8%] w-24 h-24"
+      >
+        <motion.div
+          whileHover={{ scale: 1.3, rotate: -20 }}
+          className="w-full h-full bg-glass backdrop-blur-2xl border-2 border-primary rounded-full flex items-center justify-center shadow-glow-coral cursor-pointer"
+        >
+          <TrendingUp className="w-12 h-12 text-primary" />
+        </motion.div>
+      </motion.div>
+
+      <motion.div
+        style={{ y: y2 }}
+        animate={{ 
+          rotate: 360,
+          y: [0, -25, 0]
+        }}
+        transition={{ 
+          rotate: { duration: 26, repeat: Infinity, ease: "linear" },
+          y: { duration: 3, repeat: Infinity }
+        }}
+        className="absolute top-1/2 right-[8%] w-28 h-28"
+      >
+        <motion.div
+          whileHover={{ scale: 1.3, rotate: 15 }}
+          className="w-full h-full bg-glass backdrop-blur-2xl border-2 border-secondary rounded-3xl flex items-center justify-center shadow-glow-purple cursor-pointer"
+        >
+          <Zap className="w-14 h-14 text-secondary" />
+        </motion.div>
+      </motion.div>
+
+      <motion.div
+        style={{ y: y1 }}
+        animate={{ 
+          rotate: -360,
+          y: [0, 18, 0]
+        }}
+        transition={{ 
+          rotate: { duration: 24, repeat: Infinity, ease: "linear" },
+          y: { duration: 3.8, repeat: Infinity }
+        }}
+        className="absolute bottom-1/4 left-[12%] w-22 h-22"
+      >
+        <motion.div
+          whileHover={{ scale: 1.3, rotate: -18 }}
+          className="w-full h-full bg-glass backdrop-blur-2xl border-2 border-accent rounded-2xl flex items-center justify-center shadow-glow-yellow cursor-pointer"
+        >
+          <Gift className="w-11 h-11 text-accent" />
+        </motion.div>
+      </motion.div>
+
+      <motion.div
+        style={{ y: y2 }}
+        animate={{ 
+          rotate: 360,
+          y: [0, -18, 0]
+        }}
+        transition={{ 
+          rotate: { duration: 32, repeat: Infinity, ease: "linear" },
+          y: { duration: 4.5, repeat: Infinity }
+        }}
+        className="absolute top-1/4 right-[22%] w-20 h-20"
+      >
+        <motion.div
+          whileHover={{ scale: 1.3, rotate: 25 }}
+          className="w-full h-full bg-glass backdrop-blur-2xl border-2 border-primary rounded-full flex items-center justify-center shadow-glow-coral cursor-pointer"
+        >
+          <Crown className="w-10 h-10 text-primary" />
+        </motion.div>
+      </motion.div>
+
+      <motion.div
+        style={{ y: y1 }}
+        animate={{ 
+          rotate: -360,
+          y: [0, 22, 0]
+        }}
+        transition={{ 
+          rotate: { duration: 27, repeat: Infinity, ease: "linear" },
+          y: { duration: 3.2, repeat: Infinity }
+        }}
+        className="absolute bottom-1/3 right-[12%] w-24 h-24"
+      >
+        <motion.div
+          whileHover={{ scale: 1.3, rotate: -22 }}
+          className="w-full h-full bg-glass backdrop-blur-2xl border-2 border-secondary rounded-3xl flex items-center justify-center shadow-glow-purple cursor-pointer"
+        >
+          <Star className="w-12 h-12 text-secondary" />
         </motion.div>
       </motion.div>
 
