@@ -12,11 +12,13 @@ import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 import { useAggregateRatingSchema } from "@/hooks/use-aggregate-rating-schema";
 import { useSoftwareAppSchema } from "@/hooks/use-software-app-schema";
 import { useLocalBusinessSchema } from "@/hooks/use-local-business-schema";
+import { useHreflang } from "@/hooks/use-hreflang";
 
 const Index = () => {
   useAnalytics(); // Auto-track page view
   useBreadcrumbSchema();
   useAggregateRatingSchema();
+  useHreflang(["en", "fi", "sv"]); // Multi-language SEO
   
   // Inject LocalBusiness schema for AI platforms
   useLocalBusinessSchema({
