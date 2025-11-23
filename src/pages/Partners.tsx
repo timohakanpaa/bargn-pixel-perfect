@@ -10,9 +10,11 @@ import PartnerSignup from "@/components/partners/PartnerSignup";
 import PartnerCTA from "@/components/partners/PartnerCTA";
 import Footer from "@/components/Footer";
 import { useAnalytics } from "@/hooks/use-analytics";
+import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 
 const Partners = () => {
   useAnalytics(); // Auto-track page view
+  useBreadcrumbSchema();
   
   return (
     <div className="min-h-screen bg-background">

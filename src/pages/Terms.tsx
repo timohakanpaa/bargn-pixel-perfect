@@ -1,7 +1,9 @@
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 
 const Terms = () => {
   const { t } = useLanguage();
+  useBreadcrumbSchema();
 
   return (
     <div className="min-h-screen bg-background pt-32 pb-16 px-4">

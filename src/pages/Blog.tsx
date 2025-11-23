@@ -9,9 +9,11 @@ import confetti from "canvas-confetti";
 import { useEffect, useState } from "react";
 import { getBlogImageUrl } from "@/utils/generateBlogImages";
 import { useAnalytics } from "@/hooks/use-analytics";
+import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 
 const Blog = () => {
   useAnalytics(); // Auto-track page view
+  useBreadcrumbSchema();
   const { t } = useLanguage();
   const { scrollY } = useScroll();
   const [activeCategory, setActiveCategory] = useState("all");

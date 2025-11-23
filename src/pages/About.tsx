@@ -8,9 +8,11 @@ import { useInView } from "@/hooks/use-in-view";
 import confetti from "canvas-confetti";
 import { useEffect, useState } from "react";
 import { useAnalytics } from "@/hooks/use-analytics";
+import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 
 const About = () => {
   useAnalytics(); // Auto-track page view
+  useBreadcrumbSchema();
   const { t } = useLanguage();
   const { scrollY } = useScroll();
   const [hasTriggeredConfetti, setHasTriggeredConfetti] = useState(false);

@@ -5,6 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { MessageSquare, Users, Clock, AlertCircle } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 
 interface AnalyticsSummary {
   date: string;
@@ -21,6 +22,7 @@ interface TopQuery {
 }
 
 const ChatAnalytics = () => {
+  useBreadcrumbSchema();
   const [summaryData, setSummaryData] = useState<AnalyticsSummary[]>([]);
   const [topQueries, setTopQueries] = useState<TopQuery[]>([]);
   const [loading, setLoading] = useState(true);

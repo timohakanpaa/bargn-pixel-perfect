@@ -4,9 +4,11 @@ import BlogImageUploader from "@/components/blog/BlogImageUploader";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { getBlogImageUrl } from "@/utils/generateBlogImages";
 import { useState } from "react";
+import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 
 const BlogAdmin = () => {
   const { t } = useLanguage();
+  useBreadcrumbSchema();
   const [refreshKey, setRefreshKey] = useState(0);
 
   const articles = [
