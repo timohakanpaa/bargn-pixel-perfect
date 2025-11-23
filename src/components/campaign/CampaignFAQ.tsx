@@ -1,15 +1,24 @@
 import { Plus } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useInView } from "@/hooks/use-in-view";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
 import confetti from "canvas-confetti";
-import { useEffect } from "react";
+import { useFAQSchema } from "@/hooks/use-faq-schema";
 
 const CampaignFAQ = () => {
   const { ref, isInView } = useInView();
   const { t } = useLanguage();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const faqs = [
+    {
+      question: t('campaign.faq.q1'),
+      answer: t('campaign.faq.a1')
+    }
+  ];
+
+  useFAQSchema(faqs, "campaign-faq-schema");
 
   useEffect(() => {
     if (isInView) {
@@ -21,36 +30,6 @@ const CampaignFAQ = () => {
       });
     }
   }, [isInView]);
-  
-  useEffect(() => {
-    // Inject FAQ Schema for Campaign page
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.text = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [{
-        "@type": "Question",
-        "name": t('campaign.faq.q1'),
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": t('campaign.faq.a1')
-        }
-      }]
-    });
-    document.head.appendChild(script);
-    
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, [t]);
-
-  const faqs = [
-    {
-      question: t('campaign.faq.q1'),
-      answer: t('campaign.faq.a1')
-    }
-  ];
 
   return (
     <section ref={ref} className="py-24 bg-background-dark relative">
