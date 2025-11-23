@@ -1,10 +1,24 @@
 import { Star } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { motion } from "framer-motion";
+import confetti from "canvas-confetti";
+import { useEffect } from "react";
 
 const CampaignTestimonial = () => {
   const { ref, isInView } = useInView();
   const { t } = useLanguage();
+
+  useEffect(() => {
+    if (isInView) {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#FF9B7D', '#E94B96', '#FFE500']
+      });
+    }
+  }, [isInView]);
 
   const testimonials = [
     {
@@ -20,40 +34,45 @@ const CampaignTestimonial = () => {
   ];
 
   return (
-    <section ref={ref} className="py-24 bg-gradient-to-b from-[#1e1b4b] to-[#0c0a1f] relative">
+    <section ref={ref} className="py-24 bg-gradient-to-b from-[#1a0b2e] to-[#0f0f23] relative">
       <div className="container mx-auto px-6">
         <div className={`text-center mb-16 transition-all duration-1000 ${isInView ? 'animate-fade-in-up' : 'opacity-0'}`}>
-          <h2 className="text-4xl md:text-6xl font-black mb-4 text-white">
+          <h2 className="text-4xl md:text-6xl font-black mb-4 text-foreground">
             {t('campaign.testimonials.title')}
           </h2>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {testimonials.map((testimonial, index) => (
-            <div
+            <motion.div
               key={index}
-              className={`bg-[#1a1a2e]/80 backdrop-blur-sm border border-white/10 rounded-3xl p-8 hover:scale-105 transition-all duration-300 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.15 }}
+              whileHover={{ scale: 1.05, y: -10 }}
+              className={`bg-glass backdrop-blur-xl border-2 border-glass rounded-3xl p-8 hover:border-primary hover:shadow-glow-coral transition-all duration-300 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}
               style={{ animationDelay: `${index * 150}ms` }}
             >
               <div className="flex items-center gap-4 mb-6">
                 <img 
                   src={testimonial.avatar}
                   alt={testimonial.name}
-                  className="w-16 h-16 rounded-full border-2 border-[#ec4899]"
+                  className="w-16 h-16 rounded-full border-2 border-primary shadow-glow-coral"
                 />
                 <div>
-                  <h3 className="font-bold text-white">{testimonial.name}</h3>
+                  <h3 className="font-bold text-foreground">{testimonial.name}</h3>
                   <div className="flex gap-1">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-[#fbbf24] text-[#fbbf24]" />
+                      <Star key={i} className="w-4 h-4 fill-accent text-accent" />
                     ))}
                   </div>
                 </div>
               </div>
-              <p className="text-foreground/80 italic leading-relaxed">
+              <p className="text-muted-foreground italic leading-relaxed">
                 "{testimonial.quote}"
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
