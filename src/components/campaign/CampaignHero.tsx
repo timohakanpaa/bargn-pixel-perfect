@@ -2,22 +2,12 @@ import { Button } from "@/components/ui/button";
 import { DollarSign, Rocket, TrendingUp } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useEffect } from "react";
+import { useEffect } from "react";
 import confetti from "canvas-confetti";
 
 const CampaignHero = () => {
   const { ref, isInView } = useInView();
   const { t } = useLanguage();
-  const containerRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
-
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, 50]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
 
   useEffect(() => {
     if (isInView) {
@@ -32,33 +22,24 @@ const CampaignHero = () => {
 
   return (
     <section 
-      ref={containerRef}
+      ref={ref}
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
     >
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#1a0b2e] via-[#2d1b4e] to-[#0f172a]"></div>
       
-      {/* Floating icons with parallax */}
-      <motion.div 
-        style={{ y: y1, rotate }}
-        className="absolute top-32 left-[10%] w-20 h-20 bg-gradient-to-br from-[#ffe500] to-[#f97316] rounded-3xl flex items-center justify-center shadow-glow-yellow blur-[1px] hover:scale-110 transition-transform"
-      >
+      {/* Floating icons */}
+      <div className="absolute top-32 left-[10%] w-20 h-20 bg-gradient-to-br from-[#ffe500] to-[#f97316] rounded-3xl flex items-center justify-center shadow-glow-yellow animate-float hover:scale-110 transition-transform">
         <DollarSign className="w-10 h-10 text-black" />
-      </motion.div>
+      </div>
 
-      <motion.div 
-        style={{ y: y2 }}
-        className="absolute top-40 right-[10%] w-16 h-16 bg-gradient-to-br from-[#ec4899] to-[#f97316] rounded-3xl flex items-center justify-center shadow-glow-pink blur-[1px] hover:scale-110 transition-transform"
-      >
+      <div className="absolute top-40 right-[10%] w-16 h-16 bg-gradient-to-br from-[#ec4899] to-[#f97316] rounded-3xl flex items-center justify-center shadow-glow-pink animate-float-delayed hover:scale-110 transition-transform">
         <TrendingUp className="w-8 h-8 text-white" />
-      </motion.div>
+      </div>
 
-      <motion.div 
-        style={{ y: y1 }}
-        className="absolute bottom-40 left-[15%] w-14 h-14 bg-gradient-to-br from-[#ffe500] via-[#f97316] to-[#ec4899] rounded-3xl flex items-center justify-center shadow-glow-orange blur-[1px] hover:scale-110 transition-transform"
-      >
+      <div className="absolute bottom-40 left-[15%] w-14 h-14 bg-gradient-to-br from-[#ffe500] via-[#f97316] to-[#ec4899] rounded-3xl flex items-center justify-center shadow-glow-orange animate-float hover:scale-110 transition-transform">
         <Rocket className="w-7 h-7 text-white" />
-      </motion.div>
+      </div>
 
       <div className={`container mx-auto px-6 text-center relative z-10 transition-all duration-1000 ${isInView ? 'animate-fade-in-up' : 'opacity-0'}`}>
         {/* Badge */}
