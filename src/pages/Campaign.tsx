@@ -10,6 +10,7 @@ import CampaignProcess from "@/components/campaign/CampaignProcess";
 import CampaignFAQ from "@/components/campaign/CampaignFAQ";
 import CampaignCTA from "@/components/campaign/CampaignCTA";
 import Footer from "@/components/Footer";
+import CampaignFloatingCTA from "@/components/campaign/CampaignFloatingCTA";
 
 const Campaign = () => {
   return (
@@ -27,6 +28,7 @@ const Campaign = () => {
         <CampaignFAQ />
         <CampaignCTA />
         <Footer />
+        <CampaignFloatingCTA />
       </div>
     </div>
   );

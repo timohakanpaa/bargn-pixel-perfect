@@ -49,11 +49,11 @@ const CampaignHero = () => {
       ref={ref}
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
     >
-      {/* Background gradient - dark navy/purple like screenshots */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0a0118] via-[#1a0b2e] to-[#0f0f23]"></div>
+      {/* Solid dark background like homepage */}
+      <div className="absolute inset-0 bg-[#050308]"></div>
       
-      {/* Giant gradient blob with pink/purple glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-[radial-gradient(ellipse_at_center,_#E94B96_0%,_#8B5CF6_50%,_transparent_100%)] opacity-20 blur-[150px] rounded-full animate-pulse-glow"></div>
+      {/* Giant gradient blob with warm pink/coral glow like screenshots */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-[radial-gradient(circle_at_center,_#E94B96_0%,_#FF9B7D_35%,_transparent_70%)] opacity-45 blur-[150px] rounded-full animate-pulse-glow"></div>
       
       {/* Floating icons with yellow/pink gradients */}
       <div className="absolute top-32 left-[10%] w-20 h-20 bg-gradient-to-br from-[#FFE500] to-[#E94B96] rounded-3xl flex items-center justify-center shadow-[0_0_60px_rgba(255,229,0,0.6)] animate-float hover:scale-110 transition-transform">
