@@ -27,7 +27,7 @@ const Navigation = () => {
             <NavLink to="/" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
               {t("home")}
             </NavLink>
-            <NavLink to="/" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+            <NavLink to="/members" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
               {t("members")}
             </NavLink>
             <NavLink to="/partners" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
