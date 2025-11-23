@@ -10,12 +10,55 @@ import SavingsCalculator from "@/components/SavingsCalculator";
 import { useAnalytics } from "@/hooks/use-analytics";
 import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 import { useAggregateRatingSchema } from "@/hooks/use-aggregate-rating-schema";
+import { useOfferSchema } from "@/hooks/use-offer-schema";
 import { useEffect } from "react";
 
 const Members = () => {
   useAnalytics(); // Auto-track page view
   useBreadcrumbSchema();
   useAggregateRatingSchema();
+  
+  // Inject Offer schema for pricing plans
+  useOfferSchema([
+    {
+      name: "Bargn Monthly Membership",
+      description: "Monthly flexible membership with 50% discounts at 500+ venues in Helsinki. Cancel anytime.",
+      price: "8.80",
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      validFrom: "2024-01-01T00:00:00Z",
+      url: "https://bargn.fi/members#monthly",
+      seller: {
+        name: "Bargn",
+        url: "https://bargn.fi"
+      },
+      itemOffered: {
+        name: "Monthly Membership Access",
+        description: "Unlimited 50% discounts, AI-powered recommendations, VIP treatment, and 24/7 support"
+      },
+      eligibleRegion: "Finland",
+      priceValidUntil: "2025-12-31T23:59:59Z"
+    },
+    {
+      name: "Bargn Annual Membership",
+      description: "Annual membership with 50% discounts at 500+ venues in Helsinki. Save 50% compared to monthly - get 2 months free!",
+      price: "53.00",
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      validFrom: "2024-01-01T00:00:00Z",
+      url: "https://bargn.fi/members#annual",
+      seller: {
+        name: "Bargn",
+        url: "https://bargn.fi"
+      },
+      itemOffered: {
+        name: "Annual Membership Access",
+        description: "Unlimited 50% discounts, AI-powered recommendations, VIP treatment, 24/7 support, and 2 months free"
+      },
+      eligibleRegion: "Finland",
+      priceValidUntil: "2025-12-31T23:59:59Z"
+    }
+  ]);
   const { t } = useLanguage();
   const { scrollY } = useScroll();
   
