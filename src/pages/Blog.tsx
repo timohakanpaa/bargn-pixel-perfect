@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { getBlogImageUrl } from "@/utils/generateBlogImages";
 import { useAnalytics } from "@/hooks/use-analytics";
 import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
+import { useArticleSchema } from "@/hooks/use-article-schema";
 
 const Blog = () => {
   useAnalytics(); // Auto-track page view
@@ -68,6 +69,49 @@ const Blog = () => {
       imageUrl: "article-new-partners.png"
     }
   ];
+  
+  // Inject Article schema for SEO
+  useArticleSchema([
+    {
+      headline: t("blog.article1.title"),
+      description: t("blog.article1.excerpt"),
+      image: getBlogImageUrl("article-success-story.png"),
+      datePublished: "2024-01-15T09:00:00+00:00",
+      dateModified: "2024-01-20T14:30:00+00:00",
+      author: "Bargn Editorial Team",
+      publisher: "Bargn",
+      keywords: ["student savings", "discount apps", "Finland", "money saving tips", "Gen Z finance"],
+      articleSection: "Success Stories",
+      wordCount: 1200,
+      url: "https://bargn.fi/blog#success-story"
+    },
+    {
+      headline: t("blog.article2.title"),
+      description: t("blog.article2.excerpt"),
+      image: getBlogImageUrl("article-coupon-apps.png"),
+      datePublished: "2024-01-10T10:00:00+00:00",
+      dateModified: "2024-01-18T11:00:00+00:00",
+      author: "Bargn Editorial Team",
+      publisher: "Bargn",
+      keywords: ["discount apps", "coupon comparison", "savings guide", "Helsinki deals", "best discount app"],
+      articleSection: "Guides",
+      wordCount: 1500,
+      url: "https://bargn.fi/blog#discount-apps"
+    },
+    {
+      headline: t("blog.article3.title"),
+      description: t("blog.article3.excerpt"),
+      image: getBlogImageUrl("article-new-partners.png"),
+      datePublished: "2024-01-05T08:00:00+00:00",
+      dateModified: "2024-01-22T16:00:00+00:00",
+      author: "Bargn Editorial Team",
+      publisher: "Bargn",
+      keywords: ["new restaurants", "Helsinki food scene", "partner announcements", "restaurant discounts", "dining deals"],
+      articleSection: "Partner Spotlights",
+      wordCount: 800,
+      url: "https://bargn.fi/blog#new-partners"
+    }
+  ]);
 
   return (
     <div className="min-h-screen bg-background-dark">
