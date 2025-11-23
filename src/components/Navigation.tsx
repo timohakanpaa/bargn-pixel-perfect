@@ -3,46 +3,11 @@ import { Button } from "@/components/ui/button";
 import { NavLink } from "@/components/NavLink";
 import UpdateBanner from "@/components/UpdateBanner";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const Navigation = () => {
   const { language, setLanguage, t } = useLanguage();
   const location = useLocation();
-  const [activeHash, setActiveHash] = useState("");
-
-  useEffect(() => {
-    const handleHashChange = () => {
-      setActiveHash(window.location.hash);
-    };
-
-    const handleScroll = () => {
-      const sections = ["#how-it-works", "#about", "#blog"];
-      const scrollPosition = window.scrollY + 200;
-
-      for (const section of sections) {
-        const element = document.querySelector(section);
-        if (element) {
-          const offsetTop = (element as HTMLElement).offsetTop;
-          const offsetHeight = (element as HTMLElement).offsetHeight;
-          
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveHash(section);
-            return;
-          }
-        }
-      }
-    };
-
-    handleHashChange();
-    window.addEventListener("hashchange", handleHashChange);
-    window.addEventListener("scroll", handleScroll);
-    
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange);
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [location]);
   
   return (
     <>
@@ -89,26 +54,20 @@ const Navigation = () => {
             >
               {t("howItWorks")}
             </NavLink>
-            <a 
-              href="#about" 
-              className={`text-sm font-medium hover:text-primary transition-colors ${
-                activeHash === "#about" 
-                  ? "text-primary font-bold relative after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-0.5 after:bg-primary after:rounded-full" 
-                  : "text-foreground"
-              }`}
+            <NavLink 
+              to="/about" 
+              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+              activeClassName="text-primary font-bold relative after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-0.5 after:bg-primary after:rounded-full"
             >
               {t("about")}
-            </a>
-            <a 
-              href="#blog" 
-              className={`text-sm font-medium hover:text-primary transition-colors ${
-                activeHash === "#blog" 
-                  ? "text-primary font-bold relative after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-0.5 after:bg-primary after:rounded-full" 
-                  : "text-foreground"
-              }`}
+            </NavLink>
+            <NavLink 
+              to="/blog" 
+              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+              activeClassName="text-primary font-bold relative after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-0.5 after:bg-primary after:rounded-full"
             >
               {t("blog")}
-            </a>
+            </NavLink>
             <NavLink 
               to="/campaign" 
               className="text-sm font-medium text-foreground hover:text-primary transition-colors"
