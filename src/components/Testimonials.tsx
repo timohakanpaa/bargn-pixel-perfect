@@ -6,13 +6,13 @@ const Testimonials = () => {
   const { ref, isInView } = useInView();
 
   return (
-    <section ref={ref} className="py-24 relative overflow-hidden">
-      <div className={`container mx-auto px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
-        <h2 className="text-5xl md:text-6xl font-black text-center mb-16 text-foreground">
+    <section ref={ref} className="py-16 sm:py-24 relative overflow-hidden">
+      <div className={`container mx-auto px-4 sm:px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-center mb-12 sm:mb-16 text-foreground">
           What Our Community Says
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
           <TiltCard tiltDegree={10} scale={1.05}>
             <div className="bg-glass backdrop-blur-2xl rounded-3xl p-8 border-2 border-glass hover:border-primary hover:shadow-glow-coral transition-all duration-300 h-full">
               <div className="flex items-start gap-4 mb-6">

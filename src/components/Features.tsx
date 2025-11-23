@@ -6,19 +6,19 @@ const Features = () => {
   const { ref, isInView } = useInView();
 
   return (
-    <section ref={ref} className="py-24 relative overflow-hidden">
-      <div className={`container mx-auto px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
-        <h2 className="text-5xl md:text-6xl font-black text-center mb-6">
+    <section ref={ref} className="py-16 sm:py-24 relative overflow-hidden">
+      <div className={`container mx-auto px-4 sm:px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-center mb-4 sm:mb-6">
           <span className="text-foreground">Why We're Your New Favorite</span>
           <br />
           <span className="text-foreground">Money-Saving App</span>
         </h2>
 
-        <p className="text-xl text-center text-secondary mb-16 max-w-4xl mx-auto">
+        <p className="text-lg sm:text-xl text-center text-secondary mb-12 sm:mb-16 max-w-4xl mx-auto">
           Sure, we could bombard you with corporate buzzwords about 'revolutionary solutions,' but here's the real tea: we built an app that actually saves you money without making you jump through hoops. Wild concept, right?
         </p>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
           <TiltCard tiltDegree={12} scale={1.06}>
             <div className="bg-glass backdrop-blur-2xl border-2 border-glass rounded-3xl p-8 hover:border-primary hover:shadow-glow-coral transition-all duration-300 group h-full">
               <div className="w-16 h-16 bg-gradient-coral-purple rounded-2xl flex items-center justify-center mb-6 shadow-glow-purple group-hover:animate-pulse-glow">

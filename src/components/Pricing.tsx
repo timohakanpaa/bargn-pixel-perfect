@@ -7,16 +7,16 @@ const Pricing = () => {
   const { ref, isInView } = useInView();
 
   return (
-    <section ref={ref} className="py-24 relative overflow-hidden">
-      <div className={`container mx-auto px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
-        <h2 className="text-6xl md:text-7xl font-black text-center mb-6 text-primary">
+    <section ref={ref} className="py-16 sm:py-24 relative overflow-hidden">
+      <div className={`container mx-auto px-4 sm:px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
+        <h2 className="text-4xl sm:text-6xl md:text-7xl font-black text-center mb-4 sm:mb-6 text-primary">
           50% OFF
         </h2>
-        <p className="text-2xl text-center text-secondary mb-16">
+        <p className="text-xl sm:text-2xl text-center text-secondary mb-12 sm:mb-16">
           Because we're generous like that
         </p>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
           {/* Premium Plan */}
           <TiltCard className="relative group" tiltDegree={15} scale={1.08}>
             <div className="absolute inset-0 bg-gradient-purple-yellow opacity-30 blur-3xl group-hover:opacity-40 transition-opacity rounded-3xl animate-pulse-glow"></div>
