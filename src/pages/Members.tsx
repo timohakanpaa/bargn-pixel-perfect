@@ -18,9 +18,9 @@ const Members = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
-      
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-20">
+      <div className="pt-[132px]">
+        {/* Hero Section */}
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden pb-20">
         {/* Giant Gradient Blob */}
         <motion.div 
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-gradient-coral-purple opacity-30 blur-[150px] rounded-full animate-pulse-glow"
@@ -540,8 +540,9 @@ const Members = () => {
           </motion.div>
         </div>
       </section>
-
+      
       <Footer />
+      </div>
     </div>
   );
 };
