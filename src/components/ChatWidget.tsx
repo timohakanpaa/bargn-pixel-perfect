@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const ChatWidget = () => {
   const { t, language } = useLanguage();
@@ -35,10 +36,23 @@ const ChatWidget = () => {
     const chatUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
     
     try {
+      // Get the current session token
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        toast({
+          title: "Authentication required",
+          description: "Please sign in to use the chat feature.",
+          variant: "destructive",
+        });
+        return;
+      }
+
       const response = await fetch(chatUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${session.access_token}`,
         },
         body: JSON.stringify({ 
           messages: [...messages, { role: "user", content: userMessage }],

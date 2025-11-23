@@ -6,6 +6,28 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+// Simple in-memory rate limiting
+const rateLimits = new Map<string, { count: number; resetTime: number }>();
+const RATE_LIMIT_WINDOW = 3600000; // 1 hour
+const MAX_REQUESTS_PER_WINDOW = 5;
+
+function checkRateLimit(userId: string): boolean {
+  const now = Date.now();
+  const limit = rateLimits.get(userId);
+  
+  if (!limit || now > limit.resetTime) {
+    rateLimits.set(userId, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+    return true;
+  }
+  
+  if (limit.count >= MAX_REQUESTS_PER_WINDOW) {
+    return false;
+  }
+  
+  limit.count++;
+  return true;
+}
+
 interface FunnelAnalysis {
   funnel_id: string;
   funnel_name: string;
@@ -33,6 +55,15 @@ Deno.serve(async (req) => {
   }
 
   try {
+    // Get authenticated user from JWT
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader) {
+      return new Response(
+        JSON.stringify({ error: 'Missing authorization header' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     // Validate input
     const requestSchema = z.object({
       funnel_id: z.string().uuid()
@@ -45,6 +76,29 @@ Deno.serve(async (req) => {
       return new Response(
         JSON.stringify({ error: 'funnel_id is required' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Extract user ID from JWT for rate limiting
+    const token = authHeader.replace('Bearer ', '');
+    const supabaseAuth = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_ANON_KEY') ?? ''
+    );
+    const { data: { user }, error: authError } = await supabaseAuth.auth.getUser(token);
+    
+    if (authError || !user) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid token' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Check rate limit
+    if (!checkRateLimit(user.id)) {
+      return new Response(
+        JSON.stringify({ error: 'Rate limit exceeded. Maximum 5 analyses per hour.' }),
+        { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
