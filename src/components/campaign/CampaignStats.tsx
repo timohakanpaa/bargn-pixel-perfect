@@ -25,30 +25,42 @@ const CampaignStats = () => {
       icon: DollarSign,
       value: "40%",
       label: t('campaign.stats.revenueShare'),
-      gradient: "bg-gradient-orange-yellow"
+      valueColor: "text-[#FFE500]",
+      labelColor: "text-[#FF9B7D]",
+      iconGradient: "from-[#FFE500] to-[#FF9B7D]",
+      glow: "shadow-[0_0_40px_rgba(255,229,0,0.6)]"
     },
     {
       icon: Users,
       value: "200+",
       label: t('campaign.stats.activeCreators'),
-      gradient: "bg-gradient-pink-orange"
+      valueColor: "text-[#E94B96]",
+      labelColor: "text-[#FF9B7D]",
+      iconGradient: "from-[#E94B96] to-[#FF9B7D]",
+      glow: "shadow-[0_0_40px_rgba(233,75,150,0.6)]"
     },
     {
       icon: Wallet,
       value: "€50k+",
       label: t('campaign.stats.paidOut'),
-      gradient: "bg-gradient-coral-purple"
+      valueColor: "text-[#FF9B7D]",
+      labelColor: "text-[#FF9B7D]",
+      iconGradient: "from-[#FF9B7D] to-[#FF8C61]",
+      glow: "shadow-[0_0_40px_rgba(255,155,125,0.6)]"
     },
     {
       icon: Zap,
       value: "€5",
       label: t('campaign.stats.minPayout'),
-      gradient: "bg-gradient-purple-yellow"
+      valueColor: "text-[#FFE500]",
+      labelColor: "text-[#FF9B7D]",
+      iconGradient: "from-[#FFE500] to-[#FF9B7D]",
+      glow: "shadow-[0_0_40px_rgba(255,229,0,0.6)]"
     }
   ];
 
   return (
-    <section ref={ref} className="py-16 bg-gradient-to-b from-[#0f0f23] to-[#1a0b2e] relative">
+    <section ref={ref} className="py-16 bg-gradient-to-b from-[#0a0118] to-[#1a0b2e] relative">
       <div className="container mx-auto px-6">
         <div className="grid md:grid-cols-4 gap-6">
           {stats.map((stat, index) => {
@@ -61,16 +73,16 @@ const CampaignStats = () => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className={`bg-glass backdrop-blur-xl border-2 border-glass rounded-3xl p-6 text-center hover:border-primary hover:shadow-glow-coral transition-all duration-300 ${isInView ? 'animate-fade-in' : 'opacity-0'}`}
+                className={`bg-glass backdrop-blur-xl border-2 border-glass rounded-3xl p-6 text-center hover:border-[#E94B96] hover:shadow-[0_0_40px_rgba(233,75,150,0.4)] transition-all duration-300 ${isInView ? 'animate-fade-in' : 'opacity-0'}`}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className={`w-12 h-12 mx-auto mb-4 ${stat.gradient} rounded-2xl flex items-center justify-center shadow-glow-coral`}>
-                  <Icon className="w-6 h-6 text-foreground" />
+                <div className={`w-12 h-12 mx-auto mb-4 bg-gradient-to-br ${stat.iconGradient} rounded-2xl flex items-center justify-center ${stat.glow}`}>
+                  <Icon className="w-6 h-6 text-white" />
                 </div>
-                <div className={`text-4xl md:text-5xl font-black ${stat.gradient} bg-clip-text text-transparent mb-2`}>
+                <div className={`text-4xl md:text-5xl font-black ${stat.valueColor} mb-2`}>
                   {stat.value}
                 </div>
-                <p className="text-primary text-sm font-semibold uppercase tracking-wider">{stat.label}</p>
+                <p className={`${stat.labelColor} text-sm font-semibold uppercase tracking-wider`}>{stat.label}</p>
               </motion.div>
             );
           })}

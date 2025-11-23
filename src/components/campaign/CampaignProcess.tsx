@@ -26,41 +26,49 @@ const CampaignProcess = () => {
       number: "1",
       title: t('campaign.process.step1.title'),
       description: t('campaign.process.step1.description'),
-      gradient: "bg-gradient-orange-yellow"
+      iconGradient: "from-[#FF9B7D] to-[#FFE500]",
+      textGradient: "from-[#FF9B7D] to-[#FFE500]",
+      glow: "shadow-[0_0_60px_rgba(255,155,125,0.6)]"
     },
     {
       icon: MessageCircle,
       number: "2",
       title: t('campaign.process.step2.title'),
       description: t('campaign.process.step2.description'),
-      gradient: "bg-gradient-pink-orange"
+      iconGradient: "from-[#E94B96] to-[#FF9B7D]",
+      textGradient: "from-[#E94B96] to-[#FF9B7D]",
+      glow: "shadow-[0_0_60px_rgba(233,75,150,0.6)]"
     },
     {
       icon: Sparkles,
       number: "3",
       title: t('campaign.process.step3.title'),
       description: t('campaign.process.step3.description'),
-      gradient: "bg-gradient-coral-purple"
+      iconGradient: "from-[#FF9B7D] to-[#8B5CF6]",
+      textGradient: "from-[#FF9B7D] to-[#8B5CF6]",
+      glow: "shadow-[0_0_60px_rgba(255,155,125,0.6)]"
     },
     {
       icon: DollarSign,
       number: "4",
       title: t('campaign.process.step4.title'),
       description: t('campaign.process.step4.description'),
-      gradient: "bg-gradient-purple-yellow"
+      iconGradient: "from-[#8B5CF6] to-[#FFE500]",
+      textGradient: "from-[#8B5CF6] to-[#FFE500]",
+      glow: "shadow-[0_0_60px_rgba(139,92,246,0.6)]"
     }
   ];
 
   return (
-    <section ref={ref} className="py-24 bg-gradient-to-b from-[#0f0f23] to-[#000000] relative">
+    <section ref={ref} className="py-24 bg-gradient-to-b from-[#0a0118] to-[#000000] relative">
       <div className="container mx-auto px-6">
         <div className={`text-center mb-16 transition-all duration-1000 ${isInView ? 'animate-fade-in-up' : 'opacity-0'}`}>
           <h2 className="text-4xl md:text-6xl font-black mb-4">
-            <span className="bg-gradient-pink-yellow bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#E94B96] to-[#FFE500] bg-clip-text text-transparent">
               {t('campaign.process.title')}
             </span>
           </h2>
-          <p className="text-lg text-primary font-semibold">
+          <p className="text-lg text-[#FF9B7D] font-semibold">
             {t('campaign.process.subtitle')}
           </p>
         </div>
@@ -80,11 +88,11 @@ const CampaignProcess = () => {
               >
                 <motion.div 
                   whileHover={{ scale: 1.1, rotate: 5 }}
-                  className={`w-20 h-20 mx-auto mb-6 ${step.gradient} rounded-full flex items-center justify-center shadow-glow-pink`}
+                  className={`w-20 h-20 mx-auto mb-6 bg-gradient-to-br ${step.iconGradient} rounded-full flex items-center justify-center ${step.glow}`}
                 >
-                  <Icon className="w-10 h-10 text-foreground" />
+                  <Icon className="w-10 h-10 text-white" />
                 </motion.div>
-                <div className={`text-6xl font-black mb-4 ${step.gradient} bg-clip-text text-transparent`}>
+                <div className={`text-6xl font-black mb-4 bg-gradient-to-r ${step.textGradient} bg-clip-text text-transparent`}>
                   {step.number}
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-3">{step.title}</h3>

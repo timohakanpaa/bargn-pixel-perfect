@@ -25,29 +25,35 @@ const CampaignGoldRush = () => {
       icon: DollarSign,
       title: t('campaign.goldRush.benefit1.title'),
       description: t('campaign.goldRush.benefit1.description'),
-      gradient: "bg-gradient-pink-orange"
+      iconGradient: "from-[#E94B96] to-[#FF9B7D]",
+      glow: "shadow-[0_0_40px_rgba(233,75,150,0.6)]"
     },
     {
       icon: Lightbulb,
       title: t('campaign.goldRush.benefit2.title'),
       description: t('campaign.goldRush.benefit2.description'),
-      gradient: "bg-gradient-orange-yellow"
+      iconGradient: "from-[#FF9B7D] to-[#FFE500]",
+      glow: "shadow-[0_0_40px_rgba(255,155,125,0.6)]"
     },
     {
       icon: Trophy,
       title: t('campaign.goldRush.benefit3.title'),
       description: t('campaign.goldRush.benefit3.description'),
-      gradient: "bg-gradient-purple-yellow"
+      iconGradient: "from-[#FFE500] to-[#E94B96]",
+      glow: "shadow-[0_0_40px_rgba(255,229,0,0.6)]"
     }
   ];
 
   return (
-    <section ref={ref} className="py-24 bg-gradient-to-b from-[#1a0b2e] to-[#0f0f23] relative overflow-hidden">
+    <section ref={ref} className="py-24 bg-gradient-to-b from-[#1a0b2e] to-[#0a0118] relative overflow-hidden">
       <div className="container mx-auto px-6">
         <div className={`text-center mb-16 transition-all duration-1000 ${isInView ? 'animate-fade-in-up' : 'opacity-0'}`}>
           <h2 className="text-4xl md:text-6xl font-black mb-6">
-            <span className="bg-gradient-pink-yellow bg-clip-text text-transparent">
-              {t('campaign.goldRush.title')}
+            <span className="bg-gradient-to-r from-[#E94B96] via-[#E94B96] to-[#FF9B7D] bg-clip-text text-transparent">
+              The Bargn Influencer{" "}
+            </span>
+            <span className="bg-gradient-to-r from-[#FF9B7D] to-[#FFE500] bg-clip-text text-transparent">
+              Gold Rush
             </span>
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
@@ -66,11 +72,11 @@ const CampaignGoldRush = () => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.15 }}
                 whileHover={{ scale: 1.05, y: -10 }}
-                className={`bg-glass backdrop-blur-xl border-2 border-glass rounded-3xl p-8 hover:border-primary hover:shadow-glow-coral transition-all duration-300 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}
+                className={`bg-glass backdrop-blur-xl border-2 border-glass rounded-3xl p-8 hover:border-[#E94B96] hover:shadow-[0_0_40px_rgba(233,75,150,0.4)] transition-all duration-300 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}
                 style={{ animationDelay: `${index * 150}ms` }}
               >
-                <div className={`w-16 h-16 mb-6 ${benefit.gradient} rounded-2xl flex items-center justify-center shadow-glow-coral`}>
-                  <Icon className="w-8 h-8 text-foreground" />
+                <div className={`w-16 h-16 mb-6 bg-gradient-to-br ${benefit.iconGradient} rounded-2xl flex items-center justify-center ${benefit.glow}`}>
+                  <Icon className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-4">{benefit.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{benefit.description}</p>

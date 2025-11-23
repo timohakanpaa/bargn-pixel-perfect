@@ -31,18 +31,18 @@ const CampaignCTA = () => {
   };
 
   return (
-    <section ref={ref} className="py-32 bg-gradient-pink-yellow relative overflow-hidden">
+    <section ref={ref} className="py-32 bg-gradient-to-r from-[#E94B96] via-[#FF9B7D] to-[#FFE500] relative overflow-hidden">
       <div className={`container mx-auto px-6 text-center transition-all duration-1000 ${isInView ? 'animate-fade-in-up' : 'opacity-0'}`}>
-        <h2 className="text-4xl md:text-6xl font-black mb-6 text-foreground">
+        <h2 className="text-4xl md:text-6xl font-black mb-6 text-white">
           {t('campaign.cta.title')}
         </h2>
-        <p className="text-xl md:text-2xl text-foreground/90 mb-12 max-w-3xl mx-auto">
+        <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto">
           {t('campaign.cta.description')}
         </p>
         <Button 
           onClick={handleClick}
           size="lg"
-          className="bg-background text-primary hover:bg-background/90 font-bold rounded-full px-12 py-8 text-xl shadow-2xl hover:scale-110 transition-all duration-300"
+          className="bg-[#0a0118] text-white hover:bg-[#1a0b2e] font-bold rounded-full px-12 py-8 text-xl shadow-2xl hover:scale-110 hover:shadow-[0_0_60px_rgba(255,255,255,0.6)] transition-all duration-300"
         >
           <Rocket className="mr-3 w-6 h-6" />
           {t('campaign.cta.button')}
