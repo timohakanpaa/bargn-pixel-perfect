@@ -7,6 +7,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useInView } from "@/hooks/use-in-view";
 import confetti from "canvas-confetti";
 import { useEffect, useState } from "react";
+import { getBlogImageUrl } from "@/utils/generateBlogImages";
 
 const Blog = () => {
   const { t } = useLanguage();
@@ -42,21 +43,25 @@ const Blog = () => {
       excerpt: t("blog.article1.excerpt"),
       category: t("blog.article1.category"),
       readTime: "6 min",
-      gradient: "from-[#E94B96] to-[#FF9B7D]"
+      gradient: "from-[#E94B96] to-[#FF9B7D]",
+      // Image will be loaded from storage or generated
+      imageUrl: "article-success-story.png"
     },
     {
       title: t("blog.article2.title"),
       excerpt: t("blog.article2.excerpt"),
       category: t("blog.article2.category"),
       readTime: "8 min",
-      gradient: "from-[#FF9B7D] to-[#FFE500]"
+      gradient: "from-[#FF9B7D] to-[#FFE500]",
+      imageUrl: "article-coupon-apps.png"
     },
     {
       title: t("blog.article3.title"),
       excerpt: t("blog.article3.excerpt"),
       category: t("blog.article3.category"),
       readTime: "4 min",
-      gradient: "from-[#8B5CF6] to-[#FFE500]"
+      gradient: "from-[#8B5CF6] to-[#FFE500]",
+      imageUrl: "article-new-partners.png"
     }
   ];
 
@@ -237,8 +242,23 @@ const Blog = () => {
                     <motion.div
                       whileHover={{ scale: 1.1 }}
                       transition={{ duration: 0.3 }}
+                      className="w-full h-full"
                     >
-                      <DollarSign className="w-24 h-24 text-white opacity-80" />
+                      <img 
+                        src={getBlogImageUrl(article.imageUrl)}
+                        alt={article.title}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          // Fallback to gradient with icon if image fails to load
+                          const target = e.currentTarget;
+                          target.style.display = 'none';
+                          const fallback = target.nextElementSibling as HTMLElement;
+                          if (fallback) fallback.style.display = 'flex';
+                        }}
+                      />
+                      <div className={`hidden w-full h-full bg-gradient-to-br ${article.gradient} items-center justify-center`}>
+                        <DollarSign className="w-24 h-24 text-white opacity-80" />
+                      </div>
                     </motion.div>
                   </div>
                   
