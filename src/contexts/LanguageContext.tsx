@@ -323,6 +323,7 @@ const translations: Record<Language, Record<string, string>> = {
     "footer.info.businessId": "Y-tunnus: 1234567-8",
     "footer.copyright": "© 2024 Bargn. All rights reserved.",
     "footer.tagline": "Discover. Save. Repeat.",
+    "chatWidget": "Ask Bargn AI",
   },
   fi: {
     home: "Koti",
@@ -638,6 +639,7 @@ const translations: Record<Language, Record<string, string>> = {
     "footer.info.businessId": "Y-tunnus: 1234567-8",
     "footer.copyright": "© 2024 Bargn. Kaikki oikeudet pidätetään.",
     "footer.tagline": "Löydä. Säästä. Toista.",
+    "chatWidget": "Kysy Bargn AI:lta",
   },
 };
 
