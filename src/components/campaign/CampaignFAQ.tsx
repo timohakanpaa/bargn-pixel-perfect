@@ -21,6 +21,29 @@ const CampaignFAQ = () => {
       });
     }
   }, [isInView]);
+  
+  useEffect(() => {
+    // Inject FAQ Schema for Campaign page
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": t('campaign.faq.q1'),
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": t('campaign.faq.a1')
+        }
+      }]
+    });
+    document.head.appendChild(script);
+    
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, [t]);
 
   const faqs = [
     {

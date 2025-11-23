@@ -77,7 +77,7 @@ const Footer = () => {
             />
             <div className="flex gap-3 justify-center sm:justify-start">
               <a
-                href="https://instagram.com/bargn"
+                href="https://www.instagram.com/bargn_app?igsh=ODhtd2MzaWl5YnZy&utm_source=qr"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-glass backdrop-blur-xl border border-primary/20 rounded-full flex items-center justify-center hover:border-secondary hover:shadow-glow-pink transition-all min-w-[44px] min-h-[44px]"
@@ -86,7 +86,7 @@ const Footer = () => {
                 <Instagram className="w-5 h-5 text-primary" aria-hidden="true" />
               </a>
               <a
-                href="https://tiktok.com/@bargn"
+                href="https://www.tiktok.com/@bargn_app?_t=8pRBdfvjZcP&_r=1"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-glass backdrop-blur-xl border border-primary/20 rounded-full flex items-center justify-center hover:border-secondary hover:shadow-glow-pink transition-all min-w-[44px] min-h-[44px]"
@@ -97,7 +97,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a
-                href="https://linkedin.com/company/bargn"
+                href="https://www.linkedin.com/company/bargn"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-glass backdrop-blur-xl border border-primary/20 rounded-full flex items-center justify-center hover:border-secondary hover:shadow-glow-pink transition-all min-w-[44px] min-h-[44px]"
