@@ -24,8 +24,8 @@ const BusinessSection = () => {
             </p>
 
             <div className="space-y-6 mb-12">
-              <div className="flex items-start gap-4">
-                <div className="w-14 h-14 bg-gradient-pink-orange rounded-2xl flex items-center justify-center flex-shrink-0 shadow-glow-pink">
+              <div className="flex items-start gap-4 bg-glass backdrop-blur-2xl border-2 border-glass hover:border-primary hover:shadow-glow-coral p-6 rounded-2xl transition-all duration-300 hover:scale-105">
+                <div className="w-14 h-14 bg-gradient-coral-purple rounded-2xl flex items-center justify-center flex-shrink-0 shadow-glow-coral">
                   <TrendingUp className="w-7 h-7 text-foreground" />
                 </div>
                 <div>
@@ -38,8 +38,8 @@ const BusinessSection = () => {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="w-14 h-14 bg-gradient-orange-yellow rounded-2xl flex items-center justify-center flex-shrink-0 shadow-glow-orange">
+              <div className="flex items-start gap-4 bg-glass backdrop-blur-2xl border-2 border-glass hover:border-secondary hover:shadow-glow-coral p-6 rounded-2xl transition-all duration-300 hover:scale-105">
+                <div className="w-14 h-14 bg-gradient-coral rounded-2xl flex items-center justify-center flex-shrink-0 shadow-glow-coral">
                   <Shield className="w-7 h-7 text-foreground" />
                 </div>
                 <div>
@@ -52,8 +52,8 @@ const BusinessSection = () => {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="w-14 h-14 bg-gradient-pink-yellow rounded-2xl flex items-center justify-center flex-shrink-0 shadow-glow-yellow">
+              <div className="flex items-start gap-4 bg-glass backdrop-blur-2xl border-2 border-glass hover:border-accent hover:shadow-glow-yellow p-6 rounded-2xl transition-all duration-300 hover:scale-105">
+                <div className="w-14 h-14 bg-gradient-purple-yellow rounded-2xl flex items-center justify-center flex-shrink-0 shadow-glow-yellow">
                   <Heart className="w-7 h-7 text-foreground" />
                 </div>
                 <div>
@@ -74,18 +74,18 @@ const BusinessSection = () => {
           </div>
 
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-purple-pink opacity-20 blur-3xl rounded-3xl animate-pulse-glow"></div>
-            <div className="relative bg-gradient-to-br from-[#6B21A8] to-[#EC4899] rounded-3xl p-8 shadow-2xl hover:scale-105 transition-transform duration-300">
-              <div className="bg-background/10 backdrop-blur-sm rounded-2xl p-6 mb-4">
+            <div className="absolute inset-0 bg-gradient-coral-purple opacity-30 blur-3xl rounded-3xl animate-pulse-glow"></div>
+            <div className="relative bg-glass backdrop-blur-2xl border-2 border-glass hover:border-primary hover:shadow-glow-purple rounded-3xl p-8 shadow-2xl hover:scale-105 transition-all duration-300">
+              <div className="bg-glass backdrop-blur-xl border border-glass rounded-2xl p-6 mb-4">
                 <div className="text-sm text-accent mb-2">You saved 160.00 CHF</div>
-                <div className="bg-background/20 rounded-xl p-4 mb-4">
+                <div className="bg-glass backdrop-blur-sm rounded-xl p-4 mb-4">
                   <input 
                     type="text" 
                     placeholder="Search for an offer or outlet" 
                     className="bg-transparent text-foreground placeholder:text-muted-foreground w-full outline-none"
                   />
                 </div>
-                <div className="bg-background/80 rounded-xl p-4">
+                <div className="bg-glass backdrop-blur-xl rounded-xl p-4 border border-glass">
                   <img 
                     src="/placeholder.svg" 
                     alt="Cold Stone" 
@@ -102,7 +102,7 @@ const BusinessSection = () => {
                   </div>
                 </div>
               </div>
-              <div className="bg-background/80 backdrop-blur-sm rounded-2xl p-6">
+              <div className="bg-glass backdrop-blur-xl border border-glass rounded-2xl p-6">
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-foreground font-bold">500+ Partners</span>
                   <span className="text-muted-foreground">Growing Daily</span>

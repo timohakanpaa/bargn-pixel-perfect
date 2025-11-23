@@ -18,9 +18,9 @@ const Pricing = () => {
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* Premium Plan */}
           <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-pink-yellow opacity-20 blur-3xl group-hover:opacity-30 transition-opacity rounded-3xl animate-pulse-glow"></div>
-            <div className="relative bg-card border-2 border-primary rounded-3xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all duration-300">
-              <div className="bg-gradient-pink-yellow p-8 relative">
+            <div className="absolute inset-0 bg-gradient-purple-yellow opacity-30 blur-3xl group-hover:opacity-40 transition-opacity rounded-3xl animate-pulse-glow"></div>
+            <div className="relative bg-glass backdrop-blur-2xl border-2 border-purple shadow-glow-purple rounded-3xl overflow-hidden hover:scale-105 hover:-translate-y-2 hover:shadow-glow-yellow transition-all duration-300">
+              <div className="bg-gradient-purple-yellow p-8 relative">
                 <div className="absolute top-4 right-4 bg-accent text-accent-foreground px-4 py-1 rounded-full text-sm font-bold">
                   AI THAT ACTUALLY SLAPS
                 </div>
@@ -28,7 +28,7 @@ const Pricing = () => {
                 <div className="text-4xl font-black text-foreground">50% OFF</div>
               </div>
               
-              <div className="bg-background p-8">
+              <div className="bg-glass backdrop-blur-xl p-8">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-3xl font-black text-accent">
                     The VIP Life (But Affordable)
@@ -76,9 +76,9 @@ const Pricing = () => {
 
           {/* Standard Plan */}
           <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-purple-pink opacity-20 blur-3xl group-hover:opacity-30 transition-opacity rounded-3xl"></div>
-            <div className="relative bg-card border border-border rounded-3xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all duration-300">
-              <div className="bg-gradient-to-br from-[#8B5CF6] to-[#EC4899] p-8 relative">
+            <div className="absolute inset-0 bg-gradient-coral-purple opacity-30 blur-3xl group-hover:opacity-40 transition-opacity rounded-3xl"></div>
+            <div className="relative bg-glass backdrop-blur-2xl border-2 border-glass rounded-3xl overflow-hidden hover:scale-105 hover:-translate-y-2 hover:shadow-glow-coral transition-all duration-300">
+              <div className="bg-gradient-coral-purple p-8 relative">
                 <div className="absolute top-4 right-4 bg-accent text-accent-foreground px-4 py-1 rounded-full text-sm font-bold">
                   BEST VALUE
                 </div>
@@ -86,7 +86,7 @@ const Pricing = () => {
                 <div className="text-4xl font-black text-foreground">50% OFF</div>
               </div>
               
-              <div className="bg-card p-8">
+              <div className="bg-glass backdrop-blur-xl p-8">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-3xl font-black text-muted-foreground">
                     The VIP Life (But Affordable)
