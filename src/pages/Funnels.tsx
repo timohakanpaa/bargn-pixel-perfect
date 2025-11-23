@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TrendingUp, TrendingDown, Users, ChevronRight, Target } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useAnalytics } from "@/hooks/use-analytics";
+import { AlertConfigurations } from "@/components/funnel/AlertConfigurations";
+import { AlertLogs } from "@/components/funnel/AlertLogs";
 
 interface FunnelData {
   funnel_id: string;
@@ -95,11 +98,18 @@ const Funnels = () => {
           <div>
             <h1 className="text-4xl font-bold mb-2">Conversion Funnels</h1>
             <p className="text-muted-foreground">
-              Track user journeys and identify drop-off points
+              Track user journeys, identify drop-off points, and manage alerts
             </p>
           </div>
 
-          {loading ? (
+          <Tabs defaultValue="overview" className="space-y-6">
+            <TabsList>
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="alerts">Alerts</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="overview" className="space-y-6">
+              {loading ? (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
               {[...Array(3)].map((_, i) => (
                 <Card key={i}>
@@ -257,6 +267,13 @@ const Funnels = () => {
               )}
             </>
           )}
+            </TabsContent>
+
+            <TabsContent value="alerts" className="space-y-6">
+              <AlertConfigurations />
+              <AlertLogs />
+            </TabsContent>
+          </Tabs>
         </div>
       </main>
 
