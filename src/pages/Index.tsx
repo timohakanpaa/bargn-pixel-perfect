@@ -8,10 +8,12 @@ import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import { useAnalytics } from "@/hooks/use-analytics";
 import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
+import { useAggregateRatingSchema } from "@/hooks/use-aggregate-rating-schema";
 
 const Index = () => {
   useAnalytics(); // Auto-track page view
   useBreadcrumbSchema();
+  useAggregateRatingSchema();
   
   return (
     <div className="min-h-screen bg-background">
