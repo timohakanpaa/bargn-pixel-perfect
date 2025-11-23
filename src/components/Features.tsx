@@ -1,32 +1,14 @@
 import { Brain, Shield, TrendingUp } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { TiltCard } from "@/components/animations/TiltCard";
-import { useParallax } from "@/hooks/use-parallax";
 
 const Features = () => {
   const { ref, isInView } = useInView();
-  const parallax1 = useParallax({ speed: 0.4, direction: 'up' });
-  const parallax2 = useParallax({ speed: 0.6, direction: 'down' });
-  const parallax3 = useParallax({ speed: 0.35, direction: 'up' });
 
   return (
     <section ref={ref} className="py-16 sm:py-24 relative overflow-hidden">
-      {/* Parallax background elements */}
-      <div 
-        ref={parallax1.ref}
-        className="absolute top-10 left-0 w-72 h-72 bg-gradient-pink-orange opacity-15 blur-3xl rounded-full pointer-events-none"
-        style={{ transform: `translateY(${parallax1.offset}px)` }}
-      />
-      <div 
-        ref={parallax2.ref}
-        className="absolute top-1/2 right-0 w-96 h-96 bg-gradient-coral-purple opacity-15 blur-3xl rounded-full pointer-events-none"
-        style={{ transform: `translateY(${parallax2.offset}px)` }}
-      />
-      <div 
-        ref={parallax3.ref}
-        className="absolute bottom-10 left-1/4 w-64 h-64 bg-gradient-yellow opacity-15 blur-3xl rounded-full pointer-events-none"
-        style={{ transform: `translateY(${parallax3.offset}px)` }}
-      />
+      {/* Single optimized background element */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-coral-purple opacity-10 blur-3xl rounded-full pointer-events-none" />
       <div className={`container mx-auto px-4 sm:px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-center mb-4 sm:mb-6">
           <span className="text-foreground">Why We're Your New Favorite</span>
