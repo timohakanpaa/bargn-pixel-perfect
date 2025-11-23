@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import PartnerHero from "@/components/partners/PartnerHero";
 import PartnerStats from "@/components/partners/PartnerStats";
+import PlatformComparison from "@/components/partners/PlatformComparison";
 import PartnershipBenefits from "@/components/partners/PartnershipBenefits";
 import CurrentPartners from "@/components/partners/CurrentPartners";
 import PartnerTestimonials from "@/components/partners/PartnerTestimonials";
@@ -15,6 +16,7 @@ const Partners = () => {
       <Navigation />
       <PartnerHero />
       <PartnerStats />
+      <PlatformComparison />
       <PartnershipBenefits />
       <CurrentPartners />
       <PartnerTestimonials />
