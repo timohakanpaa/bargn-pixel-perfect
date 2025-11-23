@@ -12,9 +12,9 @@ const Testimonials = () => {
         </h2>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          <div className="bg-gradient-to-br from-card to-muted rounded-3xl p-8 border border-primary/20">
+          <div className="bg-glass backdrop-blur-2xl rounded-3xl p-8 border-2 border-glass hover:border-primary hover:shadow-glow-coral transition-all duration-300 hover:scale-105">
             <div className="flex items-start gap-4 mb-6">
-              <div className="w-16 h-16 bg-gradient-purple-pink rounded-full flex items-center justify-center shadow-glow-pink border-4 border-primary">
+              <div className="w-16 h-16 bg-gradient-coral-purple rounded-full flex items-center justify-center shadow-glow-purple border-4 border-primary">
                 <span className="text-2xl font-bold">SK</span>
               </div>
               <div>
@@ -36,9 +36,9 @@ const Testimonials = () => {
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-card to-muted rounded-3xl p-8 border border-secondary/20">
+          <div className="bg-glass backdrop-blur-2xl rounded-3xl p-8 border-2 border-glass hover:border-accent hover:shadow-glow-yellow transition-all duration-300 hover:scale-105">
             <div className="flex items-start gap-4 mb-6">
-              <div className="w-16 h-16 bg-gradient-orange-yellow rounded-full flex items-center justify-center shadow-glow-orange">
+              <div className="w-16 h-16 bg-gradient-yellow rounded-full flex items-center justify-center shadow-glow-yellow">
                 <span className="text-2xl font-bold">MR</span>
               </div>
               <div>
