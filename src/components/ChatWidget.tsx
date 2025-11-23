@@ -7,9 +7,10 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
 const ChatWidget = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { toast } = useToast();
   const [isOpen, setIsOpen] = useState(false);
+  const [sessionId] = useState(() => crypto.randomUUID());
   const [messages, setMessages] = useState<Array<{ role: 'user' | 'assistant'; content: string }>>([
     { 
       role: 'assistant', 
@@ -40,7 +41,9 @@ const ChatWidget = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ 
-          messages: [...messages, { role: "user", content: userMessage }]
+          messages: [...messages, { role: "user", content: userMessage }],
+          sessionId,
+          language,
         }),
       });
 
