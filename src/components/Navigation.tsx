@@ -82,16 +82,13 @@ const Navigation = () => {
             >
               {t("partners")}
             </NavLink>
-            <a 
-              href="#how-it-works" 
-              className={`text-sm font-medium hover:text-primary transition-colors ${
-                activeHash === "#how-it-works" 
-                  ? "text-primary font-bold relative after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-0.5 after:bg-primary after:rounded-full" 
-                  : "text-foreground"
-              }`}
+            <NavLink 
+              to="/how-it-works" 
+              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+              activeClassName="text-primary font-bold relative after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-0.5 after:bg-primary after:rounded-full"
             >
               {t("howItWorks")}
-            </a>
+            </NavLink>
             <a 
               href="#about" 
               className={`text-sm font-medium hover:text-primary transition-colors ${
