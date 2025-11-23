@@ -7,6 +7,7 @@ interface AnimatedCounterProps {
   prefix?: string;
   suffix?: string;
   className?: string;
+  decimals?: number;
 }
 
 const AnimatedCounter = ({ 
@@ -14,7 +15,8 @@ const AnimatedCounter = ({
   duration = 2000, 
   prefix = "", 
   suffix = "",
-  className = ""
+  className = "",
+  decimals = 0
 }: AnimatedCounterProps) => {
   const [count, setCount] = useState(0);
   const { ref, isInView } = useInView();
@@ -32,7 +34,9 @@ const AnimatedCounter = ({
         
         // Easing function for smooth animation
         const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-        const currentCount = Math.floor(easeOutQuart * (end - startValue) + startValue);
+        const currentCount = decimals > 0 
+          ? parseFloat((easeOutQuart * (end - startValue) + startValue).toFixed(decimals))
+          : Math.floor(easeOutQuart * (end - startValue) + startValue);
         
         setCount(currentCount);
 
@@ -48,6 +52,9 @@ const AnimatedCounter = ({
   }, [isInView, end, duration]);
 
   const formatNumber = (num: number) => {
+    if (decimals > 0) {
+      return num.toFixed(decimals);
+    }
     if (num >= 10000) {
       return `${(num / 1000).toFixed(0)}K`;
     }
