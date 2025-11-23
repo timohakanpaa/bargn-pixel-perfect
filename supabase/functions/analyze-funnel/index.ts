@@ -1,4 +1,5 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.84.0';
+import { z } from 'https://deno.land/x/zod@v3.22.4/mod.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -32,7 +33,13 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { funnel_id } = await req.json();
+    // Validate input
+    const requestSchema = z.object({
+      funnel_id: z.string().uuid()
+    });
+
+    const body = await req.json();
+    const { funnel_id } = requestSchema.parse(body);
 
     if (!funnel_id) {
       return new Response(

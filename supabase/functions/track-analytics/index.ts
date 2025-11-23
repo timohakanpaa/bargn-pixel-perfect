@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -12,7 +13,39 @@ serve(async (req) => {
   }
 
   try {
-    const { analyticEvents, funnelEvents } = await req.json();
+    // Validate input
+    const analyticEventSchema = z.object({
+      session_id: z.string().uuid(),
+      event_type: z.string().max(50),
+      event_name: z.string().max(100),
+      page_path: z.string().max(500).optional(),
+      page_title: z.string().max(200).optional(),
+      element_id: z.string().max(100).optional(),
+      element_class: z.string().max(100).optional(),
+      element_text: z.string().max(200).optional(),
+      referrer: z.string().max(500).optional(),
+      language: z.string().max(10).optional(),
+      screen_width: z.number().int().positive().optional(),
+      screen_height: z.number().int().positive().optional(),
+      user_agent: z.string().max(500).optional(),
+      metadata: z.any().optional()
+    });
+
+    const funnelEventSchema = z.object({
+      session_id: z.string().uuid(),
+      funnel_id: z.string().uuid(),
+      current_step: z.number().int().positive(),
+      completed: z.boolean().optional(),
+      metadata: z.any().optional()
+    });
+
+    const requestSchema = z.object({
+      analyticEvents: z.array(analyticEventSchema).max(100).optional(),
+      funnelEvents: z.array(funnelEventSchema).max(100).optional()
+    });
+
+    const body = await req.json();
+    const { analyticEvents, funnelEvents } = requestSchema.parse(body);
 
     // Initialize Supabase client with service role key for database operations
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
