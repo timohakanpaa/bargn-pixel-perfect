@@ -1,33 +1,39 @@
 import { Button } from "@/components/ui/button";
-import { Sparkles, ArrowRight } from "lucide-react";
+import { Rocket } from "lucide-react";
+import { useInView } from "@/hooks/use-in-view";
+import { useLanguage } from "@/contexts/LanguageContext";
+import confetti from "canvas-confetti";
 
 const CampaignCTA = () => {
-  return (
-    <section className="relative py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-r from-[#ec4899] via-[#f97316] to-[#eab308]"></div>
+  const { ref, isInView } = useInView();
+  const { t } = useLanguage();
 
-      <div className="container mx-auto px-6 text-center relative z-10">
-        <h2 className="text-5xl md:text-7xl font-black text-foreground mb-8 leading-tight">
-          Liity mukaan ensimmäiseen tulonjakopohjaiseen vaikuttajakampanjaan
+  const handleClick = () => {
+    confetti({
+      particleCount: 150,
+      spread: 120,
+      origin: { y: 0.6 },
+      colors: ['#ec4899', '#f97316', '#ffe500']
+    });
+  };
+
+  return (
+    <section ref={ref} className="py-32 bg-gradient-to-r from-[#ec4899] via-[#f97316] to-[#fbbf24] relative overflow-hidden">
+      <div className={`container mx-auto px-6 text-center transition-all duration-1000 ${isInView ? 'animate-fade-in-up' : 'opacity-0'}`}>
+        <h2 className="text-4xl md:text-6xl font-black mb-6 text-white">
+          {t('campaign.cta.title')}
         </h2>
-        <p className="text-xl md:text-2xl text-foreground/90 mb-12 max-w-3xl mx-auto">
-          Ole mukana tekemässä historiaa ja ansaitse todellisen vaikutuksesi mukaan. Hae mukaan nyt!
+        <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto">
+          {t('campaign.cta.description')}
         </p>
-        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-          <Button 
-            className="bg-background text-primary hover:bg-background/90 font-bold rounded-full px-10 py-7 text-lg shadow-2xl hover:scale-110 transition-all duration-300"
-          >
-            <Sparkles className="mr-2 w-6 h-6" />
-            Hae mukaan kampanjaan
-          </Button>
-          <Button 
-            variant="outline" 
-            className="border-2 border-foreground text-foreground hover:bg-foreground/10 rounded-full px-10 py-7 text-lg backdrop-blur-sm hover:scale-105 transition-all duration-300"
-          >
-            Lue lisää
-            <ArrowRight className="ml-2 w-6 h-6" />
-          </Button>
-        </div>
+        <Button 
+          onClick={handleClick}
+          size="lg"
+          className="bg-white text-[#ec4899] hover:bg-white/90 font-bold rounded-full px-12 py-8 text-xl shadow-2xl hover:scale-110 transition-all duration-300"
+        >
+          <Rocket className="mr-3 w-6 h-6" />
+          {t('campaign.cta.button')}
+        </Button>
       </div>
     </section>
   );

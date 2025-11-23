@@ -1,9 +1,11 @@
 import Navigation from "@/components/Navigation";
 import CampaignHero from "@/components/campaign/CampaignHero";
-import CampaignTestimonial from "@/components/campaign/CampaignTestimonial";
 import CampaignStats from "@/components/campaign/CampaignStats";
-import CampaignAbout from "@/components/campaign/CampaignAbout";
-import CampaignCommission from "@/components/campaign/CampaignCommission";
+import CampaignGoldRush from "@/components/campaign/CampaignGoldRush";
+import CampaignMoneyTalk from "@/components/campaign/CampaignMoneyTalk";
+import CampaignTestimonial from "@/components/campaign/CampaignTestimonial";
+import CampaignContentIdeas from "@/components/campaign/CampaignContentIdeas";
+import CampaignRequirements from "@/components/campaign/CampaignRequirements";
 import CampaignProcess from "@/components/campaign/CampaignProcess";
 import CampaignFAQ from "@/components/campaign/CampaignFAQ";
 import CampaignCTA from "@/components/campaign/CampaignCTA";
@@ -15,12 +17,14 @@ const Campaign = () => {
       <Navigation />
       <div className="pt-[132px]">
         <CampaignHero />
-      <CampaignTestimonial />
-      <CampaignStats />
-      <CampaignAbout />
-      <CampaignCommission />
-      <CampaignProcess />
-      <CampaignFAQ />
+        <CampaignStats />
+        <CampaignGoldRush />
+        <CampaignMoneyTalk />
+        <CampaignTestimonial />
+        <CampaignContentIdeas />
+        <CampaignRequirements />
+        <CampaignProcess />
+        <CampaignFAQ />
         <CampaignCTA />
         <Footer />
       </div>
