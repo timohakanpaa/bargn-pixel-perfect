@@ -256,6 +256,10 @@ const translations: Record<Language, Record<string, string>> = {
     "campaign.moneyTalk.card2.description": "Some platforms make you wait until you hit €100 to get paid. We pay out from €5. Because rent doesn't wait for arbitrary thresholds.",
     "campaign.moneyTalk.card3.title": "Fast Payouts (Like, Actually Fast)",
     "campaign.moneyTalk.card3.description": "Weekly payouts straight to your bank. No 'the check is in the mail' vibes. We're not your sketchy ex who owes you money.",
+    // 404 Page
+    "404.headline": "Wrong Turn, Right App",
+    "404.subtext": "Page missing, deals not. Let's get you back to the gold rush.",
+    "404.cta": "Back to Home",
     "campaign.contentIdeas.title": "Content Ideas That Don't Make You Cringe",
     "campaign.contentIdeas.subtitle": "Here's some inspo that won't make your followers unfollow you:",
     "campaign.contentIdeas.idea1.title": "'I Tried the Discount App Everyone's Talking About'",
@@ -640,6 +644,10 @@ const translations: Record<Language, Record<string, string>> = {
     "footer.copyright": "© 2024 Bargn. Kaikki oikeudet pidätetään.",
     "footer.tagline": "Löydä. Säästä. Toista.",
     "chatWidget": "Kysy Bargn AI:lta",
+    // 404 Page
+    "404.headline": "Väärä Suunta, Oikea Appi",
+    "404.subtext": "Sivu hukassa, diilit ei. Mennään takaisin kultasuoneen.",
+    "404.cta": "Takaisin Kotiin",
   },
 };
 
