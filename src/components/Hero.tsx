@@ -3,9 +3,11 @@ import { Zap, Users, Pizza, Ticket, Smartphone } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import { useAnalytics } from "@/hooks/use-analytics";
 
 const Hero = () => {
   const { t } = useLanguage();
+  const { trackButtonClick } = useAnalytics();
   const { scrollY } = useScroll();
   
   // Parallax transforms
@@ -130,6 +132,7 @@ const Hero = () => {
           <Button 
             variant="neon"
             className="rounded-full px-10 py-7 text-xl"
+            onClick={() => trackButtonClick("hero_lets_go_cta", t("letsGo"))}
           >
             <Zap className="mr-2 w-6 h-6" />
             {t("letsGo")}
@@ -137,6 +140,7 @@ const Hero = () => {
           <Button 
             variant="secondary"
             className="rounded-full px-10 py-7 text-xl"
+            onClick={() => trackButtonClick("hero_partner_up_cta", t("partnerUp"))}
           >
             <Users className="mr-2 w-6 h-6" />
             {t("partnerUp")}

@@ -11,8 +11,11 @@ import CampaignFAQ from "@/components/campaign/CampaignFAQ";
 import CampaignCTA from "@/components/campaign/CampaignCTA";
 import Footer from "@/components/Footer";
 import CampaignFloatingCTA from "@/components/campaign/CampaignFloatingCTA";
+import { useAnalytics } from "@/hooks/use-analytics";
 
 const Campaign = () => {
+  useAnalytics(); // Auto-track page view
+  
   return (
     <div className="min-h-screen bg-[#050308]">
       <Navigation />

@@ -7,8 +7,10 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import SavingsCalculator from "@/components/SavingsCalculator";
+import { useAnalytics } from "@/hooks/use-analytics";
 
 const Members = () => {
+  useAnalytics(); // Auto-track page view
   const { t } = useLanguage();
   const { scrollY } = useScroll();
   

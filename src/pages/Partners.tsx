@@ -9,8 +9,11 @@ import PartnershipProcess from "@/components/partners/PartnershipProcess";
 import PartnerSignup from "@/components/partners/PartnerSignup";
 import PartnerCTA from "@/components/partners/PartnerCTA";
 import Footer from "@/components/Footer";
+import { useAnalytics } from "@/hooks/use-analytics";
 
 const Partners = () => {
+  useAnalytics(); // Auto-track page view
+  
   return (
     <div className="min-h-screen bg-background">
       <Navigation />

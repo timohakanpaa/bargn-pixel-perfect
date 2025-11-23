@@ -6,8 +6,11 @@ import Pricing from "@/components/Pricing";
 import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
+import { useAnalytics } from "@/hooks/use-analytics";
 
 const Index = () => {
+  useAnalytics(); // Auto-track page view
+  
   return (
     <div className="min-h-screen bg-background">
       <Navigation />

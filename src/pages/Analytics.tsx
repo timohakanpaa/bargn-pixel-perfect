@@ -1,0 +1,312 @@
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { 
+  Eye, 
+  MousePointer, 
+  Activity, 
+  Users, 
+  TrendingUp,
+  Navigation as NavigationIcon,
+  FileText
+} from "lucide-react";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import { useAnalytics } from "@/hooks/use-analytics";
+
+interface DailySummary {
+  date: string;
+  total_events: number;
+  unique_sessions: number;
+  page_views: number;
+  button_clicks: number;
+  form_submissions: number;
+  navigation_events: number;
+}
+
+interface PageView {
+  date: string;
+  page_path: string;
+  page_title: string;
+  views: number;
+  unique_visitors: number;
+}
+
+interface ButtonClick {
+  date: string;
+  event_name: string;
+  element_text: string;
+  page_path: string;
+  clicks: number;
+  unique_users: number;
+}
+
+const Analytics = () => {
+  useAnalytics(); // Track page view
+  
+  const [dailySummary, setDailySummary] = useState<DailySummary[]>([]);
+  const [pageViews, setPageViews] = useState<PageView[]>([]);
+  const [buttonClicks, setButtonClicks] = useState<ButtonClick[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchAnalytics();
+  }, []);
+
+  const fetchAnalytics = async () => {
+    try {
+      // Fetch daily summary
+      const { data: summary, error: summaryError } = await supabase
+        .from("analytics_daily_summary")
+        .select("*")
+        .limit(30);
+
+      if (summaryError) throw summaryError;
+      setDailySummary(summary || []);
+
+      // Fetch page views
+      const { data: pages, error: pagesError } = await supabase
+        .from("analytics_page_views")
+        .select("*")
+        .limit(50);
+
+      if (pagesError) throw pagesError;
+      setPageViews(pages || []);
+
+      // Fetch button clicks
+      const { data: clicks, error: clicksError } = await supabase
+        .from("analytics_button_clicks")
+        .select("*")
+        .limit(50);
+
+      if (clicksError) throw clicksError;
+      setButtonClicks(clicks || []);
+    } catch (error) {
+      console.error("Error fetching analytics:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const totalStats = dailySummary.reduce(
+    (acc, day) => ({
+      events: acc.events + day.total_events,
+      sessions: acc.sessions + day.unique_sessions,
+      pageViews: acc.pageViews + day.page_views,
+      clicks: acc.clicks + day.button_clicks,
+      forms: acc.forms + day.form_submissions,
+      navigation: acc.navigation + day.navigation_events,
+    }),
+    { events: 0, sessions: 0, pageViews: 0, clicks: 0, forms: 0, navigation: 0 }
+  );
+
+  return (
+    <div className="min-h-screen flex flex-col bg-background">
+      <Navigation />
+      
+      <main className="flex-1 container mx-auto px-4 py-24">
+        <div className="max-w-7xl mx-auto space-y-8">
+          <div>
+            <h1 className="text-4xl font-bold mb-2">Analytics Dashboard</h1>
+            <p className="text-muted-foreground">
+              Track every interaction across your application
+            </p>
+          </div>
+
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[...Array(6)].map((_, i) => (
+                <Card key={i}>
+                  <CardHeader>
+                    <Skeleton className="h-4 w-20" />
+                  </CardHeader>
+                  <CardContent>
+                    <Skeleton className="h-8 w-16" />
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <>
+              {/* Key Metrics */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">Total Events</CardTitle>
+                    <Activity className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">{totalStats.events.toLocaleString()}</div>
+                    <p className="text-xs text-muted-foreground">Last 30 days</p>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">Sessions</CardTitle>
+                    <Users className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">{totalStats.sessions.toLocaleString()}</div>
+                    <p className="text-xs text-muted-foreground">Unique visitors</p>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">Page Views</CardTitle>
+                    <Eye className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">{totalStats.pageViews.toLocaleString()}</div>
+                    <p className="text-xs text-muted-foreground">Total views</p>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">Button Clicks</CardTitle>
+                    <MousePointer className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">{totalStats.clicks.toLocaleString()}</div>
+                    <p className="text-xs text-muted-foreground">User interactions</p>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">Form Submits</CardTitle>
+                    <FileText className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">{totalStats.forms.toLocaleString()}</div>
+                    <p className="text-xs text-muted-foreground">Conversions</p>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">Navigation</CardTitle>
+                    <NavigationIcon className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">{totalStats.navigation.toLocaleString()}</div>
+                    <p className="text-xs text-muted-foreground">Link clicks</p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Detailed Tables */}
+              <Tabs defaultValue="pages" className="space-y-4">
+                <TabsList>
+                  <TabsTrigger value="pages">Page Views</TabsTrigger>
+                  <TabsTrigger value="clicks">Button Clicks</TabsTrigger>
+                  <TabsTrigger value="daily">Daily Breakdown</TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="pages" className="space-y-4">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Top Pages</CardTitle>
+                      <CardDescription>Most visited pages in your app</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      {pageViews.length === 0 ? (
+                        <p className="text-muted-foreground">No data available yet</p>
+                      ) : (
+                        <div className="space-y-4">
+                          {pageViews.slice(0, 20).map((page, index) => (
+                            <div key={index} className="flex items-center justify-between border-b pb-2">
+                              <div className="flex-1">
+                                <p className="text-sm font-medium">{page.page_path}</p>
+                                <p className="text-xs text-muted-foreground">{page.page_title}</p>
+                              </div>
+                              <div className="ml-4 flex items-center gap-4 text-sm">
+                                <span>{page.views.toLocaleString()} views</span>
+                                <span className="text-muted-foreground">
+                                  {page.unique_visitors.toLocaleString()} visitors
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+
+                <TabsContent value="clicks" className="space-y-4">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Top Button Clicks</CardTitle>
+                      <CardDescription>Most clicked buttons and CTAs</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      {buttonClicks.length === 0 ? (
+                        <p className="text-muted-foreground">No data available yet</p>
+                      ) : (
+                        <div className="space-y-4">
+                          {buttonClicks.slice(0, 20).map((click, index) => (
+                            <div key={index} className="flex items-center justify-between border-b pb-2">
+                              <div className="flex-1">
+                                <p className="text-sm font-medium">{click.element_text || click.event_name}</p>
+                                <p className="text-xs text-muted-foreground">{click.page_path}</p>
+                              </div>
+                              <div className="ml-4 flex items-center gap-4 text-sm">
+                                <span>{click.clicks.toLocaleString()} clicks</span>
+                                <span className="text-muted-foreground">
+                                  {click.unique_users.toLocaleString()} users
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+
+                <TabsContent value="daily" className="space-y-4">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Daily Activity</CardTitle>
+                      <CardDescription>Event breakdown by day</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        {dailySummary.slice(0, 14).map((day, index) => (
+                          <div key={index} className="flex items-center justify-between border-b pb-2">
+                            <div className="flex-1">
+                              <p className="text-sm font-medium">
+                                {new Date(day.date).toLocaleDateString()}
+                              </p>
+                              <p className="text-xs text-muted-foreground">
+                                {day.unique_sessions.toLocaleString()} sessions
+                              </p>
+                            </div>
+                            <div className="ml-4 grid grid-cols-3 gap-4 text-xs">
+                              <span>{day.page_views.toLocaleString()} views</span>
+                              <span>{day.button_clicks.toLocaleString()} clicks</span>
+                              <span>{day.form_submissions.toLocaleString()} forms</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+              </Tabs>
+            </>
+          )}
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default Analytics;
