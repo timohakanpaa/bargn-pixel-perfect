@@ -2,16 +2,73 @@ import { Building2, DollarSign, Sparkles, Users, Percent, TrendingUp, Zap, Gift,
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion, useScroll, useTransform } from "framer-motion";
+import confetti from "canvas-confetti";
+import { useEffect, useState } from "react";
 
 const PartnerHero = () => {
   const { t } = useLanguage();
   const { scrollY } = useScroll();
+  const [hasTriggeredConfetti, setHasTriggeredConfetti] = useState(false);
   
   // Parallax transforms
   const y1 = useTransform(scrollY, [0, 500], [0, 150]);
   const y2 = useTransform(scrollY, [0, 500], [0, -100]);
   const scale = useTransform(scrollY, [0, 300], [1, 1.2]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+
+  // Trigger welcome confetti on mount
+  useEffect(() => {
+    if (!hasTriggeredConfetti) {
+      setTimeout(() => {
+        triggerWelcomeConfetti();
+        setHasTriggeredConfetti(true);
+      }, 1000);
+    }
+  }, [hasTriggeredConfetti]);
+
+  const triggerWelcomeConfetti = () => {
+    const duration = 2500;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 25, spread: 360, ticks: 50, zIndex: 9999 };
+
+    function randomInRange(min: number, max: number) {
+      return Math.random() * (max - min) + min;
+    }
+
+    const interval: any = setInterval(function() {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+
+      const particleCount = 30 * (timeLeft / duration);
+
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.2, 0.4), y: Math.random() - 0.2 },
+        colors: ['#f88170', '#ef1df2', '#ffe500', '#ff6b9d']
+      });
+      
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.6, 0.8), y: Math.random() - 0.2 },
+        colors: ['#f88170', '#ef1df2', '#ffe500', '#ff6b9d']
+      });
+    }, 250);
+  };
+
+  const handleCTAClick = () => {
+    // Fire confetti on button click
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+      colors: ['#f88170', '#ef1df2', '#ffe500', '#ff6b9d']
+    });
+  };
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
@@ -254,6 +311,7 @@ const PartnerHero = () => {
           <Button 
             variant="neon"
             className="rounded-full px-10 py-7 text-xl"
+            onClick={handleCTAClick}
           >
             <Building2 className="mr-2 w-6 h-6" />
             {t("partners.hero.cta.primary")}
@@ -261,6 +319,7 @@ const PartnerHero = () => {
           <Button 
             variant="secondary"
             className="rounded-full px-10 py-7 text-xl"
+            onClick={handleCTAClick}
           >
             <Users className="mr-2 w-6 h-6" />
             {t("partners.hero.cta.secondary")}
