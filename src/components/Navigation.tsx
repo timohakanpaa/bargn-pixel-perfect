@@ -1,4 +1,4 @@
-import { Search, User, Menu, X } from "lucide-react";
+import { Search, User, Menu, X, ChevronDown, Activity, BarChart3, MessageSquare, GitBranch } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NavLink } from "@/components/NavLink";
 import UpdateBanner from "@/components/UpdateBanner";
@@ -6,6 +6,12 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Navigation = () => {
   const { language, setLanguage, t } = useLanguage();
@@ -49,6 +55,15 @@ const Navigation = () => {
     { to: "/blog", label: t("blog") },
     { to: "/campaign", label: t("campaign") },
   ];
+
+  const adminItems = [
+    { to: "/performance", label: "Performance", icon: Activity },
+    { to: "/analytics", label: "Analytics", icon: BarChart3 },
+    { to: "/analytics/chat", label: "Chat Analytics", icon: MessageSquare },
+    { to: "/funnels", label: "Funnels", icon: GitBranch },
+  ];
+
+  const isAdminRoute = adminItems.some(item => location.pathname === item.to);
   
   return (
     <>
@@ -79,6 +94,37 @@ const Navigation = () => {
                 {item.label}
               </NavLink>
             ))}
+            
+            {/* Admin Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className={`text-sm font-medium transition-colors flex items-center gap-1 ${
+                  isAdminRoute 
+                    ? "text-primary font-bold" 
+                    : "text-foreground hover:text-primary"
+                }`}>
+                  Admin
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56 bg-background/95 backdrop-blur-xl border-glass">
+                {adminItems.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <DropdownMenuItem key={item.to} asChild>
+                      <NavLink
+                        to={item.to}
+                        className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-foreground hover:text-primary cursor-pointer"
+                        activeClassName="text-primary font-bold bg-glass"
+                      >
+                        <Icon className="w-4 h-4" />
+                        {item.label}
+                      </NavLink>
+                    </DropdownMenuItem>
+                  );
+                })}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           {/* Desktop Right Section */}
@@ -226,6 +272,33 @@ const Navigation = () => {
                   </motion.div>
                 ))}
               </nav>
+
+              {/* Admin Section - Mobile */}
+              <div className="pt-4 border-t border-glass">
+                <p className="text-xs font-bold text-muted-foreground uppercase px-4 mb-2">Admin</p>
+                <nav className="space-y-2">
+                  {adminItems.map((item, index) => {
+                    const Icon = item.icon;
+                    return (
+                      <motion.div
+                        key={item.to}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: (menuItems.length + index) * 0.05 }}
+                      >
+                        <NavLink
+                          to={item.to}
+                          className="flex items-center gap-3 px-4 py-4 text-lg font-medium text-foreground hover:bg-glass rounded-xl transition-all"
+                          activeClassName="bg-glass text-primary font-bold border-l-4 border-primary"
+                        >
+                          <Icon className="w-5 h-5" />
+                          {item.label}
+                        </NavLink>
+                      </motion.div>
+                    );
+                  })}
+                </nav>
+              </div>
 
               {/* Mobile Actions - min 44px touch targets */}
               <div className="space-y-3 pt-6 border-t border-glass">
