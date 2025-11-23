@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
-import bargnLogo from "@/assets/bargn-logo.png";
+import bargnLogo from "@/assets/bargn-logo.webp";
 
 const Preloader = () => {
   const { language } = useLanguage();
