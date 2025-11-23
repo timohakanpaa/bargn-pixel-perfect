@@ -114,6 +114,38 @@ interface ConversionFunnel {
   steps: FunnelStep[];
 }
 
+// Singleton funnel cache to prevent multiple loads
+let cachedFunnels: ConversionFunnel[] | null = null;
+let funnelLoadPromise: Promise<ConversionFunnel[]> | null = null;
+
+const loadActiveFunnels = async (): Promise<ConversionFunnel[]> => {
+  // Return cached funnels if available
+  if (cachedFunnels) return cachedFunnels;
+  
+  // If already loading, return the existing promise
+  if (funnelLoadPromise) return funnelLoadPromise;
+  
+  // Start new load
+  funnelLoadPromise = (async () => {
+    try {
+      const { data, error } = await supabase
+        .from("conversion_funnels")
+        .select("*")
+        .eq("is_active", true);
+      
+      if (!error && data) {
+        cachedFunnels = data as unknown as ConversionFunnel[];
+        return cachedFunnels;
+      }
+      return [];
+    } finally {
+      funnelLoadPromise = null;
+    }
+  })();
+  
+  return funnelLoadPromise;
+};
+
 export const useAnalytics = () => {
   const location = useLocation();
   const { language } = useLanguage();
@@ -121,19 +153,9 @@ export const useAnalytics = () => {
   const [activeFunnels, setActiveFunnels] = useState<ConversionFunnel[]>([]);
   const lastTrackedPath = useRef<string>('');
 
-  // Load active funnels on mount
+  // Load active funnels on mount (using singleton cache)
   useEffect(() => {
-    const loadFunnels = async () => {
-      const { data, error } = await supabase
-        .from("conversion_funnels")
-        .select("*")
-        .eq("is_active", true);
-      
-      if (!error && data) {
-        setActiveFunnels(data as unknown as ConversionFunnel[]);
-      }
-    };
-    loadFunnels();
+    loadActiveFunnels().then(setActiveFunnels);
   }, []);
 
   // Track funnel progress automatically

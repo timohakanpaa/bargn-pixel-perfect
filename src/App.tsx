@@ -12,24 +12,24 @@ import { useTikTokPixel } from "@/hooks/use-tiktok-pixel";
 import { useWebVitals } from "@/hooks/use-web-vitals";
 import { lazy, Suspense } from "react";
 
-// Lazy load heavy components for better performance
+// Lazy load components for better initial load performance
 const ChatWidget = lazy(() => import("@/components/ChatWidget"));
-import Index from "./pages/Index";
-import Members from "./pages/Members";
-import Partners from "./pages/Partners";
-import Campaign from "./pages/Campaign";
-import HowItWorks from "./pages/HowItWorks";
-import About from "./pages/About";
-import Blog from "./pages/Blog";
-import BlogAdmin from "./pages/BlogAdmin";
-import ChatAnalytics from "./pages/ChatAnalytics";
-import Analytics from "./pages/Analytics";
-import Funnels from "./pages/Funnels";
-import Performance from "./pages/Performance";
-import Privacy from "./pages/Privacy";
-import Terms from "./pages/Terms";
-import Cookies from "./pages/Cookies";
-import NotFound from "./pages/NotFound";
+const Index = lazy(() => import("./pages/Index"));
+const Members = lazy(() => import("./pages/Members"));
+const Partners = lazy(() => import("./pages/Partners"));
+const Campaign = lazy(() => import("./pages/Campaign"));
+const HowItWorks = lazy(() => import("./pages/HowItWorks"));
+const About = lazy(() => import("./pages/About"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogAdmin = lazy(() => import("./pages/BlogAdmin"));
+const ChatAnalytics = lazy(() => import("./pages/ChatAnalytics"));
+const Analytics = lazy(() => import("./pages/Analytics"));
+const Funnels = lazy(() => import("./pages/Funnels"));
+const Performance = lazy(() => import("./pages/Performance"));
+const Privacy = lazy(() => import("./pages/Privacy"));
+const Terms = lazy(() => import("./pages/Terms"));
+const Cookies = lazy(() => import("./pages/Cookies"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
 
@@ -52,25 +52,29 @@ const AppContent = () => {
 
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/members" element={<Members />} />
-        <Route path="/partners" element={<Partners />} />
-        <Route path="/campaign" element={<Campaign />} />
-        <Route path="/how-it-works" element={<HowItWorks />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/admin" element={<BlogAdmin />} />
-        <Route path="/analytics/chat" element={<ChatAnalytics />} />
-        <Route path="/analytics" element={<Analytics />} />
-        <Route path="/funnels" element={<Funnels />} />
-        <Route path="/performance" element={<Performance />} />
-        <Route path="/privacy" element={<Privacy />} />
-        <Route path="/terms" element={<Terms />} />
-        <Route path="/cookies" element={<Cookies />} />
-        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <Suspense fallback={<div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="animate-pulse text-primary">Loading...</div>
+      </div>}>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/members" element={<Members />} />
+          <Route path="/partners" element={<Partners />} />
+          <Route path="/campaign" element={<Campaign />} />
+          <Route path="/how-it-works" element={<HowItWorks />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/admin" element={<BlogAdmin />} />
+          <Route path="/analytics/chat" element={<ChatAnalytics />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="/funnels" element={<Funnels />} />
+          <Route path="/performance" element={<Performance />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/cookies" element={<Cookies />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
       <Suspense fallback={<div />}>
         <ChatWidget />
       </Suspense>
