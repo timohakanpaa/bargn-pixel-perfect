@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import { 
   Eye, 
   MousePointer, 
@@ -10,8 +11,10 @@ import {
   Users, 
   TrendingUp,
   Navigation as NavigationIcon,
-  FileText
+  FileText,
+  Target
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useAnalytics } from "@/hooks/use-analytics";
@@ -109,10 +112,20 @@ const Analytics = () => {
       <main className="flex-1 container mx-auto px-4 py-24">
         <div className="max-w-7xl mx-auto space-y-8">
           <div>
-            <h1 className="text-4xl font-bold mb-2">Analytics Dashboard</h1>
-            <p className="text-muted-foreground">
-              Track every interaction across your application
-            </p>
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-4xl font-bold mb-2">Analytics Dashboard</h1>
+                <p className="text-muted-foreground">
+                  Track every interaction across your application
+                </p>
+              </div>
+              <Link to="/funnels">
+                <Button variant="secondary" className="gap-2">
+                  <Target className="w-4 h-4" />
+                  View Conversion Funnels
+                </Button>
+              </Link>
+            </div>
           </div>
 
           {loading ? (

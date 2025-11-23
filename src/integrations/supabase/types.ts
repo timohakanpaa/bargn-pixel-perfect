@@ -173,6 +173,13 @@ export type Database = {
             referencedRelation: "conversion_funnels"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "funnel_progress_funnel_id_fkey"
+            columns: ["funnel_id"]
+            isOneToOne: false
+            referencedRelation: "funnel_analytics"
+            referencedColumns: ["funnel_id"]
+          },
         ]
       }
     }
@@ -232,8 +239,30 @@ export type Database = {
         }
         Relationships: []
       }
+      funnel_analytics: {
+        Row: {
+          completion_rate: number | null
+          completions: number | null
+          funnel_id: string | null
+          funnel_name: string | null
+          steps: Json | null
+          total_entries: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
+      get_funnel_dropoff: {
+        Args: { days_back?: number; funnel_id_param: string }
+        Returns: {
+          drop_off_count: number
+          drop_off_rate: number
+          sessions_continued: number
+          sessions_reached: number
+          step_name: string
+          step_number: number
+        }[]
+      }
       get_top_events: {
         Args: {
           days_back?: number
