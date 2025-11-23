@@ -73,46 +73,6 @@ const BusinessSection = () => {
             </Button>
           </div>
 
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-coral-purple opacity-30 blur-3xl rounded-3xl animate-pulse-glow"></div>
-            <div className="relative bg-glass backdrop-blur-2xl border-2 border-glass hover:border-primary hover:shadow-glow-purple rounded-3xl p-8 shadow-2xl hover:scale-105 transition-all duration-300">
-              <div className="bg-glass backdrop-blur-xl border border-glass rounded-2xl p-6 mb-4">
-                <div className="text-sm text-accent mb-2">You saved 160.00 CHF</div>
-                <div className="bg-glass backdrop-blur-sm rounded-xl p-4 mb-4">
-                  <input 
-                    type="text" 
-                    placeholder="Search for an offer or outlet" 
-                    className="bg-transparent text-foreground placeholder:text-muted-foreground w-full outline-none"
-                  />
-                </div>
-                <div className="bg-glass backdrop-blur-xl rounded-xl p-4 border border-glass">
-                  <img 
-                    src="/placeholder.svg" 
-                    alt="Cold Stone" 
-                    className="w-full h-32 object-cover rounded-lg mb-3"
-                  />
-                  <div className="flex justify-between items-start mb-2">
-                    <div>
-                      <h4 className="text-foreground font-bold">Cold Stone</h4>
-                      <p className="text-sm text-muted-foreground">1,449 Lausanne, Available</p>
-                    </div>
-                    <span className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-bold">
-                      50% OFF
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-glass backdrop-blur-xl border border-glass rounded-2xl p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-foreground font-bold">500+ Partners</span>
-                  <span className="text-muted-foreground">Growing Daily</span>
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  Join restaurants, cafes, gyms, spas, and more in our growing network
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
