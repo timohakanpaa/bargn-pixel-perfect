@@ -14,10 +14,55 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      chat_analytics: {
+        Row: {
+          ai_response: string | null
+          created_at: string | null
+          error_message: string | null
+          error_occurred: boolean | null
+          id: string
+          language: string | null
+          response_time_ms: number | null
+          session_id: string
+          user_message: string
+        }
+        Insert: {
+          ai_response?: string | null
+          created_at?: string | null
+          error_message?: string | null
+          error_occurred?: boolean | null
+          id?: string
+          language?: string | null
+          response_time_ms?: number | null
+          session_id: string
+          user_message: string
+        }
+        Update: {
+          ai_response?: string | null
+          created_at?: string | null
+          error_message?: string | null
+          error_occurred?: boolean | null
+          id?: string
+          language?: string | null
+          response_time_ms?: number | null
+          session_id?: string
+          user_message?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
-      [_ in never]: never
+      chat_analytics_summary: {
+        Row: {
+          avg_response_time_ms: number | null
+          date: string | null
+          error_count: number | null
+          language: string | null
+          total_messages: number | null
+          unique_sessions: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
