@@ -79,6 +79,8 @@ const Preloader = () => {
             <img
               src={bargnLogo}
               alt="Bargn"
+              width="160"
+              height="160"
               className="w-32 h-32 sm:w-40 sm:h-40 object-contain"
             />
           </motion.div>

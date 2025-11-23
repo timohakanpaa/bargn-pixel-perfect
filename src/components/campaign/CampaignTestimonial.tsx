@@ -58,6 +58,9 @@ const CampaignTestimonial = () => {
                   <img 
                     src={testimonial.avatar}
                     alt={testimonial.name}
+                    width="64"
+                    height="64"
+                    loading="lazy"
                     className="w-16 h-16 rounded-full border-2 border-[#E94B96] shadow-[0_0_40px_rgba(233,75,150,0.6)]"
                   />
                   <div>

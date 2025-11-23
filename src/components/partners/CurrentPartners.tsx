@@ -46,6 +46,9 @@ const CurrentPartners = () => {
           <img 
             src="/placeholder.svg" 
             alt="Partner venue" 
+            width="1200"
+            height="400"
+            loading="lazy"
             className="w-full h-[400px] object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>

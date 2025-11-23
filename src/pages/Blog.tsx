@@ -295,6 +295,9 @@ const Blog = () => {
                       <img 
                         src={getBlogImageUrl(article.imageUrl)}
                         alt={article.title}
+                        width="400"
+                        height="192"
+                        loading="lazy"
                         className="w-full h-full object-cover"
                         onError={(e) => {
                           // Fallback to gradient with icon if image fails to load
