@@ -10,6 +10,7 @@ import { useCookieConsent } from "@/hooks/use-cookie-consent";
 import { useGoogleAnalytics } from "@/hooks/use-google-analytics";
 import { useFacebookPixel } from "@/hooks/use-facebook-pixel";
 import { useTikTokPixel } from "@/hooks/use-tiktok-pixel";
+import { useWebVitals } from "@/hooks/use-web-vitals";
 import Index from "./pages/Index";
 import Members from "./pages/Members";
 import Partners from "./pages/Partners";
@@ -41,6 +42,9 @@ const AppContent = () => {
   
   // Load TikTok Pixel based on consent
   useTikTokPixel(hasMarketingConsent);
+  
+  // Track Core Web Vitals for performance monitoring
+  useWebVitals();
 
   return (
     <>
