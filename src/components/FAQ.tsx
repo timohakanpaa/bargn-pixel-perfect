@@ -7,10 +7,12 @@ import {
 import { useInView } from "@/hooks/use-in-view";
 import { useFAQSchema } from "@/hooks/use-faq-schema";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useLocation } from "react-router-dom";
 
 const FAQ = () => {
   const { ref, isInView } = useInView();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const location = useLocation();
   
   const faqData = [
     {
@@ -47,7 +49,26 @@ const FAQ = () => {
     }
   ];
 
-  useFAQSchema(faqData, "main-faq-schema");
+  /**
+   * Inject language-specific FAQPage schema into document <head>
+   * 
+   * This dynamically creates JSON-LD structured data for Google Search:
+   * - When language = "en": English Q&As injected
+   * - When language = "fi": Finnish Q&As injected  
+   * - When language = "sv": Swedish Q&As injected
+   * 
+   * Benefits:
+   * - FAQ rich snippets in Google Search results
+   * - Questions appear directly in SERPs
+   * - Better visibility and click-through rates
+   * 
+   * Schema auto-updates when user switches language.
+   * See FAQ_SCHEMA_IMPLEMENTATION.md for details.
+   */
+  useFAQSchema(faqData, "main-faq-schema", {
+    language: language,
+    url: `https://bargn.app${location.pathname}`
+  });
 
   return (
     <section ref={ref} className="py-24 relative overflow-hidden">
