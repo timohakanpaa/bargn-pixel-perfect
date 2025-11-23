@@ -72,9 +72,7 @@ const Footer = () => {
             <img 
               src={bargnLogo} 
               alt="Bargn logo" 
-              width="48"
-              height="48"
-              className="h-10 sm:h-12 mb-4 sm:mb-6 mx-auto sm:mx-0"
+              className="h-12 sm:h-14 w-auto object-contain mb-4 sm:mb-6 mx-auto sm:mx-0"
               loading="lazy"
             />
             <div className="flex gap-3 justify-center sm:justify-start">
