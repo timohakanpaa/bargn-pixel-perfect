@@ -15,6 +15,9 @@ All colors MUST be HSL.
   :root {
     --background: 0 6% 4%;
     --foreground: 0 0% 100%;
+    
+    /* Dark theme background for campaign pages */
+    --background-dark: 240 10% 2%;
 
     --card: 0 6% 4%;
     --card-foreground: 0 0% 100%;
@@ -136,5 +139,13 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden;
+  }
+  
+  /* Optimize backdrop-filter performance */
+  .backdrop-blur-xl, .backdrop-blur-2xl, .backdrop-blur-sm {
+    will-change: backdrop-filter;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 }

@@ -33,7 +33,7 @@ const BlogAdmin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#050308]">
+    <div className="min-h-screen bg-background-dark">
       <Navigation />
       <div className="pt-[132px] pb-24">
         <div className="container mx-auto px-6">

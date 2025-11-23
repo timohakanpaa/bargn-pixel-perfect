@@ -17,7 +17,7 @@ const Campaign = () => {
   useAnalytics(); // Auto-track page view
   
   return (
-    <div className="min-h-screen bg-[#050308]">
+    <div className="min-h-screen bg-background-dark">
       <Navigation />
       <div className="pt-[132px]">
         <CampaignHero />
