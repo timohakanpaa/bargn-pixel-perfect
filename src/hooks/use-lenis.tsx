@@ -10,15 +10,25 @@ export const useLenis = () => {
   const rafHandleRef = useRef<number | null>(null);
 
   useEffect(() => {
-    // Only enable on desktop (viewport width > 768px)
-    const isDesktop = window.innerWidth > 768;
-    if (!isDesktop) return;
+    const isTouchDevice =
+      typeof window !== 'undefined' &&
+      ("ontouchstart" in window ||
+        (navigator as any).maxTouchPoints > 0 ||
+        (navigator as any).msMaxTouchPoints > 0);
 
-    // Initialize Lenis with minimal configuration
+    // Disable smooth scrolling on touch/mobile devices
+    if (isTouchDevice) {
+      console.log("[Lenis] Disabled on touch device");
+      return;
+    }
+
+    // Initialize Lenis with smooth, heavy-feel config
     lenisInstance = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    });
+      duration: 1.3,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      lerp: 0.08,
+      smoothWheel: true,
+    } as any);
 
     // Animation frame loop
     function raf(time: number) {
