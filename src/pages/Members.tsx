@@ -293,11 +293,7 @@ const Members = () => {
               </a>
             </Button>
             <Button asChild variant="secondary" className="rounded-full px-10 py-7 text-xl border-2 border-primary">
-              <a 
-                href="http://bargn-business.vercel.app/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
+              <a href="/partners">
                 <Users className="mr-2 w-6 h-6" />
                 {t("becomePartner")}
               </a>
@@ -740,11 +736,7 @@ const Members = () => {
                 </a>
               </Button>
               <Button asChild variant="secondary" size="lg" className="rounded-full px-12 py-7 text-xl border-2 border-primary">
-                <a 
-                  href="http://bargn-business.vercel.app/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
+                <a href="/partners">
                   <Users className="mr-2 w-6 h-6" />
                   {t("becomePartner")}
                 </a>
