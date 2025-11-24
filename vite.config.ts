@@ -61,40 +61,41 @@ export default defineConfig(({ mode }) => ({
     // Code splitting and chunk strategy
     rollupOptions: {
       output: {
-        // Manual chunks for better caching
+        // KORJATTU: Yksinkertaistettu chunking joka estää React-latausongelman
         manualChunks: (id) => {
           // Vendor chunk for node_modules
           if (id.includes('node_modules')) {
-            // Separate large libraries for better caching
-            if (id.includes('react') || id.includes('react-dom')) {
-              return 'react-vendor';
+            // ⚠️ KRIITTINEN MUUTOS: React ja React-DOM YHTEEN vendor-chunkkiin
+            // Tämä estää "createContext is undefined" virheen
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react/')) {
+              return 'vendor'; // ← Ei erillistä react-vendor chunkkia!
             }
             if (id.includes('framer-motion')) {
-              return 'framer-vendor';
+              return 'vendor'; // Myös samaan vendor-chunkkiin
             }
             if (id.includes('@radix-ui')) {
-              return 'radix-vendor';
+              return 'vendor';
             }
             if (id.includes('recharts')) {
-              return 'chart-vendor';
+              return 'vendor';
             }
             if (id.includes('lucide-react')) {
-              return 'icon-vendor';
+              return 'vendor';
             }
             if (id.includes('canvas-confetti')) {
-              return 'confetti-vendor';
+              return 'vendor';
             }
             // All other vendor code
             return 'vendor';
           }
           
-          // Separate page chunks
+          // Separate page chunks (nämä ovat OK)
           if (id.includes('/src/pages/')) {
             const pageName = id.split('/pages/')[1].split('.')[0].toLowerCase();
             return `page-${pageName}`;
           }
           
-          // Separate component chunks by category and priority
+          // Separate component chunks by category (nämä ovat OK)
           if (id.includes('/src/components/campaign/')) {
             return 'campaign-components';
           }
@@ -108,7 +109,7 @@ export default defineConfig(({ mode }) => ({
             return 'ui-components';
           }
           
-          // Separate heavy homepage components for lazy loading
+          // Separate heavy homepage components
           if (id.includes('/src/components/Features.tsx')) {
             return 'home-features';
           }
@@ -142,8 +143,8 @@ export default defineConfig(({ mode }) => ({
       },
     },
     
-    // Chunk size warnings - reduced for better granularity
-    chunkSizeWarningLimit: 500, // Warn for chunks > 500KB (more aggressive)
+    // Chunk size warnings
+    chunkSizeWarningLimit: 1000, // ← Nostettu koska vendor on nyt isompi
     
     // CSS code splitting
     cssCodeSplit: true,
@@ -160,16 +161,13 @@ export default defineConfig(({ mode }) => ({
       transformMixedEsModules: true,
     },
     
-    // Enable module preload for faster navigation
+    // ⚠️ KRIITTINEN MUUTOS: Module preload korjattu
     modulePreload: {
       polyfill: true,
       resolveDependencies: (filename, deps) => {
-        // Preload critical chunks
+        // Preload vendor chunk ENSIN, sitten muut
         return deps.filter(dep => {
-          // Preload React and vendor chunks immediately
-          return dep.includes('react-vendor') || 
-                 dep.includes('vendor') ||
-                 dep.includes('ui-components');
+          return dep.includes('vendor'); // Vendor ladataan aina ensin
         });
       },
     },
