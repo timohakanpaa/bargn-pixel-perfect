@@ -81,6 +81,9 @@ export default defineConfig(({ mode }) => ({
             if (id.includes('lucide-react')) {
               return 'icon-vendor';
             }
+            if (id.includes('canvas-confetti')) {
+              return 'confetti-vendor';
+            }
             // All other vendor code
             return 'vendor';
           }
@@ -91,15 +94,35 @@ export default defineConfig(({ mode }) => ({
             return `page-${pageName}`;
           }
           
-          // Separate component chunks by category
+          // Separate component chunks by category and priority
           if (id.includes('/src/components/campaign/')) {
             return 'campaign-components';
           }
           if (id.includes('/src/components/partners/')) {
             return 'partner-components';
           }
+          if (id.includes('/src/components/funnel/')) {
+            return 'funnel-components';
+          }
           if (id.includes('/src/components/ui/')) {
             return 'ui-components';
+          }
+          
+          // Separate heavy homepage components for lazy loading
+          if (id.includes('/src/components/Features.tsx')) {
+            return 'home-features';
+          }
+          if (id.includes('/src/components/BusinessSection.tsx')) {
+            return 'home-business';
+          }
+          if (id.includes('/src/components/Pricing.tsx')) {
+            return 'home-pricing';
+          }
+          if (id.includes('/src/components/Testimonials.tsx')) {
+            return 'home-testimonials';
+          }
+          if (id.includes('/src/components/FAQ.tsx')) {
+            return 'home-faq';
           }
         },
         
@@ -119,8 +142,8 @@ export default defineConfig(({ mode }) => ({
       },
     },
     
-    // Chunk size warnings
-    chunkSizeWarningLimit: 1000, // Warn for chunks > 1MB
+    // Chunk size warnings - reduced for better granularity
+    chunkSizeWarningLimit: 500, // Warn for chunks > 500KB (more aggressive)
     
     // CSS code splitting
     cssCodeSplit: true,
@@ -135,6 +158,20 @@ export default defineConfig(({ mode }) => ({
     commonjsOptions: {
       include: [/node_modules/],
       transformMixedEsModules: true,
+    },
+    
+    // Enable module preload for faster navigation
+    modulePreload: {
+      polyfill: true,
+      resolveDependencies: (filename, deps) => {
+        // Preload critical chunks
+        return deps.filter(dep => {
+          // Preload React and vendor chunks immediately
+          return dep.includes('react-vendor') || 
+                 dep.includes('vendor') ||
+                 dep.includes('ui-components');
+        });
+      },
     },
   },
   
