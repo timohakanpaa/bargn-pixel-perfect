@@ -148,7 +148,7 @@ const Pricing = () => {
                   className="w-full border-accent text-accent font-bold rounded-full py-6 text-lg hover:bg-accent/10 hover:animate-wobble"
                 >
                   <a 
-                    href="https://buy.stripe.com/test_4gw6sxfFfdtv7Eg144" 
+                    href="https://buy.stripe.com/6oUdR9a4E7ZP5js6Py3ZK01" 
                     target="_blank" 
                     rel="noopener noreferrer"
                   >
