@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import bargnLogo from "@/assets/bargn-logo.webp";
+import bargnLogo from "@/assets/bargn-logo.png";
 import { z } from "zod";
 import AppStoreBadges from "@/components/AppStoreBadges";
 
