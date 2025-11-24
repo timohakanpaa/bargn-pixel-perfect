@@ -1,33 +1,35 @@
 import { Star } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { TiltCard } from "@/components/animations/TiltCard";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const PartnerTestimonials = () => {
   const { ref, isInView } = useInView();
+  const { t } = useLanguage();
 
   const testimonials = [
     {
-      name: "Marco R.",
-      business: "Bella Vista Restaurant",
-      role: "Verified Business Partner",
-      quote: "NGL, I was skeptical about the 'no commission' thing - thought it was too good to be true. Turns out the only thing too good to be true was my old platform's pricing. 40% more customers and I keep ALL the money? That's what I call a glow-up.",
+      name: t("partners.testimonials.testimonial1.name"),
+      business: t("partners.testimonials.testimonial1.business"),
+      role: t("partners.testimonials.testimonial1.role"),
+      quote: t("partners.testimonials.testimonial1.quote"),
       stars: 5,
       gradient: "from-[#ec4899]/20 to-[#a855f7]/20"
     },
     {
-      name: "Sarah K.",
-      business: "FitLife Gym & Spa",
-      role: "Verified Business Partner",
-      quote: "Plot twist: the 'discount' customers turned into our best regulars. These people aren't here to scam free stuff - they genuinely want quality experiences. My revenue went up 60% and my stress levels went down. Chef's kiss!",
+      name: t("partners.testimonials.testimonial2.name"),
+      business: t("partners.testimonials.testimonial2.business"),
+      role: t("partners.testimonials.testimonial2.role"),
+      quote: t("partners.testimonials.testimonial2.quote"),
       stars: 5,
       gradient: "from-[#f97316]/20 to-[#eab308]/20",
       featured: true
     },
     {
-      name: "James M.",
-      business: "Urban Style Boutique",
-      role: "Verified Business Partner",
-      quote: "The analytics are so good, I feel like a business genius (finally!). Turns out data > gut feelings for making money. Who knew? My transaction values are up 35% and I actually understand my customers now. Mind = blown.",
+      name: t("partners.testimonials.testimonial3.name"),
+      business: t("partners.testimonials.testimonial3.business"),
+      role: t("partners.testimonials.testimonial3.role"),
+      quote: t("partners.testimonials.testimonial3.quote"),
       stars: 5,
       gradient: "from-[#3b82f6]/20 to-[#8b5cf6]/20"
     }
@@ -37,12 +39,12 @@ const PartnerTestimonials = () => {
     <section ref={ref} className="py-24 relative overflow-hidden">
       <div className={`container mx-auto px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
         <div className="text-center mb-16">
-          <p className="text-accent text-lg font-bold mb-4 uppercase tracking-wider">Partner Success Stories</p>
+          <p className="text-accent text-lg font-bold mb-4 uppercase tracking-wider">{t("partners.testimonials.badge")}</p>
           <h2 className="text-5xl md:text-6xl font-black mb-6 text-foreground">
-            Success Stories (Not Paid Actors, We Promise)
+            {t("partners.testimonials.headline")}
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Actual testimonials from actual humans running actual businesses. Revolutionary concept, we know.
+            {t("partners.testimonials.description")}
           </p>
         </div>
 

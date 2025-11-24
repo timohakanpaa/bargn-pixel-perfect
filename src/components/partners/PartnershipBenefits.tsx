@@ -1,35 +1,37 @@
 import { DollarSign, Users, Zap, TrendingUp } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const PartnershipBenefits = () => {
   const { ref, isInView } = useInView();
+  const { t } = useLanguage();
 
   const benefits = [
     {
       icon: DollarSign,
-      title: "Zero Commission Fees",
-      description: "Yes, you read that right. Z-E-R-O. While others charge you for the privilege of working, we believe in this crazy concept called 'fairness'",
+      title: t("partners.benefits.benefit1.title"),
+      description: t("partners.benefits.benefit1.description"),
       gradient: "bg-gradient-pink-orange",
       shadow: "shadow-glow-pink"
     },
     {
       icon: Users,
-      title: "High-Quality Customer Base",
-      description: "These aren't your typical 'Karen wants to speak to the manager' customers. Our members are educated, employed, and actually tip their servers",
+      title: t("partners.benefits.benefit2.title"),
+      description: t("partners.benefits.benefit2.description"),
       gradient: "bg-gradient-orange-yellow",
       shadow: "shadow-glow-orange"
     },
     {
       icon: Zap,
-      title: "Premium Brand Exposure",
-      description: "Our AI is basically a digital wingman for your business - smooth, smart, and surprisingly good at closing deals",
+      title: t("partners.benefits.benefit3.title"),
+      description: t("partners.benefits.benefit3.description"),
       gradient: "bg-gradient-pink-yellow",
       shadow: "shadow-glow-yellow"
     },
     {
       icon: TrendingUp,
-      title: "Advanced Analytics & Insights",
-      description: "Dashboard so detailed, you'll know your customers better than their therapists (but way less expensive)",
+      title: t("partners.benefits.benefit4.title"),
+      description: t("partners.benefits.benefit4.description"),
       gradient: "bg-gradient-purple-pink",
       shadow: "shadow-glow-pink"
     }
@@ -39,12 +41,12 @@ const PartnershipBenefits = () => {
     <section ref={ref} className="py-24 relative overflow-hidden">
       <div className={`container mx-auto px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
         <div className="text-center mb-16">
-          <p className="text-accent text-lg font-bold mb-4 uppercase tracking-wider">Partnership Benefits</p>
+          <p className="text-accent text-lg font-bold mb-4 uppercase tracking-wider">{t("partners.benefits.badge")}</p>
           <h2 className="text-5xl md:text-6xl font-black mb-6 text-foreground">
-            Why Smart Businesses Ghost Their Old Platforms
+            {t("partners.benefits.headline")}
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Spoiler alert: It's not just about the money (but seriously, who doesn't love keeping 100% of their revenue?).
+            {t("partners.benefits.description")}
           </p>
         </div>
 
