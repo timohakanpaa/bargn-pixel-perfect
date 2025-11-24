@@ -78,7 +78,7 @@ const Pricing = () => {
                   className="w-full bg-gradient-pink-orange text-foreground font-bold rounded-full py-6 text-lg shadow-[0_0_25px_rgba(239,29,242,0.6)] hover:shadow-[0_0_40px_rgba(239,29,242,0.9)] hover:animate-wobble"
                 >
                   <a 
-                    href="https://buy.stripe.com/test_8wM7wB9gR3EP7Eg3cc" 
+                    href="https://buy.stripe.com/eVq3cva4E2Fv5jsei03ZK00" 
                     target="_blank" 
                     rel="noopener noreferrer"
                   >
