@@ -15,9 +15,56 @@ import { useLocalBusinessSchema } from "@/hooks/use-local-business-schema";
 import { useHreflang } from "@/hooks/use-hreflang";
 import { useMetaTags } from "@/hooks/use-meta-tags";
 import { useLanguage } from "@/contexts/LanguageContext";
+import confetti from "canvas-confetti";
+import { useEffect, useState } from "react";
 
 const Index = () => {
   const { t } = useLanguage();
+  const [hasTriggeredConfetti, setHasTriggeredConfetti] = useState(false);
+  
+  // Trigger welcome confetti on mount
+  useEffect(() => {
+    if (!hasTriggeredConfetti) {
+      setTimeout(() => {
+        triggerWelcomeConfetti();
+        setHasTriggeredConfetti(true);
+      }, 1000);
+    }
+  }, [hasTriggeredConfetti]);
+
+  const triggerWelcomeConfetti = () => {
+    const duration = 2500;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 25, spread: 360, ticks: 50, zIndex: 9999 };
+
+    function randomInRange(min: number, max: number) {
+      return Math.random() * (max - min) + min;
+    }
+
+    const interval: any = setInterval(function() {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+
+      const particleCount = 30 * (timeLeft / duration);
+
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.2, 0.4), y: Math.random() - 0.2 },
+        colors: ['#f88170', '#ef1df2', '#ffe500', '#ff6b9d']
+      });
+      
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.6, 0.8), y: Math.random() - 0.2 },
+        colors: ['#f88170', '#ef1df2', '#ffe500', '#ff6b9d']
+      });
+    }, 250);
+  };
   
   useAnalytics(); // Auto-track page view
   useBreadcrumbSchema();

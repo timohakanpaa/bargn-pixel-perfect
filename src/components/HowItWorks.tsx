@@ -15,15 +15,44 @@ const HowItWorks = () => {
   const [hasTriggeredBenefitsConfetti, setHasTriggeredBenefitsConfetti] = useState(false);
   const [triggeredSteps, setTriggeredSteps] = useState<Set<number>>(new Set());
   
+  const triggerWelcomeConfetti = () => {
+    const duration = 2500;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 25, spread: 360, ticks: 50, zIndex: 9999 };
+
+    function randomInRange(min: number, max: number) {
+      return Math.random() * (max - min) + min;
+    }
+
+    const interval: any = setInterval(function() {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+
+      const particleCount = 30 * (timeLeft / duration);
+
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.2, 0.4), y: Math.random() - 0.2 },
+        colors: ['#f88170', '#ef1df2', '#ffe500', '#ff6b9d']
+      });
+      
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.6, 0.8), y: Math.random() - 0.2 },
+        colors: ['#f88170', '#ef1df2', '#ffe500', '#ff6b9d']
+      });
+    }, 250);
+  };
+  
   // Trigger confetti when hero comes into view
   useEffect(() => {
     if (heroInView && !hasTriggeredHeroConfetti) {
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#ff6b9d', '#c869ff', '#ffa900'],
-      });
+      triggerWelcomeConfetti();
       setHasTriggeredHeroConfetti(true);
     }
   }, [heroInView, hasTriggeredHeroConfetti]);
@@ -31,12 +60,7 @@ const HowItWorks = () => {
   // Trigger confetti when benefits section comes into view
   useEffect(() => {
     if (whyInView && !hasTriggeredBenefitsConfetti) {
-      confetti({
-        particleCount: 80,
-        spread: 60,
-        origin: { y: 0.7 },
-        colors: ['#ffa900', '#ff6b9d', '#c869ff'],
-      });
+      triggerWelcomeConfetti();
       setHasTriggeredBenefitsConfetti(true);
     }
   }, [whyInView, hasTriggeredBenefitsConfetti]);
@@ -271,9 +295,9 @@ const HowItWorks = () => {
               if (stepInView && !triggeredSteps.has(index)) {
                 confetti({
                   particleCount: 50,
-                  spread: 50,
+                  spread: 70,
                   origin: { x: isEven ? 0.3 : 0.7, y: 0.6 },
-                  colors: ['#ff6b9d', '#c869ff', '#ffa900'],
+                  colors: ['#f88170', '#ef1df2', '#ffe500', '#ff6b9d']
                 });
                 setTriggeredSteps(prev => new Set(prev).add(index));
               }
