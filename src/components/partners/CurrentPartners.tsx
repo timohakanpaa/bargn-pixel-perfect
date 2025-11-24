@@ -2,6 +2,7 @@ import { CreditCard, Gift, Zap, Play, Building2 } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import { useLanguage } from "@/contexts/LanguageContext";
+import partnerShowcase from "@/assets/partner-showcase.jpg";
 
 const CurrentPartners = () => {
   const { ref, isInView } = useInView();
@@ -46,8 +47,8 @@ const CurrentPartners = () => {
 
         <div className="relative max-w-6xl mx-auto rounded-3xl overflow-hidden group">
           <img 
-            src="/placeholder.svg" 
-            alt="Partner venue" 
+            src={partnerShowcase} 
+            alt="Bargn partner showcase - Helsinki city cafe" 
             width="1200"
             height="400"
             loading="lazy"
