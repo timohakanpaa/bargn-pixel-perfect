@@ -282,9 +282,15 @@ const Members = () => {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-20"
           >
-            <Button variant="neon" className="rounded-full px-10 py-7 text-xl group">
-              <Crown className="mr-2 w-6 h-6 group-hover:animate-wobble" />
-              {t("startSaving")}
+            <Button asChild variant="neon" className="rounded-full px-10 py-7 text-xl group">
+              <a 
+                href="https://buy.stripe.com/6oUdR9a4E7ZP5js6Py3ZK01" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <Crown className="mr-2 w-6 h-6 group-hover:animate-wobble" />
+                {t("startSaving")}
+              </a>
             </Button>
             <Button variant="secondary" className="rounded-full px-10 py-7 text-xl border-2 border-primary">
               <Users className="mr-2 w-6 h-6" />
