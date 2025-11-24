@@ -292,9 +292,15 @@ const Members = () => {
                 {t("startSaving")}
               </a>
             </Button>
-            <Button variant="secondary" className="rounded-full px-10 py-7 text-xl border-2 border-primary">
-              <Users className="mr-2 w-6 h-6" />
-              {t("becomePartner")}
+            <Button asChild variant="secondary" className="rounded-full px-10 py-7 text-xl border-2 border-primary">
+              <a 
+                href="http://bargn-business.vercel.app/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <Users className="mr-2 w-6 h-6" />
+                {t("becomePartner")}
+              </a>
             </Button>
           </motion.div>
         </div>
