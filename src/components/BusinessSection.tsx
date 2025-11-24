@@ -69,9 +69,11 @@ const BusinessSection = () => {
               </div>
             </div>
 
-            <Button className="bg-gradient-to-r from-secondary to-accent text-foreground font-bold rounded-full px-8 py-6 text-lg shadow-glow-orange hover:scale-110 hover:shadow-glow-yellow transition-all duration-300">
-              <Users className="mr-2 w-5 h-5" />
-              Partner Up (We're Cool Like That)
+            <Button asChild className="bg-gradient-to-r from-secondary to-accent text-foreground font-bold rounded-full px-8 py-6 text-lg shadow-glow-orange hover:scale-110 hover:shadow-glow-yellow transition-all duration-300">
+              <a href="/partners">
+                <Users className="mr-2 w-5 h-5" />
+                Partner Up (We're Cool Like That)
+              </a>
             </Button>
           </div>
 
