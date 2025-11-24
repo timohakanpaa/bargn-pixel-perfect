@@ -3,13 +3,43 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useInView } from "@/hooks/use-in-view";
 import { Download, Map, ScanFace, Smartphone, Gift, Shield, Zap, Brain, Lightbulb, Sparkles } from "lucide-react";
 import { Button } from "./ui/button";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
+import confetti from "canvas-confetti";
 
 const HowItWorks = () => {
   const { t } = useLanguage();
   const { ref: heroRef, isInView: heroInView } = useInView({ threshold: 0.1 });
   const { ref: timelineRef, isInView: timelineInView } = useInView({ threshold: 0.1 });
   const { ref: whyRef, isInView: whyInView } = useInView({ threshold: 0.1 });
+  const [hasTriggeredHeroConfetti, setHasTriggeredHeroConfetti] = useState(false);
+  const [hasTriggeredBenefitsConfetti, setHasTriggeredBenefitsConfetti] = useState(false);
+  const [triggeredSteps, setTriggeredSteps] = useState<Set<number>>(new Set());
+  
+  // Trigger confetti when hero comes into view
+  useEffect(() => {
+    if (heroInView && !hasTriggeredHeroConfetti) {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#ff6b9d', '#c869ff', '#ffa900'],
+      });
+      setHasTriggeredHeroConfetti(true);
+    }
+  }, [heroInView, hasTriggeredHeroConfetti]);
+  
+  // Trigger confetti when benefits section comes into view
+  useEffect(() => {
+    if (whyInView && !hasTriggeredBenefitsConfetti) {
+      confetti({
+        particleCount: 80,
+        spread: 60,
+        origin: { y: 0.7 },
+        colors: ['#ffa900', '#ff6b9d', '#c869ff'],
+      });
+      setHasTriggeredBenefitsConfetti(true);
+    }
+  }, [whyInView, hasTriggeredBenefitsConfetti]);
   
   // Parallax scroll refs
   const sectionRef = useRef<HTMLElement>(null);
@@ -234,10 +264,25 @@ const HowItWorks = () => {
           {steps.map((step, index) => {
             const isEven = index % 2 === 0;
             const StepIcon = step.icon;
+            const { ref: stepRef, isInView: stepInView } = useInView({ threshold: 0.3 });
+            
+            // Trigger confetti for each step
+            useEffect(() => {
+              if (stepInView && !triggeredSteps.has(index)) {
+                confetti({
+                  particleCount: 50,
+                  spread: 50,
+                  origin: { x: isEven ? 0.3 : 0.7, y: 0.6 },
+                  colors: ['#ff6b9d', '#c869ff', '#ffa900'],
+                });
+                setTriggeredSteps(prev => new Set(prev).add(index));
+              }
+            }, [stepInView, index, isEven]);
 
             return (
               <motion.div
                 key={index}
+                ref={stepRef}
                 initial={{ opacity: 0, y: 50 }}
                 animate={timelineInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
                 transition={{ delay: index * 0.15, duration: 0.6 }}
