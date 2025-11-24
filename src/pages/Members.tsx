@@ -284,7 +284,7 @@ const Members = () => {
           >
             <Button asChild variant="neon" className="rounded-full px-10 py-7 text-xl group">
               <a 
-                href="https://buy.stripe.com/6oUdR9a4E7ZP5js6Py3ZK01" 
+                href="https://buy.stripe.com/aFa14n2Cca7X6nw5Lu3ZK02" 
                 target="_blank" 
                 rel="noopener noreferrer"
               >
