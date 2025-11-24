@@ -321,7 +321,7 @@ const HowItWorks = () => {
                       {step.number}
                     </div>
                     <span className="text-sm font-bold text-primary uppercase tracking-wider">
-                      Step {step.number}
+                      {t("how.step.label")} {step.number}
                     </span>
                   </div>
                   <h3 className="text-3xl md:text-4xl font-black mb-4 text-foreground">

@@ -13,15 +13,15 @@ const HowItWorks = () => {
   
   // Inject HowTo schema for SEO
   useHowToSchema({
-    name: "How to Start Saving Money with Bargn",
-    description: "Learn how to use Bargn app to get 50% discounts at restaurants, bars, and gyms in Helsinki. Simple 5-step process from download to savings.",
+    name: t("how.schema.name"),
+    description: t("how.schema.description"),
     totalTime: "PT10M", // 10 minutes total
     estimatedCost: {
       currency: "EUR",
       value: "8.80"
     },
-    supply: ["Smartphone", "Internet connection"],
-    tool: ["Bargn mobile app"],
+    supply: [t("how.schema.supply.smartphone"), t("how.schema.supply.internet")],
+    tool: [t("how.schema.tool")],
     image: "https://storage.googleapis.com/gpt-engineer-file-uploads/SWwdRfTou4NwpSgFbdofc5xLsAp1/uploads/1763629516807-accent1.png",
     steps: [
       {

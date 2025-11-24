@@ -1,7 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Building2, Users, Crown, Percent, Sparkles, Zap } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const PartnerCTA = () => {
+  const { t } = useLanguage();
+  
   return (
     <section className="relative py-32 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-r from-[#ec4899] via-[#f97316] to-[#eab308]"></div>
@@ -25,24 +28,24 @@ const PartnerCTA = () => {
 
       <div className="container mx-auto px-6 text-center relative z-10">
         <h2 className="text-5xl md:text-7xl font-black text-foreground mb-8 leading-tight">
-          Ready to Join the Winning Team?
+          {t("partners.cta.headline")}
         </h2>
         <p className="text-xl md:text-2xl text-foreground/90 mb-12 max-w-3xl mx-auto">
-          Stop losing money to platforms that treat you like a revenue stream. Join businesses that are actually making bank (and keeping it).
+          {t("partners.cta.description")}
         </p>
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
           <Button 
             className="bg-background text-primary hover:bg-background/90 font-bold rounded-full px-10 py-7 text-lg shadow-2xl hover:scale-110 transition-all duration-300"
           >
             <Building2 className="mr-2 w-6 h-6" />
-            Apply as Partner
+            {t("partners.cta.applyPartner")}
           </Button>
           <Button 
             variant="outline" 
             className="border-2 border-foreground text-foreground hover:bg-foreground/10 rounded-full px-10 py-7 text-lg backdrop-blur-sm hover:scale-105 transition-all duration-300"
           >
             <Users className="mr-2 w-6 h-6" />
-            Join as Member
+            {t("partners.cta.joinMember")}
           </Button>
         </div>
       </div>
