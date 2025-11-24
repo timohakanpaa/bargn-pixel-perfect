@@ -227,7 +227,7 @@ const Blog = () => {
                     }}
                     className="bg-gradient-to-r from-[#E94B96] to-[#FF9B7D] text-white hover:shadow-[0_0_40px_rgba(233,75,150,0.6)] font-bold rounded-full px-8 py-6"
                   >
-                    Read Full Story
+                    {t('blog.readFullStory')}
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
                 </div>
@@ -345,7 +345,7 @@ const Blog = () => {
                       }}
                       className="text-[#FF9B7D] hover:text-[#E94B96] font-bold group"
                     >
-                      Read More
+                      {t('blog.readMore')}
                       <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                     </Button>
                   </div>

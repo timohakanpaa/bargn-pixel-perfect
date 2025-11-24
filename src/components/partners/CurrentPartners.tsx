@@ -1,27 +1,29 @@
 import { CreditCard, Gift, Zap, Play, Building2 } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const CurrentPartners = () => {
   const { ref, isInView } = useInView();
+  const { t } = useLanguage();
 
   const categories = [
-    { icon: CreditCard, count: 150, name: "Restaurants & Cafes", gradient: "bg-gradient-pink-orange" },
-    { icon: Gift, count: 200, name: "Retail & Fashion", gradient: "bg-gradient-orange-yellow" },
-    { icon: Zap, count: 100, name: "Fitness & Wellness", gradient: "bg-gradient-pink-yellow" },
-    { icon: Play, count: 50, name: "Entertainment & Events", gradient: "bg-gradient-purple-pink" }
+    { icon: CreditCard, count: 150, name: t("partners.current.category1"), gradient: "bg-gradient-pink-orange" },
+    { icon: Gift, count: 200, name: t("partners.current.category2"), gradient: "bg-gradient-orange-yellow" },
+    { icon: Zap, count: 100, name: t("partners.current.category3"), gradient: "bg-gradient-pink-yellow" },
+    { icon: Play, count: 50, name: t("partners.current.category4"), gradient: "bg-gradient-purple-pink" }
   ];
 
   return (
     <section ref={ref} className="py-24 relative overflow-hidden">
       <div className={`container mx-auto px-6 transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
         <div className="text-center mb-16">
-          <p className="text-accent text-lg font-bold mb-4 uppercase tracking-wider">Current Partners</p>
+          <p className="text-accent text-lg font-bold mb-4 uppercase tracking-wider">{t("partners.current.badge")}</p>
           <h2 className="text-5xl md:text-6xl font-black mb-6 text-foreground">
-            The Cool Kids' Table (And You're Invited)
+            {t("partners.current.headline")}
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            From that hipster coffee shop you Instagram to the spa where influencers get 'work done' - yeah, they're all here.
+            {t("partners.current.description")}
           </p>
         </div>
 
@@ -59,13 +61,13 @@ const CurrentPartners = () => {
               </div>
               <div>
                 <h3 className="text-2xl font-black text-foreground">
-                  <AnimatedCounter end={500} suffix="+" duration={2000} /> Active Partners
+                  <AnimatedCounter end={500} suffix="+" duration={2000} /> {t("partners.current.activePartners")}
                 </h3>
-                <p className="text-accent font-semibold">Growing Every Week</p>
+                <p className="text-accent font-semibold">{t("partners.current.growing")}</p>
               </div>
             </div>
             <p className="text-foreground/80">
-              Join restaurants, retail shops, gyms, spas, entertainment venues and more in our thriving network
+              {t("partners.current.joinText")}
             </p>
           </div>
         </div>
