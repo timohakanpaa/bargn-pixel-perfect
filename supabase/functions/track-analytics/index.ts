@@ -45,7 +45,7 @@ serve(async (req) => {
       element_id: z.string().max(100).optional(),
       element_class: z.string().max(100).optional(),
       element_text: z.string().max(200).optional(),
-      referrer: z.string().max(500).optional(),
+      referrer: z.string().max(2000).nullable().optional(), // Allow longer URLs (JWT tokens) and null values
       language: z.string().max(10).optional(),
       screen_width: z.number().int().positive().optional(),
       screen_height: z.number().int().positive().optional(),
