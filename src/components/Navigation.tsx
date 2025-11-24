@@ -171,8 +171,14 @@ const Navigation = () => {
                 <User className="w-5 h-5" />
               </Button>
             )}
-            <Button variant="neon" className="rounded-full px-6 flex-shrink-0">
-              {t("letsGo")}
+            <Button asChild variant="neon" className="rounded-full px-6 flex-shrink-0">
+              <a 
+                href="https://buy.stripe.com/aFa14n2Cca7X6nw5Lu3ZK02" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                {t("letsGo")}
+              </a>
             </Button>
           </div>
 
@@ -350,11 +356,18 @@ const Navigation = () => {
                   </Button>
                 )}
                 <Button 
+                  asChild
                   variant="neon" 
                   className="w-full rounded-full shadow-[0_0_25px_rgba(255,220,74,0.7)] min-h-[44px]"
                   size="lg"
                 >
-                  {t("letsGo")}
+                  <a 
+                    href="https://buy.stripe.com/aFa14n2Cca7X6nw5Lu3ZK02" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    {t("letsGo")}
+                  </a>
                 </Button>
               </div>
             </div>
