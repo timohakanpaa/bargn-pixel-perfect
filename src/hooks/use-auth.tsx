@@ -52,7 +52,9 @@ export const useAuth = (requireAdmin: boolean = false) => {
         .single();
 
       if (error && error.code !== "PGRST116") {
-        console.error("Error checking admin role:", error);
+        if (import.meta.env.DEV) {
+          console.error("Error checking admin role:", error);
+        }
       }
 
       const hasAdminRole = !!data;
@@ -63,7 +65,9 @@ export const useAuth = (requireAdmin: boolean = false) => {
         navigate("/auth");
       }
     } catch (error) {
-      console.error("Error checking admin role:", error);
+      if (import.meta.env.DEV) {
+        console.error("Error checking admin role:", error);
+      }
       setIsAdmin(false);
     } finally {
       setLoading(false);
