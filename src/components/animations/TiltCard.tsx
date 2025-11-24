@@ -71,9 +71,9 @@ export const TiltCard = ({
         scale: { duration: 0.3 },
         z: { duration: 0.3 },
       }}
-      className={className}
+      className={`${className} h-full`}
     >
-      <div style={{ transform: "translateZ(50px)" }}>
+      <div style={{ transform: "translateZ(50px)" }} className="h-full">
         {children}
       </div>
     </motion.div>
