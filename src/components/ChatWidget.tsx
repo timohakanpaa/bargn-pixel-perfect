@@ -139,10 +139,12 @@ const ChatWidget = () => {
         }
       }
     } catch (error) {
-      console.error("Chat error:", error);
+      if (import.meta.env.DEV) {
+        console.error("Chat error:", error);
+      }
       toast({
         title: "Error",
-        description: error instanceof Error ? error.message : "Failed to get response",
+        description: "Unable to get response. Please try again.",
         variant: "destructive",
       });
       
@@ -161,6 +163,17 @@ const ChatWidget = () => {
     if (!inputValue.trim() || isLoading) return;
     
     const userMessage = inputValue.trim();
+    
+    // Validate message length
+    if (userMessage.length > 2000) {
+      toast({
+        title: "Message too long",
+        description: "Please keep messages under 2000 characters.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setInputValue("");
     setIsLoading(true);
@@ -231,6 +244,7 @@ const ChatWidget = () => {
                   onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                   placeholder={t("chatWidget") === "Ask Bargn AI" ? "Type your message..." : "Kirjoita viestisi..."}
                   className="bg-muted border-glass"
+                  maxLength={2000}
                 />
                 <Button
                   onClick={handleSend}

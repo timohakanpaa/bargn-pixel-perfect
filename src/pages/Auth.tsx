@@ -13,12 +13,71 @@ import { z } from "zod";
 
 const passwordSchema = z.string()
   .min(8, "Password must be at least 8 characters")
+  .max(128, "Password must not exceed 128 characters")
   .regex(/[a-z]/, "Password must contain at least one lowercase letter")
   .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
   .regex(/[0-9]/, "Password must contain at least one number")
   .regex(/[^a-zA-Z0-9]/, "Password must contain at least one special character");
 
-const emailSchema = z.string().email("Please enter a valid email address");
+const emailSchema = z.string()
+  .email("Please enter a valid email address")
+  .max(255, "Email must not exceed 255 characters");
+
+// Rate limiting configuration
+const MAX_ATTEMPTS = 5;
+const RATE_LIMIT_WINDOW = 15 * 60 * 1000; // 15 minutes
+
+interface RateLimitData {
+  attempts: number;
+  firstAttempt: number;
+  blockedUntil?: number;
+}
+
+const getRateLimitKey = (action: 'signin' | 'signup') => `auth_ratelimit_${action}`;
+
+const checkRateLimit = (action: 'signin' | 'signup'): { allowed: boolean; waitTime?: number } => {
+  const key = getRateLimitKey(action);
+  const stored = localStorage.getItem(key);
+  const now = Date.now();
+  
+  if (!stored) {
+    const data: RateLimitData = { attempts: 1, firstAttempt: now };
+    localStorage.setItem(key, JSON.stringify(data));
+    return { allowed: true };
+  }
+  
+  const data: RateLimitData = JSON.parse(stored);
+  
+  // Check if currently blocked
+  if (data.blockedUntil && now < data.blockedUntil) {
+    const waitTime = Math.ceil((data.blockedUntil - now) / 1000);
+    return { allowed: false, waitTime };
+  }
+  
+  // Reset if window expired
+  if (now - data.firstAttempt > RATE_LIMIT_WINDOW) {
+    const newData: RateLimitData = { attempts: 1, firstAttempt: now };
+    localStorage.setItem(key, JSON.stringify(newData));
+    return { allowed: true };
+  }
+  
+  // Increment attempts
+  data.attempts += 1;
+  
+  if (data.attempts > MAX_ATTEMPTS) {
+    data.blockedUntil = now + RATE_LIMIT_WINDOW;
+    localStorage.setItem(key, JSON.stringify(data));
+    const waitTime = Math.ceil(RATE_LIMIT_WINDOW / 1000);
+    return { allowed: false, waitTime };
+  }
+  
+  localStorage.setItem(key, JSON.stringify(data));
+  return { allowed: true };
+};
+
+const sanitizeInput = (input: string): string => {
+  return input.trim().replace(/[<>]/g, '');
+};
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -46,15 +105,27 @@ const Auth = () => {
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !password) {
+    
+    // Rate limiting check
+    const rateCheck = checkRateLimit('signup');
+    if (!rateCheck.allowed) {
+      toast.error(`Too many signup attempts. Please try again in ${rateCheck.waitTime} seconds.`);
+      return;
+    }
+    
+    // Sanitize and validate inputs
+    const sanitizedEmail = sanitizeInput(email);
+    const sanitizedPassword = sanitizeInput(password);
+    
+    if (!sanitizedEmail || !sanitizedPassword) {
       toast.error("Please fill in all fields");
       return;
     }
 
     // Validate email and password
     try {
-      emailSchema.parse(email);
-      passwordSchema.parse(password);
+      emailSchema.parse(sanitizedEmail);
+      passwordSchema.parse(sanitizedPassword);
     } catch (error) {
       if (error instanceof z.ZodError) {
         toast.error(error.issues[0].message);
@@ -64,8 +135,8 @@ const Auth = () => {
 
     setLoading(true);
     const { error } = await supabase.auth.signUp({
-      email,
-      password,
+      email: sanitizedEmail,
+      password: sanitizedPassword,
       options: {
         emailRedirectTo: `${window.location.origin}/`
       }
@@ -74,7 +145,11 @@ const Auth = () => {
     setLoading(false);
 
     if (error) {
-      toast.error(error.message);
+      // Generic error message to avoid leaking information
+      if (import.meta.env.DEV) {
+        console.error("Signup error:", error);
+      }
+      toast.error("Unable to create account. Please try a different email or contact support.");
     } else {
       toast.success("Account created successfully! Please sign in.");
       setEmail("");
@@ -84,14 +159,26 @@ const Auth = () => {
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !password) {
+    
+    // Rate limiting check
+    const rateCheck = checkRateLimit('signin');
+    if (!rateCheck.allowed) {
+      toast.error(`Too many login attempts. Please try again in ${rateCheck.waitTime} seconds.`);
+      return;
+    }
+    
+    // Sanitize and validate inputs
+    const sanitizedEmail = sanitizeInput(email);
+    const sanitizedPassword = sanitizeInput(password);
+    
+    if (!sanitizedEmail || !sanitizedPassword) {
       toast.error("Please fill in all fields");
       return;
     }
 
     // Validate email format
     try {
-      emailSchema.parse(email);
+      emailSchema.parse(sanitizedEmail);
     } catch (error) {
       if (error instanceof z.ZodError) {
         toast.error(error.issues[0].message);
@@ -101,14 +188,18 @@ const Auth = () => {
 
     setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
+      email: sanitizedEmail,
+      password: sanitizedPassword,
     });
 
     setLoading(false);
 
     if (error) {
-      toast.error(error.message);
+      // Generic error message to avoid leaking information
+      if (import.meta.env.DEV) {
+        console.error("Signin error:", error);
+      }
+      toast.error("Invalid credentials. Please check your email and password.");
     } else {
       toast.success("Signed in successfully!");
     }
