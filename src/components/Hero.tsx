@@ -5,10 +5,12 @@ import AnimatedCounter from "@/components/AnimatedCounter";
 import { useAnalytics } from "@/hooks/use-analytics";
 import AppStoreBadges from "@/components/AppStoreBadges";
 import { trackAllPlatforms } from "@/utils/tracking";
+import { useAuth } from "@/hooks/use-auth";
 
 const Hero = () => {
   const { t } = useLanguage();
   const { trackButtonClick } = useAnalytics();
+  const { isAdmin } = useAuth();
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 px-4">
@@ -129,10 +131,12 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* App Store Badges */}
-        <div>
-          <AppStoreBadges />
-        </div>
+        {/* App Store Badges - Admin Only */}
+        {isAdmin && (
+          <div>
+            <AppStoreBadges />
+          </div>
+        )}
       </div>
     </section>
   );
