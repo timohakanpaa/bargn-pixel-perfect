@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface MetaTagsProps {
   title?: string;
@@ -17,6 +18,8 @@ export const useMetaTags = ({
   twitterTitle,
   twitterDescription,
 }: MetaTagsProps) => {
+  const { language } = useLanguage();
+  
   useEffect(() => {
     // Store original values
     const originalTitle = document.title;
@@ -26,10 +29,13 @@ export const useMetaTags = ({
     const originalTwitterTitle = document.querySelector('meta[name="twitter:title"]')?.getAttribute('content');
     const originalTwitterDescription = document.querySelector('meta[name="twitter:description"]')?.getAttribute('content');
 
-    // Update title
+    // Update title with language
     if (title) {
       document.title = title;
     }
+    
+    // Update html lang attribute
+    document.documentElement.setAttribute('lang', language);
 
     // Update meta tags
     if (description) {
@@ -70,6 +76,7 @@ export const useMetaTags = ({
     // Cleanup: restore original values
     return () => {
       document.title = originalTitle;
+      document.documentElement.setAttribute('lang', 'en');
       
       const metaDescription = document.querySelector('meta[name="description"]');
       if (metaDescription && originalDescription) {
@@ -96,5 +103,5 @@ export const useMetaTags = ({
         metaTwitterDescription.setAttribute('content', originalTwitterDescription);
       }
     };
-  }, [title, description, ogTitle, ogDescription, twitterTitle, twitterDescription]);
+  }, [title, description, ogTitle, ogDescription, twitterTitle, twitterDescription, language]);
 };

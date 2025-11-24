@@ -14,19 +14,22 @@ import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 import { useMetaTags } from "@/hooks/use-meta-tags";
 import { usePartnersSchema } from "@/hooks/use-partners-schema";
 import { useHreflang } from "@/hooks/use-hreflang";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Partners = () => {
+  const { t } = useLanguage();
+  
   useAnalytics(); // Auto-track page view
   useBreadcrumbSchema();
   usePartnersSchema();
   useHreflang(["en", "fi", "sv"]); // Multi-language SEO
   useMetaTags({
-    title: "Bargn Partners - 500+ Businesses Can't Be Wrong",
-    description: "While your competitors are still paying hefty commissions, our partners are laughing all the way to the bank. Zero commission. Zero BS. Just results.",
-    ogTitle: "Bargn Partners - 500+ Businesses Can't Be Wrong",
-    ogDescription: "While your competitors are still paying hefty commissions, our partners are laughing all the way to the bank. Zero commission. Zero BS. Just results.",
-    twitterTitle: "Bargn Partners - 500+ Businesses Can't Be Wrong",
-    twitterDescription: "While your competitors are still paying hefty commissions, our partners are laughing all the way to the bank. Zero commission. Zero BS. Just results.",
+    title: t("partners.hero.headline1") + " | Bargn Partners",
+    description: t("partners.hero.body"),
+    ogTitle: t("partners.hero.headline1") + " | Bargn Partners",
+    ogDescription: t("partners.hero.body"),
+    twitterTitle: t("partners.hero.headline1") + " | Bargn Partners",
+    twitterDescription: t("partners.hero.body"),
   });
   
   return (

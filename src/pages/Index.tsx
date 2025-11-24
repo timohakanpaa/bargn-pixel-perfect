@@ -13,12 +13,25 @@ import { useAggregateRatingSchema } from "@/hooks/use-aggregate-rating-schema";
 import { useSoftwareAppSchema } from "@/hooks/use-software-app-schema";
 import { useLocalBusinessSchema } from "@/hooks/use-local-business-schema";
 import { useHreflang } from "@/hooks/use-hreflang";
+import { useMetaTags } from "@/hooks/use-meta-tags";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
+  const { t } = useLanguage();
+  
   useAnalytics(); // Auto-track page view
   useBreadcrumbSchema();
   useAggregateRatingSchema();
   useHreflang(["en", "fi", "sv"]); // Multi-language SEO
+  
+  useMetaTags({
+    title: t("heroHeadline") + " | Bargn",
+    description: t("heroText"),
+    ogTitle: t("heroHeadline") + " | Bargn",
+    ogDescription: t("heroText"),
+    twitterTitle: t("heroHeadline") + " | Bargn",
+    twitterDescription: t("heroText"),
+  });
   
   // Inject LocalBusiness schema for AI platforms
   useLocalBusinessSchema({
