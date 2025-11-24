@@ -516,7 +516,7 @@ const Members = () => {
                     className="w-full rounded-full py-6 text-lg bg-gradient-purple-yellow text-foreground font-bold hover:scale-105 hover:animate-wobble transition-transform"
                   >
                     <a 
-                      href="https://buy.stripe.com/dR64hiccdcLL9mY144" 
+                      href="https://buy.stripe.com/6oUdR9a4E7ZP5js6Py3ZK01" 
                       target="_blank" 
                       rel="noopener noreferrer"
                     >
