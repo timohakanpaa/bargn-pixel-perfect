@@ -465,7 +465,7 @@ const Members = () => {
                     className="w-full rounded-full py-6 text-lg hover:animate-wobble"
                   >
                     <a 
-                      href="https://buy.stripe.com/6oEeWYdgd3bm5aM5kk" 
+                      href="https://buy.stripe.com/eVq3cva4E2Fv5jsei03ZK00" 
                       target="_blank" 
                       rel="noopener noreferrer"
                     >
