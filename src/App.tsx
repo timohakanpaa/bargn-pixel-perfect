@@ -10,16 +10,7 @@ import { useGoogleAnalytics } from "@/hooks/use-google-analytics";
 import { useFacebookPixel } from "@/hooks/use-facebook-pixel";
 import { useTikTokPixel } from "@/hooks/use-tiktok-pixel";
 import { useWebVitals } from "@/hooks/use-web-vitals";
-import { lazy, Suspense, useState } from "react";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+import { lazy, Suspense } from "react";
 
 // Lazy load components for better initial load performance
 const ChatWidget = lazy(() => import("@/components/ChatWidget"));
@@ -44,7 +35,6 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const queryClient = new QueryClient();
 
 const AppContent = () => {
-  const [showWelcome, setShowWelcome] = useState(true);
   const consent = useCookieConsent();
   const hasAnalyticsConsent = consent?.analytics ?? false;
   const hasMarketingConsent = consent?.marketing ?? false;
@@ -63,25 +53,6 @@ const AppContent = () => {
 
   return (
     <>
-      <AlertDialog open={showWelcome} onOpenChange={setShowWelcome}>
-        <AlertDialogContent className="bg-background border-primary">
-          <AlertDialogHeader>
-            <AlertDialogTitle className="text-4xl font-black text-primary">Hei</AlertDialogTitle>
-            <AlertDialogDescription className="text-foreground text-lg">
-              Tervetuloa Bargniin
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogAction
-              onClick={() => setShowWelcome(false)}
-              className="bg-primary text-primary-foreground hover:bg-primary/90 font-bold"
-            >
-              Jatka
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-
       <Suspense fallback={<div className="min-h-screen bg-background flex items-center justify-center">
         <div className="animate-pulse text-primary">Loading...</div>
       </div>}>
