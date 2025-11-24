@@ -20,7 +20,8 @@ const Preloader = () => {
     // Disable body scrolling
     document.body.style.overflow = "hidden";
 
-    // Animate loading bar from 0 to 100% in 1.5 seconds
+    // Simple progress animation
+    let animationFrame: number;
     const duration = 1500;
     const startTime = Date.now();
     
@@ -30,21 +31,29 @@ const Preloader = () => {
       setLoadingProgress(progress);
       
       if (progress < 100) {
-        requestAnimationFrame(animateProgress);
+        animationFrame = requestAnimationFrame(animateProgress);
       }
     };
     
-    requestAnimationFrame(animateProgress);
+    animationFrame = requestAnimationFrame(animateProgress);
 
-    // Hide preloader after 2 seconds
+    // Hide preloader after 1.8 seconds (shorter for better UX)
     const hideTimer = setTimeout(() => {
       setIsVisible(false);
       sessionStorage.setItem("bargn_preloader_shown", "true");
       document.body.style.overflow = "";
-    }, 2000);
+    }, 1800);
+
+    // Hard failsafe - force hide after 3 seconds no matter what
+    const failsafeTimer = setTimeout(() => {
+      setIsVisible(false);
+      document.body.style.overflow = "";
+    }, 3000);
 
     return () => {
       clearTimeout(hideTimer);
+      clearTimeout(failsafeTimer);
+      cancelAnimationFrame(animationFrame);
       document.body.style.overflow = "";
     };
   }, []);
@@ -57,20 +66,17 @@ const Preloader = () => {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          onAnimationComplete={() => {
+            if (!isVisible) {
+              document.body.style.overflow = "";
+            }
+          }}
           className="fixed inset-0 z-[10000] flex flex-col items-center justify-center"
           style={{ backgroundColor: "#0a0909" }}
         >
-          {/* Logo with pulsing animation and neon purple glow */}
-          <motion.div
-            animate={{
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+          {/* Logo with static glow */}
+          <div
             className="mb-12"
             style={{
               filter: "drop-shadow(0 0 40px rgba(233, 75, 150, 0.8)) drop-shadow(0 0 80px rgba(139, 92, 246, 0.6))",
@@ -83,7 +89,7 @@ const Preloader = () => {
               height="160"
               className="w-32 h-32 sm:w-40 sm:h-40 object-contain"
             />
-          </motion.div>
+          </div>
 
           {/* Loading Bar Container */}
           <div className="w-64 sm:w-80 mb-6">
@@ -101,26 +107,14 @@ const Preloader = () => {
           </div>
 
           {/* Loading Text */}
-          <motion.p
-            animate={{
-              opacity: [0.5, 1, 0.5],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="text-white/90 text-lg sm:text-xl font-bold tracking-wide"
-          >
+          <p className="text-white/90 text-lg sm:text-xl font-bold tracking-wide">
             {loadingText}
-          </motion.p>
+          </p>
 
           {/* Progress Percentage */}
-          <motion.p
-            className="text-white/60 text-sm mt-2 font-mono"
-          >
+          <p className="text-white/60 text-sm mt-2 font-mono">
             {Math.round(loadingProgress)}%
-          </motion.p>
+          </p>
         </motion.div>
       )}
     </AnimatePresence>
