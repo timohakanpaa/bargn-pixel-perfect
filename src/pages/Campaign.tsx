@@ -16,19 +16,22 @@ import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 import { useMetaTags } from "@/hooks/use-meta-tags";
 import { useCampaignSchema } from "@/hooks/use-campaign-schema";
 import { useHreflang } from "@/hooks/use-hreflang";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Campaign = () => {
+  const { t } = useLanguage();
+  
   useAnalytics(); // Auto-track page view
   useBreadcrumbSchema();
   useCampaignSchema();
   useHreflang(["en", "fi", "sv"]); // Multi-language SEO
   useMetaTags({
-    title: "Bargn Creators - Make Bank While You Create",
-    description: "40% Revenue Share. No BS. Actual Money. Tired of getting paid in 'exposure'? We're literally throwing money at creators. Join the gold rush.",
-    ogTitle: "Bargn Creators - Make Bank While You Create",
-    ogDescription: "40% Revenue Share. No BS. Actual Money. Tired of getting paid in 'exposure'? We're literally throwing money at creators. Join the gold rush.",
-    twitterTitle: "Bargn Creators - Make Bank While You Create",
-    twitterDescription: "40% Revenue Share. No BS. Actual Money. Tired of getting paid in 'exposure'? We're literally throwing money at creators. Join the gold rush.",
+    title: t("campaign.hero.headline") + " | Bargn Creators",
+    description: t("campaign.hero.description"),
+    ogTitle: t("campaign.hero.headline") + " | Bargn Creators",
+    ogDescription: t("campaign.hero.description"),
+    twitterTitle: t("campaign.hero.headline") + " | Bargn Creators",
+    twitterDescription: t("campaign.hero.description"),
   });
   
   return (

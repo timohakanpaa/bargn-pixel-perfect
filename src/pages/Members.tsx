@@ -7,17 +7,30 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import SavingsCalculator from "@/components/SavingsCalculator";
+import { TiltCard } from "@/components/animations/TiltCard";
 import { useAnalytics } from "@/hooks/use-analytics";
 import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 import { useAggregateRatingSchema } from "@/hooks/use-aggregate-rating-schema";
 import { useOfferSchema } from "@/hooks/use-offer-schema";
 import { useSoftwareAppSchema } from "@/hooks/use-software-app-schema";
+import { useMetaTags } from "@/hooks/use-meta-tags";
 import { useEffect } from "react";
 
 const Members = () => {
+  const { t } = useLanguage();
+  
   useAnalytics(); // Auto-track page view
   useBreadcrumbSchema();
   useAggregateRatingSchema();
+  
+  useMetaTags({
+    title: t("membersHero") + " | Bargn Members",
+    description: t("membersHeroDesc"),
+    ogTitle: t("membersHero") + " | Bargn Members",
+    ogDescription: t("membersHeroDesc"),
+    twitterTitle: t("membersHero") + " | Bargn Members",
+    twitterDescription: t("membersHeroDesc"),
+  });
   
   // Inject SoftwareApplication schema for mobile app
   useSoftwareAppSchema({
@@ -89,7 +102,6 @@ const Members = () => {
       priceValidUntil: "2025-12-31T23:59:59Z"
     }
   ]);
-  const { t } = useLanguage();
   const { scrollY } = useScroll();
   
   const y1 = useTransform(scrollY, [0, 500], [0, 150]);
@@ -316,13 +328,10 @@ const Members = () => {
               { icon: Crown, gradient: "bg-gradient-purple-yellow", title: t("vipTreatment"), desc: t("vipTreatmentDesc") },
               { icon: Shield, gradient: "bg-gradient-purple-yellow", title: t("supportDamn"), desc: t("supportDamnDesc") },
             ].map((perk, idx) => (
-              <motion.div
+              <TiltCard
                 key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                whileHover={{ scale: 1.05, y: -10 }}
+                tiltDegree={8}
+                scale={1.05}
                 className="bg-glass backdrop-blur-2xl border-2 border-glass rounded-3xl p-8 hover:border-primary hover:shadow-glow-coral transition-all duration-300"
               >
                 <div className={`w-16 h-16 ${perk.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-glow-coral`}>
@@ -330,7 +339,7 @@ const Members = () => {
                 </div>
                 <h3 className="text-2xl font-bold text-foreground mb-4">{perk.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{perk.desc}</p>
-              </motion.div>
+              </TiltCard>
             ))}
           </div>
         </div>
@@ -369,13 +378,9 @@ const Members = () => {
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
             {/* Monthly Plan */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              whileHover={{ rotateY: 5, scale: 1.02 }}
-              className="relative group"
-              style={{ perspective: 1000 }}
+            <TiltCard className="relative group"
+              tiltDegree={10}
+              scale={1.05}
             >
               <div className="absolute inset-0 bg-gradient-coral opacity-30 blur-3xl rounded-3xl" />
               <div className="relative bg-glass backdrop-blur-2xl border-2 border-glass rounded-3xl overflow-hidden hover:border-primary hover:shadow-glow-coral transition-all duration-300">
@@ -402,7 +407,7 @@ const Members = () => {
                     className="w-full rounded-full py-6 text-lg hover:animate-wobble"
                   >
                     <a 
-                      href="https://buy.stripe.com/test_8wM7wB9gR3EP7Eg3cc" 
+                      href="https://buy.stripe.com/6oEeWYdgd3bm5aM5kk" 
                       target="_blank" 
                       rel="noopener noreferrer"
                     >
@@ -411,16 +416,12 @@ const Members = () => {
                   </Button>
                 </div>
               </div>
-            </motion.div>
+            </TiltCard>
 
             {/* Annual Plan */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              whileHover={{ rotateY: -5, scale: 1.02 }}
-              className="relative group"
-              style={{ perspective: 1000 }}
+            <TiltCard className="relative group"
+              tiltDegree={10}
+              scale={1.05}
             >
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
                 <div className="bg-gradient-purple-yellow px-6 py-2 rounded-full shadow-glow-yellow">
@@ -457,7 +458,7 @@ const Members = () => {
                     className="w-full rounded-full py-6 text-lg bg-gradient-purple-yellow text-foreground font-bold hover:scale-105 hover:animate-wobble transition-transform"
                   >
                     <a 
-                      href="https://buy.stripe.com/test_4gw6sxfFfdtv7Eg144" 
+                      href="https://buy.stripe.com/dR64hiccdcLL9mY144" 
                       target="_blank" 
                       rel="noopener noreferrer"
                     >
@@ -466,7 +467,7 @@ const Members = () => {
                   </Button>
                 </div>
               </div>
-            </motion.div>
+            </TiltCard>
           </div>
 
           {/* Plans Info */}
