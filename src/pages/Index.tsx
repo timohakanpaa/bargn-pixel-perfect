@@ -1,12 +1,14 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
-import Features from "@/components/Features";
-import BusinessSection from "@/components/BusinessSection";
-import Pricing from "@/components/Pricing";
-import Testimonials from "@/components/Testimonials";
-import FAQ from "@/components/FAQ";
-import Footer from "@/components/Footer";
-// Preloader removed - was causing black screen issues
+// Lazy load below-the-fold components for better performance
+import { lazy, Suspense } from "react";
+
+const Features = lazy(() => import("@/components/Features"));
+const BusinessSection = lazy(() => import("@/components/BusinessSection"));
+const Pricing = lazy(() => import("@/components/Pricing"));
+const Testimonials = lazy(() => import("@/components/Testimonials"));
+const FAQ = lazy(() => import("@/components/FAQ"));
+const Footer = lazy(() => import("@/components/Footer"));
 import { useAnalytics } from "@/hooks/use-analytics";
 import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 import { useAggregateRatingSchema } from "@/hooks/use-aggregate-rating-schema";
@@ -17,6 +19,14 @@ import { useMetaTags } from "@/hooks/use-meta-tags";
 import { useLanguage } from "@/contexts/LanguageContext";
 import confetti from "canvas-confetti";
 import { useEffect, useState } from "react";
+import { LazyLoadSection } from "@/hooks/use-lazy-load";
+
+// Loading placeholder component
+const SectionLoader = () => (
+  <div className="py-24 flex items-center justify-center">
+    <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+  </div>
+);
 
 const Index = () => {
   const { t } = useLanguage();
@@ -136,22 +146,52 @@ const Index = () => {
       <Navigation />
       <div className="pt-[132px]">
         <Hero />
-      <Features />
-      <BusinessSection />
-      <Pricing />
-      <Testimonials />
-      <FAQ />
-      
-      {/* Final CTA */}
-      <section className="py-24 text-center">
-        <div className="container mx-auto px-6">
-          <h2 className="text-6xl md:text-7xl font-black mb-16 text-primary">
-            50% OFF
-          </h2>
-        </div>
-      </section>
-      
-        <Footer />
+        
+        {/* Lazy load below-the-fold components with intersection observer */}
+        <LazyLoadSection fallback={<SectionLoader />}>
+          <Suspense fallback={<SectionLoader />}>
+            <Features />
+          </Suspense>
+        </LazyLoadSection>
+        
+        <LazyLoadSection fallback={<SectionLoader />}>
+          <Suspense fallback={<SectionLoader />}>
+            <BusinessSection />
+          </Suspense>
+        </LazyLoadSection>
+        
+        <LazyLoadSection fallback={<SectionLoader />}>
+          <Suspense fallback={<SectionLoader />}>
+            <Pricing />
+          </Suspense>
+        </LazyLoadSection>
+        
+        <LazyLoadSection fallback={<SectionLoader />}>
+          <Suspense fallback={<SectionLoader />}>
+            <Testimonials />
+          </Suspense>
+        </LazyLoadSection>
+        
+        <LazyLoadSection fallback={<SectionLoader />}>
+          <Suspense fallback={<SectionLoader />}>
+            <FAQ />
+          </Suspense>
+        </LazyLoadSection>
+        
+        {/* Final CTA */}
+        <section className="py-24 text-center">
+          <div className="container mx-auto px-6">
+            <h2 className="text-6xl md:text-7xl font-black mb-16 text-primary">
+              50% OFF
+            </h2>
+          </div>
+        </section>
+        
+        <LazyLoadSection fallback={<SectionLoader />}>
+          <Suspense fallback={<SectionLoader />}>
+            <Footer />
+          </Suspense>
+        </LazyLoadSection>
       </div>
     </div>
   );
