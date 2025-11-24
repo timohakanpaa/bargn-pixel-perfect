@@ -48,11 +48,11 @@ const PartnerTestimonials = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto items-stretch">
           {testimonials.map((testimonial, index) => (
-            <TiltCard key={index} tiltDegree={10} scale={1.05}>
+            <TiltCard key={index} tiltDegree={10} scale={1.05} className="h-full">
               <div
-                className={`bg-gradient-to-br ${testimonial.gradient} backdrop-blur-xl rounded-3xl p-8 border-2 border-glass hover:shadow-glow-coral transition-all duration-300 h-full ${testimonial.featured ? 'md:col-span-1' : ''}`}
+                className={`bg-gradient-to-br ${testimonial.gradient} backdrop-blur-xl rounded-3xl p-8 border-2 border-glass hover:shadow-glow-coral transition-all duration-300 h-full flex flex-col ${testimonial.featured ? 'md:col-span-1' : ''}`}
               >
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-16 h-16 bg-gradient-orange-yellow rounded-full border-2 border-accent/50"></div>
@@ -66,10 +66,10 @@ const PartnerTestimonials = () => {
                     </div>
                   </div>
                 </div>
-                <p className="text-foreground/90 italic leading-relaxed mb-4">
+                <p className="text-foreground/90 italic leading-relaxed mb-4 flex-grow">
                   "{testimonial.quote}"
                 </p>
-                <p className="text-sm text-accent font-semibold">{testimonial.role}</p>
+                <p className="text-sm text-accent font-semibold mt-auto">{testimonial.role}</p>
               </div>
             </TiltCard>
           ))}
