@@ -729,9 +729,15 @@ const Members = () => {
               {t("ctaDesc")}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <Button variant="neon" size="lg" className="rounded-full px-12 py-7 text-xl">
-                <Crown className="mr-2 w-6 h-6" />
-                {t("startSaving")}
+              <Button asChild variant="neon" size="lg" className="rounded-full px-12 py-7 text-xl">
+                <a 
+                  href="https://buy.stripe.com/aFa14n2Cca7X6nw5Lu3ZK02" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  <Crown className="mr-2 w-6 h-6" />
+                  {t("startSaving")}
+                </a>
               </Button>
               <Button variant="secondary" size="lg" className="rounded-full px-12 py-7 text-xl border-2 border-primary">
                 <Users className="mr-2 w-6 h-6" />
