@@ -47,6 +47,19 @@ const translations: Record<Language, Record<string, string>> = {
     joinNow: "Join Now",
     bestValue: "BEST VALUE",
     partnerUp: "Partner Up (We're Cool Like That)",
+    
+    // Business Section
+    businessHeadline: "Why Businesses Actually Love Us",
+    businessSubhead: "(Plot twist: We're not trying to bankrupt them)",
+    businessIntro: "While other platforms treat businesses like personal ATMs, we're out here building actual partnerships. Shocking business model: help everyone win instead of just helping ourselves to their wallets.",
+    businessFeature1Title: "Real Customers Who Actually Buy Stuff",
+    businessFeature1Desc: "Tired of burning cash on ads that attract window shoppers? Our members are pre-qualified spenders who just happen to be allergic to full price. They'll buy, they'll tip, they'll even leave good reviews.",
+    businessFeature2Title: "Zero Commission = More Money for You",
+    businessFeature2Desc: "Mind-blowing concept: we make money from member subscriptions, not by skimming off your hard-earned revenue. Apparently this makes us unicorns in the platform world.",
+    businessFeature3Title: "Members with Their Financial Act Together",
+    businessFeature3Desc: "Think about it: people who pay a monthly fee to access discounts clearly understand the value of smart spending. These aren't bargain hunters, they're strategic savers.",
+    businessCTA: "Partner Up (We're Cool Like That)",
+    
     // Members page
     membersHero: "Join 10K+ Legends Who Never Pay Sucker Prices",
     membersHeroSub: "",
@@ -487,6 +500,19 @@ const translations: Record<Language, Record<string, string>> = {
     joinNow: "Liity Nyt",
     bestValue: "PARAS HINTA",
     partnerUp: "Kumppani (Ollaan Cooli Sillä Tavalla)",
+    
+    // Business Section
+    businessHeadline: "Miksi Yritykset Todella Rakastavat Meitä",
+    businessSubhead: "(Juonenkäänne: Emme yritä ajaa heitä konkurssiin)",
+    businessIntro: "Kun muut alustat kohtelevat yrityksiä kuin pankkiautomaatteja, me rakennamme aitoja kumppanuuksia. Järkyttävä liiketoimintamalli: autamme kaikkia voittamaan sen sijaan, että auttaisimme vain itseämme heidän kukkaroihinsa.",
+    businessFeature1Title: "Oikeita Asiakkaita Jotka Todella Ostavat",
+    businessFeature1Desc: "Kyllästynyt polttamaan rahaa mainoksiin, jotka houkuttelevat vain ikkunashoppailijoita? Jäsenemme ovat esikarsittuja kuluttajia, jotka ovat allergisia täydelle hinnalle. He ostavat, antavat tippiä ja jättävät jopa hyviä arvosteluja.",
+    businessFeature2Title: "Nolla Provisiota = Enemmän Rahaa Sinulle",
+    businessFeature2Desc: "Mieltä räjäyttävä konsepti: ansaitsemme rahaa jäsenmaksuista, emme kuorimalla teidän kovalla työllä ansaittuja tulojanne. Ilmeisesti tämä tekee meistä yksisarvisia alustakentässä.",
+    businessFeature3Title: "Jäsenet Joilla On Taloudelliset Asiat Kunnossa",
+    businessFeature3Desc: "Ajattele sitä: ihmiset jotka maksavat kuukausimaksun päästäkseen alennuksiin ymmärtävät selvästi älykkään kuluttamisen arvon. Nämä eivät ole tarjousmetsästäjiä, vaan strategisia säästäjiä.",
+    businessCTA: "Tule Kumppaniksi (Olemme Niin Coolit)",
+    
     // Members page
     membersHero: "Liity 10K+ Legendaan Jotka Ei Ikinä Maksa Mulkku Hintoja",
     membersHeroSub: "",
