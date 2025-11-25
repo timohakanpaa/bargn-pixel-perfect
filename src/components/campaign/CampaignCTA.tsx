@@ -48,12 +48,18 @@ const CampaignCTA = () => {
           {t('campaign.cta.description')}
         </p>
         <Button 
-          onClick={handleClick}
+          asChild
           size="lg"
           className="bg-background-dark text-white hover:bg-muted font-bold rounded-full px-12 py-8 text-xl shadow-2xl hover:scale-110 hover:shadow-glow-yellow transition-all duration-300"
         >
-          <Rocket className="mr-3 w-6 h-6" />
-          {t('campaign.cta.button')}
+          <a 
+            href="mailto:partners@bargn.app"
+            onClick={handleClick}
+            aria-label="Contact us via email"
+          >
+            <Rocket className="mr-3 w-6 h-6" />
+            {t('campaign.cta.button')}
+          </a>
         </Button>
       </div>
     </section>
