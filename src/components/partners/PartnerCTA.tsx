@@ -35,17 +35,27 @@ const PartnerCTA = () => {
         </p>
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
           <Button 
+            asChild
             className="bg-background text-primary hover:bg-background/90 font-bold rounded-full px-10 py-7 text-lg shadow-2xl hover:scale-110 transition-all duration-300"
           >
-            <Building2 className="mr-2 w-6 h-6" />
-            {t("partners.cta.applyPartner")}
+            <a 
+              href="http://bargn-business.vercel.app/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <Building2 className="mr-2 w-6 h-6" />
+              {t("partners.cta.applyPartner")}
+            </a>
           </Button>
           <Button 
+            asChild
             variant="outline" 
             className="border-2 border-foreground text-foreground hover:bg-foreground/10 rounded-full px-10 py-7 text-lg backdrop-blur-sm hover:scale-105 transition-all duration-300"
           >
-            <Users className="mr-2 w-6 h-6" />
-            {t("partners.cta.joinMember")}
+            <a href="/members">
+              <Users className="mr-2 w-6 h-6" />
+              {t("partners.cta.joinMember")}
+            </a>
           </Button>
         </div>
       </div>
