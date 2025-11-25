@@ -61,7 +61,7 @@ const translations: Record<Language, Record<string, string>> = {
     businessCTA: "Partner Up (We're Cool Like That)",
     
     // Members page
-    membersHero: "Join 10K+ Legends Who Never Pay Sucker Prices",
+    membersHero: "Join 5K+ Legends Who Never Pay Sucker Prices",
     membersHeroSub: "",
     membersHeroDesc: "Welcome to the club where paying full price is basically illegal. Our AI is literally smarter than your ex and finds you deals that'll make your wallet do a happy dance.",
     startSaving: "Start Saving Now",
@@ -514,7 +514,7 @@ const translations: Record<Language, Record<string, string>> = {
     businessCTA: "Tule Kumppaniksi (Olemme Niin Coolit)",
     
     // Members page
-    membersHero: "Liity 10K+ Legendaan Jotka Ei Ikinä Maksa Mulkku Hintoja",
+    membersHero: "Liity 5K+ Legendaan Jotka Ei Ikinä Maksa Mulkku Hintoja",
     membersHeroSub: "",
     membersHeroDesc: "Tervetuloa klubiin missä täyden hinnan maksaminen on periaatteessa laitonta. Meidän AI on kirjaimellisesti fiksumpi ku sun ex ja löytää sulle diilejä jotka saa sun lompakon tanssimaan ilosta.",
     startSaving: "Aloita Säästäminen",
