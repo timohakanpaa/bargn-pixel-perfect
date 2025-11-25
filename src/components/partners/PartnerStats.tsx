@@ -37,8 +37,8 @@ const PartnerStats = () => {
     },
     {
       icon: Users,
-      value: 10000,
-      suffix: "+",
+      value: 5,
+      suffix: "K+",
       label: t("partners.stats.qualityMembers"),
       textColor: "text-[#f59e0b]", // Yellow
       gradient: "bg-gradient-yellow",
