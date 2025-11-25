@@ -19,7 +19,6 @@ const About = () => {
   const { ref: storyRef, isInView: storyInView } = useInView({ threshold: 0.1 });
   const { ref: missionRef, isInView: missionInView } = useInView({ threshold: 0.1 });
   const { ref: valuesRef, isInView: valuesInView } = useInView({ threshold: 0.1 });
-  const { ref: teamRef, isInView: teamInView } = useInView({ threshold: 0.1 });
   
   const y1 = useTransform(scrollY, [0, 500], [0, 150]);
   const y2 = useTransform(scrollY, [0, 500], [0, -100]);
@@ -46,33 +45,6 @@ const About = () => {
       colors: ['#f88170', '#ef1df2', '#ffe500', '#ff6b9d']
     });
   };
-
-  const teamMembers = [
-    {
-      name: t("about.team.member1.name"),
-      role: t("about.team.member1.role"),
-      bio: t("about.team.member1.bio"),
-      gradient: "from-[hsl(328,86%,70%)] to-[hsl(297,89%,60%)]"
-    },
-    {
-      name: t("about.team.member2.name"),
-      role: t("about.team.member2.role"),
-      bio: t("about.team.member2.bio"),
-      gradient: "from-[hsl(25,95%,53%)] to-[hsl(48,100%,50%)]"
-    },
-    {
-      name: t("about.team.member3.name"),
-      role: t("about.team.member3.role"),
-      bio: t("about.team.member3.bio"),
-      gradient: "from-[hsl(48,100%,50%)] to-[hsl(328,86%,70%)]"
-    },
-    {
-      name: t("about.team.member4.name"),
-      role: t("about.team.member4.role"),
-      bio: t("about.team.member4.bio"),
-      gradient: "from-[hsl(297,89%,60%)] to-[hsl(25,95%,53%)]"
-    }
-  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -398,76 +370,6 @@ const About = () => {
             className="absolute bottom-20 right-[10%] w-24 h-24 bg-glass backdrop-blur-2xl border-2 border-primary rounded-3xl flex items-center justify-center shadow-glow-coral hidden lg:flex"
           >
             <Sparkles className="w-12 h-12 text-primary" />
-          </motion.div>
-        </section>
-
-        {/* Team Section */}
-        <section ref={teamRef} className="py-32 relative overflow-hidden">
-          <div className="container mx-auto px-6">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={teamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-16"
-            >
-              <span className="text-secondary font-bold text-lg mb-4 block">{t("about.team.badge")}</span>
-              <h2 className="text-5xl md:text-6xl font-black mb-6 text-foreground">
-                {t("about.team.headline")}
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                {t("about.team.subtext")}
-              </p>
-            </motion.div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-              {teamMembers.map((member, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={teamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                  transition={{ delay: index * 0.1, duration: 0.6 }}
-                  whileHover={{ y: -8 }}
-                  className="p-8 rounded-3xl bg-gradient-to-b from-background to-background/50 border border-foreground/10 hover:border-foreground/20 transition-all text-center"
-                >
-                  <div className={`w-28 h-28 mx-auto mb-6 rounded-full bg-gradient-to-br ${member.gradient} p-1 shadow-[0_0_30px_hsl(328_86%_70%_/_0.3)]`}>
-                    <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
-                      <Users2 className="w-12 h-12 text-foreground" />
-                    </div>
-                  </div>
-                  <h3 className="text-xl font-bold mb-2 text-foreground">{member.name}</h3>
-                  <div className="text-sm font-medium mb-3 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                    {member.role}
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{member.bio}</p>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={teamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-              className="text-center"
-            >
-              <Button 
-                size="lg" 
-                className="rounded-full px-10 py-6 text-lg bg-transparent border-2 border-primary text-primary hover:bg-primary/10"
-                onClick={triggerConfetti}
-              >
-                <Users2 className="w-5 h-5 mr-2" />
-                {t("about.team.cta")}
-              </Button>
-            </motion.div>
-          </div>
-
-          {/* Floating decorative icon */}
-          <motion.div
-            style={{ y: y2 }}
-            animate={{ rotate: -360 }}
-            transition={{ rotate: { duration: 32, repeat: Infinity, ease: "linear" } }}
-            className="absolute top-32 right-[8%] w-24 h-24 bg-glass backdrop-blur-2xl border-2 border-accent rounded-full flex items-center justify-center shadow-glow-yellow hidden lg:flex"
-          >
-            <Target className="w-12 h-12 text-accent" />
           </motion.div>
         </section>
 
