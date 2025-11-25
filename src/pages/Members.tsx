@@ -561,7 +561,7 @@ const Members = () => {
           <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {[
               {
-                name: "Jessica M., Savings Queen",
+                name: "Jessika M., Savings Queen",
                 stars: 5,
                 text: "Not gonna lie, Bargn made me look like a financial wizard. Saved €1,200 in 6 months while my friends are still paying full price like amateurs. The AI is lowkey telepathic.",
                 badge: "Verified Premium Member",
