@@ -337,7 +337,7 @@ const Members = () => {
               className="text-center"
             >
               <div className="text-5xl md:text-7xl font-black bg-gradient-purple-yellow bg-clip-text text-transparent mb-2">
-                <AnimatedCounter end={2400} prefix="€" />
+                <AnimatedCounter end={2.4} prefix="€" suffix="K" />
               </div>
               <div className="text-primary font-bold text-lg">{t("avgAnnualSavings")}</div>
             </motion.div>
