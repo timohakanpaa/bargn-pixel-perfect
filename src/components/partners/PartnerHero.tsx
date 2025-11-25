@@ -309,20 +309,29 @@ const PartnerHero = () => {
           className="flex flex-col sm:flex-row items-center justify-center gap-6"
         >
           <Button 
+            asChild
             variant="neon"
             className="rounded-full px-10 py-7 text-xl"
-            onClick={handleCTAClick}
           >
-            <Building2 className="mr-2 w-6 h-6" />
-            {t("partners.hero.cta.primary")}
+            <a 
+              href="http://bargn-business.vercel.app/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              onClick={handleCTAClick}
+            >
+              <Building2 className="mr-2 w-6 h-6" />
+              {t("partners.hero.cta.primary")}
+            </a>
           </Button>
           <Button 
+            asChild
             variant="secondary"
             className="rounded-full px-10 py-7 text-xl"
-            onClick={handleCTAClick}
           >
-            <Users className="mr-2 w-6 h-6" />
-            {t("partners.hero.cta.secondary")}
+            <a href="/members" onClick={handleCTAClick}>
+              <Users className="mr-2 w-6 h-6" />
+              {t("partners.hero.cta.secondary")}
+            </a>
           </Button>
         </motion.div>
       </motion.div>

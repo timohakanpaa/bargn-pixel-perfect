@@ -249,19 +249,29 @@ const HowItWorks = () => {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12"
         >
           <Button 
+            asChild
             size="lg" 
             className="rounded-full px-8 py-6 text-lg font-bold bg-gradient-to-r from-[hsl(328,86%,70%)] to-[hsl(297,89%,60%)] hover:opacity-90 transition-opacity shadow-[0_0_40px_hsl(328_86%_70%_/_0.4)]"
           >
-            <Zap className="w-5 h-5 mr-2" />
-            {t("startSaving")}
+            <a 
+              href="https://buy.stripe.com/aFa14n2Cca7X6nw5Lu3ZK02" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <Zap className="w-5 h-5 mr-2" />
+              {t("startSaving")}
+            </a>
           </Button>
           <Button 
+            asChild
             size="lg" 
             variant="outline"
             className="rounded-full px-8 py-6 text-lg font-bold border-2 border-foreground/20 hover:bg-foreground/5"
           >
-            <Sparkles className="w-5 h-5 mr-2" />
-            {t("becomePartner")}
+            <a href="/partners">
+              <Sparkles className="w-5 h-5 mr-2" />
+              {t("becomePartner")}
+            </a>
           </Button>
         </motion.div>
       </div>
