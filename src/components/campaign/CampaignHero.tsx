@@ -109,14 +109,6 @@ const CampaignHero = () => {
               {t('campaign.hero.cta1')}
             </a>
           </Button>
-          <Button 
-            onClick={handleButtonClick}
-            className="border-2 border-primary text-primary bg-transparent font-bold rounded-full px-8 py-6 text-lg hover:bg-primary/10 hover:shadow-glow-coral transition-all duration-300 min-h-[44px]"
-            aria-label="Learn more"
-          >
-            <Rocket className="mr-2 w-5 h-5" aria-hidden="true" />
-            {t('campaign.hero.cta2')}
-          </Button>
         </div>
       </div>
     </section>
