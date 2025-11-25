@@ -1,4 +1,4 @@
-import { Search, User, Menu, X, ChevronDown, Activity, BarChart3, MessageSquare, GitBranch } from "lucide-react";
+import { Search, User, Menu, X, ChevronDown, Activity, BarChart3, MessageSquare, GitBranch, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NavLink } from "@/components/NavLink";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -55,12 +55,13 @@ const Navigation = () => {
     { to: "/partners", label: t("partners") },
     { to: "/how-it-works", label: t("howItWorks") },
     { to: "/about", label: t("about") },
-    { to: "/blog", label: t("blog") },
     { to: "/campaign", label: t("campaign") },
   ];
 
   const adminItems = [
     { to: "/auth", label: "Admin Login", icon: User },
+    { to: "/blog", label: "Blog", icon: FileText },
+    { to: "/blog/admin", label: "Blog Admin", icon: FileText },
     { to: "/performance", label: "Performance", icon: Activity },
     { to: "/analytics", label: "Analytics", icon: BarChart3 },
     { to: "/analytics/chat", label: "Chat Analytics", icon: MessageSquare },
