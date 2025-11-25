@@ -197,7 +197,7 @@ const PartnerSignup = () => {
                 rel="noopener noreferrer"
               >
                 <Building2 className="w-6 h-6" />
-                Register Here
+                {t("registerHere")}
               </a>
             </Button>
           </form>
