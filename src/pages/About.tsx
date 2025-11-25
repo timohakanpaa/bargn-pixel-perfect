@@ -434,12 +434,19 @@ const About = () => {
               className="flex flex-col sm:flex-row items-center justify-center gap-6"
             >
               <Button 
+                asChild
                 size="lg" 
                 className="rounded-full px-12 py-7 text-xl bg-background text-foreground hover:bg-background/90 shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
-                onClick={triggerConfetti}
               >
-                <Zap className="w-6 h-6 mr-2" />
-                {t("about.cta.button1")}
+                <a
+                  href="https://www.linkedin.com/company/bargn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={triggerConfetti}
+                >
+                  <Zap className="w-6 h-6 mr-2" />
+                  {t("about.cta.button1")}
+                </a>
               </Button>
               <Button 
                 size="lg" 
