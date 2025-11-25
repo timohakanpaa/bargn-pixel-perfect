@@ -143,13 +143,20 @@ const About = () => {
               className="flex flex-col sm:flex-row items-center justify-center gap-6"
             >
               <Button 
+                asChild
                 variant="neon" 
                 size="lg" 
                 className="rounded-full px-12 py-7 text-xl shadow-[0_0_50px_hsl(328_86%_70%_/_0.5)]"
-                onClick={triggerConfetti}
               >
-                <Zap className="w-6 h-6 mr-2" />
-                {t("about.hero.cta1")}
+                <a
+                  href="https://www.linkedin.com/company/bargn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={triggerConfetti}
+                >
+                  <Zap className="w-6 h-6 mr-2" />
+                  {t("about.hero.cta1")}
+                </a>
               </Button>
               <Button 
                 size="lg" 
