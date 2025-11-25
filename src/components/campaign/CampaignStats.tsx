@@ -24,7 +24,7 @@ const CampaignStats = () => {
   const stats = [
     {
       icon: DollarSign,
-      value: 40,
+      value: 50,
       suffix: "%",
       label: t('campaign.stats.revenueShare'),
       valueColor: "text-[#FFE500]",
