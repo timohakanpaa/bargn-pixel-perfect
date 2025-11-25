@@ -106,7 +106,7 @@ const Footer = () => {
                 <Linkedin className="w-5 h-5 text-primary" aria-hidden="true" />
               </a>
               <a
-                href="mailto:info@bargn.app"
+                href="mailto:partners@bargn.app"
                 className="w-10 h-10 bg-glass backdrop-blur-xl border border-primary/20 rounded-full flex items-center justify-center hover:border-secondary hover:shadow-glow-pink transition-all min-w-[44px] min-h-[44px]"
                 aria-label="Email us"
               >
