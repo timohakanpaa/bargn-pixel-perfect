@@ -159,12 +159,17 @@ const About = () => {
                 </a>
               </Button>
               <Button 
+                asChild
                 size="lg" 
                 className="rounded-full px-12 py-7 text-xl bg-transparent border-2 border-primary text-primary hover:bg-primary/10"
-                onClick={triggerConfetti}
               >
-                <Users2 className="w-6 h-6 mr-2" />
-                {t("about.hero.cta2")}
+                <a
+                  href="mailto:partners@bargn.app?subject=I want to join Bargn"
+                  onClick={triggerConfetti}
+                >
+                  <Users2 className="w-6 h-6 mr-2" />
+                  {t("about.hero.cta2")}
+                </a>
               </Button>
             </motion.div>
           </div>
