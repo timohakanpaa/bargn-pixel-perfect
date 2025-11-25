@@ -313,7 +313,7 @@ const Members = () => {
               className="text-center"
             >
               <div className="text-5xl md:text-7xl font-black text-accent mb-2">
-                <AnimatedCounter end={10000} suffix="+" />
+                <AnimatedCounter end={5} suffix="K+" />
               </div>
               <div className="text-primary font-bold text-lg">{t("happyMembers")}</div>
             </motion.div>
