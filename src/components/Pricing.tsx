@@ -3,9 +3,11 @@ import { Check, Sparkles, MapPin } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { TiltCard } from "@/components/animations/TiltCard";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Pricing = () => {
   const { ref, isInView } = useInView();
+  const { t } = useLanguage();
 
   return (
     <section ref={ref} className="py-16 sm:py-24 relative overflow-hidden bg-background">
@@ -13,10 +15,10 @@ const Pricing = () => {
       <div className="absolute inset-0 bg-gradient-coral-purple opacity-10 blur-3xl pointer-events-none" />
       <div className={`container mx-auto px-4 sm:px-6 max-w-7xl transition-all duration-700 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}>
         <h2 className="text-4xl sm:text-6xl md:text-7xl font-black text-center mb-4 sm:mb-6 text-primary">
-          50% OFF
+          {t("pricingHeadline")}
         </h2>
         <p className="text-xl sm:text-2xl text-center text-secondary mb-12 sm:mb-16">
-          Because we're generous like that
+          {t("pricingSubhead")}
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
@@ -26,16 +28,16 @@ const Pricing = () => {
             <div className="relative bg-glass backdrop-blur-2xl border-2 border-purple shadow-glow-purple rounded-3xl overflow-hidden hover:shadow-glow-yellow transition-all duration-300">
               <div className="bg-gradient-purple-yellow p-8 relative">
                 <div className="absolute top-4 right-4 bg-accent text-accent-foreground px-4 py-1 rounded-full text-sm font-bold">
-                  AI THAT ACTUALLY SLAPS
+                  {t("aiThatSlaps")}
                 </div>
                 <div className="text-6xl mb-4">%</div>
-                <div className="text-4xl font-black text-foreground">50% OFF</div>
+                <div className="text-4xl font-black text-foreground">{t("pricingHeadline")}</div>
               </div>
               
               <div className="bg-glass backdrop-blur-xl p-8">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-3xl font-black text-accent">
-                    The VIP Life (But Affordable)
+                    {t("vipLife")}
                   </h3>
                   <div className="flex items-center text-accent">
                     <span className="text-2xl font-bold">⭐</span>
@@ -44,25 +46,25 @@ const Pricing = () => {
                 </div>
 
                 <p className="text-sm text-secondary mb-6">
-                  Hyperpersonalized • Zero Commission • AI Matching
+                  {t("pricingFeatures")}
                 </p>
 
                 <p className="text-muted-foreground mb-8">
-                  Get 50% discounts at hundreds of partner outlets with our AI-powered personalization that learns your preferences.
+                  {t("pricingDesc")}
                 </p>
 
                 <div className="space-y-4 mb-8">
                   <div className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-accent mt-1" />
-                    <span className="text-foreground">Unlimited 50% discounts</span>
+                    <span className="text-foreground">{t("unlimitedDiscountsPricing")}</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <Sparkles className="w-5 h-5 text-accent mt-1" />
-                    <span className="text-foreground">AI-powered recommendations</span>
+                    <span className="text-foreground">{t("aiRecommendations")}</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <MapPin className="w-5 h-5 text-accent mt-1" />
-                    <span className="text-foreground">Local partner network</span>
+                    <span className="text-foreground">{t("localNetwork")}</span>
                   </div>
                 </div>
 
@@ -70,7 +72,7 @@ const Pricing = () => {
                   <span className="text-5xl font-black text-accent">
                     <AnimatedCounter end={8.8} prefix="€" duration={2000} />
                   </span>
-                  <span className="text-muted-foreground">/monthly</span>
+                  <span className="text-muted-foreground">{t("monthly")}</span>
                 </div>
 
                 <Button 
@@ -82,7 +84,7 @@ const Pricing = () => {
                     target="_blank" 
                     rel="noopener noreferrer"
                   >
-                    Join Now
+                    {t("joinNow")}
                   </a>
                 </Button>
               </div>
@@ -95,16 +97,16 @@ const Pricing = () => {
             <div className="relative bg-glass backdrop-blur-2xl border-2 border-glass rounded-3xl overflow-hidden hover:shadow-glow-coral transition-all duration-300">
               <div className="bg-gradient-coral-purple p-8 relative">
                 <div className="absolute top-4 right-4 bg-accent text-accent-foreground px-4 py-1 rounded-full text-sm font-bold">
-                  BEST VALUE
+                  {t("bestValue")}
                 </div>
                 <div className="text-6xl mb-4">%</div>
-                <div className="text-4xl font-black text-foreground">50% OFF</div>
+                <div className="text-4xl font-black text-foreground">{t("pricingHeadline")}</div>
               </div>
               
               <div className="bg-glass backdrop-blur-xl p-8">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-3xl font-black text-muted-foreground">
-                    The VIP Life (But Affordable)
+                    {t("vipLife")}
                   </h3>
                   <div className="flex items-center text-accent">
                     <span className="text-2xl font-bold">⭐</span>
@@ -113,25 +115,25 @@ const Pricing = () => {
                 </div>
 
                 <p className="text-sm text-muted-foreground mb-6">
-                  Hyperpersonalized • Zero Commission • AI Matching
+                  {t("pricingFeatures")}
                 </p>
 
                 <p className="text-muted-foreground mb-8">
-                  Get 50% discounts at hundreds of partner outlets with our AI-powered personalization that learns your preferences.
+                  {t("pricingDesc")}
                 </p>
 
                 <div className="space-y-4 mb-8">
                   <div className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-accent mt-1" />
-                    <span className="text-muted-foreground">Unlimited 50% discounts</span>
+                    <span className="text-muted-foreground">{t("unlimitedDiscountsPricing")}</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <Sparkles className="w-5 h-5 text-accent mt-1" />
-                    <span className="text-muted-foreground">AI-powered recommendations</span>
+                    <span className="text-muted-foreground">{t("aiRecommendations")}</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <MapPin className="w-5 h-5 text-accent mt-1" />
-                    <span className="text-muted-foreground">Local partner network</span>
+                    <span className="text-muted-foreground">{t("localNetwork")}</span>
                   </div>
                 </div>
 
@@ -139,7 +141,7 @@ const Pricing = () => {
                   <span className="text-5xl font-black text-accent">
                     <AnimatedCounter end={53} prefix="€" duration={2000} />
                   </span>
-                  <span className="text-muted-foreground">/yearly</span>
+                  <span className="text-muted-foreground">{t("yearly")}</span>
                 </div>
 
                 <Button 
@@ -152,7 +154,7 @@ const Pricing = () => {
                     target="_blank" 
                     rel="noopener noreferrer"
                   >
-                    Join Now
+                    {t("joinNow")}
                   </a>
                 </Button>
               </div>

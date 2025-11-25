@@ -56,7 +56,7 @@ const Hero = () => {
       <div className="container mx-auto px-4 sm:px-6 text-center relative z-10 animate-fade-in">
         <div className="inline-block mb-6 sm:mb-8 px-4 sm:px-6 py-2 sm:py-3 bg-glass backdrop-blur-xl rounded-full border-2 border-glass shadow-glow-yellow">
           <span className="text-accent font-bold mr-2 text-sm sm:text-base">✨</span>
-          <span className="text-accent font-bold text-xs sm:text-base">AI THAT ACTUALLY SLAPS</span>
+          <span className="text-accent font-bold text-xs sm:text-base">{t("aiThatSlaps")}</span>
           <span className="text-accent ml-2 text-sm sm:text-base">✨</span>
         </div>
 

@@ -182,7 +182,7 @@ const Index = () => {
         <section className="py-24 text-center">
           <div className="container mx-auto px-6">
             <h2 className="text-6xl md:text-7xl font-black mb-16 text-primary">
-              50% OFF
+              {t("pricingHeadline")}
             </h2>
           </div>
         </section>
