@@ -465,7 +465,7 @@ const translations: Record<Language, Record<string, string>> = {
     // Testimonials
     "testimonials.title": "What Our Community Says",
     "testimonials.sarah.name": "Tea H., Reformed Full-Price Payer",
-    "testimonials.sarah.quote": "I've saved €500 this month without changing my lifestyle AT ALL. The AI recommendations are so spot-on it's almost creepy. I actually look forward to going out now because I know I'm getting deals that make sense for me.",
+    "testimonials.sarah.quote": "I've saved €300 this month without changing my lifestyle AT ALL. The AI recommendations are so spot-on it's almost creepy. I actually look forward to going out now because I know I'm getting deals that make sense for me.",
     "testimonials.sarah.verified": "Verified Member Since 2025",
     "testimonials.mike.name": "Kosti T., Local Food Legend",
     "testimonials.mike.quote": "Bargn brought us 40% more customers without the usual platform fees that make you question your life choices. Revenue's up, stress is down, and for once my accountant doesn't look like they want to cry.",
@@ -897,7 +897,7 @@ const translations: Record<Language, Record<string, string>> = {
     // Testimonials
     "testimonials.title": "Mitä Yhteisömme Sanoo",
     "testimonials.sarah.name": "Tea H., Entinen Täyshintamaksaja",
-    "testimonials.sarah.quote": "Oon säästänyt €500 tässä kuussa muuttamatta elämäntyyliäni YHTÄÄN. AI-suositukset on niin kohdallaan et se on melkeen pelottavaa. Mä oikeesti odotan et pääsen ulos koska tiedän et saan diilejä jotka on järkeviä mulle.",
+    "testimonials.sarah.quote": "Oon säästänyt €300 tässä kuussa muuttamatta elämäntyyliäni YHTÄÄN. AI-suositukset on niin kohdallaan et se on melkeen pelottavaa. Mä oikeesti odotan et pääsen ulos koska tiedän et saan diilejä jotka on järkeviä mulle.",
     "testimonials.sarah.verified": "Vahvistettu Jäsen Vuodesta 2025",
     "testimonials.mike.name": "Kosti T., Paikallinen Ruokalegenda",
     "testimonials.mike.quote": "Bargn toi meille 40% enemmän asiakkaita ilman niitä tavallisia alustakuluja jotka saa kysymään elämänvalintoja. Liikevaihto nousussa, stressi alhaalla, ja kerrankin mun kirjanpitäjä ei näytä siltä et se haluais itkeä.",
