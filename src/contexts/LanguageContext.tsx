@@ -331,7 +331,7 @@ const translations: Record<Language, Record<string, string>> = {
     // Campaign page
     "campaign.hero.badge": "🔥 50% REVENUE SHARE ✨",
     "campaign.hero.headline": "Make Bank While You Create",
-    "campaign.hero.subheadline": "40% Revenue Share • No BS • Actual Money",
+    "campaign.hero.subheadline": "50% Revenue Share • No BS • Actual Money",
     "campaign.hero.description": "Tired of getting paid in 'exposure'? We're literally throwing money at creators who can make our discount app go viral. No follower minimums, no soul-crushing contracts, just cold hard cash for quality content. Finland's never seen anything this spicy.",
     "campaign.hero.cta1": "Start My Revenue Stream",
     "campaign.hero.cta2": "Learn How We Pay",
@@ -784,7 +784,7 @@ const translations: Record<Language, Record<string, string>> = {
     // Campaign page
     "campaign.hero.badge": "🔥 50% TULONJAKO ✨",
     "campaign.hero.headline": "Tienaa Rahaa Samalla Kun Luot",
-    "campaign.hero.subheadline": "40% Tulonjako • Ei BS:ää • Oikeaa Rahaa",
+    "campaign.hero.subheadline": "50% Tulonjako • Ei BS:ää • Oikeaa Rahaa",
     "campaign.hero.description": "Kyllästyny saamaan palkkaa 'näkyvyydellä'? Me kirjaimellisesti heitämme rahaa sisällöntuottajille.",
     "campaign.hero.cta1": "Aloita Mun Tulovirta",
     "campaign.hero.cta2": "Opi Miten Me Maksetaan",
