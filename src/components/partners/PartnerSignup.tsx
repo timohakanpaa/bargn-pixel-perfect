@@ -186,13 +186,19 @@ const PartnerSignup = () => {
               />
             </div>
             <Button
-              type="submit"
+              asChild
               size="lg"
               variant="neon"
               className="w-full text-xl py-8 rounded-2xl font-black uppercase tracking-wide"
             >
-              <Building2 className="w-6 h-6" />
-              {t("partners.signup.form.button")}
+              <a 
+                href="http://bargn-business.vercel.app/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <Building2 className="w-6 h-6" />
+                Register Here
+              </a>
             </Button>
           </form>
 
