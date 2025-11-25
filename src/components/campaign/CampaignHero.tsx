@@ -98,12 +98,16 @@ const CampaignHero = () => {
         {/* CTAs - min 44px touch targets */}
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
           <Button 
-            onClick={handleButtonClick}
+            asChild
             className="bg-gradient-pink-orange hover:shadow-glow-pink text-white font-bold rounded-full px-8 py-6 text-lg group transition-all duration-300 min-h-[44px]"
-            aria-label="Join campaign"
           >
-            <DollarSign className="mr-2 w-5 h-5 group-hover:animate-wobble" aria-hidden="true" />
-            {t('campaign.hero.cta1')}
+            <a 
+              href="mailto:partners@bargn.app"
+              aria-label="Contact us via email"
+            >
+              <DollarSign className="mr-2 w-5 h-5 group-hover:animate-wobble" aria-hidden="true" />
+              {t('campaign.hero.cta1')}
+            </a>
           </Button>
           <Button 
             onClick={handleButtonClick}
