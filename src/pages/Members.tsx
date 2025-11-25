@@ -568,11 +568,11 @@ const Members = () => {
                 avatar: "JM"
               },
               {
-                name: "David R., VIP Royalty",
+                name: "Joonas R., VIP Royalty",
                 stars: 5,
                 text: "VIP life hits different when you're saving €300 on spa weekends. My bank account is finally happy and my stress levels are non-existent. This app is pure serotonin.",
                 badge: "Verified VIP Elite Member",
-                avatar: "DR"
+                avatar: "JR"
               },
               {
                 name: "Maria L., Deal Detective",
