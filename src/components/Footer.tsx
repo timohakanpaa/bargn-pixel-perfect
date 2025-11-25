@@ -164,7 +164,7 @@ const Footer = () => {
           <div className="text-center sm:text-left">
             <h4 className="text-white font-bold mb-4 text-base sm:text-lg">Info</h4>
             <ul className="space-y-2 text-white/60 text-sm sm:text-base">
-              <li>{t('footer.info.address')}</li>
+              <li className="whitespace-pre-line">{t('footer.info.address')}</li>
               <li>{t('footer.info.businessId')}</li>
             </ul>
           </div>
