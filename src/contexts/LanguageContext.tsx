@@ -469,7 +469,7 @@ const translations: Record<Language, Record<string, string>> = {
     "testimonials.sarah.verified": "Verified Member Since 2025",
     "testimonials.mike.name": "Mike R., Local Food Legend",
     "testimonials.mike.quote": "Bargn brought us 40% more customers without the usual platform fees that make you question your life choices. Revenue's up, stress is down, and for once my accountant doesn't look like they want to cry.",
-    "testimonials.mike.verified": "Verified Partner Since 2023",
+    "testimonials.mike.verified": "Verified Partner Since 2025",
   },
   fi: {
     home: "Koti",
@@ -901,7 +901,7 @@ const translations: Record<Language, Record<string, string>> = {
     "testimonials.sarah.verified": "Vahvistettu Jäsen Vuodesta 2025",
     "testimonials.mike.name": "Mike R., Paikallinen Ruokalegenda",
     "testimonials.mike.quote": "Bargn toi meille 40% enemmän asiakkaita ilman niitä tavallisia alustakuluja jotka saa kysymään elämänvalintoja. Liikevaihto nousussa, stressi alhaalla, ja kerrankin mun kirjanpitäjä ei näytä siltä et se haluais itkeä.",
-    "testimonials.mike.verified": "Vahvistettu Kumppani Vuodesta 2023",
+    "testimonials.mike.verified": "Vahvistettu Kumppani Vuodesta 2025",
     // 404 Page
     "404.headline": "Väärä Suunta, Oikea Appi",
     "404.subtext": "Sivu hukassa, diilit ei. Mennään takaisin kultasuoneen.",
