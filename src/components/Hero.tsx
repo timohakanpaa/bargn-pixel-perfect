@@ -98,19 +98,24 @@ const Hero = () => {
             </a>
           </Button>
           <Button 
+            asChild
             variant="secondary"
             className="w-full sm:w-auto rounded-full px-8 sm:px-10 py-6 sm:py-7 text-lg sm:text-xl"
-            onClick={() => {
-              trackButtonClick("hero_partner_up_cta", t("partnerUp"));
-              trackAllPlatforms("button_click", {
-                button_name: "hero_partner_up",
-                conversion_type: "partner_signup_intent",
-                location: "hero_section"
-              });
-            }}
           >
-            <Users className="mr-2 w-5 h-5 sm:w-6 sm:h-6" />
-            {t("partnerUp")}
+            <a
+              href="/partners"
+              onClick={() => {
+                trackButtonClick("hero_partner_up_cta", t("partnerUp"));
+                trackAllPlatforms("button_click", {
+                  button_name: "hero_partner_up",
+                  conversion_type: "partner_signup_intent",
+                  location: "hero_section"
+                });
+              }}
+            >
+              <Users className="mr-2 w-5 h-5 sm:w-6 sm:h-6" />
+              {t("partnerUp")}
+            </a>
           </Button>
         </div>
 
