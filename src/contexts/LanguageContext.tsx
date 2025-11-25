@@ -464,7 +464,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Testimonials
     "testimonials.title": "What Our Community Says",
-    "testimonials.sarah.name": "Sarah K., Reformed Full-Price Payer",
+    "testimonials.sarah.name": "Tea H., Reformed Full-Price Payer",
     "testimonials.sarah.quote": "I've saved €500 this month without changing my lifestyle AT ALL. The AI recommendations are so spot-on it's almost creepy. I actually look forward to going out now because I know I'm getting deals that make sense for me.",
     "testimonials.sarah.verified": "Verified Member Since 2025",
     "testimonials.mike.name": "Mike R., Local Food Legend",
@@ -896,7 +896,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Testimonials
     "testimonials.title": "Mitä Yhteisömme Sanoo",
-    "testimonials.sarah.name": "Sarah K., Entinen Täyshintamaksaja",
+    "testimonials.sarah.name": "Tea H., Entinen Täyshintamaksaja",
     "testimonials.sarah.quote": "Oon säästänyt €500 tässä kuussa muuttamatta elämäntyyliäni YHTÄÄN. AI-suositukset on niin kohdallaan et se on melkeen pelottavaa. Mä oikeesti odotan et pääsen ulos koska tiedän et saan diilejä jotka on järkeviä mulle.",
     "testimonials.sarah.verified": "Vahvistettu Jäsen Vuodesta 2025",
     "testimonials.mike.name": "Mike R., Paikallinen Ruokalegenda",
