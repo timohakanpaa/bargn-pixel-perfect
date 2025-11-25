@@ -76,19 +76,26 @@ const Hero = () => {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-12 sm:mb-20">
           <Button 
+            asChild
             variant="neon"
             className="w-full sm:w-auto rounded-full px-8 sm:px-10 py-6 sm:py-7 text-lg sm:text-xl shadow-[0_0_25px_rgba(255,220,74,0.7)] hover:shadow-[0_0_40px_rgba(255,220,74,1)]"
-            onClick={() => {
-              trackButtonClick("hero_lets_go_cta", t("letsGo"));
-              trackAllPlatforms("button_click", {
-                button_name: "hero_lets_go",
-                conversion_type: "membership_signup_intent",
-                location: "hero_section"
-              });
-            }}
           >
-            <Zap className="mr-2 w-5 h-5 sm:w-6 sm:h-6" />
-            {t("letsGo")}
+            <a
+              href="https://buy.stripe.com/aFa14n2Cca7X6nw5Lu3ZK02"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => {
+                trackButtonClick("hero_lets_go_cta", t("letsGo"));
+                trackAllPlatforms("button_click", {
+                  button_name: "hero_lets_go",
+                  conversion_type: "membership_signup_intent",
+                  location: "hero_section"
+                });
+              }}
+            >
+              <Zap className="mr-2 w-5 h-5 sm:w-6 sm:h-6" />
+              {t("letsGo")}
+            </a>
           </Button>
           <Button 
             variant="secondary"
