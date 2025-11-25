@@ -564,7 +564,7 @@ const Members = () => {
                 name: "Jessika M., Savings Queen",
                 stars: 5,
                 text: "Not gonna lie, Bargn made me look like a financial wizard. Saved €800 in 6 months while my friends are still paying full price like amateurs. The AI is lowkey telepathic. And this is all by trying the Beta version of the app",
-                badge: "Verified Premium Member",
+                badge: "Verified Life Time Member",
                 avatar: "JM"
               },
               {
