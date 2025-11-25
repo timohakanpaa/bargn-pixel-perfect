@@ -575,11 +575,11 @@ const Members = () => {
                 avatar: "JR"
               },
               {
-                name: "Maria L., Deal Detective",
+                name: "Tea H., Deal Detective",
                 stars: 5,
                 text: "Started with basic plan because I'm cheap but saved €200+ first month. Now I'm that friend who always knows where to get the hookup. Main character energy unlocked.",
                 badge: "Verified Life Time Member",
-                avatar: "ML"
+                avatar: "TH"
               },
             ].map((testimonial, idx) => (
               <motion.div
