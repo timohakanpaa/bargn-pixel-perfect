@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Shield, Heart, Users } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const BusinessSection = () => {
   const { ref, isInView } = useInView();
+  const { t } = useLanguage();
 
   return (
     <section ref={ref} className="py-24 relative overflow-hidden">
@@ -14,15 +16,15 @@ const BusinessSection = () => {
           <div>
             <h2 className="text-5xl md:text-6xl font-black mb-6">
               <span className="bg-gradient-to-r from-secondary via-accent to-secondary bg-clip-text text-transparent">
-                Why Businesses Actually Love Us
+                {t("businessHeadline")}
               </span>
             </h2>
             <p className="text-2xl text-primary font-bold mb-8">
-              (Plot twist: We're not trying to bankrupt them)
+              {t("businessSubhead")}
             </p>
 
             <p className="text-lg text-muted-foreground mb-12 leading-relaxed max-w-3xl mx-auto">
-              While other platforms treat businesses like personal ATMs, we're out here building actual partnerships. Shocking business model: help everyone win instead of just helping ourselves to their wallets.
+              {t("businessIntro")}
             </p>
 
             <div className="space-y-6 mb-12 max-w-4xl mx-auto">
@@ -32,10 +34,10 @@ const BusinessSection = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-foreground mb-2">
-                    Real Customers Who Actually Buy Stuff
+                    {t("businessFeature1Title")}
                   </h3>
                   <p className="text-muted-foreground">
-                    Tired of burning cash on ads that attract window shoppers? Our members are pre-qualified spenders who just happen to be allergic to full price. They'll buy, they'll tip, they'll even leave good reviews.
+                    {t("businessFeature1Desc")}
                   </p>
                 </div>
               </div>
@@ -46,10 +48,10 @@ const BusinessSection = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-foreground mb-2">
-                    Zero Commission = More Money for You
+                    {t("businessFeature2Title")}
                   </h3>
                   <p className="text-muted-foreground">
-                    Mind-blowing concept: we make money from member subscriptions, not by skimming off your hard-earned revenue. Apparently this makes us unicorns in the platform world.
+                    {t("businessFeature2Desc")}
                   </p>
                 </div>
               </div>
@@ -60,10 +62,10 @@ const BusinessSection = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-foreground mb-2">
-                    Members with Their Financial Act Together
+                    {t("businessFeature3Title")}
                   </h3>
                   <p className="text-muted-foreground">
-                    Think about it: people who pay a monthly fee to access discounts clearly understand the value of smart spending. These aren't bargain hunters, they're strategic savers.
+                    {t("businessFeature3Desc")}
                   </p>
                 </div>
               </div>
@@ -72,7 +74,7 @@ const BusinessSection = () => {
             <Button asChild className="bg-gradient-to-r from-secondary to-accent text-foreground font-bold rounded-full px-8 py-6 text-lg shadow-glow-orange hover:scale-110 hover:shadow-glow-yellow transition-all duration-300">
               <a href="/partners">
                 <Users className="mr-2 w-5 h-5" />
-                Partner Up (We're Cool Like That)
+                {t("businessCTA")}
               </a>
             </Button>
           </div>
