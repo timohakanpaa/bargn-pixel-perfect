@@ -561,24 +561,24 @@ const Members = () => {
           <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {[
               {
-                name: "Jessika M., Savings Queen",
+                name: t("members.testimonial1.name"),
                 stars: 5,
-                text: "Not gonna lie, Bargn made me look like a financial wizard. Saved €800 in 6 months while my friends are still paying full price like amateurs. The AI is lowkey telepathic. And this is all by trying the Beta version of the app",
-                badge: "Verified Life Time Member",
+                text: t("members.testimonial1.text"),
+                badge: t("members.testimonial1.badge"),
                 avatar: "JM"
               },
               {
-                name: "Joonas R., VIP Royalty",
+                name: t("members.testimonial2.name"),
                 stars: 5,
-                text: "VIP life hits different when you're saving €300 on spa weekends. My bank account is finally happy and my stress levels are non-existent. This app is pure serotonin.",
-                badge: "Verified Life Time Member",
+                text: t("members.testimonial2.text"),
+                badge: t("members.testimonial2.badge"),
                 avatar: "JR"
               },
               {
-                name: "Tea H., Deal Detective",
+                name: t("members.testimonial3.name"),
                 stars: 5,
-                text: "Started with basic plan because I'm cheap but saved €200+ first month. Now I'm that friend who always knows where to get the hookup. Main character energy unlocked.",
-                badge: "Verified Life Time Member",
+                text: t("members.testimonial3.text"),
+                badge: t("members.testimonial3.badge"),
                 avatar: "TH"
               },
             ].map((testimonial, idx) => (

@@ -96,6 +96,18 @@ const translations: Record<Language, Record<string, string>> = {
     memberStories: "Member Stories",
     realMembers: "Real Members, Real Savings",
     realMembersDesc: "See how our community is saving thousands while living their best life.",
+    
+    // Members page testimonials
+    "members.testimonial1.name": "Jessika M., Savings Queen",
+    "members.testimonial1.text": "Not gonna lie, Bargn made me look like a financial wizard. Saved €800 in 6 months while my friends are still paying full price like amateurs. The AI is lowkey telepathic. And this is all by trying the Beta version of the app",
+    "members.testimonial1.badge": "Verified Life Time Member",
+    "members.testimonial2.name": "Joonas R., VIP Royalty",
+    "members.testimonial2.text": "VIP life hits different when you're saving €300 on spa weekends. My bank account is finally happy and my stress levels are non-existent. This app is pure serotonin.",
+    "members.testimonial2.badge": "Verified Life Time Member",
+    "members.testimonial3.name": "Tea H., Deal Detective",
+    "members.testimonial3.text": "Started with basic plan because I'm cheap but saved €200+ first month. Now I'm that friend who always knows where to get the hookup. Main character energy unlocked.",
+    "members.testimonial3.badge": "Verified Life Time Member",
+    
     exclusiveFeatures: "Exclusive Features",
     membersOnlyPerks: "Members-Only Perks",
     membersOnlyPerksDesc: "Access features that regular users can only dream about.",
@@ -558,6 +570,18 @@ const translations: Record<Language, Record<string, string>> = {
     memberStories: "Jäsentarinoita",
     realMembers: "Oikeita Jäseniä, Oikeita Säästöjä",
     realMembersDesc: "Katso miten meidän yhteisö säästää tuhansia samalla ku elää parasta elämäänsä.",
+    
+    // Members page testimonials
+    "members.testimonial1.name": "Jessika M., Säästökuningatar",
+    "members.testimonial1.text": "Ei valehdella, Bargn sai mut näyttämään talousnerolta. Säästin €800 kuudessa kuussa samalla ku mun kaverit maksaa yhä täyttä hintaa niinku amatöörit. AI on lowkey telepaattinen. Ja tää kaikki vaan kokeilemalla Beta versioo appista",
+    "members.testimonial1.badge": "Vahvistettu Elinikäinen Jäsen",
+    "members.testimonial2.name": "Joonas R., VIP-Kuningas",
+    "members.testimonial2.text": "VIP elämä osuu eri tavalla ku säästät €300 kylpyläviikonlopuista. Pankkitili vihdoinkin onnellinen ja stressitasot nollissa. Tää appi on puhdasta serotoniinia.",
+    "members.testimonial2.badge": "Vahvistettu Elinikäinen Jäsen",
+    "members.testimonial3.name": "Tea H., Diilidekkaari",
+    "members.testimonial3.text": "Alotin basic planilla koska oon kitsas mut säästin €200+ ekan kuukauden. Nyt mä oon se frendi joka aina tietää mistä saa parhaat diilit. Päähenkilö-energia avattu.",
+    "members.testimonial3.badge": "Vahvistettu Elinikäinen Jäsen",
+    
     exclusiveFeatures: "Eksklusiiviset Ominaisuudet",
     membersOnlyPerks: "Vain Jäsenille -Edut",
     membersOnlyPerksDesc: "Pääsy ominaisuuksiin joista tavalliset käyttäjät voi vaan unelmoida.",
