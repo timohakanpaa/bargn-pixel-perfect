@@ -10,7 +10,6 @@ import CampaignProcess from "@/components/campaign/CampaignProcess";
 import CampaignFAQ from "@/components/campaign/CampaignFAQ";
 import CampaignCTA from "@/components/campaign/CampaignCTA";
 import Footer from "@/components/Footer";
-import CampaignFloatingCTA from "@/components/campaign/CampaignFloatingCTA";
 import { useAnalytics } from "@/hooks/use-analytics";
 import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 import { useMetaTags } from "@/hooks/use-meta-tags";
@@ -49,7 +48,6 @@ const Campaign = () => {
         <CampaignFAQ />
         <CampaignCTA />
         <Footer />
-        <CampaignFloatingCTA />
       </div>
     </div>
   );
