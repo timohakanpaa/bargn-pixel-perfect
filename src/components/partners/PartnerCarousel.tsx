@@ -32,8 +32,8 @@ const PartnerCarousel = () => {
   
   const headline = language === "fi" ? "Vain kunnon lafkat" : "Valid Spots Only";
   const subheadline = language === "fi" 
-    ? "500+ paikkaa. Nolla välistävetoa. Emme tee yhteistyötä keskinkertaisten kanssa."
-    : "500+ venues. Zero skips. We don't partner with mid.";
+    ? "500+ paikkaa. Nolla välistävetoa. Teemme yhteistyötä parhaiden kanssa ja tuomme sinulle parhaat tarjoukset."
+    : "500+ venues. Zero skips. We partner with the best and bring you the best deals.";
 
   return (
     <section className="relative w-full py-12 md:py-24 overflow-hidden bg-background">
