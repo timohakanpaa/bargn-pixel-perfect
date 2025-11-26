@@ -1,23 +1,30 @@
 import { motion } from "framer-motion";
-import { Dumbbell, UtensilsCrossed, Fish, Wine, Coffee, Pizza, IceCream, ShoppingBag } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import casaitalia from "@/assets/partners/casaitalia.png";
+import treffi from "@/assets/partners/treffi.svg";
+import atoy from "@/assets/partners/atoy.svg";
+import elixia from "@/assets/partners/elixia.png";
+import olefit from "@/assets/partners/olefit.jpg";
+import scandic from "@/assets/partners/scandic.png";
+import kotipizza from "@/assets/partners/kotipizza.png";
+import vauhtifarmi from "@/assets/partners/vauhtifarmi.png";
 
 const partners = [
-  { name: "FitZone Gym", icon: Dumbbell, color: "#FF6B6B" },
-  { name: "Burger Palace", icon: UtensilsCrossed, color: "#FFA500" },
-  { name: "Sushi Master", icon: Fish, color: "#4ECDC4" },
-  { name: "The Night Bar", icon: Wine, color: "#9B59B6" },
-  { name: "Cafe Vibes", icon: Coffee, color: "#D4A574" },
-  { name: "Pizza Corner", icon: Pizza, color: "#E74C3C" },
-  { name: "Sweet Treats", icon: IceCream, color: "#FF85C0" },
-  { name: "Style Shop", icon: ShoppingBag, color: "#3498DB" },
+  { name: "Casa Italia", logo: casaitalia, color: "#DC143C" },
+  { name: "Treffi", logo: treffi, color: "#1B1F22" },
+  { name: "Atoy Autohuolto", logo: atoy, color: "#E32D4A" },
+  { name: "Elixia", logo: elixia, color: "#0D2B47" },
+  { name: "Ole.Fit", logo: olefit, color: "#FF0000" },
+  { name: "Scandic", logo: scandic, color: "#E20714" },
+  { name: "Kotipizza", logo: kotipizza, color: "#00634B" },
+  { name: "Vauhtifarmi", logo: vauhtifarmi, color: "#6B5F4B" },
 ];
 
 // Duplicate for seamless loop
 const allPartners = [...partners, ...partners, ...partners];
 
 const PartnerCarousel = () => {
-  const { t, language } = useLanguage();
+  const { language } = useLanguage();
   
   const headline = language === "fi" ? "Vain kunnon lafkat 💅" : "Valid Spots Only 💅";
   const subheadline = language === "fi" 
@@ -69,27 +76,27 @@ const PartnerCarousel = () => {
                 whileHover={{ scale: 1.1 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="relative w-24 h-24 md:w-32 md:h-32 flex items-center justify-center rounded-2xl border border-border/50 bg-background/50 backdrop-blur-sm">
+                <div className="relative w-32 h-32 md:w-40 md:h-40 flex items-center justify-center rounded-2xl border border-border/50 bg-background/50 backdrop-blur-sm p-4">
                   {/* Glow effect on hover */}
                   <div 
                     className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"
                     style={{ backgroundColor: `${partner.color}40` }}
                   />
                   
-                  <partner.icon 
-                    className="w-12 h-12 md:w-16 md:h-16 relative z-10 transition-all duration-300 grayscale group-hover:grayscale-0"
-                    style={{ 
-                      color: partner.color,
-                      filter: 'grayscale(100%)',
+                  <img 
+                    src={partner.logo}
+                    alt={partner.name}
+                    className="relative z-10 w-full h-full object-contain transition-all duration-300 grayscale group-hover:grayscale-0"
+                    style={{
+                      filter: 'grayscale(100%) brightness(0.8)',
                     }}
-                    strokeWidth={1.5}
                   />
                   
-                  {/* Icon gets color on hover via inline style override */}
+                  {/* Enhanced hover effect */}
                   <style>{`
-                    .group:hover svg {
-                      filter: grayscale(0%) !important;
-                      drop-shadow: 0 0 8px ${partner.color}80;
+                    .group:hover img {
+                      filter: grayscale(0%) brightness(1) !important;
+                      drop-shadow: 0 0 12px ${partner.color}80;
                     }
                   `}</style>
                 </div>
