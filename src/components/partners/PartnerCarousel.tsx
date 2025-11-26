@@ -36,31 +36,31 @@ const PartnerCarousel = () => {
     : "500+ venues. Zero skips. We don't partner with mid.";
 
   return (
-    <section className="relative w-full py-24 overflow-hidden bg-background">
+    <section className="relative w-full py-12 md:py-24 overflow-hidden bg-background">
       {/* Radial gradient glow background using design system colors */}
       <div className="absolute inset-0 bg-gradient-radial from-primary/10 via-primary/5 to-transparent" />
       
-      <div className="relative z-10 container mx-auto px-4 mb-12 text-center">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_hsl(var(--primary)/0.4)]">
+      <div className="relative z-10 container mx-auto px-4 mb-8 md:mb-12 text-center">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_hsl(var(--primary)/0.4)]">
           {headline}
         </h2>
-        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+        <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto px-4">
           {subheadline}
         </p>
       </div>
 
       {/* Carousel container with fade masks */}
       <div className="relative">
-        {/* Left fade mask */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        {/* Left fade mask - smaller on mobile */}
+        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 lg:w-48 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
         
-        {/* Right fade mask */}
-        <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+        {/* Right fade mask - smaller on mobile */}
+        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 lg:w-48 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
         {/* Infinite scrolling marquee */}
         <div className="flex overflow-hidden">
           <motion.div
-            className="flex gap-8 md:gap-16"
+            className="flex gap-4 md:gap-8 lg:gap-16"
             animate={{
               x: [0, -1000],
             }}
@@ -68,17 +68,17 @@ const PartnerCarousel = () => {
               x: {
                 repeat: Infinity,
                 repeatType: "loop",
-                duration: 30,
+                duration: 40, // Slower on mobile for better viewing
                 ease: "linear",
               },
             }}
           >
             {allPartners.map((partner, index) => {
               const content = (
-                <div className="relative w-32 h-32 md:w-40 md:h-40 flex items-center justify-center rounded-2xl border border-border bg-card/50 backdrop-blur-sm p-4 transition-all duration-300 group-hover:border-primary/50">
+                <div className="relative w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 flex items-center justify-center rounded-xl md:rounded-2xl border border-border bg-card/50 backdrop-blur-sm p-3 md:p-4 transition-all duration-300 group-hover:border-primary/50 touch-manipulation">
                   {/* Glow effect on hover using primary gradient colors */}
                   <div 
-                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl bg-gradient-to-br from-primary/30 to-purple-600/30"
+                    className="absolute inset-0 rounded-xl md:rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl bg-gradient-to-br from-primary/30 to-purple-600/30"
                   />
                   
                   <img 
@@ -117,8 +117,8 @@ const PartnerCarousel = () => {
         </div>
       </div>
 
-      {/* Bottom spacing */}
-      <div className="h-8" />
+      {/* Bottom spacing - responsive */}
+      <div className="h-4 md:h-8" />
     </section>
   );
 };
