@@ -12,7 +12,7 @@ import escaperoom from "@/assets/partners/escaperoom.jpg";
 import cityklinikka from "@/assets/partners/cityklinikka.jpg";
 
 const partners = [
-  { name: "Casa Italia", logo: casaitalia, color: "#DC143C", url: "" },
+  { name: "Casa Italia", logo: casaitalia, color: "#DC143C", url: "https://casaitalia.fi/" },
   { name: "Treffi", logo: treffi, color: "#1B1F22", url: "" },
   { name: "Atoy Autohuolto", logo: atoy, color: "#E32D4A", url: "" },
   { name: "Elixia", logo: elixia, color: "#0D2B47", url: "https://www.elixia.fi/" },
