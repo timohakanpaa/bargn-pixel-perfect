@@ -75,16 +75,16 @@ const PartnerCarousel = () => {
           >
             {allPartners.map((partner, index) => {
               const content = (
-                <div className="relative w-32 h-32 md:w-40 md:h-40 flex items-center justify-center rounded-2xl border border-border bg-card/50 backdrop-blur-sm p-4 transition-all duration-300">
-                  {/* Glow effect on hover using primary color */}
+                <div className="relative w-32 h-32 md:w-40 md:h-40 flex items-center justify-center rounded-2xl border border-border bg-card/50 backdrop-blur-sm p-4 transition-all duration-300 group-hover:border-primary/50">
+                  {/* Glow effect on hover using primary gradient colors */}
                   <div 
-                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl bg-primary/20"
+                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl bg-gradient-to-br from-primary/30 to-purple-600/30"
                   />
                   
                   <img 
                     src={partner.logo}
                     alt={partner.name}
-                    className="relative z-10 w-full h-full object-contain transition-all duration-300 grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 group-hover:drop-shadow-[0_0_12px_hsl(var(--primary)/0.5)]"
+                    className="relative z-10 w-full h-full object-contain transition-all duration-300 grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 group-hover:drop-shadow-[0_0_16px_hsl(var(--primary)/0.6)]"
                   />
                 </div>
               );
