@@ -37,12 +37,12 @@ const Partners = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       <div className="pt-[132px]">
-        <PartnerHero />
+      <PartnerHero />
       <PartnerStats />
+      <PartnerCarousel />
       <PlatformComparison />
       <PartnershipBenefits />
       <CurrentPartners />
-      <PartnerCarousel />
       <PartnerTestimonials />
       <PartnershipProcess />
       <PartnerSignup />

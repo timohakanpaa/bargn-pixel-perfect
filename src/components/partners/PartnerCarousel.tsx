@@ -8,6 +8,8 @@ import olefit from "@/assets/partners/olefit.jpg";
 import scandic from "@/assets/partners/scandic.png";
 import kotipizza from "@/assets/partners/kotipizza.png";
 import vauhtifarmi from "@/assets/partners/vauhtifarmi.png";
+import escaperoom from "@/assets/partners/escaperoom.jpg";
+import cityklinikka from "@/assets/partners/cityklinikka.jpg";
 
 const partners = [
   { name: "Casa Italia", logo: casaitalia, color: "#DC143C" },
@@ -18,6 +20,8 @@ const partners = [
   { name: "Scandic", logo: scandic, color: "#E20714" },
   { name: "Kotipizza", logo: kotipizza, color: "#00634B" },
   { name: "Vauhtifarmi", logo: vauhtifarmi, color: "#6B5F4B" },
+  { name: "Escape Room Helsinki", logo: escaperoom, color: "#E30613" },
+  { name: "Cityklinikka", logo: cityklinikka, color: "#B8945F" },
 ];
 
 // Duplicate for seamless loop
