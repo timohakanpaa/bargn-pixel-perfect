@@ -14,7 +14,7 @@ import cityklinikka from "@/assets/partners/cityklinikka.jpg";
 const partners = [
   { name: "Casa Italia", logo: casaitalia, color: "#DC143C", url: "https://casaitalia.fi/" },
   { name: "Treffi", logo: treffi, color: "#1B1F22", url: "https://treffipub.com" },
-  { name: "Atoy Autohuolto", logo: atoy, color: "#E32D4A", url: "" },
+  { name: "Atoy Autohuolto", logo: atoy, color: "#E32D4A", url: "https://www.atoyautohuolto.fi/" },
   { name: "Elixia", logo: elixia, color: "#0D2B47", url: "https://www.elixia.fi/" },
   { name: "Ole.Fit", logo: olefit, color: "#FF0000", url: "https://www.ole.fit" },
   { name: "Scandic", logo: scandic, color: "#E20714", url: "https://www.scandichotels.com/fi" },
