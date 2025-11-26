@@ -30,7 +30,7 @@ const allPartners = [...partners, ...partners, ...partners];
 const PartnerCarousel = () => {
   const { language } = useLanguage();
   
-  const headline = language === "fi" ? "Vain kunnon lafkat 💅" : "Valid Spots Only 💅";
+  const headline = language === "fi" ? "Vain kunnon lafkat" : "Valid Spots Only";
   const subheadline = language === "fi" 
     ? "500+ paikkaa. Nolla välistävetoa. Emme tee yhteistyötä keskinkertaisten kanssa."
     : "500+ venues. Zero skips. We don't partner with mid.";
