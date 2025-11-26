@@ -12,16 +12,16 @@ import escaperoom from "@/assets/partners/escaperoom.jpg";
 import cityklinikka from "@/assets/partners/cityklinikka.jpg";
 
 const partners = [
-  { name: "Casa Italia", logo: casaitalia, color: "#DC143C" },
-  { name: "Treffi", logo: treffi, color: "#1B1F22" },
-  { name: "Atoy Autohuolto", logo: atoy, color: "#E32D4A" },
-  { name: "Elixia", logo: elixia, color: "#0D2B47" },
-  { name: "Ole.Fit", logo: olefit, color: "#FF0000" },
-  { name: "Scandic", logo: scandic, color: "#E20714" },
-  { name: "Kotipizza", logo: kotipizza, color: "#00634B" },
-  { name: "Vauhtifarmi", logo: vauhtifarmi, color: "#6B5F4B" },
-  { name: "Escape Room Helsinki", logo: escaperoom, color: "#E30613" },
-  { name: "Cityklinikka", logo: cityklinikka, color: "#B8945F" },
+  { name: "Casa Italia", logo: casaitalia, color: "#DC143C", url: "" },
+  { name: "Treffi", logo: treffi, color: "#1B1F22", url: "" },
+  { name: "Atoy Autohuolto", logo: atoy, color: "#E32D4A", url: "" },
+  { name: "Elixia", logo: elixia, color: "#0D2B47", url: "https://www.elixia.fi/" },
+  { name: "Ole.Fit", logo: olefit, color: "#FF0000", url: "" },
+  { name: "Scandic", logo: scandic, color: "#E20714", url: "" },
+  { name: "Kotipizza", logo: kotipizza, color: "#00634B", url: "" },
+  { name: "Vauhtifarmi", logo: vauhtifarmi, color: "#6B5F4B", url: "" },
+  { name: "Escape Room Helsinki", logo: escaperoom, color: "#E30613", url: "" },
+  { name: "Cityklinikka", logo: cityklinikka, color: "#B8945F", url: "" },
 ];
 
 // Duplicate for seamless loop
@@ -73,13 +73,8 @@ const PartnerCarousel = () => {
               },
             }}
           >
-            {allPartners.map((partner, index) => (
-              <motion.div
-                key={`${partner.name}-${index}`}
-                className="flex-shrink-0 group cursor-pointer"
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.3 }}
-              >
+            {allPartners.map((partner, index) => {
+              const content = (
                 <div className="relative w-32 h-32 md:w-40 md:h-40 flex items-center justify-center rounded-2xl border border-border/50 bg-background/50 backdrop-blur-sm p-4">
                   {/* Glow effect on hover */}
                   <div 
@@ -104,8 +99,32 @@ const PartnerCarousel = () => {
                     }
                   `}</style>
                 </div>
-              </motion.div>
-            ))}
+              );
+
+              return (
+                <motion.div
+                  key={`${partner.name}-${index}`}
+                  className="flex-shrink-0"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {partner.url ? (
+                    <a
+                      href={partner.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group cursor-pointer block"
+                    >
+                      {content}
+                    </a>
+                  ) : (
+                    <div className="group cursor-pointer">
+                      {content}
+                    </div>
+                  )}
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </div>
