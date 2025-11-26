@@ -47,28 +47,25 @@ const PartnerStats = () => {
   ];
 
   return (
-    <section ref={ref} className="py-24 relative overflow-hidden bg-background">
+    <section ref={ref} className="py-12 md:py-16 relative overflow-hidden bg-background">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className={`group relative p-8 bg-card/50 backdrop-blur-xl border-2 border-border/30 rounded-3xl hover:scale-105 hover:border-primary/50 hover:-translate-y-2 transition-all duration-300 ${stat.glow} ${
+              className={`bg-glass backdrop-blur-2xl border-2 border-glass rounded-2xl md:rounded-3xl p-4 md:p-6 ${stat.glow} hover:border-primary/50 hover:scale-105 hover:-translate-y-2 transition-all duration-300 ${
                 isInView ? "animate-slide-up" : "opacity-0"
               }`}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className={`w-16 h-16 ${stat.gradient} rounded-2xl flex items-center justify-center mb-4 animate-pulse-glow group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
-                <stat.icon className="w-8 h-8 text-foreground" />
-              </div>
-              <div className={`text-5xl font-black mb-2 ${stat.textColor} group-hover:scale-110 transition-transform duration-300`}>
+              <div className={`text-3xl md:text-4xl lg:text-5xl font-black mb-1 md:mb-2 ${stat.textColor} transition-transform duration-300`}>
                 <AnimatedCounter 
                   end={stat.value} 
                   suffix={stat.suffix}
                   duration={2000} 
                 />
               </div>
-              <p className="text-coral font-bold text-lg group-hover:text-primary transition-colors duration-300">{stat.label}</p>
+              <p className="text-muted-foreground font-semibold text-xs md:text-sm lg:text-base">{stat.label}</p>
             </div>
           ))}
         </div>
