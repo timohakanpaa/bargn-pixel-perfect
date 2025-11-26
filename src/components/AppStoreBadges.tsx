@@ -1,7 +1,11 @@
 import { motion } from "framer-motion";
 import { Apple } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const AppStoreBadges = () => {
+  const { language } = useLanguage();
+  const comingSoonText = language === "fi" ? "Tulossa pian" : "Coming Soon";
+  
   return (
     <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
       {/* Apple App Store - min 44px touch target */}
@@ -12,6 +16,9 @@ const AppStoreBadges = () => {
         whileTap={{ scale: 0.95 }}
         aria-label="Download on the App Store"
       >
+        <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs font-bold px-2.5 py-1 rounded-full z-10 shadow-lg animate-pulse">
+          {comingSoonText}
+        </span>
         <Apple className="w-8 h-8" fill="currentColor" aria-hidden="true" />
         <div className="flex flex-col items-start">
           <span className="text-xs opacity-80">Download on the</span>
@@ -28,6 +35,9 @@ const AppStoreBadges = () => {
         whileTap={{ scale: 0.95 }}
         aria-label="Get it on Google Play"
       >
+        <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs font-bold px-2.5 py-1 rounded-full z-10 shadow-lg animate-pulse">
+          {comingSoonText}
+        </span>
         <svg
           className="w-8 h-8"
           viewBox="0 0 24 24"
