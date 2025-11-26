@@ -338,7 +338,7 @@ const translations: Record<Language, Record<string, string>> = {
     "partners.current.joinText": "Join restaurants, retail shops, gyms, spas, entertainment venues and more in our thriving network",
     "partners.cta.headline": "Ready to Join the Winning Team?",
     "partners.cta.description": "Stop losing money to platforms that treat you like a revenue stream. Join businesses that are actually making bank (and keeping it).",
-    "partners.cta.applyPartner": "Apply as Partner",
+    "partners.cta.applyPartner": "Register here",
     "partners.cta.joinMember": "Join as Member",
     // Campaign page
     "campaign.hero.badge": "🔥 50% REVENUE SHARE ✨",
@@ -812,7 +812,7 @@ const translations: Record<Language, Record<string, string>> = {
     "partners.current.joinText": "Liity ravintoloihin, vähittäiskauppoihin, kuntosaleihin, kylpylöihin, viihdepaikkoihin ja muihin kukoistavassa verkostossamme",
     "partners.cta.headline": "Valmiina Liittymään Voittavaan Tiimiin?",
     "partners.cta.description": "Lopeta rahan menettäminen alustoille jotka kohteles sua niinku tulovirta. Liity bisneksiin jotka oikeesti tekee pankkii (ja pitää sen).",
-    "partners.cta.applyPartner": "Hae Kumppaniksi",
+    "partners.cta.applyPartner": "Rekisteröidy tästä",
     "partners.cta.joinMember": "Liity Jäseneksi",
     // Campaign page
     "campaign.hero.badge": "🔥 50% TULONJAKO ✨",
