@@ -37,11 +37,11 @@ const PartnerCarousel = () => {
 
   return (
     <section className="relative w-full py-24 overflow-hidden bg-background">
-      {/* Radial gradient glow background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#F92D91]/10 via-[#C026D3]/5 to-transparent" />
+      {/* Radial gradient glow background using design system colors */}
+      <div className="absolute inset-0 bg-gradient-radial from-primary/10 via-primary/5 to-transparent" />
       
       <div className="relative z-10 container mx-auto px-4 mb-12 text-center">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-[#F92D91] to-[#C026D3] bg-clip-text text-transparent [text-shadow:_0_0_20px_rgb(249_45_145_/_40%)]">
+        <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent drop-shadow-[0_0_20px_hsl(var(--primary)/0.4)]">
           {headline}
         </h2>
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
@@ -75,29 +75,17 @@ const PartnerCarousel = () => {
           >
             {allPartners.map((partner, index) => {
               const content = (
-                <div className="relative w-32 h-32 md:w-40 md:h-40 flex items-center justify-center rounded-2xl border border-border/50 bg-background/50 backdrop-blur-sm p-4">
-                  {/* Glow effect on hover */}
+                <div className="relative w-32 h-32 md:w-40 md:h-40 flex items-center justify-center rounded-2xl border border-border bg-card/50 backdrop-blur-sm p-4 transition-all duration-300">
+                  {/* Glow effect on hover using primary color */}
                   <div 
-                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"
-                    style={{ backgroundColor: `${partner.color}40` }}
+                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl bg-primary/20"
                   />
                   
                   <img 
                     src={partner.logo}
                     alt={partner.name}
-                    className="relative z-10 w-full h-full object-contain transition-all duration-300 grayscale group-hover:grayscale-0"
-                    style={{
-                      filter: 'grayscale(100%) brightness(0.8)',
-                    }}
+                    className="relative z-10 w-full h-full object-contain transition-all duration-300 grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 group-hover:drop-shadow-[0_0_12px_hsl(var(--primary)/0.5)]"
                   />
-                  
-                  {/* Enhanced hover effect */}
-                  <style>{`
-                    .group:hover img {
-                      filter: grayscale(0%) brightness(1) !important;
-                      drop-shadow: 0 0 12px ${partner.color}80;
-                    }
-                  `}</style>
                 </div>
               );
 
