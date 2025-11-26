@@ -4,6 +4,7 @@ import PartnerStats from "@/components/partners/PartnerStats";
 import PlatformComparison from "@/components/partners/PlatformComparison";
 import PartnershipBenefits from "@/components/partners/PartnershipBenefits";
 import CurrentPartners from "@/components/partners/CurrentPartners";
+import PartnerCarousel from "@/components/partners/PartnerCarousel";
 import PartnerTestimonials from "@/components/partners/PartnerTestimonials";
 import PartnershipProcess from "@/components/partners/PartnershipProcess";
 import PartnerSignup from "@/components/partners/PartnerSignup";
@@ -41,6 +42,7 @@ const Partners = () => {
       <PlatformComparison />
       <PartnershipBenefits />
       <CurrentPartners />
+      <PartnerCarousel />
       <PartnerTestimonials />
       <PartnershipProcess />
       <PartnerSignup />
