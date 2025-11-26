@@ -18,7 +18,7 @@ const partners = [
   { name: "Elixia", logo: elixia, color: "#0D2B47", url: "https://www.elixia.fi/" },
   { name: "Ole.Fit", logo: olefit, color: "#FF0000", url: "https://www.ole.fit" },
   { name: "Scandic", logo: scandic, color: "#E20714", url: "https://www.scandichotels.com/fi" },
-  { name: "Kotipizza", logo: kotipizza, color: "#00634B", url: "" },
+  { name: "Kotipizza", logo: kotipizza, color: "#00634B", url: "https://www.kotipizza.fi/" },
   { name: "Vauhtifarmi", logo: vauhtifarmi, color: "#6B5F4B", url: "" },
   { name: "Escape Room Helsinki", logo: escaperoom, color: "#E30613", url: "" },
   { name: "Cityklinikka", logo: cityklinikka, color: "#B8945F", url: "" },
