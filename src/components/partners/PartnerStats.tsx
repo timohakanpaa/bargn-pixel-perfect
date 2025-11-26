@@ -58,14 +58,14 @@ const PartnerStats = () => {
               }`}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className={`text-3xl md:text-4xl lg:text-5xl font-black mb-1 md:mb-2 ${stat.textColor} transition-transform duration-300`}>
+              <div className={`text-3xl md:text-4xl lg:text-5xl font-black mb-2 ${stat.textColor} transition-transform duration-300`}>
                 <AnimatedCounter 
                   end={stat.value} 
                   suffix={stat.suffix}
                   duration={2000} 
                 />
               </div>
-              <p className="text-muted-foreground font-semibold text-xs md:text-sm lg:text-base">{stat.label}</p>
+              <p className="text-foreground/80 hover:text-foreground font-semibold text-sm md:text-base lg:text-lg transition-colors duration-300">{stat.label}</p>
             </div>
           ))}
         </div>
