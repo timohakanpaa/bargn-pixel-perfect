@@ -123,7 +123,7 @@ const Hero = () => {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 max-w-4xl mx-auto mb-12 sm:mb-16">
           <div className="bg-glass backdrop-blur-2xl border-2 border-glass rounded-3xl p-6 sm:p-8 shadow-glow-coral hover:border-primary hover:scale-105 hover:-translate-y-2 transition-all duration-300">
             <div className="text-5xl sm:text-6xl md:text-7xl font-black bg-gradient-coral-purple bg-clip-text text-transparent mb-2">
-              <AnimatedCounter end={50} suffix="%" />
+              <AnimatedCounter end={-50} suffix="%" />
             </div>
             <div className="text-primary font-bold text-base sm:text-lg">{t("heroDiscountRate")}</div>
           </div>
