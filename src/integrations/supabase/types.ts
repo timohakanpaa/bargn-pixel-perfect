@@ -180,42 +180,6 @@ export type Database = {
         }
         Relationships: []
       }
-      chat_analytics: {
-        Row: {
-          ai_response: string | null
-          created_at: string | null
-          error_message: string | null
-          error_occurred: boolean | null
-          id: string
-          language: string | null
-          response_time_ms: number | null
-          session_id: string
-          user_message: string
-        }
-        Insert: {
-          ai_response?: string | null
-          created_at?: string | null
-          error_message?: string | null
-          error_occurred?: boolean | null
-          id?: string
-          language?: string | null
-          response_time_ms?: number | null
-          session_id: string
-          user_message: string
-        }
-        Update: {
-          ai_response?: string | null
-          created_at?: string | null
-          error_message?: string | null
-          error_occurred?: boolean | null
-          id?: string
-          language?: string | null
-          response_time_ms?: number | null
-          session_id?: string
-          user_message?: string
-        }
-        Relationships: []
-      }
       conversion_funnels: {
         Row: {
           created_at: string | null
@@ -344,17 +308,6 @@ export type Database = {
           page_title: string | null
           unique_visitors: number | null
           views: number | null
-        }
-        Relationships: []
-      }
-      chat_analytics_summary: {
-        Row: {
-          avg_response_time_ms: number | null
-          date: string | null
-          error_count: number | null
-          success_rate: number | null
-          total_messages: number | null
-          unique_sessions: number | null
         }
         Relationships: []
       }
