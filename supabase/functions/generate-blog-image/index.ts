@@ -1,14 +1,28 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3'
+import { z } from 'https://deno.land/x/zod@v3.22.4/mod.ts'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
-interface RequestBody {
-  prompt: string
-  filename: string
-}
+// Input validation schema
+const requestSchema = z.object({
+  prompt: z.string()
+    .min(1, 'Prompt is required')
+    .max(500, 'Prompt must be 500 characters or less')
+    .refine(
+      (val) => !/[<>{}[\]\\]/.test(val),
+      'Prompt contains invalid characters'
+    ),
+  filename: z.string()
+    .min(1, 'Filename is required')
+    .max(100, 'Filename must be 100 characters or less')
+    .regex(
+      /^[a-zA-Z0-9_-]+\.(png|jpg|jpeg|webp)$/,
+      'Invalid filename format. Use alphanumeric characters with .png, .jpg, .jpeg, or .webp extension'
+    )
+})
 
 Deno.serve(async (req) => {
   // Handle CORS preflight requests
@@ -22,7 +36,23 @@ Deno.serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     )
 
-    const { prompt, filename }: RequestBody = await req.json()
+    // Parse and validate input
+    const body = await req.json()
+    const validationResult = requestSchema.safeParse(body)
+    
+    if (!validationResult.success) {
+      const errorMessage = validationResult.error.errors.map(e => e.message).join(', ')
+      console.error('Validation error:', errorMessage)
+      return new Response(
+        JSON.stringify({ error: errorMessage }),
+        {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          status: 400,
+        }
+      )
+    }
+    
+    const { prompt, filename } = validationResult.data
 
     console.log('Generating image with prompt:', prompt)
 
