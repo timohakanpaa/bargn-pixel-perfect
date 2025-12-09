@@ -13,7 +13,6 @@ import { useWebVitals } from "@/hooks/use-web-vitals";
 import { lazy, Suspense } from "react";
 
 // Lazy load components for better initial load performance
-// ChatWidget disabled for security review
 const Index = lazy(() => import("./pages/Index"));
 const Members = lazy(() => import("./pages/Members"));
 const Partners = lazy(() => import("./pages/Partners"));
@@ -23,7 +22,6 @@ const About = lazy(() => import("./pages/About"));
 const Blog = lazy(() => import("./pages/Blog"));
 const BlogAdmin = lazy(() => import("./pages/BlogAdmin"));
 const Auth = lazy(() => import("./pages/Auth"));
-const ChatAnalytics = lazy(() => import("./pages/ChatAnalytics"));
 const Analytics = lazy(() => import("./pages/Analytics"));
 const Funnels = lazy(() => import("./pages/Funnels"));
 const Performance = lazy(() => import("./pages/Performance"));
@@ -66,7 +64,6 @@ const AppContent = () => {
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/admin" element={<BlogAdmin />} />
           <Route path="/auth" element={<Auth />} />
-          <Route path="/analytics/chat" element={<ChatAnalytics />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/funnels" element={<Funnels />} />
           <Route path="/performance" element={<Performance />} />
@@ -77,7 +74,6 @@ const AppContent = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
-      {/* ChatWidget disabled for security review */}
       <CookieConsent />
     </>
   );
