@@ -13,7 +13,7 @@ import { useWebVitals } from "@/hooks/use-web-vitals";
 import { lazy, Suspense } from "react";
 
 // Lazy load components for better initial load performance
-const ChatWidget = lazy(() => import("@/components/ChatWidget"));
+// ChatWidget disabled for security review
 const Index = lazy(() => import("./pages/Index"));
 const Members = lazy(() => import("./pages/Members"));
 const Partners = lazy(() => import("./pages/Partners"));
@@ -77,9 +77,7 @@ const AppContent = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
-      <Suspense fallback={<div />}>
-        <ChatWidget />
-      </Suspense>
+      {/* ChatWidget disabled for security review */}
       <CookieConsent />
     </>
   );
