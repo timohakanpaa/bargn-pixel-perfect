@@ -53,9 +53,11 @@ const CampaignCTA = () => {
           className="bg-background-dark text-white hover:bg-muted font-bold rounded-full px-12 py-8 text-xl shadow-2xl hover:scale-110 hover:shadow-glow-yellow transition-all duration-300"
         >
           <a 
-            href="mailto:partners@bargn.app"
+            href="https://app.passiofy.com/kaupallinen-yhteistyo/bargn-appilla-enemman-irti-arjesta/"
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={handleClick}
-            aria-label="Contact us via email"
+            aria-label="Sign up for creator partnership"
           >
             <Rocket className="mr-3 w-6 h-6" />
             {t('campaign.cta.button')}
