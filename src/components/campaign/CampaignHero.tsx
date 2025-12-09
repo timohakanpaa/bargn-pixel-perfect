@@ -102,8 +102,10 @@ const CampaignHero = () => {
             className="bg-gradient-pink-orange hover:shadow-glow-pink text-white font-bold rounded-full px-8 py-6 text-lg group transition-all duration-300 min-h-[44px]"
           >
             <a 
-              href="mailto:partners@bargn.app"
-              aria-label="Contact us via email"
+              href="https://app.passiofy.com/kaupallinen-yhteistyo/bargn-appilla-enemman-irti-arjesta/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Sign up for creator partnership"
             >
               <DollarSign className="mr-2 w-5 h-5 group-hover:animate-wobble" aria-hidden="true" />
               {t('campaign.hero.cta1')}
