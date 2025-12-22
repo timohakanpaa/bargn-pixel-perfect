@@ -31,7 +31,7 @@ const Pricing = () => {
                     {t("aiThatSlaps")}
                   </div>
                   <div className="text-4xl sm:text-5xl mb-2">%</div>
-                  <div className="text-2xl sm:text-3xl font-black text-foreground">{t("vipLifeShort")}</div>
+                  <div className="text-2xl sm:text-3xl font-black text-foreground">{t("monthlyTitle")}</div>
                 </div>
                 
                 <div className="flex-1 flex flex-col bg-glass backdrop-blur-xl p-5 sm:p-6">
@@ -97,7 +97,7 @@ const Pricing = () => {
                     {t("bestValue")}
                   </div>
                   <div className="text-4xl sm:text-5xl mb-2">%</div>
-                  <div className="text-2xl sm:text-3xl font-black text-foreground">{t("vipLifeShort")}</div>
+                  <div className="text-2xl sm:text-3xl font-black text-foreground">{t("yearlyTitle")}</div>
                 </div>
                 
                 <div className="flex-1 flex flex-col bg-glass backdrop-blur-xl p-5 sm:p-6">
