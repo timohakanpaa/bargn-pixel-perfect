@@ -68,19 +68,19 @@ const Footer = () => {
       <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 mb-8 sm:mb-12">
           {/* Col 1: Logo & Social */}
-          <div className="text-center sm:text-left">
+          <div className="text-center sm:text-left col-span-1 sm:col-span-2 md:col-span-1">
             <img 
               src={bargnLogo} 
               alt="Bargn logo" 
-              className="h-12 sm:h-14 w-auto object-contain mb-4 sm:mb-6 mx-auto sm:mx-0"
+              className="h-10 sm:h-14 w-auto object-contain mb-4 mx-auto sm:mx-0"
               loading="lazy"
             />
-            <div className="flex gap-3 justify-center sm:justify-start">
+            <div className="flex gap-2 sm:gap-3 justify-center sm:justify-start flex-wrap">
               <a
                 href="https://www.instagram.com/bargn_app?igsh=ODhtd2MzaWl5YnZy&utm_source=qr"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-glass backdrop-blur-xl border border-primary/20 rounded-full flex items-center justify-center hover:border-secondary hover:shadow-glow-pink transition-all min-w-[44px] min-h-[44px]"
+                className="w-11 h-11 sm:w-10 sm:h-10 bg-glass backdrop-blur-xl border border-primary/20 rounded-full flex items-center justify-center hover:border-secondary hover:shadow-glow-pink transition-all active:scale-95"
                 aria-label="Follow us on Instagram"
               >
                 <Instagram className="w-5 h-5 text-primary" aria-hidden="true" />
@@ -89,7 +89,7 @@ const Footer = () => {
                 href="https://www.tiktok.com/@bargn_app?_t=8pRBdfvjZcP&_r=1"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-glass backdrop-blur-xl border border-primary/20 rounded-full flex items-center justify-center hover:border-secondary hover:shadow-glow-pink transition-all min-w-[44px] min-h-[44px]"
+                className="w-11 h-11 sm:w-10 sm:h-10 bg-glass backdrop-blur-xl border border-primary/20 rounded-full flex items-center justify-center hover:border-secondary hover:shadow-glow-pink transition-all active:scale-95"
                 aria-label="Follow us on TikTok"
               >
                 <svg className="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -100,14 +100,14 @@ const Footer = () => {
                 href="https://www.linkedin.com/company/bargn"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-glass backdrop-blur-xl border border-primary/20 rounded-full flex items-center justify-center hover:border-secondary hover:shadow-glow-pink transition-all min-w-[44px] min-h-[44px]"
+                className="w-11 h-11 sm:w-10 sm:h-10 bg-glass backdrop-blur-xl border border-primary/20 rounded-full flex items-center justify-center hover:border-secondary hover:shadow-glow-pink transition-all active:scale-95"
                 aria-label="Follow us on LinkedIn"
               >
                 <Linkedin className="w-5 h-5 text-primary" aria-hidden="true" />
               </a>
               <a
                 href="mailto:partners@bargn.app"
-                className="w-10 h-10 bg-glass backdrop-blur-xl border border-primary/20 rounded-full flex items-center justify-center hover:border-secondary hover:shadow-glow-pink transition-all min-w-[44px] min-h-[44px]"
+                className="w-11 h-11 sm:w-10 sm:h-10 bg-glass backdrop-blur-xl border border-primary/20 rounded-full flex items-center justify-center hover:border-secondary hover:shadow-glow-pink transition-all active:scale-95"
                 aria-label="Email us"
               >
                 <Mail className="w-5 h-5 text-primary" aria-hidden="true" />
