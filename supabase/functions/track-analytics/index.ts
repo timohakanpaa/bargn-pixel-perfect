@@ -104,7 +104,7 @@ serve(async (req) => {
     const analyticEventSchema = z.object({
       session_id: z.string().uuid(),
       event_type: z.string().min(1).max(50).regex(/^[a-zA-Z0-9_-]+$/),
-      event_name: z.string().min(1).max(100).regex(/^[a-zA-Z0-9_\s-]+$/),
+      event_name: z.string().min(1).max(100).regex(/^[a-zA-Z0-9_\s\-\/]+$/),
       page_path: z.string().max(500).optional().nullable(),
       page_title: z.string().max(200).optional().nullable(),
       element_id: z.string().max(100).regex(/^[a-zA-Z0-9_-]*$/).optional().nullable(),
