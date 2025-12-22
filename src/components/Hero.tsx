@@ -121,26 +121,26 @@ const Hero = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-2 sm:gap-8 max-w-4xl mx-auto mb-12 sm:mb-16 px-1 sm:px-0">
-          <div className="bg-glass backdrop-blur-2xl border-2 border-glass rounded-2xl sm:rounded-3xl p-3 sm:p-8 shadow-glow-coral hover:border-primary sm:hover:scale-105 sm:hover:-translate-y-2 transition-all duration-300">
-            <div className="text-2xl sm:text-6xl md:text-7xl font-black bg-gradient-coral-purple bg-clip-text text-transparent mb-1 sm:mb-2">
+        <div className="grid grid-cols-3 gap-1.5 sm:gap-8 max-w-4xl mx-auto mb-12 sm:mb-16 px-2 sm:px-0">
+          <div className="bg-glass backdrop-blur-2xl border border-glass sm:border-2 rounded-xl sm:rounded-3xl p-2 sm:p-8 shadow-glow-coral hover:border-primary sm:hover:scale-105 sm:hover:-translate-y-2 transition-all duration-300 text-center">
+            <div className="text-lg sm:text-6xl md:text-7xl font-black bg-gradient-coral-purple bg-clip-text text-transparent mb-0.5 sm:mb-2">
               <AnimatedCounter end={-50} suffix="%" />
             </div>
-            <div className="text-primary font-bold text-[10px] sm:text-lg">{t("heroDiscountRate")}</div>
+            <div className="text-primary font-bold text-[8px] sm:text-lg leading-tight">{t("heroDiscountRate")}</div>
           </div>
           
-          <div className="bg-glass backdrop-blur-2xl border-2 border-glass rounded-2xl sm:rounded-3xl p-3 sm:p-8 shadow-glow-purple hover:border-secondary sm:hover:scale-105 sm:hover:-translate-y-2 transition-all duration-300">
-            <div className="text-2xl sm:text-6xl md:text-7xl font-black text-secondary mb-1 sm:mb-2">
+          <div className="bg-glass backdrop-blur-2xl border border-glass sm:border-2 rounded-xl sm:rounded-3xl p-2 sm:p-8 shadow-glow-purple hover:border-secondary sm:hover:scale-105 sm:hover:-translate-y-2 transition-all duration-300 text-center">
+            <div className="text-lg sm:text-6xl md:text-7xl font-black text-secondary mb-0.5 sm:mb-2">
               <AnimatedCounter end={500} suffix="+" />
             </div>
-            <div className="text-secondary font-bold text-[10px] sm:text-lg">{t("heroPartners")}</div>
+            <div className="text-secondary font-bold text-[8px] sm:text-lg leading-tight">{t("heroPartners")}</div>
           </div>
           
-          <div className="bg-glass backdrop-blur-2xl border-2 border-glass rounded-2xl sm:rounded-3xl p-3 sm:p-8 shadow-glow-yellow hover:border-accent sm:hover:scale-105 sm:hover:-translate-y-2 transition-all duration-300">
-            <div className="text-2xl sm:text-6xl md:text-7xl font-black text-accent mb-1 sm:mb-2">
+          <div className="bg-glass backdrop-blur-2xl border border-glass sm:border-2 rounded-xl sm:rounded-3xl p-2 sm:p-8 shadow-glow-yellow hover:border-accent sm:hover:scale-105 sm:hover:-translate-y-2 transition-all duration-300 text-center">
+            <div className="text-lg sm:text-6xl md:text-7xl font-black text-accent mb-0.5 sm:mb-2">
               <AnimatedCounter end={2} prefix="€" suffix="M+" />
             </div>
-          <div className="text-accent font-bold text-[10px] sm:text-lg">{t("heroSaved")}</div>
+            <div className="text-accent font-bold text-[8px] sm:text-lg leading-tight">{t("heroSaved")}</div>
           </div>
         </div>
 
