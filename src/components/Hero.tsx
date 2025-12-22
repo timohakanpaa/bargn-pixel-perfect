@@ -100,7 +100,7 @@ const Hero = () => {
           <Button 
             asChild
             variant="secondary"
-            className="w-full sm:w-auto rounded-full px-5 sm:px-10 py-4 sm:py-7 text-sm sm:text-xl"
+            className="w-full sm:w-auto rounded-full px-4 sm:px-10 py-2.5 sm:py-7 text-xs sm:text-xl"
           >
             <a
               href="/partners"
