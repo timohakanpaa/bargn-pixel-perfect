@@ -26,7 +26,7 @@ const Features = () => {
               <div className="w-16 h-16 bg-gradient-coral-purple rounded-2xl flex items-center justify-center mb-6 shadow-glow-purple group-hover:animate-pulse-glow">
                 <Brain className="w-8 h-8 text-foreground group-hover:scale-110 transition-transform" />
               </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">
+              <h3 className="text-base sm:text-2xl font-bold text-foreground mb-2 sm:mb-4">
                 {t("featureAiTitle")}
               </h3>
               <p className="text-muted-foreground leading-relaxed">
@@ -40,7 +40,7 @@ const Features = () => {
               <div className="w-16 h-16 bg-gradient-coral rounded-2xl flex items-center justify-center mb-6 shadow-glow-coral group-hover:animate-pulse-glow">
                 <Shield className="w-8 h-8 text-foreground group-hover:scale-110 transition-transform" />
               </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">
+              <h3 className="text-base sm:text-2xl font-bold text-foreground mb-2 sm:mb-4">
                 {t("featureNoFeesTitle")}
               </h3>
               <p className="text-muted-foreground leading-relaxed">
@@ -54,7 +54,7 @@ const Features = () => {
               <div className="w-16 h-16 bg-gradient-purple-yellow rounded-2xl flex items-center justify-center mb-6 shadow-glow-yellow group-hover:animate-pulse-glow">
                 <TrendingUp className="w-8 h-8 text-foreground group-hover:scale-110 transition-transform" />
               </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">
+              <h3 className="text-base sm:text-2xl font-bold text-foreground mb-2 sm:mb-4">
                 {t("featureRecommendationsTitle")}
               </h3>
               <p className="text-muted-foreground leading-relaxed">
