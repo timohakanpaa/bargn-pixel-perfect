@@ -12,6 +12,22 @@ const rateLimits = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_WINDOW = 60000; // 1 minute
 const MAX_REQUESTS_PER_WINDOW = 100;
 
+// Blocked patterns for bot detection
+const BOT_PATTERNS = [
+  /bot/i,
+  /crawler/i,
+  /spider/i,
+  /scraper/i,
+  /curl/i,
+  /wget/i,
+  /python-requests/i,
+];
+
+function isBot(userAgent: string | null): boolean {
+  if (!userAgent) return false;
+  return BOT_PATTERNS.some(pattern => pattern.test(userAgent));
+}
+
 function checkRateLimit(sessionId: string): boolean {
   const now = Date.now();
   const limit = rateLimits.get(sessionId);
@@ -22,6 +38,7 @@ function checkRateLimit(sessionId: string): boolean {
   }
   
   if (limit.count >= MAX_REQUESTS_PER_WINDOW) {
+    console.warn(`Rate limit exceeded for session: ${sessionId}`);
     return false;
   }
   
@@ -29,83 +46,170 @@ function checkRateLimit(sessionId: string): boolean {
   return true;
 }
 
+// Clean up old rate limit entries periodically
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, value] of rateLimits.entries()) {
+    if (now > value.resetTime) {
+      rateLimits.delete(key);
+    }
+  }
+}, RATE_LIMIT_WINDOW);
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    // Validate input
+    // Get user agent for bot detection
+    const userAgent = req.headers.get("user-agent");
+    if (isBot(userAgent)) {
+      console.log("Bot detected, ignoring request");
+      return new Response(
+        JSON.stringify({ success: true, message: "OK" }),
+        {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          status: 200,
+        }
+      );
+    }
+
+    // Validate input with strict schemas
     const analyticEventSchema = z.object({
       session_id: z.string().uuid(),
-      event_type: z.string().max(50),
-      event_name: z.string().max(100),
-      page_path: z.string().max(500).optional(),
-      page_title: z.string().max(200).optional(),
-      element_id: z.string().max(100).optional(),
-      element_class: z.string().max(100).optional(),
-      element_text: z.string().max(200).optional(),
-      referrer: z.string().max(2000).nullable().optional(), // Allow longer URLs (JWT tokens) and null values
-      language: z.string().max(10).optional(),
-      screen_width: z.number().int().positive().optional(),
-      screen_height: z.number().int().positive().optional(),
-      user_agent: z.string().max(500).optional(),
-      metadata: z.any().optional()
+      event_type: z.string().min(1).max(50),
+      event_name: z.string().min(1).max(100),
+      page_path: z.string().max(500).optional().nullable(),
+      page_title: z.string().max(200).optional().nullable(),
+      element_id: z.string().max(100).optional().nullable(),
+      element_class: z.string().max(100).optional().nullable(),
+      element_text: z.string().max(200).optional().nullable(),
+      referrer: z.string().max(2000).optional().nullable(),
+      language: z.string().max(10).optional().nullable(),
+      screen_width: z.number().int().min(1).max(10000).optional().nullable(),
+      screen_height: z.number().int().min(1).max(10000).optional().nullable(),
+      user_agent: z.string().max(500).optional().nullable(),
+      metadata: z.record(z.any()).optional().nullable()
     });
 
     const funnelEventSchema = z.object({
       session_id: z.string().uuid(),
       funnel_id: z.string().uuid(),
-      current_step: z.number().int().positive(),
+      current_step: z.number().int().min(1).max(100),
       completed: z.boolean().optional(),
-      metadata: z.any().optional()
+      metadata: z.record(z.any()).optional().nullable()
     });
 
     const requestSchema = z.object({
-      analyticEvents: z.array(analyticEventSchema).max(100).optional(),
-      funnelEvents: z.array(funnelEventSchema).max(100).optional()
+      analyticEvents: z.array(analyticEventSchema).max(50).optional(),
+      funnelEvents: z.array(funnelEventSchema).max(50).optional()
     });
 
     const body = await req.json();
-    const { analyticEvents, funnelEvents } = requestSchema.parse(body);
-
-    // Check rate limit using the first event's session_id
-    const sessionId = analyticEvents?.[0]?.session_id || funnelEvents?.[0]?.session_id;
-    if (sessionId && !checkRateLimit(sessionId)) {
+    const parsed = requestSchema.safeParse(body);
+    
+    if (!parsed.success) {
+      console.error("Validation error:", parsed.error.issues);
       return new Response(
-        JSON.stringify({ error: "Rate limit exceeded" }),
+        JSON.stringify({ error: "Invalid request data", details: parsed.error.issues }),
         {
-          status: 429,
+          status: 400,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
         }
       );
     }
 
-    // Initialize Supabase client with service role key for database operations
+    const { analyticEvents, funnelEvents } = parsed.data;
+
+    // Check rate limit using the first event's session_id
+    const sessionId = analyticEvents?.[0]?.session_id || funnelEvents?.[0]?.session_id;
+    if (sessionId && !checkRateLimit(sessionId)) {
+      return new Response(
+        JSON.stringify({ error: "Rate limit exceeded. Please slow down." }),
+        {
+          status: 429,
+          headers: { ...corsHeaders, "Content-Type": "application/json", "Retry-After": "60" },
+        }
+      );
+    }
+
+    // Initialize Supabase client with service role key
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    const promises = [];
+    const results = { analytics: 0, funnels: 0, errors: [] as string[] };
 
-    // Insert analytics events
+    // Insert analytics events using secure function
     if (analyticEvents && analyticEvents.length > 0) {
-      promises.push(
-        supabase.from("analytics_events").insert(analyticEvents)
-      );
+      for (const event of analyticEvents) {
+        try {
+          const { error } = await supabase.rpc('insert_analytics_event', {
+            p_session_id: event.session_id,
+            p_event_type: event.event_type,
+            p_event_name: event.event_name,
+            p_page_path: event.page_path || null,
+            p_page_title: event.page_title || null,
+            p_element_id: event.element_id || null,
+            p_element_class: event.element_class || null,
+            p_element_text: event.element_text || null,
+            p_referrer: event.referrer || null,
+            p_language: event.language || null,
+            p_screen_width: event.screen_width || null,
+            p_screen_height: event.screen_height || null,
+            p_user_agent: event.user_agent || null,
+            p_metadata: event.metadata || {}
+          });
+          
+          if (error) {
+            console.error("Error inserting analytics event:", error);
+            results.errors.push(`Analytics: ${error.message}`);
+          } else {
+            results.analytics++;
+          }
+        } catch (err) {
+          console.error("Exception inserting analytics event:", err);
+          results.errors.push(`Analytics: ${err instanceof Error ? err.message : 'Unknown error'}`);
+        }
+      }
     }
 
-    // Insert funnel progress events
+    // Insert funnel progress events using secure function
     if (funnelEvents && funnelEvents.length > 0) {
-      promises.push(
-        supabase.from("funnel_progress").insert(funnelEvents)
-      );
+      for (const event of funnelEvents) {
+        try {
+          const { error } = await supabase.rpc('insert_funnel_progress', {
+            p_session_id: event.session_id,
+            p_funnel_id: event.funnel_id,
+            p_current_step: event.current_step,
+            p_completed: event.completed || false,
+            p_metadata: event.metadata || {}
+          });
+          
+          if (error) {
+            console.error("Error inserting funnel progress:", error);
+            results.errors.push(`Funnel: ${error.message}`);
+          } else {
+            results.funnels++;
+          }
+        } catch (err) {
+          console.error("Exception inserting funnel progress:", err);
+          results.errors.push(`Funnel: ${err instanceof Error ? err.message : 'Unknown error'}`);
+        }
+      }
     }
 
-    await Promise.all(promises);
+    console.log(`Tracked ${results.analytics} analytics events, ${results.funnels} funnel events`);
 
     return new Response(
-      JSON.stringify({ success: true }),
+      JSON.stringify({ 
+        success: true,
+        tracked: {
+          analytics: results.analytics,
+          funnels: results.funnels
+        }
+      }),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
@@ -114,7 +218,7 @@ serve(async (req) => {
   } catch (error) {
     console.error("Error tracking analytics:", error);
     return new Response(
-      JSON.stringify({ error: error instanceof Error ? error.message : "Unknown error" }),
+      JSON.stringify({ error: "Internal server error" }),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 500,

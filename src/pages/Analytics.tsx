@@ -67,32 +67,35 @@ const Analytics = () => {
 
   const fetchAnalytics = async () => {
     try {
-      // Fetch daily summary
+      // Fetch daily summary using secure function
       const { data: summary, error: summaryError } = await supabase
-        .from("analytics_daily_summary")
-        .select("*")
-        .limit(30);
+        .rpc("get_analytics_daily_summary");
 
-      if (summaryError) throw summaryError;
-      setDailySummary(summary || []);
+      if (summaryError) {
+        console.error("Error fetching daily summary:", summaryError);
+      } else {
+        setDailySummary((summary as DailySummary[]) || []);
+      }
 
-      // Fetch page views
+      // Fetch page views using secure function
       const { data: pages, error: pagesError } = await supabase
-        .from("analytics_page_views")
-        .select("*")
-        .limit(50);
+        .rpc("get_analytics_page_views");
 
-      if (pagesError) throw pagesError;
-      setPageViews(pages || []);
+      if (pagesError) {
+        console.error("Error fetching page views:", pagesError);
+      } else {
+        setPageViews((pages as PageView[]) || []);
+      }
 
-      // Fetch button clicks
+      // Fetch button clicks using secure function
       const { data: clicks, error: clicksError } = await supabase
-        .from("analytics_button_clicks")
-        .select("*")
-        .limit(50);
+        .rpc("get_analytics_button_clicks");
 
-      if (clicksError) throw clicksError;
-      setButtonClicks(clicks || []);
+      if (clicksError) {
+        console.error("Error fetching button clicks:", clicksError);
+      } else {
+        setButtonClicks((clicks as ButtonClick[]) || []);
+      }
     } catch (error) {
       console.error("Error fetching analytics:", error);
     } finally {

@@ -349,6 +349,35 @@ export type Database = {
         }
         Returns: boolean
       }
+      insert_analytics_event: {
+        Args: {
+          p_element_class?: string
+          p_element_id?: string
+          p_element_text?: string
+          p_event_name: string
+          p_event_type: string
+          p_language?: string
+          p_metadata?: Json
+          p_page_path?: string
+          p_page_title?: string
+          p_referrer?: string
+          p_screen_height?: number
+          p_screen_width?: number
+          p_session_id: string
+          p_user_agent?: string
+        }
+        Returns: string
+      }
+      insert_funnel_progress: {
+        Args: {
+          p_completed?: boolean
+          p_current_step: number
+          p_funnel_id: string
+          p_metadata?: Json
+          p_session_id: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
