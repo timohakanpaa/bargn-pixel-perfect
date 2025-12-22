@@ -30,7 +30,7 @@ const Pricing = () => {
                   <div className="absolute top-3 right-3 bg-accent text-accent-foreground px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap">
                     {t("aiThatSlaps")}
                   </div>
-                  <div className="text-4xl sm:text-5xl mb-2">%</div>
+                  <div className="text-4xl sm:text-5xl mb-2">🔄</div>
                   <div className="text-2xl sm:text-3xl font-black text-foreground">{t("monthlyTitle")}</div>
                 </div>
                 
@@ -95,7 +95,7 @@ const Pricing = () => {
                   <div className="absolute top-3 right-3 bg-background text-foreground px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap">
                     {t("bestValue")}
                   </div>
-                  <div className="text-4xl sm:text-5xl mb-2">%</div>
+                  <div className="text-4xl sm:text-5xl mb-2">🏆</div>
                   <div className="text-2xl sm:text-3xl font-black text-foreground">{t("yearlyTitle")}</div>
                 </div>
                 
