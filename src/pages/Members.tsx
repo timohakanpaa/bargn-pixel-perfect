@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Crown, Users, Percent, CreditCard, Check, Brain, Shield, Zap, Rocket, Gift, Lightbulb, Star } from "lucide-react";
+import { Crown, Users, Percent, Check, Brain, Shield, Zap, Rocket, Gift, Lightbulb, Star } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -430,98 +430,181 @@ const Members = () => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
+          <div className="flex flex-col md:grid md:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto mb-12">
             {/* Monthly Plan */}
-            <TiltCard className="relative group"
-              tiltDegree={10}
-              scale={1.05}
-            >
-              <div className="absolute inset-0 bg-gradient-coral opacity-30 blur-3xl rounded-3xl" />
-              <div className="relative bg-glass backdrop-blur-2xl border-2 border-glass rounded-3xl overflow-hidden hover:border-primary hover:shadow-glow-coral transition-all duration-300">
-                <div className="p-8">
-                  <div className="w-16 h-16 bg-gradient-coral rounded-2xl flex items-center justify-center mb-6 shadow-glow-coral">
-                    <CreditCard className="w-8 h-8 text-foreground" />
+            <div className="relative pt-3 sm:pt-4 order-2 md:order-1">
+              <div className="h-full flex flex-col bg-glass backdrop-blur-2xl border border-purple/50 rounded-xl sm:rounded-2xl overflow-hidden hover:shadow-glow-purple transition-all duration-300">
+                <div className="bg-gradient-purple-yellow p-4 sm:p-6 relative min-h-[100px] sm:min-h-[120px] flex flex-col justify-end">
+                  <div className="absolute top-2 sm:top-3 right-2 sm:right-3 bg-accent text-accent-foreground px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold whitespace-nowrap">
+                    {t("aiThatSlaps")}
                   </div>
-                  <h3 className="text-3xl font-black text-foreground mb-4">{t("monthlyFlex")}</h3>
-                  <div className="flex items-baseline gap-2 mb-6">
-                    <span className="text-6xl font-black bg-gradient-coral-purple bg-clip-text text-transparent">€8.8</span>
-                    <span className="text-muted-foreground text-lg">{t("perMonth")}</span>
-                  </div>
-                  <div className="space-y-4 mb-8">
-                    {[t("unlimitedDiscounts"), t("aiNotDumb"), t("supportDamn"), t("vipTreatment"), t("cancelAnytime")].map((feature, idx) => (
-                      <div key={idx} className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
-                        <span className="text-foreground">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <Button 
-                    asChild
-                    variant="neon" 
-                    className="w-full rounded-full py-6 text-lg hover:animate-wobble"
-                  >
-                    <a 
-                      href="https://buy.stripe.com/eVq3cva4E2Fv5jsei03ZK00" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                    >
-                      {t("joinNow")}
-                    </a>
-                  </Button>
+                  <div className="text-3xl sm:text-5xl mb-1 sm:mb-2">🔄</div>
+                  <div className="text-xl sm:text-3xl font-black text-foreground">{t("monthlyTitle")}</div>
                 </div>
-              </div>
-            </TiltCard>
+                
+                <div className="flex-1 flex flex-col bg-glass backdrop-blur-xl p-4 sm:p-6">
+                  <p className="text-xs text-secondary mb-3 sm:mb-4">
+                    {t("pricingFeatures")}
+                  </p>
 
-            {/* Annual Plan */}
-            <TiltCard className="relative group"
-              tiltDegree={10}
-              scale={1.05}
-            >
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
-                <div className="bg-gradient-purple-yellow px-6 py-2 rounded-full shadow-glow-yellow">
-                  <span className="text-foreground font-bold flex items-center gap-2">
-                    <Crown className="w-5 h-5" />
-                    {t("bestValue")}
-                  </span>
-                </div>
-              </div>
-              <div className="absolute inset-0 bg-gradient-purple-yellow opacity-30 blur-3xl rounded-3xl animate-pulse-glow" />
-              <div className="relative bg-glass backdrop-blur-2xl border-2 border-secondary rounded-3xl overflow-hidden hover:border-accent hover:shadow-glow-yellow transition-all duration-300">
-                <div className="p-8 pt-12">
-                  <div className="w-16 h-16 bg-gradient-purple-yellow rounded-2xl flex items-center justify-center mb-6 shadow-glow-yellow">
-                    <Crown className="w-8 h-8 text-foreground" />
+                  <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                    <div className="flex items-start gap-2">
+                      <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent mt-0.5 flex-shrink-0" />
+                      <span className="text-xs sm:text-sm text-foreground">{t("unlimitedDiscountsPricing")}</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Brain className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent mt-0.5 flex-shrink-0" />
+                      <span className="text-xs sm:text-sm text-foreground">{t("aiRecommendations")}</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent mt-0.5 flex-shrink-0" />
+                      <span className="text-xs sm:text-sm text-foreground">{t("localNetwork")}</span>
+                    </div>
                   </div>
-                  <h3 className="text-3xl font-black bg-gradient-purple-yellow bg-clip-text text-transparent mb-4">{t("annualPower")}</h3>
-                  <div className="flex items-baseline gap-2 mb-2">
-                    <span className="text-6xl font-black text-accent">€53</span>
-                    <span className="text-muted-foreground text-lg">{t("perYear")}</span>
-                  </div>
-                  <div className="bg-accent/20 border border-accent rounded-full px-4 py-2 inline-block mb-6">
-                    <span className="text-accent font-bold text-sm">{t("saveAnnually")}</span>
-                  </div>
-                  <div className="space-y-4 mb-8">
-                    {[t("unlimitedDiscounts"), t("aiNotDumb"), t("supportDamn"), t("vipTreatment"), t("monthsFree")].map((feature, idx) => (
-                      <div key={idx} className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
-                        <span className="text-foreground">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <Button 
-                    asChild
-                    className="w-full rounded-full py-6 text-lg bg-gradient-purple-yellow text-foreground font-bold hover:scale-105 hover:animate-wobble transition-transform"
-                  >
-                    <a 
-                      href="https://buy.stripe.com/6oUdR9a4E7ZP5js6Py3ZK01" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
+
+                  <div className="mt-auto">
+                    <div className="flex items-baseline gap-2 mb-4 sm:mb-5">
+                      <span className="text-3xl sm:text-5xl font-black text-accent">
+                        <AnimatedCounter end={8.8} prefix="€" duration={2000} />
+                      </span>
+                      <span className="text-xs sm:text-sm text-muted-foreground">{t("monthly")}</span>
+                    </div>
+
+                    <Button 
+                      asChild
+                      className="w-full bg-gradient-pink-orange text-foreground font-bold rounded-full py-4 sm:py-5 text-sm sm:text-base shadow-[0_0_20px_rgba(239,29,242,0.5)] active:scale-95 transition-transform"
                     >
-                      {t("joinNow")}
-                    </a>
-                  </Button>
+                      <a 
+                        href="https://buy.stripe.com/eVq3cva4E2Fv5jsei03ZK00" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        {t("joinNow")}
+                      </a>
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </TiltCard>
+            </div>
+
+            {/* Yearly Plan - Recommended (First on mobile) */}
+            <div className="relative pt-3 sm:pt-4 order-1 md:order-2">
+              {/* Recommended Badge - Outside the card */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 z-20">
+                <div className="bg-accent text-accent-foreground px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold flex items-center gap-1 sm:gap-1.5 shadow-lg">
+                  <Crown className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                  {t("recommended")}
+                </div>
+              </div>
+              <div className="h-full flex flex-col bg-glass backdrop-blur-2xl border-2 border-accent rounded-xl sm:rounded-2xl overflow-hidden shadow-glow-coral transition-all duration-300">
+                <div className="bg-gradient-coral-purple p-4 sm:p-6 relative min-h-[100px] sm:min-h-[120px] flex flex-col justify-end">
+                  <div className="absolute top-2 sm:top-3 right-2 sm:right-3 bg-background text-foreground px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold whitespace-nowrap">
+                    {t("bestValue")}
+                  </div>
+                  <div className="text-3xl sm:text-5xl mb-1 sm:mb-2">🏆</div>
+                  <div className="text-xl sm:text-3xl font-black text-foreground">{t("yearlyTitle")}</div>
+                </div>
+                
+                <div className="flex-1 flex flex-col bg-glass backdrop-blur-xl p-4 sm:p-6">
+                  <p className="text-xs text-secondary mb-3 sm:mb-4">
+                    {t("pricingFeatures")}
+                  </p>
+
+                  <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                    <div className="flex items-start gap-2">
+                      <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent mt-0.5 flex-shrink-0" />
+                      <span className="text-xs sm:text-sm text-foreground">{t("unlimitedDiscountsPricing")}</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Brain className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent mt-0.5 flex-shrink-0" />
+                      <span className="text-xs sm:text-sm text-foreground">{t("aiRecommendations")}</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent mt-0.5 flex-shrink-0" />
+                      <span className="text-xs sm:text-sm text-foreground">{t("localNetwork")}</span>
+                    </div>
+                  </div>
+
+                  <div className="mt-auto">
+                    <div className="flex items-baseline gap-2 mb-4 sm:mb-5">
+                      <span className="text-3xl sm:text-5xl font-black text-accent">
+                        <AnimatedCounter end={53} prefix="€" duration={2000} />
+                      </span>
+                      <span className="text-xs sm:text-sm text-muted-foreground">{t("yearly")}</span>
+                    </div>
+
+                    <Button 
+                      asChild
+                      className="w-full bg-gradient-coral-purple text-foreground font-bold rounded-full py-4 sm:py-5 text-sm sm:text-base shadow-[0_0_20px_rgba(239,29,242,0.5)] active:scale-95 transition-transform"
+                    >
+                      <a 
+                        href="https://buy.stripe.com/6oUdR9a4E7ZP5js6Py3ZK01" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        {t("joinNow")}
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Lifetime Plan */}
+            <div className="relative pt-3 sm:pt-4 order-3">
+              <div className="h-full flex flex-col bg-glass backdrop-blur-2xl border border-yellow-500/40 rounded-xl sm:rounded-2xl overflow-hidden hover:shadow-[0_0_30px_rgba(234,179,8,0.3)] transition-all duration-300">
+                <div className="bg-gradient-to-br from-yellow-500 via-orange-500 to-red-500 p-4 sm:p-6 relative min-h-[100px] sm:min-h-[120px] flex flex-col justify-end">
+                  <div className="absolute top-2 sm:top-3 right-2 sm:right-3 bg-background text-foreground px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold whitespace-nowrap">
+                    {t("lifetimeBadge")}
+                  </div>
+                  <div className="text-3xl sm:text-5xl mb-1 sm:mb-2">♾️</div>
+                  <div className="text-xl sm:text-3xl font-black text-foreground">{t("lifetimeTitle")}</div>
+                </div>
+                
+                <div className="flex-1 flex flex-col bg-glass backdrop-blur-xl p-4 sm:p-6">
+                  <p className="text-xs text-secondary mb-3 sm:mb-4">
+                    {t("pricingFeatures")}
+                  </p>
+
+                  <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                    <div className="flex items-start gap-2">
+                      <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-yellow-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-xs sm:text-sm text-foreground">{t("unlimitedDiscountsPricing")}</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Brain className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-yellow-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-xs sm:text-sm text-foreground">{t("aiRecommendations")}</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-yellow-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-xs sm:text-sm text-foreground">{t("localNetwork")}</span>
+                    </div>
+                  </div>
+
+                  <div className="mt-auto">
+                    <div className="flex items-baseline gap-2 mb-4 sm:mb-5">
+                      <span className="text-3xl sm:text-5xl font-black text-yellow-500">
+                        <AnimatedCounter end={278} prefix="€" duration={2000} />
+                      </span>
+                      <span className="text-xs sm:text-sm text-muted-foreground">{t("lifetime")}</span>
+                    </div>
+
+                    <Button 
+                      asChild
+                      className="w-full bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 text-foreground font-bold rounded-full py-4 sm:py-5 text-sm sm:text-base shadow-[0_0_20px_rgba(234,179,8,0.5)] active:scale-95 transition-transform"
+                    >
+                      <a 
+                        href="https://buy.stripe.com/fZu9AT5Oobc1fY65Lu3ZK04" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        {t("joinNow")}
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Plans Info */}
