@@ -23,7 +23,7 @@ const Pricing = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4 lg:gap-6 mx-auto">
           {/* Monthly Plan */}
-          <div className="relative">
+          <div className="relative pt-4">
             <TiltCard className="h-full" tiltDegree={8} scale={1.02}>
               <div className="h-full flex flex-col bg-glass backdrop-blur-2xl border border-purple/50 rounded-2xl overflow-hidden hover:shadow-glow-purple transition-all duration-300">
                 <div className="bg-gradient-purple-yellow p-5 sm:p-6 relative min-h-[120px] flex flex-col justify-end">
@@ -146,7 +146,7 @@ const Pricing = () => {
           </div>
 
           {/* Lifetime Plan */}
-          <div className="relative">
+          <div className="relative pt-4">
             <TiltCard className="h-full" tiltDegree={8} scale={1.02}>
               <div className="h-full flex flex-col bg-glass backdrop-blur-2xl border border-yellow-500/40 rounded-2xl overflow-hidden hover:shadow-[0_0_30px_rgba(234,179,8,0.3)] transition-all duration-300">
                 <div className="bg-gradient-to-br from-yellow-500 via-orange-500 to-red-500 p-5 sm:p-6 relative min-h-[120px] flex flex-col justify-end">
