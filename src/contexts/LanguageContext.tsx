@@ -54,6 +54,7 @@ const translations: Record<Language, Record<string, string>> = {
     joinNow: "Join Now",
     bestValue: "BEST VALUE",
     partnerUp: "Partner Up (We're Cool Like That)",
+    partnerUpShort: "Partners",
     
     // Business Section
     businessHeadline: "Why Businesses Actually Love Us",
@@ -535,6 +536,7 @@ const translations: Record<Language, Record<string, string>> = {
     joinNow: "Liity Nyt",
     bestValue: "PARAS HINTA",
     partnerUp: "Kumppani (Ollaan Cooli Sillä Tavalla)",
+    partnerUpShort: "Kumppanit",
     
     // Business Section
     businessHeadline: "Miksi Yritykset Todella Rakastavat Meitä",
