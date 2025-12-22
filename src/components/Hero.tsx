@@ -114,7 +114,8 @@ const Hero = () => {
               }}
             >
               <Users className="mr-1.5 sm:mr-2 w-4 h-4 sm:w-6 sm:h-6" />
-              <span className="truncate">{t("partnerUp")}</span>
+              <span className="sm:hidden">{t("partnerUpShort")}</span>
+              <span className="hidden sm:inline">{t("partnerUp")}</span>
             </a>
           </Button>
         </div>
