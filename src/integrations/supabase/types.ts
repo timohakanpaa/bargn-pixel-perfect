@@ -19,6 +19,7 @@ export type Database = {
           alert_type: string
           comparison: string
           created_at: string
+          created_by: string | null
           enabled: boolean
           funnel_id: string | null
           id: string
@@ -30,6 +31,7 @@ export type Database = {
           alert_type: string
           comparison: string
           created_at?: string
+          created_by?: string | null
           enabled?: boolean
           funnel_id?: string | null
           id?: string
@@ -41,6 +43,7 @@ export type Database = {
           alert_type?: string
           comparison?: string
           created_at?: string
+          created_by?: string | null
           enabled?: boolean
           funnel_id?: string | null
           id?: string

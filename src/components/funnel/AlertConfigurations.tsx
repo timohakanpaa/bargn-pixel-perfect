@@ -111,6 +111,18 @@ export const AlertConfigurations = () => {
     if (funnels.length === 0) return;
 
     try {
+      // Get current user for ownership tracking
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast({
+          title: "Authentication required",
+          description: "You must be logged in to create alerts",
+          variant: "destructive"
+        });
+        return;
+      }
+
       const { data, error } = await supabase
         .from('alert_configurations')
         .insert({
@@ -118,7 +130,8 @@ export const AlertConfigurations = () => {
           alert_type: 'conversion_rate',
           threshold: 20,
           comparison: 'below',
-          enabled: true
+          enabled: true,
+          created_by: user.id
         })
         .select()
         .single();
