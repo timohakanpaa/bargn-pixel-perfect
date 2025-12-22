@@ -58,6 +58,27 @@ const ChartContainer = React.forwardRef<
 });
 ChartContainer.displayName = "Chart";
 
+// Validate CSS color values to prevent XSS injection
+const isValidCssColor = (color: string): boolean => {
+  // Allow: hex colors, rgb/rgba, hsl/hsla, named colors, CSS variables
+  const colorPatterns = [
+    /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{4}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$/, // hex
+    /^rgb\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\)$/i, // rgb
+    /^rgba\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*[\d.]+\s*\)$/i, // rgba
+    /^hsl\(\s*\d{1,3}\s*,?\s*[\d.]+%?\s*,?\s*[\d.]+%?\s*\)$/i, // hsl
+    /^hsla\(\s*\d{1,3}\s*,?\s*[\d.]+%?\s*,?\s*[\d.]+%?\s*,?\s*[\d.]+\s*\)$/i, // hsla
+    /^var\(--[a-zA-Z0-9-]+\)$/, // CSS variables
+    /^[a-zA-Z]+$/, // named colors (e.g., red, blue, transparent)
+  ];
+  
+  return colorPatterns.some(pattern => pattern.test(color.trim()));
+};
+
+// Sanitize key to prevent CSS injection
+const sanitizeCssKey = (key: string): string => {
+  return key.replace(/[^a-zA-Z0-9-_]/g, '');
+};
+
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
   const colorConfig = Object.entries(config).filter(([_, config]) => config.theme || config.color);
 
@@ -75,8 +96,14 @@ ${prefix} [data-chart=${id}] {
 ${colorConfig
   .map(([key, itemConfig]) => {
     const color = itemConfig.theme?.[theme as keyof typeof itemConfig.theme] || itemConfig.color;
-    return color ? `  --color-${key}: ${color};` : null;
+    // Validate color before using it to prevent XSS
+    if (color && isValidCssColor(color)) {
+      const safeKey = sanitizeCssKey(key);
+      return `  --color-${safeKey}: ${color};`;
+    }
+    return null;
   })
+  .filter(Boolean)
   .join("\n")}
 }
 `,
