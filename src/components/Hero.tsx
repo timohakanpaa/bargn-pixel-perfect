@@ -100,7 +100,7 @@ const Hero = () => {
           <Button 
             asChild
             variant="secondary"
-            className="w-full sm:w-auto rounded-full px-8 sm:px-10 py-6 sm:py-7 text-lg sm:text-xl"
+            className="w-full sm:w-auto rounded-full px-5 sm:px-10 py-4 sm:py-7 text-sm sm:text-xl"
           >
             <a
               href="/partners"
@@ -113,8 +113,8 @@ const Hero = () => {
                 });
               }}
             >
-              <Users className="mr-2 w-5 h-5 sm:w-6 sm:h-6" />
-              {t("partnerUp")}
+              <Users className="mr-1.5 sm:mr-2 w-4 h-4 sm:w-6 sm:h-6" />
+              <span className="truncate">{t("partnerUp")}</span>
             </a>
           </Button>
         </div>
