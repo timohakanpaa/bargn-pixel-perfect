@@ -56,13 +56,6 @@ export type Database = {
             referencedRelation: "conversion_funnels"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "alert_configurations_funnel_id_fkey"
-            columns: ["funnel_id"]
-            isOneToOne: false
-            referencedRelation: "funnel_analytics"
-            referencedColumns: ["funnel_id"]
-          },
         ]
       }
       alert_logs: {
@@ -113,13 +106,6 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "conversion_funnels"
             referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "alert_logs_funnel_id_fkey"
-            columns: ["funnel_id"]
-            isOneToOne: false
-            referencedRelation: "funnel_analytics"
-            referencedColumns: ["funnel_id"]
           },
         ]
       }
@@ -246,13 +232,6 @@ export type Database = {
             referencedRelation: "conversion_funnels"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "funnel_progress_funnel_id_fkey"
-            columns: ["funnel_id"]
-            isOneToOne: false
-            referencedRelation: "funnel_analytics"
-            referencedColumns: ["funnel_id"]
-          },
         ]
       }
       user_roles: {
@@ -278,53 +257,54 @@ export type Database = {
       }
     }
     Views: {
-      analytics_button_clicks: {
-        Row: {
-          click_count: number | null
-          date: string | null
-          element_text: string | null
-          event_name: string | null
-          page_path: string | null
-          unique_users: number | null
-        }
-        Relationships: []
-      }
-      analytics_daily_summary: {
-        Row: {
-          avg_screen_width: number | null
-          clicks: number | null
-          conversions: number | null
-          date: string | null
-          page_views: number | null
-          total_events: number | null
-          unique_sessions: number | null
-        }
-        Relationships: []
-      }
-      analytics_page_views: {
-        Row: {
-          date: string | null
-          page_path: string | null
-          page_title: string | null
-          unique_visitors: number | null
-          views: number | null
-        }
-        Relationships: []
-      }
-      funnel_analytics: {
-        Row: {
-          avg_completion_time_minutes: number | null
-          completion_rate: number | null
-          completions: number | null
-          funnel_id: string | null
-          funnel_name: string | null
-          total_entries: number | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
       can_access_alert_config: { Args: { config_id: string }; Returns: boolean }
+      get_analytics_button_clicks: {
+        Args: never
+        Returns: {
+          click_count: number
+          date: string
+          element_text: string
+          event_name: string
+          page_path: string
+          unique_users: number
+        }[]
+      }
+      get_analytics_daily_summary: {
+        Args: never
+        Returns: {
+          avg_screen_width: number
+          clicks: number
+          conversions: number
+          date: string
+          page_views: number
+          total_events: number
+          unique_sessions: number
+        }[]
+      }
+      get_analytics_page_views: {
+        Args: never
+        Returns: {
+          date: string
+          page_path: string
+          page_title: string
+          unique_visitors: number
+          views: number
+        }[]
+      }
+      get_funnel_analytics: {
+        Args: never
+        Returns: {
+          avg_completion_time_minutes: number
+          completion_rate: number
+          completions: number
+          funnel_id: string
+          funnel_name: string
+          total_entries: number
+        }[]
+      }
       get_funnel_cohort_analysis: {
         Args: {
           cohort_type: string
