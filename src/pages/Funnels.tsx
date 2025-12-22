@@ -58,17 +58,20 @@ const Funnels = () => {
 
   const fetchFunnels = async () => {
     try {
+      // Use secure function instead of view
       const { data, error } = await supabase
-        .from("funnel_analytics")
-        .select("*");
+        .rpc("get_funnel_analytics");
 
-      if (error) throw error;
-      
-      const funnelData = data as unknown as FunnelData[];
-      setFunnels(funnelData);
-      
-      if (funnelData.length > 0 && !selectedFunnel) {
-        setSelectedFunnel(funnelData[0].funnel_id);
+      if (error) {
+        console.error("Error fetching funnels:", error);
+        setFunnels([]);
+      } else {
+        const funnelData = (data || []) as unknown as FunnelData[];
+        setFunnels(funnelData);
+        
+        if (funnelData.length > 0 && !selectedFunnel) {
+          setSelectedFunnel(funnelData[0].funnel_id);
+        }
       }
     } catch (error) {
       console.error("Error fetching funnels:", error);
