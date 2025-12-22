@@ -75,22 +75,47 @@ serve(async (req) => {
       );
     }
 
+    // Sanitize text to remove potential XSS/script tags
+    const sanitizeText = (text: string | null | undefined): string | null => {
+      if (!text) return null;
+      // Remove script tags, HTML tags, and control characters
+      return text
+        .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+        .replace(/<[^>]+>/g, '')
+        .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '')
+        .trim()
+        .slice(0, 500); // Extra safety limit
+    };
+
+    // Strict metadata schema - only allow safe primitive values
+    const metadataValueSchema = z.union([
+      z.string().max(200),
+      z.number(),
+      z.boolean(),
+      z.null()
+    ]);
+    
+    const safeMetadataSchema = z.record(
+      z.string().max(50).regex(/^[a-zA-Z0-9_-]+$/), // Only alphanumeric keys
+      metadataValueSchema
+    ).optional().nullable();
+
     // Validate input with strict schemas
     const analyticEventSchema = z.object({
       session_id: z.string().uuid(),
-      event_type: z.string().min(1).max(50),
-      event_name: z.string().min(1).max(100),
+      event_type: z.string().min(1).max(50).regex(/^[a-zA-Z0-9_-]+$/),
+      event_name: z.string().min(1).max(100).regex(/^[a-zA-Z0-9_\s-]+$/),
       page_path: z.string().max(500).optional().nullable(),
       page_title: z.string().max(200).optional().nullable(),
-      element_id: z.string().max(100).optional().nullable(),
-      element_class: z.string().max(100).optional().nullable(),
+      element_id: z.string().max(100).regex(/^[a-zA-Z0-9_-]*$/).optional().nullable(),
+      element_class: z.string().max(200).optional().nullable(),
       element_text: z.string().max(200).optional().nullable(),
-      referrer: z.string().max(2000).optional().nullable(),
-      language: z.string().max(10).optional().nullable(),
+      referrer: z.string().max(500).optional().nullable(), // Reduced from 2000
+      language: z.string().max(10).regex(/^[a-zA-Z-]*$/).optional().nullable(),
       screen_width: z.number().int().min(1).max(10000).optional().nullable(),
       screen_height: z.number().int().min(1).max(10000).optional().nullable(),
       user_agent: z.string().max(500).optional().nullable(),
-      metadata: z.record(z.any()).optional().nullable()
+      metadata: safeMetadataSchema
     });
 
     const funnelEventSchema = z.object({
@@ -98,7 +123,7 @@ serve(async (req) => {
       funnel_id: z.string().uuid(),
       current_step: z.number().int().min(1).max(100),
       completed: z.boolean().optional(),
-      metadata: z.record(z.any()).optional().nullable()
+      metadata: safeMetadataSchema
     });
 
     const requestSchema = z.object({
@@ -149,16 +174,16 @@ serve(async (req) => {
             p_session_id: event.session_id,
             p_event_type: event.event_type,
             p_event_name: event.event_name,
-            p_page_path: event.page_path || null,
-            p_page_title: event.page_title || null,
+            p_page_path: sanitizeText(event.page_path),
+            p_page_title: sanitizeText(event.page_title),
             p_element_id: event.element_id || null,
-            p_element_class: event.element_class || null,
-            p_element_text: event.element_text || null,
-            p_referrer: event.referrer || null,
+            p_element_class: sanitizeText(event.element_class),
+            p_element_text: sanitizeText(event.element_text),
+            p_referrer: sanitizeText(event.referrer),
             p_language: event.language || null,
             p_screen_width: event.screen_width || null,
             p_screen_height: event.screen_height || null,
-            p_user_agent: event.user_agent || null,
+            p_user_agent: sanitizeText(event.user_agent),
             p_metadata: event.metadata || {}
           });
           
