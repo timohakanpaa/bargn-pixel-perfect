@@ -26,7 +26,7 @@ const Features = () => {
               <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-coral-purple rounded-xl sm:rounded-2xl flex items-center justify-center mb-3 sm:mb-6 shadow-glow-purple group-hover:animate-pulse-glow">
                 <Brain className="w-6 h-6 sm:w-8 sm:h-8 text-foreground group-hover:scale-110 transition-transform" />
               </div>
-              <h3 className="text-base sm:text-2xl font-bold text-foreground mb-2 sm:mb-4">
+              <h3 className="text-sm sm:text-2xl font-bold text-foreground mb-2 sm:mb-4 leading-tight">
                 {t("featureAiTitle")}
               </h3>
               <p className="text-xs sm:text-base text-muted-foreground leading-relaxed">
@@ -40,7 +40,7 @@ const Features = () => {
               <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-coral rounded-xl sm:rounded-2xl flex items-center justify-center mb-3 sm:mb-6 shadow-glow-coral group-hover:animate-pulse-glow">
                 <Shield className="w-6 h-6 sm:w-8 sm:h-8 text-foreground group-hover:scale-110 transition-transform" />
               </div>
-              <h3 className="text-base sm:text-2xl font-bold text-foreground mb-2 sm:mb-4">
+              <h3 className="text-sm sm:text-2xl font-bold text-foreground mb-2 sm:mb-4 leading-tight">
                 {t("featureNoFeesTitle")}
               </h3>
               <p className="text-xs sm:text-base text-muted-foreground leading-relaxed">
@@ -54,7 +54,7 @@ const Features = () => {
               <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-purple-yellow rounded-xl sm:rounded-2xl flex items-center justify-center mb-3 sm:mb-6 shadow-glow-yellow group-hover:animate-pulse-glow">
                 <TrendingUp className="w-6 h-6 sm:w-8 sm:h-8 text-foreground group-hover:scale-110 transition-transform" />
               </div>
-              <h3 className="text-base sm:text-2xl font-bold text-foreground mb-2 sm:mb-4">
+              <h3 className="text-sm sm:text-2xl font-bold text-foreground mb-2 sm:mb-4 leading-tight">
                 {t("featureRecommendationsTitle")}
               </h3>
               <p className="text-xs sm:text-base text-muted-foreground leading-relaxed">
