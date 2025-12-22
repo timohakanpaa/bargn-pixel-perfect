@@ -324,6 +324,7 @@ export type Database = {
       }
     }
     Functions: {
+      can_access_alert_config: { Args: { config_id: string }; Returns: boolean }
       get_funnel_cohort_analysis: {
         Args: {
           cohort_type: string
