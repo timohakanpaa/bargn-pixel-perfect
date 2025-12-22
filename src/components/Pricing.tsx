@@ -85,8 +85,8 @@ const Pricing = () => {
             <TiltCard className="h-full" tiltDegree={8} scale={1.02}>
               <div className="h-full flex flex-col bg-glass backdrop-blur-2xl border-2 border-accent rounded-2xl overflow-hidden shadow-glow-coral hover:shadow-glow-yellow transition-all duration-300">
                 {/* Recommended Badge */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10">
-                  <div className="bg-accent text-accent-foreground px-4 py-1.5 rounded-b-xl text-xs font-bold flex items-center gap-1.5 shadow-lg">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
+                  <div className="bg-accent text-accent-foreground px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-lg">
                     <Crown className="w-3.5 h-3.5" />
                     {t("recommended")}
                   </div>
