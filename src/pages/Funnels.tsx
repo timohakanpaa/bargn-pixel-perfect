@@ -3,10 +3,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { TrendingUp, TrendingDown, Users, ChevronRight, Target } from "lucide-react";
+import { TrendingUp, TrendingDown, Users, ChevronRight, Target, ShieldAlert } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useAnalytics } from "@/hooks/use-analytics";
+import { useAuth } from "@/hooks/use-auth";
 import { AlertConfigurations } from "@/components/funnel/AlertConfigurations";
 import { AlertLogs } from "@/components/funnel/AlertLogs";
 import { CohortAnalysis } from "@/components/funnel/CohortAnalysis";
@@ -41,10 +42,46 @@ const Funnels = () => {
   useAnalytics();
   useBreadcrumbSchema();
   
+  // Require admin authentication
+  const { loading: authLoading, isAdmin } = useAuth(true);
+  
   const [funnels, setFunnels] = useState<FunnelData[]>([]);
   const [selectedFunnel, setSelectedFunnel] = useState<string | null>(null);
   const [dropOffData, setDropOffData] = useState<DropOffData[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Block non-admin access with a friendly message
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex flex-col bg-background">
+        <Navigation />
+        <main className="flex-1 container mx-auto px-4 py-24 flex items-center justify-center">
+          <Skeleton className="h-12 w-48" />
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen flex flex-col bg-background">
+        <Navigation />
+        <main className="flex-1 container mx-auto px-4 py-24 flex items-center justify-center">
+          <Card className="max-w-md">
+            <CardHeader className="text-center">
+              <ShieldAlert className="w-12 h-12 mx-auto mb-4 text-destructive" />
+              <CardTitle>Access Denied</CardTitle>
+              <CardDescription>
+                You don't have permission to view this page. This section is restricted to administrators only.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   useEffect(() => {
     fetchFunnels();
