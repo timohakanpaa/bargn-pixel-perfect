@@ -81,7 +81,7 @@ const Hero = () => {
             className="w-full sm:w-auto rounded-full px-8 sm:px-10 py-6 sm:py-7 text-lg sm:text-xl shadow-[0_0_25px_rgba(255,220,74,0.7)] hover:shadow-[0_0_40px_rgba(255,220,74,1)]"
           >
             <a
-              href="https://buy.stripe.com/aFa14n2Cca7X6nw5Lu3ZK02"
+              href="https://buy.stripe.com/fZu9AT5Oobc1fY65Lu3ZK04"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => {

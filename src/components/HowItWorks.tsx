@@ -254,7 +254,7 @@ const HowItWorks = () => {
             className="rounded-full px-8 py-6 text-lg font-bold bg-gradient-to-r from-[hsl(328,86%,70%)] to-[hsl(297,89%,60%)] hover:opacity-90 transition-opacity shadow-[0_0_40px_hsl(328_86%_70%_/_0.4)]"
           >
             <a 
-              href="https://buy.stripe.com/aFa14n2Cca7X6nw5Lu3ZK02" 
+              href="https://buy.stripe.com/fZu9AT5Oobc1fY65Lu3ZK04" 
               target="_blank" 
               rel="noopener noreferrer"
             >
