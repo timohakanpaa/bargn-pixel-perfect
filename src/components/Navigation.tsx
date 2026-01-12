@@ -300,7 +300,7 @@ const Navigation = () => {
                     Account
                   </Button>}
                 <Button asChild variant="neon" className="w-full rounded-full shadow-[0_0_25px_rgba(255,220,74,0.7)] min-h-[44px]" size="lg">
-                  <a href="https://buy.stripe.com/aFa14n2Cca7X6nw5Lu3ZK02" target="_blank" rel="noopener noreferrer">
+                  <a href="https://buy.stripe.com/fZu9AT5Oobc1fY65Lu3ZK04" target="_blank" rel="noopener noreferrer">
                     {t("letsGo")}
                   </a>
                 </Button>
