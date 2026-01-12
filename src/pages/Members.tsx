@@ -284,7 +284,7 @@ const Members = () => {
           >
             <Button asChild variant="neon" className="rounded-full px-10 py-7 text-xl group">
               <a 
-                href="https://buy.stripe.com/aFa14n2Cca7X6nw5Lu3ZK02" 
+                href="https://buy.stripe.com/fZu9AT5Oobc1fY65Lu3ZK04" 
                 target="_blank" 
                 rel="noopener noreferrer"
               >
@@ -810,7 +810,7 @@ const Members = () => {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Button asChild variant="neon" size="lg" className="rounded-full px-12 py-7 text-xl">
                 <a 
-                  href="https://buy.stripe.com/aFa14n2Cca7X6nw5Lu3ZK02" 
+                  href="https://buy.stripe.com/fZu9AT5Oobc1fY65Lu3ZK04" 
                   target="_blank" 
                   rel="noopener noreferrer"
                 >
