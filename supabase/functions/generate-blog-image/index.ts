@@ -1,10 +1,6 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3'
 import { z } from 'https://deno.land/x/zod@v3.22.4/mod.ts'
-
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-}
+import { getCorsHeaders, handleCorsPreflightRequest } from "../_shared/cors.ts";
 
 // Input validation schema
 const requestSchema = z.object({
@@ -25,10 +21,11 @@ const requestSchema = z.object({
 })
 
 Deno.serve(async (req) => {
+  const corsHeaders = getCorsHeaders(req);
+  
   // Handle CORS preflight requests
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders })
-  }
+  const corsResponse = handleCorsPreflightRequest(req);
+  if (corsResponse) return corsResponse;
 
   try {
     const supabaseClient = createClient(
