@@ -284,14 +284,16 @@ const PartnerHero = () => {
           </span>
         </motion.h1>
 
-        <motion.h2 
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-3xl md:text-5xl font-bold mb-6 text-foreground"
-        >
-          {t("partners.hero.subheadline")}
-        </motion.h2>
+        {t("partners.hero.subheadline") && t("partners.hero.subheadline") !== "partners.hero.subheadline" && (
+          <motion.h2 
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-3xl md:text-5xl font-bold mb-6 text-foreground"
+          >
+            {t("partners.hero.subheadline")}
+          </motion.h2>
+        )}
 
         <motion.p 
           initial={{ opacity: 0, y: 50 }}
