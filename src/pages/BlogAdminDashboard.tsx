@@ -230,11 +230,10 @@ const BlogAdminDashboard = () => {
           </p>
 
           <Tabs defaultValue="articles" className="space-y-6">
-            <TabsList className="grid grid-cols-5 w-full max-w-2xl mx-auto bg-card border border-border">
+            <TabsList className="grid grid-cols-4 w-full max-w-2xl mx-auto bg-card border border-border">
               <TabsTrigger value="articles">Artikkelit</TabsTrigger>
-              <TabsTrigger value="generate">AI Generointi</TabsTrigger>
+              <TabsTrigger value="content">Sisällöntuotanto</TabsTrigger>
               <TabsTrigger value="materials">Materiaalit</TabsTrigger>
-              <TabsTrigger value="schedule">Ajastus</TabsTrigger>
               <TabsTrigger value="templates">Promptit</TabsTrigger>
             </TabsList>
 
@@ -394,148 +393,161 @@ const BlogAdminDashboard = () => {
               )}
             </TabsContent>
 
-            {/* GENERATE TAB */}
-            <TabsContent value="generate">
-              <Card className="bg-card border-border">
-                <CardHeader>
-                  <CardTitle className="text-foreground flex items-center gap-2">
-                    <Sparkles className="w-5 h-5 text-primary" /> AI Artikkeligenerointi
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <label className="text-sm text-muted-foreground">Avainsanat (pilkulla eroteltu)</label>
-                    <Input
-                      placeholder="säästäminen, tarjoukset, alennuskoodit"
-                      value={genKeywords}
-                      onChange={e => setGenKeywords(e.target.value)}
-                      className="bg-background border-border text-foreground"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* CONTENT PRODUCTION TAB */}
+            <TabsContent value="content" className="space-y-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* MANUAL / ONE-OFF */}
+                <Card className="bg-card border-border">
+                  <CardHeader>
+                    <CardTitle className="text-foreground flex items-center gap-2">
+                      <Sparkles className="w-5 h-5 text-primary" /> Manuaalinen generointi
+                    </CardTitle>
+                    <p className="text-sm text-muted-foreground">Luo yksittäinen artikkeli heti AI:n avulla</p>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
                     <div>
-                      <label className="text-sm text-muted-foreground">Kieli</label>
-                      <Select value={genLanguage} onValueChange={setGenLanguage}>
+                      <label className="text-sm text-muted-foreground">Avainsanat (pilkulla eroteltu)</label>
+                      <Input
+                        placeholder="säästäminen, tarjoukset, alennuskoodit"
+                        value={genKeywords}
+                        onChange={e => setGenKeywords(e.target.value)}
+                        className="bg-background border-border text-foreground"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="text-sm text-muted-foreground">Kieli</label>
+                        <Select value={genLanguage} onValueChange={setGenLanguage}>
+                          <SelectTrigger className="bg-background border-border text-foreground">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="both">🇫🇮🇬🇧 Molemmat</SelectItem>
+                            <SelectItem value="fi">🇫🇮 Suomi</SelectItem>
+                            <SelectItem value="en">🇬🇧 English</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <label className="text-sm text-muted-foreground">Prompt-pohja</label>
+                        <Select value={genTemplateId} onValueChange={setGenTemplateId}>
+                          <SelectTrigger className="bg-background border-border text-foreground">
+                            <SelectValue placeholder="Valitse pohja" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {templates.map(t => (
+                              <SelectItem key={t.id} value={t.id}>{t.name}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="text-sm text-muted-foreground">Mukautettu prompt (valinnainen)</label>
+                      <Textarea
+                        placeholder="Kirjoita artikkeli aiheesta {{keywords}}..."
+                        value={genCustomPrompt}
+                        onChange={e => setGenCustomPrompt(e.target.value)}
+                        rows={3}
+                        className="bg-background border-border text-foreground"
+                      />
+                      <p className="text-xs text-muted-foreground mt-1">{"{{keywords}}"} = avainsanojen paikkamerkki</p>
+                    </div>
+
+                    <Button onClick={generateArticle} disabled={generating} className="w-full">
+                      {generating ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin mr-2" />
+                          Generoidaan...
+                        </>
+                      ) : (
+                        <>
+                          <Sparkles className="w-4 h-4 mr-2" /> Generoi artikkeli nyt
+                        </>
+                      )}
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                {/* AUTOMATIC / SCHEDULED */}
+                <Card className="bg-card border-border">
+                  <CardHeader>
+                    <CardTitle className="text-foreground flex items-center gap-2">
+                      <Calendar className="w-5 h-5 text-accent" /> Automaattinen generointi
+                    </CardTitle>
+                    <p className="text-sm text-muted-foreground">Ajasta AI artikkelien automaattinen luonti</p>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div>
+                      <label className="text-sm text-muted-foreground">Avainsanat</label>
+                      <Input
+                        placeholder="säästäminen, tarjoukset"
+                        value={schedKeywords}
+                        onChange={e => setSchedKeywords(e.target.value)}
+                        className="bg-background border-border text-foreground"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="text-sm text-muted-foreground">Kieli</label>
+                        <Select value={schedLanguage} onValueChange={setSchedLanguage}>
+                          <SelectTrigger className="bg-background border-border text-foreground">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="both">🇫🇮🇬🇧 Molemmat</SelectItem>
+                            <SelectItem value="fi">🇫🇮 Suomi</SelectItem>
+                            <SelectItem value="en">🇬🇧 English</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <label className="text-sm text-muted-foreground">Prompt-pohja</label>
+                        <Select value={schedTemplateId} onValueChange={setSchedTemplateId}>
+                          <SelectTrigger className="bg-background border-border text-foreground">
+                            <SelectValue placeholder="Valitse" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {templates.map(t => (
+                              <SelectItem key={t.id} value={t.id}>{t.name}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="text-sm text-muted-foreground">Aikataulu (Cron)</label>
+                      <Select value={schedCron} onValueChange={setSchedCron}>
                         <SelectTrigger className="bg-background border-border text-foreground">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="both">🇫🇮🇬🇧 Molemmat</SelectItem>
-                          <SelectItem value="fi">🇫🇮 Suomi</SelectItem>
-                          <SelectItem value="en">🇬🇧 English</SelectItem>
+                          <SelectItem value="0 9 * * 1">Joka maanantai klo 9</SelectItem>
+                          <SelectItem value="0 9 * * 1,4">Ma & To klo 9</SelectItem>
+                          <SelectItem value="0 9 * * *">Joka päivä klo 9</SelectItem>
+                          <SelectItem value="0 9 1 * *">Kuun 1. päivä klo 9</SelectItem>
                         </SelectContent>
                       </Select>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Nykyinen: <code className="bg-muted px-1 rounded text-xs">{schedCron}</code>
+                      </p>
                     </div>
-                    <div>
-                      <label className="text-sm text-muted-foreground">Prompt-pohja</label>
-                      <Select value={genTemplateId} onValueChange={setGenTemplateId}>
-                        <SelectTrigger className="bg-background border-border text-foreground">
-                          <SelectValue placeholder="Valitse pohja" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {templates.map(t => (
-                            <SelectItem key={t.id} value={t.id}>{t.name}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
 
-                  <div>
-                    <label className="text-sm text-muted-foreground">Mukautettu prompt (ohittaa pohjan)</label>
-                    <Textarea
-                      placeholder="Kirjoita artikkeli aiheesta {{keywords}}..."
-                      value={genCustomPrompt}
-                      onChange={e => setGenCustomPrompt(e.target.value)}
-                      rows={4}
-                      className="bg-background border-border text-foreground"
-                    />
-                    <p className="text-xs text-muted-foreground mt-1">Käytä {"{{keywords}}"} avainsanojen paikkamerkkinä</p>
-                  </div>
-
-                  <Button onClick={generateArticle} disabled={generating} className="w-full">
-                    {generating ? (
-                      <>
-                        <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin mr-2" />
-                        Generoidaan...
-                      </>
-                    ) : (
-                      <>
-                        <Sparkles className="w-4 h-4 mr-2" /> Generoi artikkeli
-                      </>
-                    )}
-                  </Button>
-                </CardContent>
-              </Card>
+                    <Button onClick={createSchedule} className="w-full" variant="secondary">
+                      <Calendar className="w-4 h-4 mr-2" /> Aktivoi automaattinen generointi
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
             </TabsContent>
 
             {/* MATERIALS TAB */}
             <TabsContent value="materials">
               <MaterialBank />
-            </TabsContent>
-
-            {/* SCHEDULE TAB */}
-            <TabsContent value="schedule">
-              <Card className="bg-card border-border">
-                <CardHeader>
-                  <CardTitle className="text-foreground flex items-center gap-2">
-                    <Calendar className="w-5 h-5 text-accent" /> Ajastettu generointi
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <label className="text-sm text-muted-foreground">Avainsanat</label>
-                    <Input
-                      placeholder="säästäminen, tarjoukset"
-                      value={schedKeywords}
-                      onChange={e => setSchedKeywords(e.target.value)}
-                      className="bg-background border-border text-foreground"
-                    />
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                      <label className="text-sm text-muted-foreground">Kieli</label>
-                      <Select value={schedLanguage} onValueChange={setSchedLanguage}>
-                        <SelectTrigger className="bg-background border-border text-foreground">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="both">Molemmat</SelectItem>
-                          <SelectItem value="fi">Suomi</SelectItem>
-                          <SelectItem value="en">English</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <label className="text-sm text-muted-foreground">Prompt-pohja</label>
-                      <Select value={schedTemplateId} onValueChange={setSchedTemplateId}>
-                        <SelectTrigger className="bg-background border-border text-foreground">
-                          <SelectValue placeholder="Valitse" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {templates.map(t => (
-                            <SelectItem key={t.id} value={t.id}>{t.name}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <label className="text-sm text-muted-foreground">Cron (aikataulu)</label>
-                      <Input
-                        placeholder="0 9 * * 1"
-                        value={schedCron}
-                        onChange={e => setSchedCron(e.target.value)}
-                        className="bg-background border-border text-foreground"
-                      />
-                      <p className="text-xs text-muted-foreground mt-1">Esim: 0 9 * * 1 = Ma klo 9</p>
-                    </div>
-                  </div>
-                  <Button onClick={createSchedule} className="w-full">
-                    <Calendar className="w-4 h-4 mr-2" /> Luo ajastus
-                  </Button>
-                </CardContent>
-              </Card>
             </TabsContent>
 
             {/* TEMPLATES TAB */}
