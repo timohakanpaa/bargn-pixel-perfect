@@ -188,7 +188,7 @@ const Funnels = () => {
                   >
                     <CardHeader>
                       <CardTitle className="text-lg">{funnel.funnel_name}</CardTitle>
-                      <CardDescription>{funnel.steps.length} steps</CardDescription>
+                      <CardDescription>{funnel.steps?.length ?? 0} steps</CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-2">
