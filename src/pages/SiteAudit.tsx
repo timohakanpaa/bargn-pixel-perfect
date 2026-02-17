@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import AdminGuard from "@/components/AdminGuard";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -455,6 +456,7 @@ const SiteAudit = () => {
   const countBySeverity = (severity: Severity) => findings.filter(f => f.severity === severity).length;
 
   return (
+    <AdminGuard>
     <div className="min-h-screen bg-background">
       <Navigation />
       <div className="pt-[132px] pb-24">
@@ -646,6 +648,7 @@ const SiteAudit = () => {
       </div>
       <Footer />
     </div>
+    </AdminGuard>
   );
 };
 
