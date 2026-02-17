@@ -2,6 +2,7 @@ import { useAuth } from "@/hooks/use-auth";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import AdminGuard from "@/components/AdminGuard";
+import CheckoutLeads from "@/components/admin/CheckoutLeads";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -126,6 +127,9 @@ const AdminPanel = () => {
               );
             })}
           </div>
+
+          {/* Checkout Leads */}
+          <CheckoutLeads />
 
           {/* Quick Links */}
           <Card className="mt-10">

@@ -309,6 +309,27 @@ export type Database = {
           },
         ]
       }
+      checkout_leads: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          terms_accepted: boolean
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          terms_accepted?: boolean
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          terms_accepted?: boolean
+        }
+        Relationships: []
+      }
       content_materials: {
         Row: {
           caption: string
