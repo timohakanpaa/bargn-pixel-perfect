@@ -1,4 +1,4 @@
-import { Search, User, Menu, X, ChevronDown, Activity, BarChart3, MessageSquare, GitBranch, FileText } from "lucide-react";
+import { Search, User, Menu, X, ChevronDown, Activity, BarChart3, MessageSquare, GitBranch, FileText, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NavLink } from "@/components/NavLink";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -96,6 +96,10 @@ const Navigation = () => {
     to: "/funnels",
     label: "Funnels",
     icon: GitBranch
+  }, {
+    to: "/site-audit",
+    label: "Site Audit",
+    icon: ShieldCheck
   }];
   const isAdminRoute = adminItems.some(item => location.pathname === item.to);
   return <>
