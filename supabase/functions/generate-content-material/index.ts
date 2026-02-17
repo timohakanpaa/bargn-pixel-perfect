@@ -181,21 +181,42 @@ Vastaa JSON-muodossa:
       if (jsonMatch) {
         const parsed = JSON.parse(jsonMatch[0]);
         title = parsed.title || theme;
-        // Handle nested platform structures (e.g. { tiktok: { caption: "..." }, instagram: { caption: "..." } })
-        if (parsed.caption) {
-          caption = parsed.caption;
-        } else if (parsed.tiktok?.caption || parsed.instagram?.caption) {
-          // Pick the caption for the requested platform, fallback to either
-          caption = (platform === "tiktok" ? parsed.tiktok?.caption : parsed.instagram?.caption)
-            || parsed.tiktok?.caption || parsed.instagram?.caption || rawCaption;
-        } else if (parsed.data && Array.isArray(parsed.data)) {
-          // Handle { data: [{ platform: "TikTok", caption: "..." }] } format
-          const match = parsed.data.find((d: { platform?: string }) => 
-            d.platform?.toLowerCase() === platform.toLowerCase()
-          );
-          caption = match?.caption || parsed.data[0]?.caption || rawCaption;
+
+        // Normalize keys to lowercase for case-insensitive matching
+        const keys: Record<string, any> = {};
+        for (const [k, v] of Object.entries(parsed)) {
+          keys[k.toLowerCase()] = v;
+        }
+
+        if (typeof keys.caption === "string") {
+          // Simple flat { caption: "..." }
+          caption = keys.caption;
         } else {
-          caption = rawCaption;
+          // Nested platform structures: { TikTok: { caption }, Instagram: { caption } }
+          const tiktokCap = keys.tiktok?.caption || keys.tiktok?.text;
+          const instaCap = keys.instagram?.caption || keys.instagram?.text;
+
+          if (tiktokCap || instaCap) {
+            if (platform === "tiktok") {
+              caption = tiktokCap || instaCap;
+            } else if (platform === "instagram") {
+              caption = instaCap || tiktokCap;
+            } else {
+              // "both" — combine them
+              const parts: string[] = [];
+              if (tiktokCap) parts.push(`TikTok:\n${tiktokCap}`);
+              if (instaCap) parts.push(`Instagram:\n${instaCap}`);
+              caption = parts.join("\n\n---\n\n");
+            }
+          } else if (keys.data && Array.isArray(keys.data)) {
+            const match = keys.data.find((d: any) =>
+              d.platform?.toLowerCase() === platform.toLowerCase()
+            );
+            caption = match?.caption || keys.data[0]?.caption || rawCaption;
+          } else {
+            // Last resort: stringify non-title fields as plain text
+            caption = rawCaption;
+          }
         }
       }
     } catch {
