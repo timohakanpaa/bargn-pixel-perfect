@@ -158,7 +158,22 @@ const BlogArticle = () => {
                 {title}
               </h1>
 
-              <div className="prose prose-lg max-w-none text-muted-foreground [&_h2]:text-foreground [&_h3]:text-foreground [&_strong]:text-foreground [&_a]:text-primary">
+              <div className="prose prose-lg max-w-none text-muted-foreground
+                [&_h2]:text-foreground [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:mt-10 [&_h2]:mb-4
+                [&_h3]:text-foreground [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:mt-8 [&_h3]:mb-3
+                [&_strong]:text-foreground
+                [&_a]:text-primary [&_a]:underline
+                [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:my-4 [&_ul]:space-y-2
+                [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:my-4 [&_ol]:space-y-2
+                [&_li]:leading-relaxed
+                [&_p]:leading-relaxed [&_p]:my-4
+                [&_table]:w-full [&_table]:my-6 [&_table]:border-collapse [&_table]:rounded-xl [&_table]:overflow-hidden
+                [&_thead]:bg-primary/10
+                [&_th]:text-foreground [&_th]:text-left [&_th]:px-4 [&_th]:py-3 [&_th]:font-semibold [&_th]:border-b [&_th]:border-border
+                [&_td]:px-4 [&_td]:py-3 [&_td]:border-b [&_td]:border-border
+                [&_tr:last-child_td]:border-b-0
+                [&_blockquote]:border-l-4 [&_blockquote]:border-primary [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:my-6
+              ">
                 <ReactMarkdown>{content}</ReactMarkdown>
               </div>
 
