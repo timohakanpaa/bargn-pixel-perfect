@@ -3,6 +3,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import AdminGuard from "@/components/AdminGuard";
 import CheckoutLeads from "@/components/admin/CheckoutLeads";
+import UserRolesManager from "@/components/admin/UserRolesManager";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -130,6 +131,9 @@ const AdminPanel = () => {
 
           {/* Checkout Leads */}
           <CheckoutLeads />
+
+          {/* User Roles */}
+          <UserRolesManager />
 
           {/* Quick Links */}
           <Card className="mt-10">
