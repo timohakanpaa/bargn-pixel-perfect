@@ -12,12 +12,14 @@ import { useAnalytics } from "@/hooks/use-analytics";
 import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 import { useArticleSchema } from "@/hooks/use-article-schema";
 import { useMetaTags } from "@/hooks/use-meta-tags";
+import { useNavigate } from "react-router-dom";
 
 const Blog = () => {
   useAnalytics();
   useBreadcrumbSchema();
   const { t } = useLanguage();
   const { scrollY } = useScroll();
+  const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState("all");
   const { ref: heroRef, isInView: heroInView } = useInView();
   const { ref: postsRef, isInView: postsInView } = useInView();
@@ -100,8 +102,8 @@ const Blog = () => {
       category: t("blog.article1.category"),
       readTime: "6 min",
       gradient: "from-[#E94B96] to-[#FF9B7D]",
-      // Image will be loaded from storage or generated
-      imageUrl: "article-success-story.png"
+      imageUrl: "article-success-story.png",
+      slug: "how-sarah-saved"
     },
     {
       title: t("blog.article2.title"),
@@ -109,7 +111,8 @@ const Blog = () => {
       category: t("blog.article2.category"),
       readTime: "8 min",
       gradient: "from-[#FF9B7D] to-[#FFE500]",
-      imageUrl: "article-coupon-apps.png"
+      imageUrl: "article-coupon-apps.png",
+      slug: "coupon-apps-scam"
     },
     {
       title: t("blog.article3.title"),
@@ -117,7 +120,8 @@ const Blog = () => {
       category: t("blog.article3.category"),
       readTime: "4 min",
       gradient: "from-[#8B5CF6] to-[#FFE500]",
-      imageUrl: "article-new-partners.png"
+      imageUrl: "article-new-partners.png",
+      slug: "new-partners"
     }
   ];
   
@@ -227,14 +231,7 @@ const Blog = () => {
                     {t("blog.article1.excerpt")}
                   </p>
                   <Button
-                    onClick={() => {
-                      confetti({
-                        particleCount: 100,
-                        spread: 70,
-                        origin: { y: 0.6 },
-                        colors: ['#FF9B7D', '#E94B96', '#FFE500']
-                      });
-                    }}
+                    onClick={() => navigate("/blog/how-sarah-saved")}
                     className="bg-gradient-to-r from-[#E94B96] to-[#FF9B7D] text-white hover:shadow-[0_0_40px_rgba(233,75,150,0.6)] font-bold rounded-full px-8 py-6"
                   >
                     {t('blog.readFullStory')}
@@ -345,14 +342,7 @@ const Blog = () => {
                     
                     <Button
                       variant="ghost"
-                      onClick={() => {
-                        confetti({
-                          particleCount: 50,
-                          spread: 60,
-                          origin: { y: 0.7 },
-                          colors: ['#FF9B7D', '#E94B96', '#FFE500']
-                        });
-                      }}
+                      onClick={() => navigate(`/blog/${article.slug}`)}
                       className="text-[#FF9B7D] hover:text-[#E94B96] font-bold group"
                     >
                       {t('blog.readMore')}
