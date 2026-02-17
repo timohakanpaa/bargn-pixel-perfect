@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { Sparkles, Download, Trash2, Edit, Image, Copy, Instagram } from "lucide-react";
+import { Sparkles, Download, Trash2, Edit, Image, Copy, Instagram, RefreshCw } from "lucide-react";
 
 interface ContentMaterial {
   id: string;
@@ -56,6 +56,7 @@ const MaterialBank = () => {
   const [filter, setFilter] = useState<string>("all");
   const [suggesting, setSuggesting] = useState(false);
   const [suggestion, setSuggestion] = useState<{ title: string; caption: string } | null>(null);
+  const [regeneratingId, setRegeneratingId] = useState<string | null>(null);
 
   const fetchMaterials = useCallback(async () => {
     const { data, error } = await supabase
@@ -154,6 +155,29 @@ const MaterialBank = () => {
       fetchMaterials();
     } else {
       toast.error("Tallennus epäonnistui");
+    }
+  };
+
+  const regenerateImage = async (material: ContentMaterial) => {
+    setRegeneratingId(material.id);
+    try {
+      const selectedStyle = IMAGE_STYLES.find(s => s.value === imageStyle);
+      const { data, error } = await supabase.functions.invoke("generate-content-material", {
+        body: {
+          theme: material.theme,
+          platform: material.platform,
+          imageStyle: selectedStyle?.prompt || IMAGE_STYLES[0].prompt,
+          regenerateImageForId: material.id,
+        },
+      });
+      if (error) throw error;
+      toast.success("Kuva generoitu uudelleen!");
+      fetchMaterials();
+    } catch (e: any) {
+      console.error("Regenerate image error:", e);
+      toast.error(e.message || "Kuvan generointi epäonnistui");
+    } finally {
+      setRegeneratingId(null);
     }
   };
 
@@ -455,6 +479,18 @@ const MaterialBank = () => {
                       )}
                     </DialogContent>
                   </Dialog>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    disabled={regeneratingId === material.id}
+                    onClick={() => regenerateImage(material)}
+                  >
+                    {regeneratingId === material.id ? (
+                      <div className="w-3 h-3 border-2 border-foreground border-t-transparent rounded-full animate-spin" />
+                    ) : (
+                      <><RefreshCw className="w-3 h-3 mr-1" /> Kuva</>
+                    )}
+                  </Button>
                   <Button
                     size="sm"
                     variant="outline"
