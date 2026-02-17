@@ -66,7 +66,7 @@ const Navigation = () => {
     label: t("about")
   }, {
     to: "/blog",
-    label: t("blog.nav") || "Blog"
+    label: "Blog"
   }, {
     to: "/campaign",
     label: t("campaign")
