@@ -44,6 +44,8 @@ const MaterialBank = () => {
   const [customPrompt, setCustomPrompt] = useState("");
   const [editingMaterial, setEditingMaterial] = useState<ContentMaterial | null>(null);
   const [filter, setFilter] = useState<string>("all");
+  const [suggesting, setSuggesting] = useState(false);
+  const [suggestion, setSuggestion] = useState<{ title: string; caption: string } | null>(null);
 
   const fetchMaterials = useCallback(async () => {
     const { data, error } = await supabase
@@ -57,16 +59,46 @@ const MaterialBank = () => {
     fetchMaterials();
   }, [fetchMaterials]);
 
+  const getThemeLabel = () => customTheme || THEMES.find(t => t.value === selectedTheme)?.label?.replace(/^[^\s]+\s/, "") || "";
+
+  const suggestContent = async () => {
+    const theme = getThemeLabel();
+    if (!theme) {
+      toast.error("Valitse tai kirjoita teema");
+      return;
+    }
+    setSuggesting(true);
+    setSuggestion(null);
+    try {
+      const { data, error } = await supabase.functions.invoke("generate-content-material", {
+        body: { theme, platform, customPrompt: customPrompt || undefined, suggestOnly: true },
+      });
+      if (error) throw error;
+      setSuggestion(data.suggestion);
+      toast.success("Ehdotus valmis! Voit muokata ja generoida kuvan.");
+    } catch (e: any) {
+      console.error("Suggest error:", e);
+      toast.error(e.message || "Virhe ehdotuksessa");
+    } finally {
+      setSuggesting(false);
+    }
+  };
+
   const generateContent = async () => {
-    const theme = customTheme || THEMES.find(t => t.value === selectedTheme)?.label?.replace(/^[^\s]+\s/, "") || "";
+    const theme = getThemeLabel();
     if (!theme) {
       toast.error("Valitse tai kirjoita teema");
       return;
     }
     setGenerating(true);
     try {
+      // If we have an edited suggestion, pass it as customPrompt to preserve edits
+      const promptToUse = suggestion
+        ? `Käytä tämä teksti sellaisenaan. Vastaa JSON-muodossa:\n{"title": "${suggestion.title}", "caption": "${suggestion.caption}"}`
+        : customPrompt || undefined;
+      
       const { data, error } = await supabase.functions.invoke("generate-content-material", {
-        body: { theme, platform, customPrompt: customPrompt || undefined },
+        body: { theme, platform, customPrompt: promptToUse },
       });
       if (error) throw error;
       if (data?.imageError) {
@@ -74,6 +106,7 @@ const MaterialBank = () => {
       } else {
         toast.success("Sisältö generoitu onnistuneesti!");
       }
+      setSuggestion(null);
       fetchMaterials();
     } catch (e: any) {
       console.error("Generation error:", e);
@@ -212,7 +245,45 @@ const MaterialBank = () => {
             />
           </div>
 
-          <Button onClick={generateContent} disabled={generating} className="w-full">
+          <Button onClick={suggestContent} disabled={suggesting || generating} variant="outline" className="w-full">
+            {suggesting ? (
+              <>
+                <div className="w-4 h-4 border-2 border-foreground border-t-transparent rounded-full animate-spin mr-2" />
+                Luodaan ehdotusta...
+              </>
+            ) : (
+              <>
+                <Sparkles className="w-4 h-4 mr-2" /> Ehdota sisältö
+              </>
+            )}
+          </Button>
+
+          {suggestion && (
+            <Card className="bg-muted/50 border-primary/30">
+              <CardContent className="p-4 space-y-3">
+                <p className="text-xs font-semibold text-primary uppercase tracking-wide">Ehdotus — muokkaa halutessasi</p>
+                <div>
+                  <label className="text-sm text-muted-foreground">Otsikko</label>
+                  <Input
+                    value={suggestion.title}
+                    onChange={e => setSuggestion({ ...suggestion, title: e.target.value })}
+                    className="bg-background border-border text-foreground"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm text-muted-foreground">Teksti</label>
+                  <Textarea
+                    rows={5}
+                    value={suggestion.caption}
+                    onChange={e => setSuggestion({ ...suggestion, caption: e.target.value })}
+                    className="bg-background border-border text-foreground"
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          <Button onClick={generateContent} disabled={generating || suggesting} className="w-full">
             {generating ? (
               <>
                 <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin mr-2" />
@@ -220,7 +291,7 @@ const MaterialBank = () => {
               </>
             ) : (
               <>
-                <Sparkles className="w-4 h-4 mr-2" /> Generoi sisältö + kuva
+                <Sparkles className="w-4 h-4 mr-2" /> {suggestion ? "Hyväksy ja generoi kuva" : "Generoi sisältö + kuva"}
               </>
             )}
           </Button>

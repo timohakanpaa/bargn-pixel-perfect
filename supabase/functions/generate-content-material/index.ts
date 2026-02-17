@@ -57,7 +57,7 @@ serve(async (req) => {
       });
     }
 
-    const { theme, platform, customPrompt } = await req.json();
+    const { theme, platform, customPrompt, suggestOnly } = await req.json();
 
     if (!theme || !platform) {
       return new Response(JSON.stringify({ error: "Theme and platform required" }), {
@@ -122,6 +122,13 @@ Vastaa JSON-muodossa:
       }
     } catch {
       console.log("Could not parse JSON from caption, using raw text");
+    }
+
+    // If suggestOnly, return the suggestion without saving or generating image
+    if (suggestOnly) {
+      return new Response(JSON.stringify({ success: true, suggestion: { title, caption } }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // Step 2: Generate photorealistic image
