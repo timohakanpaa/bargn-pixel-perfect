@@ -7,7 +7,7 @@ import MaterialBank from "@/components/admin/MaterialBank";
 import { Card, CardContent, CardGlass } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Copy, Download, Sparkles, Instagram, ArrowRight, Lightbulb, Eye, Zap, TrendingUp } from "lucide-react";
+import { Copy, Download, Sparkles, Instagram, ArrowRight, Lightbulb, Eye, Zap, TrendingUp, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -109,6 +109,28 @@ const Materials = () => {
   const copyCaption = (caption: string) => {
     navigator.clipboard.writeText(caption);
     toast.success("Teksti kopioitu leikepöydälle!");
+  };
+
+  const deleteMaterial = async (id: string) => {
+    const { error } = await supabase
+      .from("content_materials" as any)
+      .delete()
+      .eq("id", id);
+    if (!error) {
+      setMaterials(prev => prev.filter(m => m.id !== id));
+      toast.success("Materiaali poistettu");
+    } else {
+      toast.error("Poisto epäonnistui");
+    }
+  };
+
+  const refreshMaterials = async () => {
+    const { data } = await supabase
+      .from("content_materials" as any)
+      .select("id, title, caption, platform, theme, image_url, created_at")
+      .eq("status", "published")
+      .order("created_at", { ascending: false });
+    if (data) setMaterials(data as unknown as PublicMaterial[]);
   };
 
   const platformIcon = (p: string) => {
@@ -240,14 +262,30 @@ const Materials = () => {
                             <p className="text-sm text-muted-foreground line-clamp-4 whitespace-pre-wrap leading-relaxed">
                               {material.caption}
                             </p>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => copyCaption(material.caption)}
-                              className="w-full hover:bg-primary/10 hover:border-primary/40 transition-colors"
-                            >
-                              <Copy className="w-3 h-3 mr-2" /> Kopioi teksti
-                            </Button>
+                            <div className="flex gap-2">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => copyCaption(material.caption)}
+                                className="flex-1 hover:bg-primary/10 hover:border-primary/40 transition-colors"
+                              >
+                                <Copy className="w-3 h-3 mr-2" /> Kopioi teksti
+                              </Button>
+                              {isAdmin && (
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => {
+                                    if (confirm("Poistetaanko tämä materiaali?")) {
+                                      deleteMaterial(material.id);
+                                    }
+                                  }}
+                                  className="hover:bg-destructive/10 hover:border-destructive/40 hover:text-destructive transition-colors"
+                                >
+                                  <Trash2 className="w-3 h-3" />
+                                </Button>
+                              )}
+                            </div>
                           </CardContent>
                         </CardGlass>
                       </motion.div>

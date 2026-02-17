@@ -35,12 +35,22 @@ const THEMES = [
   { value: "treffi-ideat", label: "❤️ Treffi-ideat" },
 ];
 
+const IMAGE_STYLES = [
+  { value: "ugc", label: "📱 UGC (käyttäjäsisältö)", prompt: "Casual user-generated content style photo, shot on iPhone, natural lighting, authentic feel, slightly imperfect framing, relatable everyday setting" },
+  { value: "realistic", label: "📷 Realistinen valokuva", prompt: "Professional photography, sharp focus, natural colors, realistic lighting, editorial quality" },
+  { value: "lifestyle", label: "✨ Lifestyle", prompt: "Aspirational lifestyle photography, warm tones, golden hour lighting, stylish setting, magazine-quality composition" },
+  { value: "minimal", label: "🤍 Minimalistinen", prompt: "Clean minimalist aesthetic, white space, simple composition, muted pastel colors, Scandinavian design vibes" },
+  { value: "vibrant", label: "🌈 Värikäs & energinen", prompt: "Bold vibrant colors, high energy, dynamic composition, pop art influences, eye-catching and fun" },
+  { value: "street", label: "🏙️ Katukuva", prompt: "Street photography style, urban setting, candid moment, gritty textures, authentic city vibes, documentary feel" },
+];
+
 const MaterialBank = () => {
   const [materials, setMaterials] = useState<ContentMaterial[]>([]);
   const [generating, setGenerating] = useState(false);
   const [selectedTheme, setSelectedTheme] = useState("");
   const [customTheme, setCustomTheme] = useState("");
   const [platform, setPlatform] = useState<string>("both");
+  const [imageStyle, setImageStyle] = useState<string>("ugc");
   const [customPrompt, setCustomPrompt] = useState("");
   const [editingMaterial, setEditingMaterial] = useState<ContentMaterial | null>(null);
   const [filter, setFilter] = useState<string>("all");
@@ -97,8 +107,9 @@ const MaterialBank = () => {
         ? `Käytä tämä teksti sellaisenaan. Vastaa JSON-muodossa:\n{"title": "${suggestion.title}", "caption": "${suggestion.caption}"}`
         : customPrompt || undefined;
       
+      const selectedStyle = IMAGE_STYLES.find(s => s.value === imageStyle);
       const { data, error } = await supabase.functions.invoke("generate-content-material", {
-        body: { theme, platform, customPrompt: promptToUse },
+        body: { theme, platform, customPrompt: promptToUse, imageStyle: selectedStyle?.prompt || "" },
       });
       if (error) throw error;
       if (data?.imageError) {
@@ -218,6 +229,20 @@ const MaterialBank = () => {
                 className="bg-background border-border text-foreground"
               />
             </div>
+          </div>
+
+          <div>
+            <label className="text-sm text-muted-foreground">Kuvatyyli</label>
+            <Select value={imageStyle} onValueChange={setImageStyle}>
+              <SelectTrigger className="bg-background border-border text-foreground w-full md:w-80">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {IMAGE_STYLES.map(s => (
+                  <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           <div>

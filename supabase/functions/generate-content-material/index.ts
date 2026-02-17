@@ -59,7 +59,7 @@ serve(async (req) => {
       });
     }
 
-    const { theme, platform, customPrompt, suggestOnly } = await req.json();
+    const { theme, platform, customPrompt, suggestOnly, imageStyle } = await req.json();
 
     if (!theme || !platform) {
       return new Response(JSON.stringify({ error: "Theme and platform required" }), {
@@ -153,7 +153,11 @@ Vastaa JSON-muodossa:
     // Step 2: Generate photorealistic image
     console.log("Generating image for theme:", theme);
 
-    const imagePrompt = `Photorealistic high quality social media image for a Finnish discount app called Bargn. Theme: "${theme}". The image should be vibrant, modern, and appealing for ${platform === "tiktok" ? "TikTok" : "Instagram"}. No text overlays. Professional photography style, bright colors, lifestyle imagery. Ultra high resolution.`;
+    const styleInstruction = imageStyle 
+      ? `Style: ${imageStyle}.`
+      : "Professional photography style, bright colors, lifestyle imagery.";
+
+    const imagePrompt = `Social media image for a Finnish discount app called Bargn. Theme: "${theme}". ${styleInstruction} The image should be appealing for ${platform === "tiktok" ? "TikTok" : "Instagram"}. No text overlays, no watermarks, no logos. Ultra high resolution.`;
 
     const imageResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
