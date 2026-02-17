@@ -508,6 +508,7 @@ export type Database = {
           completions: number
           funnel_id: string
           funnel_name: string
+          steps: Json
           total_entries: number
         }[]
       }

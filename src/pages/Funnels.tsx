@@ -3,9 +3,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { TrendingUp, TrendingDown, Users, ChevronRight, Target, ShieldAlert } from "lucide-react";
+import { TrendingUp, TrendingDown, Users, ChevronRight, Target } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import AdminGuard from "@/components/AdminGuard";
 import { useAnalytics } from "@/hooks/use-analytics";
 import { useAuth } from "@/hooks/use-auth";
 import { AlertConfigurations } from "@/components/funnel/AlertConfigurations";
@@ -42,8 +43,7 @@ const Funnels = () => {
   useAnalytics();
   useBreadcrumbSchema();
   
-  // Require admin authentication
-  const { loading: authLoading, isAdmin } = useAuth(true);
+  const { isAdmin } = useAuth(true);
   
   const [funnels, setFunnels] = useState<FunnelData[]>([]);
   const [selectedFunnel, setSelectedFunnel] = useState<string | null>(null);
@@ -62,44 +62,9 @@ const Funnels = () => {
     }
   }, [selectedFunnel, isAdmin]);
 
-  // Block non-admin access with a friendly message
-  if (authLoading) {
-    return (
-      <div className="min-h-screen flex flex-col bg-background">
-        <Navigation />
-        <main className="flex-1 container mx-auto px-4 py-24 flex items-center justify-center">
-          <Skeleton className="h-12 w-48" />
-        </main>
-        <Footer />
-      </div>
-    );
-  }
-
-  if (!isAdmin) {
-    return (
-      <div className="min-h-screen flex flex-col bg-background">
-        <Navigation />
-        <main className="flex-1 container mx-auto px-4 py-24 flex items-center justify-center">
-          <Card className="max-w-md">
-            <CardHeader className="text-center">
-              <ShieldAlert className="w-12 h-12 mx-auto mb-4 text-destructive" />
-              <CardTitle>Access Denied</CardTitle>
-              <CardDescription>
-                You don't have permission to view this page. This section is restricted to administrators only.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
-
   const fetchFunnels = async () => {
     try {
-      // Use secure function instead of view
-      const { data, error } = await supabase
-        .rpc("get_funnel_analytics");
+      const { data, error } = await supabase.rpc("get_funnel_analytics");
 
       if (error) {
         console.error("Error fetching funnels:", error);
@@ -121,11 +86,10 @@ const Funnels = () => {
 
   const fetchDropOffData = async (funnelId: string) => {
     try {
-      const { data, error } = await supabase
-        .rpc("get_funnel_dropoff", {
-          funnel_id_param: funnelId,
-          days_back: 30,
-        });
+      const { data, error } = await supabase.rpc("get_funnel_dropoff", {
+        funnel_id_param: funnelId,
+        days_back: 30,
+      });
 
       if (error) throw error;
       setDropOffData(data || []);
@@ -137,10 +101,11 @@ const Funnels = () => {
   const selectedFunnelData = funnels.find(f => f.funnel_id === selectedFunnel);
 
   return (
+    <AdminGuard>
     <div className="min-h-screen flex flex-col bg-background">
       <Navigation />
       
-      <main className="flex-1 container mx-auto px-4 py-24">
+      <main className="flex-1 container mx-auto px-4 pt-[132px] pb-24">
         <div className="max-w-7xl mx-auto space-y-8">
           <div>
             <h1 className="text-4xl font-bold mb-2">Conversion Funnels</h1>
@@ -341,6 +306,7 @@ const Funnels = () => {
 
       <Footer />
     </div>
+    </AdminGuard>
   );
 };
 

@@ -129,6 +129,48 @@ serve(async (req) => {
     });
 
     const body = await req.json();
+
+    // Handle Web Vitals separately (no auth needed, lightweight)
+    if (body.webVitals) {
+      const wv = body.webVitals;
+      if (!wv.session_id || !Array.isArray(wv.metrics)) {
+        return new Response(JSON.stringify({ error: "Invalid webVitals payload" }), {
+          status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
+      if (!checkRateLimit(wv.session_id)) {
+        return new Response(JSON.stringify({ error: "Rate limit exceeded" }), {
+          status: 429, headers: { ...corsHeaders, "Content-Type": "application/json", "Retry-After": "60" },
+        });
+      }
+
+      const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+      const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+      const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+      let inserted = 0;
+      for (const m of wv.metrics.slice(0, 20)) {
+        const { error } = await supabase.rpc('insert_web_vital', {
+          p_session_id: wv.session_id,
+          p_metric_name: String(m.name).slice(0, 10),
+          p_metric_value: Number(m.value) || 0,
+          p_metric_rating: String(m.rating),
+          p_metric_delta: Number(m.delta) || 0,
+          p_metric_id: String(m.id).slice(0, 100),
+          p_page_path: m.page_path ? String(m.page_path).slice(0, 500) : null,
+          p_user_agent: userAgent ? String(userAgent).slice(0, 500) : null,
+          p_screen_width: m.screen_width ? Number(m.screen_width) : null,
+          p_connection_type: m.connection_type ? String(m.connection_type).slice(0, 20) : null,
+        });
+        if (!error) inserted++;
+      }
+
+      return new Response(JSON.stringify({ success: true, tracked: { web_vitals: inserted } }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200,
+      });
+    }
+
     const parsed = requestSchema.safeParse(body);
     
     if (!parsed.success) {
