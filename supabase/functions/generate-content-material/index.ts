@@ -59,11 +59,70 @@ serve(async (req) => {
       });
     }
 
-    const { theme, platform, customPrompt, suggestOnly, imageStyle } = await req.json();
+    const { theme, platform, customPrompt, suggestOnly, imageStyle, regenerateImageForId } = await req.json();
 
     if (!theme || !platform) {
       return new Response(JSON.stringify({ error: "Theme and platform required" }), {
         status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    // If regenerating image only for existing material
+    if (regenerateImageForId) {
+      console.log("Regenerating image for material:", regenerateImageForId);
+      
+      const styleInstruction = imageStyle 
+        ? `Style: ${imageStyle}.`
+        : "Professional photography style, bright colors, lifestyle imagery.";
+      const imagePrompt = `Social media image for a Finnish discount app called Bargn. Theme: "${theme}". ${styleInstruction} The image should be appealing for ${platform === "tiktok" ? "TikTok" : "Instagram"}. No text overlays, no watermarks, no logos. Ultra high resolution.`;
+
+      const imageResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${LOVABLE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "google/gemini-2.5-flash-image",
+          messages: [{ role: "user", content: imagePrompt }],
+          modalities: ["image", "text"],
+        }),
+      });
+
+      if (!imageResponse.ok) {
+        throw new Error(`Image generation failed: ${imageResponse.status}`);
+      }
+
+      const imageData = await imageResponse.json();
+      const imageBase64 = imageData.choices?.[0]?.message?.images?.[0]?.image_url?.url;
+
+      if (!imageBase64) {
+        throw new Error("No image generated");
+      }
+
+      const base64Data = imageBase64.replace(/^data:image\/\w+;base64,/, "");
+      const imageBytes = Uint8Array.from(atob(base64Data), (c) => c.charCodeAt(0));
+      const fileName = `${crypto.randomUUID()}.png`;
+
+      const { error: uploadError } = await supabase.storage
+        .from("content-materials")
+        .upload(fileName, imageBytes, { contentType: "image/png" });
+
+      if (uploadError) throw uploadError;
+
+      const { data: urlData } = supabase.storage
+        .from("content-materials")
+        .getPublicUrl(fileName);
+
+      const { error: updateError } = await supabase
+        .from("content_materials")
+        .update({ image_url: urlData.publicUrl })
+        .eq("id", regenerateImageForId);
+
+      if (updateError) throw updateError;
+
+      return new Response(JSON.stringify({ success: true, image_url: urlData.publicUrl }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
