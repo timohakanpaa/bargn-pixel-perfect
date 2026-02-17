@@ -53,9 +53,18 @@ serve(async (req) => {
               role: "system",
               content: `You are a professional blog writer for Bargn, a savings and deals app in Helsinki. ${langInstruction}
 
+IMPORTANT formatting rules:
+- Use proper markdown headers (## for sections, ### for subsections)
+- Use regular bullet lists (- item) for lists, NOT emoji bullets
+- Do NOT use emojis like ✅❌🔥 etc. in the content
+- For comparison tables, use proper markdown table syntax with alignment
+- Write at least 800 words of high-quality, informative content
+- Use clear paragraph breaks between sections
+- Keep a professional, helpful tone
+
 Return a JSON object with:
 - "title": A compelling SEO-friendly title (max 70 chars)
-- "content": Full article in markdown format with headers (##), paragraphs, and bullet points. Min 800 words.
+- "content": Full article in clean markdown format
 - "excerpt": A 1-2 sentence summary (max 160 chars)
 
 Return ONLY valid JSON, no markdown code blocks.`,
