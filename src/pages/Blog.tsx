@@ -26,6 +26,49 @@ const Blog = () => {
   const y1 = useTransform(scrollY, [0, 500], [0, 150]);
   const y2 = useTransform(scrollY, [0, 500], [0, -100]);
 
+  // Must call useArticleSchema before any early returns to maintain hook order
+  useArticleSchema([
+    {
+      headline: t("blog.article1.title"),
+      description: t("blog.article1.excerpt"),
+      image: getBlogImageUrl("article-success-story.png"),
+      datePublished: "2024-01-15T09:00:00+00:00",
+      dateModified: "2024-01-20T14:30:00+00:00",
+      author: "Bargn Editorial Team",
+      publisher: "Bargn",
+      keywords: ["student savings", "discount apps", "Finland", "money saving tips", "Gen Z finance"],
+      articleSection: "Success Stories",
+      wordCount: 1200,
+      url: "https://bargn.app/blog#success-story"
+    },
+    {
+      headline: t("blog.article2.title"),
+      description: t("blog.article2.excerpt"),
+      image: getBlogImageUrl("article-coupon-apps.png"),
+      datePublished: "2024-01-10T10:00:00+00:00",
+      dateModified: "2024-01-18T11:00:00+00:00",
+      author: "Bargn Editorial Team",
+      publisher: "Bargn",
+      keywords: ["discount apps", "coupon comparison", "savings guide", "Helsinki deals", "best discount app"],
+      articleSection: "Guides",
+      wordCount: 1500,
+      url: "https://bargn.app/blog#discount-apps"
+    },
+    {
+      headline: t("blog.article3.title"),
+      description: t("blog.article3.excerpt"),
+      image: getBlogImageUrl("article-new-partners.png"),
+      datePublished: "2024-01-05T08:00:00+00:00",
+      dateModified: "2024-01-22T16:00:00+00:00",
+      author: "Bargn Editorial Team",
+      publisher: "Bargn",
+      keywords: ["new restaurants", "Helsinki food scene", "partner announcements", "restaurant discounts", "dining deals"],
+      articleSection: "Partner Spotlights",
+      wordCount: 800,
+      url: "https://bargn.app/blog#new-partners"
+    }
+  ]);
+
   useEffect(() => {
     if (heroInView) {
       confetti({
@@ -84,48 +127,7 @@ const Blog = () => {
     }
   ];
   
-  // Inject Article schema for SEO
-  useArticleSchema([
-    {
-      headline: t("blog.article1.title"),
-      description: t("blog.article1.excerpt"),
-      image: getBlogImageUrl("article-success-story.png"),
-      datePublished: "2024-01-15T09:00:00+00:00",
-      dateModified: "2024-01-20T14:30:00+00:00",
-      author: "Bargn Editorial Team",
-      publisher: "Bargn",
-      keywords: ["student savings", "discount apps", "Finland", "money saving tips", "Gen Z finance"],
-      articleSection: "Success Stories",
-      wordCount: 1200,
-      url: "https://bargn.app/blog#success-story"
-    },
-    {
-      headline: t("blog.article2.title"),
-      description: t("blog.article2.excerpt"),
-      image: getBlogImageUrl("article-coupon-apps.png"),
-      datePublished: "2024-01-10T10:00:00+00:00",
-      dateModified: "2024-01-18T11:00:00+00:00",
-      author: "Bargn Editorial Team",
-      publisher: "Bargn",
-      keywords: ["discount apps", "coupon comparison", "savings guide", "Helsinki deals", "best discount app"],
-      articleSection: "Guides",
-      wordCount: 1500,
-      url: "https://bargn.app/blog#discount-apps"
-    },
-    {
-      headline: t("blog.article3.title"),
-      description: t("blog.article3.excerpt"),
-      image: getBlogImageUrl("article-new-partners.png"),
-      datePublished: "2024-01-05T08:00:00+00:00",
-      dateModified: "2024-01-22T16:00:00+00:00",
-      author: "Bargn Editorial Team",
-      publisher: "Bargn",
-      keywords: ["new restaurants", "Helsinki food scene", "partner announcements", "restaurant discounts", "dining deals"],
-      articleSection: "Partner Spotlights",
-      wordCount: 800,
-      url: "https://bargn.app/blog#new-partners"
-    }
-  ]);
+  // Article schema is already injected above (before early returns) to maintain hook order
 
   return (
     <div className="min-h-screen bg-background-dark">
