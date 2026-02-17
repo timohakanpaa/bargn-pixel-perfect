@@ -20,6 +20,7 @@ const Campaign = lazy(() => import("./pages/Campaign"));
 const HowItWorks = lazy(() => import("./pages/HowItWorks"));
 const About = lazy(() => import("./pages/About"));
 const Blog = lazy(() => import("./pages/Blog"));
+const BlogArticle = lazy(() => import("./pages/BlogArticle"));
 const BlogAdmin = lazy(() => import("./pages/BlogAdmin"));
 const Auth = lazy(() => import("./pages/Auth"));
 const Analytics = lazy(() => import("./pages/Analytics"));
@@ -62,6 +63,7 @@ const AppContent = () => {
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/about" element={<About />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogArticle />} />
           <Route path="/blog/admin" element={<BlogAdmin />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/analytics" element={<Analytics />} />
