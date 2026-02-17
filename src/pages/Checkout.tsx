@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "react-router-dom";
 import { ShieldCheck, CreditCard, Lock, ArrowRight, CheckCircle2 } from "lucide-react";
-import bargnLogo from "@/assets/bargn-logo.webp";
+import bargnLogo from "@/assets/bargn-logo.png";
 
 const STRIPE_CHECKOUT_URL = "https://buy.stripe.com/fZu9AT5Oobc1fY65Lu3ZK04";
 
@@ -90,7 +90,7 @@ const Checkout = () => {
           <ul className="space-y-2">
             {benefits.map((b, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-foreground">
-                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 shrink-0" />
                 <span>{b}</span>
               </li>
             ))}
@@ -153,6 +153,7 @@ const Checkout = () => {
 
           <Button
             type="submit"
+            variant="neon"
             disabled={loading || !email || !termsAccepted}
             className="w-full h-12 text-base font-bold gap-2"
           >
@@ -172,7 +173,7 @@ const Checkout = () => {
         {/* Stripe trust section */}
         <div className="mt-6 rounded-2xl border border-border bg-card/30 backdrop-blur-xl p-4">
           <div className="flex items-center gap-2 mb-2">
-            <Lock className="w-4 h-4 text-primary" />
+            <Lock className="w-4 h-4 text-secondary" />
             <span className="text-sm font-bold text-foreground">
               {isFi ? "Turvallinen maksu" : "Secure Payment"}
             </span>
@@ -184,11 +185,11 @@ const Checkout = () => {
           </p>
           <div className="flex items-center gap-4 mt-3">
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <ShieldCheck className="w-3.5 h-3.5 text-primary" />
+              <ShieldCheck className="w-3.5 h-3.5 text-accent" />
               <span>PCI DSS</span>
             </div>
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <CreditCard className="w-3.5 h-3.5 text-primary" />
+              <CreditCard className="w-3.5 h-3.5 text-secondary" />
               <span>Visa, Mastercard, Apple Pay</span>
             </div>
           </div>
