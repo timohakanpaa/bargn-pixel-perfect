@@ -42,6 +42,7 @@ const IMAGE_STYLES = [
   { value: "minimal", label: "🤍 Minimalistinen", prompt: "Clean minimalist aesthetic, white space, simple composition, muted pastel colors, Scandinavian design vibes" },
   { value: "vibrant", label: "🌈 Värikäs & energinen", prompt: "Bold vibrant colors, high energy, dynamic composition, pop art influences, eye-catching and fun" },
   { value: "street", label: "🏙️ Katukuva", prompt: "Street photography style, urban setting, candid moment, gritty textures, authentic city vibes, documentary feel" },
+  { value: "provocative", label: "🔥 Provokatiivinen", prompt: "Bold provocative billboard advertisement style, attention-grabbing guerrilla marketing, dramatic cinematic lighting, urban outdoor setting with billboards or bus stops, expressive characters with exaggerated reactions, large bold serif text overlays, witty irreverent humor, high contrast dramatic composition, street-level candid photography mixed with advertising aesthetics, Bargn brand colors (coral, purple, yellow accents), raw authentic feel that stops people in their tracks" },
 ];
 
 const MaterialBank = () => {
