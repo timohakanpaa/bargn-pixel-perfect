@@ -112,15 +112,32 @@ Vastaa JSON-muodossa:
     const captionData = await captionResponse.json();
     const rawCaption = captionData.choices?.[0]?.message?.content || "";
     
-    // Parse JSON from response
+    // Parse JSON from response - handle nested structures
     let title = theme;
     let caption = rawCaption;
     try {
-      const jsonMatch = rawCaption.match(/\{[\s\S]*\}/);
+      // Remove markdown code blocks if present
+      const cleaned = rawCaption.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
+      const jsonMatch = cleaned.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
         const parsed = JSON.parse(jsonMatch[0]);
         title = parsed.title || theme;
-        caption = parsed.caption || rawCaption;
+        // Handle nested platform structures (e.g. { tiktok: { caption: "..." }, instagram: { caption: "..." } })
+        if (parsed.caption) {
+          caption = parsed.caption;
+        } else if (parsed.tiktok?.caption || parsed.instagram?.caption) {
+          // Pick the caption for the requested platform, fallback to either
+          caption = (platform === "tiktok" ? parsed.tiktok?.caption : parsed.instagram?.caption)
+            || parsed.tiktok?.caption || parsed.instagram?.caption || rawCaption;
+        } else if (parsed.data && Array.isArray(parsed.data)) {
+          // Handle { data: [{ platform: "TikTok", caption: "..." }] } format
+          const match = parsed.data.find((d: { platform?: string }) => 
+            d.platform?.toLowerCase() === platform.toLowerCase()
+          );
+          caption = match?.caption || parsed.data[0]?.caption || rawCaption;
+        } else {
+          caption = rawCaption;
+        }
       }
     } catch {
       console.log("Could not parse JSON from caption, using raw text");
