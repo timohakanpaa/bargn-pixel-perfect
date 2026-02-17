@@ -7,7 +7,7 @@ import MaterialBank from "@/components/admin/MaterialBank";
 import { Card, CardContent, CardGlass } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Copy, Download, Sparkles, Instagram, ArrowRight, Lightbulb, Eye, Zap, TrendingUp, Trash2 } from "lucide-react";
+import { Copy, Download, Sparkles, Instagram, ArrowRight, Lightbulb, Eye, Zap, TrendingUp, Trash2, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -79,6 +79,7 @@ const Materials = () => {
   const [materials, setMaterials] = useState<PublicMaterial[]>([]);
   const [isAdmin, setIsAdmin] = useState(false);
   const [activeTab, setActiveTab] = useState<"gallery" | "ideas" | "sneak">("gallery");
+  const [regeneratingId, setRegeneratingId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchMaterials = async () => {
@@ -131,6 +132,28 @@ const Materials = () => {
       .eq("status", "published")
       .order("created_at", { ascending: false });
     if (data) setMaterials(data as unknown as PublicMaterial[]);
+  };
+
+  const regenerateImage = async (material: PublicMaterial) => {
+    setRegeneratingId(material.id);
+    try {
+      const { data, error } = await supabase.functions.invoke("generate-content-material", {
+        body: {
+          theme: material.theme,
+          platform: material.platform,
+          imageStyle: "shot on iPhone, natural lighting, authentic UGC feel, real person perspective",
+          regenerateImageForId: material.id,
+        },
+      });
+      if (error) throw error;
+      toast.success("Kuva generoitu uudelleen!");
+      refreshMaterials();
+    } catch (e: any) {
+      console.error("Regenerate image error:", e);
+      toast.error(e.message || "Kuvan generointi epäonnistui");
+    } finally {
+      setRegeneratingId(null);
+    }
   };
 
   const platformIcon = (p: string) => {
@@ -240,13 +263,43 @@ const Materials = () => {
                                 loading="lazy"
                               />
                               <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                              {isAdmin && (
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    regenerateImage(material);
+                                  }}
+                                  disabled={regeneratingId === material.id}
+                                  className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-background/80 backdrop-blur-sm hover:bg-primary/20 hover:border-primary/40 z-10"
+                                >
+                                  <RefreshCw className={`w-3 h-3 mr-1 ${regeneratingId === material.id ? "animate-spin" : ""}`} />
+                                  {regeneratingId === material.id ? "..." : "Uusi kuva"}
+                                </Button>
+                              )}
                             </div>
                           ) : (
-                            <div className="aspect-video bg-gradient-to-br from-primary/20 via-secondary/10 to-accent/20 flex items-center justify-center">
+                            <div className="aspect-video bg-gradient-to-br from-primary/20 via-secondary/10 to-accent/20 flex items-center justify-center relative">
                               <div className="text-center p-6">
                                 <span className="text-4xl mb-2 block">{platformIcon(material.platform)}</span>
                                 <p className="text-sm font-bold text-foreground">{material.title}</p>
                               </div>
+                              {isAdmin && (
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    regenerateImage(material);
+                                  }}
+                                  disabled={regeneratingId === material.id}
+                                  className="absolute top-2 right-2 bg-background/80 backdrop-blur-sm hover:bg-primary/20 hover:border-primary/40"
+                                >
+                                  <RefreshCw className={`w-3 h-3 mr-1 ${regeneratingId === material.id ? "animate-spin" : ""}`} />
+                                  {regeneratingId === material.id ? "..." : "Luo kuva"}
+                                </Button>
+                              )}
                             </div>
                           )}
                           <CardContent className="p-5 space-y-3">
