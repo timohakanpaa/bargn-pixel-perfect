@@ -171,7 +171,7 @@ Vastaa JSON-muodossa:
     const captionData = await captionResponse.json();
     const rawCaption = captionData.choices?.[0]?.message?.content || "";
     
-    // Parse JSON from response - handle nested structures
+    // Parse JSON from response - handle all possible AI output formats
     let title = theme;
     let caption = rawCaption;
     try {
@@ -180,43 +180,51 @@ Vastaa JSON-muodossa:
       const jsonMatch = cleaned.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
         const parsed = JSON.parse(jsonMatch[0]);
-        title = parsed.title || theme;
 
-        // Normalize keys to lowercase for case-insensitive matching
-        const keys: Record<string, any> = {};
+        // Normalize all keys to lowercase
+        const norm: Record<string, any> = {};
         for (const [k, v] of Object.entries(parsed)) {
-          keys[k.toLowerCase()] = v;
+          norm[k.toLowerCase()] = v;
         }
 
-        if (typeof keys.caption === "string") {
-          // Simple flat { caption: "..." }
-          caption = keys.caption;
-        } else {
-          // Nested platform structures: { TikTok: { caption }, Instagram: { caption } }
-          const tiktokCap = keys.tiktok?.caption || keys.tiktok?.text;
-          const instaCap = keys.instagram?.caption || keys.instagram?.text;
+        title = norm.title || theme;
 
-          if (tiktokCap || instaCap) {
-            if (platform === "tiktok") {
-              caption = tiktokCap || instaCap;
-            } else if (platform === "instagram") {
-              caption = instaCap || tiktokCap;
-            } else {
-              // "both" — combine them
-              const parts: string[] = [];
-              if (tiktokCap) parts.push(`TikTok:\n${tiktokCap}`);
-              if (instaCap) parts.push(`Instagram:\n${instaCap}`);
-              caption = parts.join("\n\n---\n\n");
-            }
-          } else if (keys.data && Array.isArray(keys.data)) {
-            const match = keys.data.find((d: any) =>
-              d.platform?.toLowerCase() === platform.toLowerCase()
-            );
-            caption = match?.caption || keys.data[0]?.caption || rawCaption;
-          } else {
-            // Last resort: stringify non-title fields as plain text
-            caption = rawCaption;
+        // Case 1: flat { caption: "..." }
+        if (typeof norm.caption === "string") {
+          caption = norm.caption;
+        }
+        // Case 2: { tiktok: "text", instagram: "text" } (string values)
+        else if (typeof norm.tiktok === "string" || typeof norm.instagram === "string") {
+          const tk = norm.tiktok as string | undefined;
+          const ig = norm.instagram as string | undefined;
+          if (platform === "tiktok") caption = tk || ig || rawCaption;
+          else if (platform === "instagram") caption = ig || tk || rawCaption;
+          else {
+            const parts: string[] = [];
+            if (tk) parts.push(`TikTok:\n${tk}`);
+            if (ig) parts.push(`Instagram:\n${ig}`);
+            caption = parts.join("\n\n---\n\n");
           }
+        }
+        // Case 3: { tiktok: { caption: "..." }, instagram: { caption: "..." } }
+        else if (typeof norm.tiktok === "object" || typeof norm.instagram === "object") {
+          const tk = norm.tiktok?.caption || norm.tiktok?.text;
+          const ig = norm.instagram?.caption || norm.instagram?.text;
+          if (platform === "tiktok") caption = tk || ig || rawCaption;
+          else if (platform === "instagram") caption = ig || tk || rawCaption;
+          else {
+            const parts: string[] = [];
+            if (tk) parts.push(`TikTok:\n${tk}`);
+            if (ig) parts.push(`Instagram:\n${ig}`);
+            caption = parts.join("\n\n---\n\n");
+          }
+        }
+        // Case 4: array format
+        else if (norm.data && Array.isArray(norm.data)) {
+          const match = norm.data.find((d: any) =>
+            d.platform?.toLowerCase() === platform.toLowerCase()
+          );
+          caption = match?.caption || norm.data[0]?.caption || rawCaption;
         }
       }
     } catch {
