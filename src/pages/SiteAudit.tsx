@@ -9,11 +9,20 @@ import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   Link2, Globe, Image, AlertTriangle, CheckCircle, XCircle, 
-  RefreshCw, Search, Eye, Type, Loader2 
+  RefreshCw, Search, Eye, Type, Loader2, ChevronDown, ChevronRight, 
+  Play, ExternalLink, FileCode 
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 type Severity = "error" | "warning" | "info" | "pass";
+
+interface AuditAction {
+  label: string;
+  type: "info" | "scan" | "link";
+  instructions?: string[];
+  linkUrl?: string;
+  scanFn?: () => Promise<string>;
+}
 
 interface AuditFinding {
   id: string;
@@ -23,6 +32,7 @@ interface AuditFinding {
   description: string;
   page?: string;
   element?: string;
+  action?: AuditAction;
 }
 
 // All internal routes to audit
@@ -85,6 +95,9 @@ const SiteAudit = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [progress, setProgress] = useState(0);
   const [auditComplete, setAuditComplete] = useState(false);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [scanningId, setScanningId] = useState<string | null>(null);
+  const [scanResults, setScanResults] = useState<Record<string, string>>({});
 
   const addFinding = useCallback((finding: Omit<AuditFinding, "id">) => {
     setFindings(prev => [...prev, { ...finding, id: `${Date.now()}-${Math.random()}` }]);
@@ -356,54 +369,151 @@ const SiteAudit = () => {
       severity: "info",
       title: "Otsikkohierarkia",
       description: `Kaikilla ${pages.length} sivulla tulisi olla yksi H1-otsikko. Tarkista, ettei sivuilla ole useita H1-otsikoita.`,
+      action: {
+        label: "Skannaa H1-otsikot",
+        type: "scan",
+        instructions: [
+          "Jokaisella sivulla saa olla vain yksi <h1>-elementti.",
+          "H2-otsikot tulevat H1:n alle, H3 H2:n alle jne.",
+          "Klikkaa 'Skannaa' tarkistaaksesi nykyisen sivun.",
+        ],
+        scanFn: async () => {
+          const h1s = document.querySelectorAll("h1");
+          if (h1s.length === 0) return "⚠️ Tällä sivulla ei ole yhtään H1-otsikkoa.";
+          if (h1s.length === 1) return `✅ Yksi H1 löytyi: "${h1s[0].textContent?.substring(0, 50)}"`;
+          return `❌ Löytyi ${h1s.length} H1-otsikkoa: ${Array.from(h1s).map(h => `"${h.textContent?.substring(0, 30)}"`).join(", ")}`;
+        },
+      },
     });
 
-    // Check navigation consistency
     addFinding({
       category: "consistency",
       severity: "pass",
       title: "Navigaatio yhtenäinen",
       description: "Navigation-komponentti on yhteinen kaikille sivuille, joten navigaatio on automaattisesti yhtenäinen.",
+      action: {
+        label: "Lisätietoa",
+        type: "info",
+        instructions: [
+          "Navigation.tsx on jaettu komponentti kaikkien sivujen välillä.",
+          "Muutokset navigaatioon heijastuvat automaattisesti kaikkialle.",
+        ],
+      },
     });
 
-    // Check footer consistency
     addFinding({
       category: "consistency",
       severity: "pass",
       title: "Footer yhtenäinen",
       description: "Footer-komponentti on yhteinen kaikille sivuille.",
+      action: {
+        label: "Lisätietoa",
+        type: "info",
+        instructions: [
+          "Footer.tsx on jaettu komponentti.",
+          "Tarkista, että footer sisältää oikeat linkit ja käännökset.",
+        ],
+      },
     });
 
-    // Check padding/spacing consistency
     addFinding({
       category: "consistency",
       severity: "info",
       title: "Sivun yläreunan padding",
       description: "Kaikki sivut käyttävät pt-[132px] navigaation jälkeen. Tarkista, että tämä on yhtenäinen kaikilla sivuilla.",
+      action: {
+        label: "Skannaa padding",
+        type: "scan",
+        instructions: [
+          "Jokaisen sivun pääsisältö alkaa pt-[132px] paddingilla navigaation alle.",
+          "Klikkaa 'Skannaa' tarkistaaksesi tämän sivun paddingin.",
+        ],
+        scanFn: async () => {
+          const nav = document.querySelector("nav");
+          const mainContent = nav?.parentElement?.querySelector("div[class*='pt-']");
+          if (!mainContent) return "⚠️ Pää-sisältöaluetta ei löydy navigaation jälkeen.";
+          const classes = mainContent.className;
+          if (classes.includes("pt-[132px]")) return "✅ Padding pt-[132px] on asetettu oikein.";
+          return `⚠️ Paddingia pt-[132px] ei löytynyt. Luokat: ${classes.substring(0, 100)}`;
+        },
+      },
     });
 
-    // Check CTA button consistency
     addFinding({
       category: "consistency",
       severity: "info",
       title: "CTA-painikkeiden yhtenäisyys",
       description: "Tarkista, että kaikki 'Let's Go' / 'Aloita' CTA-painikkeet ohjaavat samaan Stripe-linkkiin ja käyttävät samaa variant='neon' tyyliä.",
+      action: {
+        label: "Skannaa CTA-painikkeet",
+        type: "scan",
+        instructions: [
+          "Kaikki pää-CTA-painikkeet tulee ohjata osoitteeseen: https://buy.stripe.com/fZu9AT5Oobc1fY65Lu3ZK04",
+          "Painikkeiden tulee käyttää variant='neon' tyyliä.",
+          "Klikkaa 'Skannaa' etsiäksesi CTA-painikkeet tältä sivulta.",
+        ],
+        scanFn: async () => {
+          const links = document.querySelectorAll("a[href*='stripe.com'], a[href*='buy.stripe']");
+          if (links.length === 0) return "ℹ️ Stripe-linkkejä ei löytynyt tältä sivulta.";
+          const results = Array.from(links).map(l => {
+            const href = l.getAttribute("href") || "";
+            const text = l.textContent?.trim().substring(0, 30) || "?";
+            return `"${text}" → ${href.substring(0, 60)}`;
+          });
+          return `Löytyi ${links.length} Stripe-linkkiä:\n${results.join("\n")}`;
+        },
+      },
     });
 
-    // Check color token usage
     addFinding({
       category: "consistency",
       severity: "info",
       title: "Väritunnusten käyttö",
       description: "Tarkista, ettei komponenteissa käytetä suoria väriarvoja (esim. text-white, bg-black) vaan semanttisia tokeneja (text-foreground, bg-background).",
+      action: {
+        label: "Skannaa värit",
+        type: "scan",
+        instructions: [
+          "Komponenttien tulisi käyttää Tailwind-semanttisia tokeneja: text-foreground, bg-background, text-primary jne.",
+          "Vältä: text-white, bg-black, text-gray-500 jne.",
+          "Klikkaa 'Skannaa' tarkastaaksesi tämän sivun elementtejä.",
+        ],
+        scanFn: async () => {
+          const allElements = document.querySelectorAll("[class]");
+          const badClasses = ["text-white", "bg-black", "text-black", "bg-white"];
+          const violations: string[] = [];
+          allElements.forEach(el => {
+            const cls = el.className;
+            if (typeof cls !== "string") return;
+            for (const bad of badClasses) {
+              if (cls.includes(bad)) {
+                const tag = el.tagName.toLowerCase();
+                const text = el.textContent?.substring(0, 30)?.trim() || "";
+                violations.push(`<${tag}> "${text}" käyttää ${bad}`);
+              }
+            }
+          });
+          if (violations.length === 0) return "✅ Suoria väriarvoja (text-white, bg-black) ei löytynyt tältä sivulta.";
+          return `⚠️ Löytyi ${violations.length} rikkomusta:\n${violations.slice(0, 10).join("\n")}${violations.length > 10 ? `\n...ja ${violations.length - 10} muuta` : ""}`;
+        },
+      },
     });
 
-    // Check responsive design
     addFinding({
       category: "consistency",
       severity: "info",
       title: "Responsiivisuus",
       description: "Tarkista, että kaikki sivut toimivat oikein mobiilissa (< 768px), tabletissa ja desktopissa.",
+      action: {
+        label: "Ohjeet",
+        type: "info",
+        instructions: [
+          "Testaa jokainen sivu kolmella leveydellä: 375px (mobiili), 768px (tabletti), 1440px (desktop).",
+          "Tarkista, ettei tekstit ylitä containeria horisontaalisesti.",
+          "Varmista, että painikkeet ovat kosketusystävällisiä (vähintään 44x44px).",
+          "Testaa navigaation hamburger-valikon toimivuus mobiilissa.",
+        ],
+      },
     });
 
     // Check meta tags per page
@@ -415,6 +525,16 @@ const SiteAudit = () => {
         title: `Meta-tagit: ${page}`,
         description: `Sivu ${page} käyttää useMetaTags-hookkia SEO:ta varten.`,
         page,
+        action: {
+          label: "Tarkista meta-tagit",
+          type: "scan",
+          scanFn: async () => {
+            const title = document.querySelector("title")?.textContent || "(ei title-tagia)";
+            const desc = document.querySelector('meta[name="description"]')?.getAttribute("content") || "(ei kuvausta)";
+            const ogTitle = document.querySelector('meta[property="og:title"]')?.getAttribute("content") || "(ei og:title)";
+            return `📋 Nykyisen sivun meta-tagit:\n• Title: ${title}\n• Description: ${desc.substring(0, 80)}...\n• OG Title: ${ogTitle}`;
+          },
+        },
       });
     }
 
@@ -454,6 +574,23 @@ const SiteAudit = () => {
 
   const categoryFindings = (cat: AuditFinding["category"]) => findings.filter(f => f.category === cat);
   const countBySeverity = (severity: Severity) => findings.filter(f => f.severity === severity).length;
+
+  const toggleExpand = (id: string) => {
+    setExpandedId(prev => prev === id ? null : id);
+  };
+
+  const runDeepScan = async (finding: AuditFinding) => {
+    if (!finding.action?.scanFn) return;
+    setScanningId(finding.id);
+    try {
+      const result = await finding.action.scanFn();
+      setScanResults(prev => ({ ...prev, [finding.id]: result }));
+    } catch (e) {
+      setScanResults(prev => ({ ...prev, [finding.id]: `❌ Virhe skannauksessa: ${e}` }));
+    } finally {
+      setScanningId(null);
+    }
+  };
 
   return (
     <AdminGuard>
@@ -573,8 +710,15 @@ const SiteAudit = () => {
                         const order: Record<Severity, number> = { error: 0, warning: 1, info: 2, pass: 3 };
                         return order[a.severity] - order[b.severity];
                       })
-                      .map(finding => (
-                        <Card key={finding.id} className="hover:shadow-md transition-shadow">
+                      .map(finding => {
+                        const isExpanded = expandedId === finding.id;
+                        const hasAction = !!finding.action;
+                        return (
+                        <Card 
+                          key={finding.id} 
+                          className={`transition-all ${hasAction ? "cursor-pointer hover:shadow-md hover:border-primary/30" : "hover:shadow-md"} ${isExpanded ? "border-primary/40 shadow-lg" : ""}`}
+                          onClick={() => hasAction && toggleExpand(finding.id)}
+                        >
                           <CardContent className="py-4 px-6">
                             <div className="flex items-start gap-3">
                               {getSeverityIcon(finding.severity)}
@@ -595,10 +739,83 @@ const SiteAudit = () => {
                                   </code>
                                 )}
                               </div>
+                              {hasAction && (
+                                <div className="flex-shrink-0 mt-0.5">
+                                  {isExpanded ? (
+                                    <ChevronDown className="w-5 h-5 text-muted-foreground" />
+                                  ) : (
+                                    <ChevronRight className="w-5 h-5 text-muted-foreground" />
+                                  )}
+                                </div>
+                              )}
                             </div>
+
+                            {/* Expanded action area */}
+                            {isExpanded && finding.action && (
+                              <div className="mt-4 ml-8 border-t border-border pt-4 space-y-3" onClick={e => e.stopPropagation()}>
+                                {/* Instructions */}
+                                {finding.action.instructions && finding.action.instructions.length > 0 && (
+                                  <div className="space-y-1.5">
+                                    <p className="text-xs font-bold text-foreground uppercase tracking-wider">Toimintaohjeet:</p>
+                                    <ul className="space-y-1">
+                                      {finding.action.instructions.map((inst, i) => (
+                                        <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
+                                          <span className="text-primary font-bold mt-0.5">•</span>
+                                          {inst}
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                )}
+
+                                {/* Scan button */}
+                                {finding.action.type === "scan" && finding.action.scanFn && (
+                                  <div className="space-y-2">
+                                    <Button
+                                      size="sm"
+                                      variant="secondary"
+                                      className="gap-2"
+                                      disabled={scanningId === finding.id}
+                                      onClick={() => runDeepScan(finding)}
+                                    >
+                                      {scanningId === finding.id ? (
+                                        <Loader2 className="w-4 h-4 animate-spin" />
+                                      ) : (
+                                        <Play className="w-4 h-4" />
+                                      )}
+                                      {scanningId === finding.id ? "Skannataan..." : finding.action.label}
+                                    </Button>
+                                    
+                                    {/* Scan result */}
+                                    {scanResults[finding.id] && (
+                                      <div className="bg-muted/50 border border-border rounded-lg p-3">
+                                        <p className="text-xs font-bold text-foreground mb-1">Tulos:</p>
+                                        <pre className="text-sm text-muted-foreground whitespace-pre-wrap font-mono">
+                                          {scanResults[finding.id]}
+                                        </pre>
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
+
+                                {/* Link button */}
+                                {finding.action.type === "link" && finding.action.linkUrl && (
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    className="gap-2"
+                                    onClick={() => window.open(finding.action!.linkUrl, "_blank")}
+                                  >
+                                    <ExternalLink className="w-4 h-4" />
+                                    {finding.action.label}
+                                  </Button>
+                                )}
+                              </div>
+                            )}
                           </CardContent>
                         </Card>
-                      ))}
+                        );
+                      })}
                     {(tab === "all" ? findings : categoryFindings(tab as AuditFinding["category"])).length === 0 && (
                       <Card className="border-dashed">
                         <CardContent className="py-12 text-center">
