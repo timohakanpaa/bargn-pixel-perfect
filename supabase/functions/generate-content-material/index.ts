@@ -128,24 +128,26 @@ serve(async (req) => {
     }
 
     // Step 1: Generate Finnish caption text
-    const captionPrompt = customPrompt ||
-      `Olet Bargn-alennussovelluksen sosiaalisen median copywriter. Kirjoita VALMIS mainospostaus, EI ohjeita tai ehdotuksia.
+    const systemPrompt = `Olet Bargn-alennussovelluksen sosiaalisen median copywriter. Sinun AINOA tehtäväsi on kirjoittaa VALMIITA mainostekstejä.
+
+EHDOTTOMAT SÄÄNNÖT:
+- Kirjoita SUORAAN julkaistavissa oleva some-mainosteksti
+- ÄLÄ KOSKAAN kirjoita ohjeita, kommentteja, selityksiä, analyysejä tai ehdotuksia
+- ÄLÄ KOSKAAN aloita "Mainoksen huomattavuutta..." tai vastaavilla meta-kommenteilla
+- ÄLÄ KOSKAAN selitä mitä provokatiivisuus tarkoittaa
+- Tuota VAIN valmis mainoskopio joka voidaan julkaista sellaisenaan
+- Suomeksi, nuorekas rento tyyli
+- Sisällytä hashtagit: #bargn #säästä #tarjoukset
+- Sisällytä toimintakehotus (CTA)
 
 Bargn: jäsenet saavat 50% alennuksia ravintoloista, aktiviteeteistä ja palveluista. Hinta 8,80€/kk.
 
-Teema: "${theme}"
-Alusta: ${platform === "tiktok" ? "TikTok" : platform === "instagram" ? "Instagram" : "TikTok ja Instagram"}
-
-Säännöt:
-- Kirjoita SUORAAN julkaistavissa oleva mainosteksti, EI meta-kommentteja, EI "tässä on ehdotus", EI selityksiä
-- Suomeksi, nuorekas rento tyyli
-- TikTok: max 150 merkkiä + hashtagit
-- Instagram: max 300 merkkiä + hashtagit
-- Sisällytä #bargn #säästä #tarjoukset
-- Sisällytä toimintakehotus
-
-Vastaa VAIN tässä JSON-muodossa, ei mitään muuta:
+Vastaa AINA ja AINOASTAAN tässä JSON-muodossa, ei yhtään mitään muuta tekstiä ennen tai jälkeen:
 {"title": "Lyhyt otsikko", "caption": "Valmis mainosteksti hashtageineen"}`;
+
+    const userMessage = customPrompt
+      ? `Teema: "${theme}". Alusta: ${platform === "tiktok" ? "TikTok" : platform === "instagram" ? "Instagram" : "TikTok ja Instagram"}. Lisäohje: ${customPrompt}`
+      : `Teema: "${theme}". Alusta: ${platform === "tiktok" ? "TikTok (max 150 merkkiä + hashtagit)" : platform === "instagram" ? "Instagram (max 300 merkkiä + hashtagit)" : "TikTok (max 150 merkkiä) ja Instagram (max 300 merkkiä) + hashtagit"}. Kirjoita valmis mainosteksti.`;
 
     console.log("Generating caption for theme:", theme);
 
@@ -157,7 +159,10 @@ Vastaa VAIN tässä JSON-muodossa, ei mitään muuta:
       },
       body: JSON.stringify({
         model: "google/gemini-2.5-flash",
-        messages: [{ role: "user", content: captionPrompt }],
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userMessage },
+        ],
       }),
     });
 
