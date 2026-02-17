@@ -10,7 +10,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Plus, Sparkles, Calendar, Edit, Trash2, Eye, Save, Settings, ImageIcon } from "lucide-react";
+import { Plus, Sparkles, Calendar, Edit, Trash2, Eye, Save, Settings, ImageIcon, RefreshCw } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
@@ -42,9 +43,11 @@ interface PromptTemplate {
 
 const BlogAdminDashboard = () => {
   const { loading } = useAuth(true);
+  const navigate = useNavigate();
   const [articles, setArticles] = useState<Article[]>([]);
   const [templates, setTemplates] = useState<PromptTemplate[]>([]);
   const [generating, setGenerating] = useState(false);
+  const [regeneratingId, setRegeneratingId] = useState<string | null>(null);
   const [editingArticle, setEditingArticle] = useState<Article | null>(null);
   const [editLang, setEditLang] = useState<"fi" | "en">("fi");
 
@@ -157,6 +160,27 @@ const BlogAdminDashboard = () => {
     }
   };
 
+  const regenerateArticle = async (article: Article) => {
+    setRegeneratingId(article.id);
+    try {
+      const keywords = article.keywords?.length ? article.keywords : ["bargn", "alennukset"];
+      const { data, error } = await supabase.functions.invoke("generate-blog-article", {
+        body: {
+          keywords,
+          language: "both",
+          articleId: article.id,
+        },
+      });
+      if (error) throw error;
+      toast.success("Artikkelin sisältö generoitu uudelleen!");
+      fetchArticles();
+    } catch (e: any) {
+      toast.error(e.message || "Uudelleengenerointi epäonnistui");
+    } finally {
+      setRegeneratingId(null);
+    }
+  };
+
   const saveTemplate = async () => {
     if (!newTplName || !newTplPrompt) {
       toast.error("Täytä kaikki kentät");
@@ -265,9 +289,20 @@ const BlogAdminDashboard = () => {
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => window.open(`/blog/${article.slug}`, "_blank")}
+                            onClick={() => navigate(`/blog/${article.slug}`)}
                           >
                             <Eye className="w-4 h-4 mr-1" /> Avaa
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            disabled={regeneratingId === article.id}
+                            onClick={() => {
+                              if (confirm("Haluatko generoida artikkelin sisällön uudelleen?")) regenerateArticle(article);
+                            }}
+                          >
+                            <RefreshCw className={`w-4 h-4 mr-1 ${regeneratingId === article.id ? "animate-spin" : ""}`} />
+                            {regeneratingId === article.id ? "Generoidaan..." : "Generoi uudelleen"}
                           </Button>
                           <Dialog>
                             <DialogTrigger asChild>
