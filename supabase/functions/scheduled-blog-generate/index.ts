@@ -95,6 +95,46 @@ Return ONLY valid JSON, no markdown code blocks.`,
       .replace(/\s+/g, "-")
       .slice(0, 80) + "-" + Date.now().toString(36);
 
+    // Generate AI image
+    let imageUrl: string | null = null;
+    try {
+      const imageTitle = results.en?.title || results.fi?.title || keywords[0];
+      const imagePrompt = `Create a modern, vibrant blog header image for an article titled "${imageTitle}". Professional, colorful, related to savings and lifestyle in Helsinki. No text. Wide 16:9.`;
+      
+      const imageResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${LOVABLE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "google/gemini-2.5-flash-image",
+          messages: [{ role: "user", content: imagePrompt }],
+          modalities: ["image", "text"],
+        }),
+      });
+
+      if (imageResponse.ok) {
+        const imageData = await imageResponse.json();
+        const base64Url = imageData.choices?.[0]?.message?.images?.[0]?.image_url?.url;
+        if (base64Url) {
+          const base64Data = base64Url.split(",")[1];
+          const imageBuffer = Uint8Array.from(atob(base64Data), (c) => c.charCodeAt(0));
+          const filename = `${slug}.png`;
+          const { error: uploadError } = await supabase.storage
+            .from("blog-images")
+            .upload(filename, imageBuffer, { contentType: "image/png", upsert: true });
+          if (!uploadError) {
+            const { data: urlData } = supabase.storage.from("blog-images").getPublicUrl(filename);
+            imageUrl = urlData.publicUrl;
+            console.log("Scheduled blog image uploaded:", imageUrl);
+          }
+        }
+      }
+    } catch (imgErr) {
+      console.error("Image generation error (non-fatal):", imgErr);
+    }
+
     const { data: article, error } = await supabase
       .from("blog_articles")
       .insert({
@@ -108,6 +148,7 @@ Return ONLY valid JSON, no markdown code blocks.`,
         keywords,
         status: "published",
         published_at: new Date().toISOString(),
+        ...(imageUrl && { image_url: imageUrl }),
       })
       .select()
       .single();

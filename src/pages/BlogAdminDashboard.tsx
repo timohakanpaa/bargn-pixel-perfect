@@ -262,6 +262,13 @@ const BlogAdminDashboard = () => {
                           </p>
                         </div>
                         <div className="flex gap-2 shrink-0">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => window.open(`/blog/${article.slug}`, "_blank")}
+                          >
+                            <Eye className="w-4 h-4 mr-1" /> Avaa
+                          </Button>
                           <Dialog>
                             <DialogTrigger asChild>
                               <Button size="sm" variant="outline" onClick={() => { setEditingArticle({...article}); setEditLang("fi"); }}>
