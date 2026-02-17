@@ -65,7 +65,6 @@ Return ONLY valid JSON, no markdown code blocks.`,
       const data = await response.json();
       const raw = data.choices?.[0]?.message?.content || "";
       
-      // Parse JSON from response, handling possible markdown wrapping
       let parsed;
       try {
         const cleaned = raw.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
@@ -85,6 +84,54 @@ Return ONLY valid JSON, no markdown code blocks.`,
       .replace(/\s+/g, "-")
       .slice(0, 80) + "-" + Date.now().toString(36);
 
+    // Generate AI image for the article
+    let imageUrl: string | null = null;
+    try {
+      const imageTitle = results.en?.title || results.fi?.title || keywordsStr;
+      const imagePrompt = `Create a modern, vibrant blog header image for an article titled "${imageTitle}". The image should be colorful, professional, and related to savings, deals, and lifestyle in Helsinki. No text in the image. Wide 16:9 aspect ratio.`;
+      
+      console.log("Generating blog image...");
+      const imageResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${LOVABLE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "google/gemini-2.5-flash-image",
+          messages: [{ role: "user", content: imagePrompt }],
+          modalities: ["image", "text"],
+        }),
+      });
+
+      if (imageResponse.ok) {
+        const imageData = await imageResponse.json();
+        const base64Url = imageData.choices?.[0]?.message?.images?.[0]?.image_url?.url;
+        
+        if (base64Url) {
+          const base64Data = base64Url.split(",")[1];
+          const imageBuffer = Uint8Array.from(atob(base64Data), (c) => c.charCodeAt(0));
+          const filename = `${slug}.png`;
+
+          const { error: uploadError } = await supabase.storage
+            .from("blog-images")
+            .upload(filename, imageBuffer, { contentType: "image/png", upsert: true });
+
+          if (!uploadError) {
+            const { data: urlData } = supabase.storage.from("blog-images").getPublicUrl(filename);
+            imageUrl = urlData.publicUrl;
+            console.log("Blog image generated and uploaded:", imageUrl);
+          } else {
+            console.error("Image upload error:", uploadError);
+          }
+        }
+      } else {
+        console.error("Image generation failed:", imageResponse.status);
+      }
+    } catch (imgErr) {
+      console.error("Image generation error (non-fatal):", imgErr);
+    }
+
     const articleData: Record<string, unknown> = {
       slug,
       title_fi: results.fi?.title || "",
@@ -95,10 +142,10 @@ Return ONLY valid JSON, no markdown code blocks.`,
       excerpt_en: results.en?.excerpt || "",
       keywords: Array.isArray(keywords) ? keywords : keywords.split(",").map((k: string) => k.trim()),
       status: "draft",
+      ...(imageUrl && { image_url: imageUrl }),
     };
 
     if (articleId) {
-      // Update existing article
       const { data, error } = await supabase
         .from("blog_articles")
         .update(articleData)
@@ -108,7 +155,6 @@ Return ONLY valid JSON, no markdown code blocks.`,
       if (error) throw error;
       return new Response(JSON.stringify(data), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
     } else {
-      // Insert new article
       const { data, error } = await supabase
         .from("blog_articles")
         .insert(articleData)
