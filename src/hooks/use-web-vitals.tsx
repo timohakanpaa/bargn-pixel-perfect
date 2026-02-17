@@ -12,50 +12,74 @@ declare global {
   }
 }
 
-interface WebVitalsMetric {
-  name: string;
-  value: number;
-  rating: 'good' | 'needs-improvement' | 'poor';
-  delta: number;
-  id: string;
-  timestamp: number;
-}
+// Get or create a persistent session ID for web vitals
+const getSessionId = (): string => {
+  const key = 'web-vitals-session-id';
+  let sessionId = sessionStorage.getItem(key);
+  if (!sessionId) {
+    sessionId = crypto.randomUUID();
+    sessionStorage.setItem(key, sessionId);
+  }
+  return sessionId;
+};
 
-// Store metrics in localStorage for dashboard
-const storeMetric = (metric: Metric) => {
+// Batch metrics and send to backend
+const metricsBuffer: Metric[] = [];
+let flushTimer: ReturnType<typeof setTimeout> | null = null;
+
+const flushMetrics = async () => {
+  if (metricsBuffer.length === 0) return;
+  const batch = metricsBuffer.splice(0, metricsBuffer.length);
+
+  const sessionId = getSessionId();
+  const payload = {
+    session_id: sessionId,
+    metrics: batch.map(m => ({
+      name: m.name,
+      value: m.value,
+      rating: m.rating,
+      delta: m.delta,
+      id: m.id,
+      page_path: window.location.pathname,
+      screen_width: window.screen?.width || null,
+      connection_type: (navigator as any).connection?.effectiveType || null,
+    })),
+  };
+
   try {
-    const stored = localStorage.getItem('web-vitals-history');
-    const history: WebVitalsMetric[] = stored ? JSON.parse(stored) : [];
-    
-    history.push({
-      name: metric.name,
-      value: metric.value,
-      rating: metric.rating,
-      delta: metric.delta,
-      id: metric.id,
-      timestamp: Date.now(),
-    });
-    
-    // Keep only last 100 entries
-    const trimmed = history.slice(-100);
-    localStorage.setItem('web-vitals-history', JSON.stringify(trimmed));
+    const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/track-analytics`;
+    const body = JSON.stringify({ webVitals: payload });
+
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(url, body);
+    } else {
+      fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body,
+        keepalive: true,
+      });
+    }
   } catch (error) {
-    console.error('Failed to store web vitals:', error);
+    if (import.meta.env.DEV) {
+      console.error('Failed to send web vitals:', error);
+    }
   }
 };
 
 const sendToAnalytics = (metric: Metric) => {
-  // Store metric for dashboard
-  storeMetric(metric);
-  
+  metricsBuffer.push(metric);
+
+  // Debounce: flush after 2s of inactivity
+  if (flushTimer) clearTimeout(flushTimer);
+  flushTimer = setTimeout(flushMetrics, 2000);
+
   // Log to console in development
   if (import.meta.env.DEV) {
     console.log('📊 Core Web Vitals:', {
       name: metric.name,
       value: Math.round(metric.value),
       rating: metric.rating,
-      delta: Math.round(metric.delta),
-      id: metric.id,
     });
   }
 
@@ -69,44 +93,27 @@ const sendToAnalytics = (metric: Metric) => {
       metric_rating: metric.rating,
     });
   }
-
-  // Send to custom analytics endpoint if needed
-  // You can uncomment and modify this to send to your own backend
-  /*
-  try {
-    const body = JSON.stringify({
-      name: metric.name,
-      value: metric.value,
-      rating: metric.rating,
-      delta: metric.delta,
-      id: metric.id,
-      navigationType: metric.navigationType,
-    });
-    
-    // Use sendBeacon if available (doesn't block page unload)
-    if (navigator.sendBeacon) {
-      navigator.sendBeacon('/api/web-vitals', body);
-    } else {
-      fetch('/api/web-vitals', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body,
-        keepalive: true,
-      });
-    }
-  } catch (error) {
-    console.error('Failed to send web vitals:', error);
-  }
-  */
 };
 
 export const useWebVitals = () => {
   useEffect(() => {
-    // Track all Core Web Vitals
-    onCLS(sendToAnalytics);  // Cumulative Layout Shift
-    onINP(sendToAnalytics);  // Interaction to Next Paint (replaces FID)
-    onFCP(sendToAnalytics);  // First Contentful Paint
-    onLCP(sendToAnalytics);  // Largest Contentful Paint
-    onTTFB(sendToAnalytics); // Time to First Byte
+    onCLS(sendToAnalytics);
+    onINP(sendToAnalytics);
+    onFCP(sendToAnalytics);
+    onLCP(sendToAnalytics);
+    onTTFB(sendToAnalytics);
+
+    // Flush on page unload
+    const handleUnload = () => flushMetrics();
+    window.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') flushMetrics();
+    });
+    window.addEventListener('pagehide', handleUnload);
+
+    return () => {
+      window.removeEventListener('pagehide', handleUnload);
+      if (flushTimer) clearTimeout(flushTimer);
+      flushMetrics();
+    };
   }, []);
 };
