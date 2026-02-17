@@ -69,9 +69,9 @@ const Navigation = () => {
     label: t("campaign")
   }];
   const adminItems = [{
-    to: "/auth",
-    label: "Admin Login",
-    icon: User
+    to: "/admin",
+    label: "Admin Panel",
+    icon: ShieldCheck
   }, {
     to: "/blog",
     label: "Blog",
