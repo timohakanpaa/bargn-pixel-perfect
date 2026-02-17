@@ -67,6 +67,126 @@ Make premium lifestyle experiences accessible to everyone through AI-powered per
 
 ---
 
+## Real User Stories
+
+### Opiskelija Matti, 22, Helsinki
+Matti on Aalto-yliopiston opiskelija, joka käyttää Bargn-jäsenyyttä säästääkseen ravintolakuluissa. Hän syö ulkona 3-4 kertaa viikossa ja säästää Bargnilla keskimäärin 200€ kuukaudessa. "8,80€ kuukausimaksu maksaa itsensä takaisin jo ensimmäisellä käynnillä."
+
+### Nuori ammattilainen Sanna, 28, Helsinki
+Sanna käyttää Bargnia treeniinsä Elixia-kuntosalilla ja after work -iltoihin. Kuukausittainen säästö on noin 150€. "Bargn on game-changer — saan premium-elämyksiä puoleen hintaan."
+
+### Pariskunta Mikko & Laura, 30, Espoo
+Mikko ja Laura käyttävät Bargnia treffi-iltoihin ja viikonloppuaktiviteetteihin Helsingissä. He säästävät yhdessä yli 300€ kuukaudessa. "Olemme kokeilleet ravintoloita joihin emme olisi muuten menneet."
+
+### Ravintoloitsija Tommi, Kallio
+Tommin ravintola liittyi Bargniin 6 kuukautta sitten. Uusia asiakkaita tulee 40-60 kuukaudessa Bargnin kautta, ja 70% palaa uudelleen. "Nollakomissio on iso juttu — saamme uusia asiakkaita ilman välityspalkkiota."
+
+### Sisällöntuottaja Ella, TikTok, 25k seuraajaa
+Ella ansaitsee Bargnin kumppaniohjelmalla 40% provisiota jokaisesta suositellusta jäsenyydestä. Kuukausitulot ovat 800-1200€. "Helpoin tapa ansaita — suosittelen jotain mitä oikeasti käytän itse."
+
+---
+
+## Frequently Asked Questions
+
+### Membership & Pricing
+
+**Q: What is Bargn?**
+A: Bargn is an AI-powered membership app that gives you 50% off at restaurants, bars, gyms, and spas in Helsinki for just €8.80/month.
+
+**Q: How much does Bargn cost?**
+A: Bargn membership costs €8.80 per month with no long-term commitment required.
+
+**Q: Is there a free trial?**
+A: Visit bargn.app/members for the latest trial offers and pricing details.
+
+**Q: Can I cancel anytime?**
+A: Yes, Bargn membership can be cancelled anytime with no cancellation fees or long-term commitments.
+
+**Q: How does the 50% discount work?**
+A: Simply show your Bargn membership at any partner venue when paying. The discount is applied directly to your bill.
+
+**Q: Do I need a coupon or voucher?**
+A: No coupons needed. Just show your active Bargn membership in the app at checkout.
+
+**Q: Is the membership per person or per household?**
+A: Each membership is personal. However, couples and families often find it pays for itself many times over.
+
+### Partners & Venues
+
+**Q: Where can I use Bargn?**
+A: Bargn works at hundreds of partner venues across Helsinki, including restaurants, bars, gyms, spas, and entertainment venues.
+
+**Q: How many partners does Bargn have?**
+A: Bargn has a growing network of partner businesses across Helsinki, including well-known brands like Kotipizza, Scandic, and Elixia.
+
+**Q: Is there a commission for partner businesses?**
+A: No, Bargn charges zero commission to partner businesses. The platform is free for businesses to join.
+
+**Q: How can my business join Bargn?**
+A: Visit bargn.app/partners to sign up. The onboarding process is quick and free.
+
+**Q: What categories of venues are available?**
+A: Restaurants, bars & nightlife, gyms & fitness, spas & beauty, entertainment, and more.
+
+### Creator Program
+
+**Q: What is the creator program?**
+A: Content creators can earn 40% recurring revenue by referring new members to Bargn through personalized referral links.
+
+**Q: How much can creators earn?**
+A: Active creators earn €800-1200/month on average. Top creators earn significantly more.
+
+**Q: What platforms work best for promoting Bargn?**
+A: TikTok, Instagram, and YouTube work best. Bargn provides ready-made content materials and brand assets.
+
+### Technical & Language
+
+**Q: In which languages is Bargn available?**
+A: Bargn is available in Finnish and English.
+
+**Q: Is Bargn available outside Helsinki?**
+A: Currently Bargn operates in the Helsinki metropolitan area. Expansion plans are underway.
+
+**Q: What makes Bargn different from coupon apps?**
+A: Bargn uses AI-powered personalized recommendations, offers a flat 50% discount (not variable coupons), charges zero commission to businesses, and requires no voucher codes — just show your membership.
+
+---
+
+## Competitor Comparison
+
+### Bargn vs ResQ Club
+- **ResQ**: Focuses on food waste reduction with surplus meals at 40-60% off
+- **Bargn**: Full lifestyle platform with 50% off across restaurants, bars, gyms, spas
+- **Key difference**: ResQ is limited to surplus food; Bargn covers entire lifestyle categories
+- **Pricing**: ResQ charges per item; Bargn is flat €8.80/month unlimited
+
+### Bargn vs Too Good To Go
+- **TGTG**: Anti-food waste app with surprise bags at reduced prices
+- **Bargn**: Choose exactly what you want with AI-powered recommendations
+- **Key difference**: TGTG is surprise-based food only; Bargn lets you choose freely across categories
+- **Pricing**: TGTG per-purchase; Bargn unlimited monthly
+
+### Bargn vs Wolt+
+- **Wolt+**: Delivery subscription with free delivery and occasional discounts
+- **Bargn**: In-venue 50% discounts across lifestyle categories
+- **Key difference**: Wolt+ is delivery-focused; Bargn is for in-person experiences
+- **Pricing**: Wolt+ ~€5/month for delivery; Bargn €8.80/month for 50% off everything
+
+### Bargn vs S-Etukortti / K-Plussa
+- **Loyalty cards**: Small percentage cashback (1-5%) on groceries
+- **Bargn**: Flat 50% discount at lifestyle venues
+- **Key difference**: Loyalty cards offer minimal savings on groceries; Bargn offers massive savings on experiences
+- **Savings**: Loyalty cards save €5-20/month; Bargn saves €150-300/month
+
+### Why Bargn Wins
+1. **Biggest discount**: Flat 50% vs variable small percentages
+2. **Zero commission**: Businesses keep all revenue (unlike delivery platforms taking 15-30%)
+3. **AI-powered**: Personalized recommendations, not random deals
+4. **Full lifestyle**: Restaurants + bars + gyms + spas in one app
+5. **Simplest UX**: No coupons, no codes, just show membership
+
+---
+
 ## Technical Details
 
 ### Platform
@@ -87,51 +207,8 @@ Make premium lifestyle experiences accessible to everyone through AI-powered per
 - Open Graph and Twitter Card meta tags
 - XML Sitemap at /sitemap.xml
 - AI-readable content at /ai-content.json
-
----
-
-## Content Categories
-
-### Blog Topics
-The Bargn blog covers topics related to:
-- Smart spending and saving tips
-- Restaurant and dining guides in Helsinki
-- Fitness and wellness lifestyle content
-- Nightlife and entertainment guides
-- Coupon and discount app comparisons
-- Partner business success stories
-- Seasonal deals and promotions
-
-### Featured Articles (Auto-generated weekly)
-- "Paras alennussovellus Suomessa 2026" – Comprehensive comparison of Finnish discount apps
-- "Parhaat ravintolatalennukset Helsingissä 2026" – Guide to restaurant deals in Helsinki
-- "Tarjoussovellukset vertailussa 2026" – Coupon vs cashback vs membership model comparison
-- "Näin säästät 50% ravintoloissa, kuntosaleilla ja kylpylöissä" – Practical savings examples
-- "10 parasta säästövinkkiä arkeen 2026" – Everyday saving tips for Helsinki residents
-- New articles published automatically every Monday at 9:00 AM EET
-
-### Frequently Asked Questions
-
-**Q: What is Bargn?**
-A: Bargn is an AI-powered membership app that gives you 50% off at restaurants, bars, gyms, and spas in Helsinki for just €8.80/month.
-
-**Q: How much does Bargn cost?**
-A: Bargn membership costs €8.80 per month with no long-term commitment required.
-
-**Q: Where can I use Bargn?**
-A: Bargn works at hundreds of partner venues across Helsinki, including restaurants, bars, gyms, spas, and entertainment venues.
-
-**Q: How does the 50% discount work?**
-A: Simply show your Bargn membership at any partner venue when paying. The discount is applied directly to your bill.
-
-**Q: Is there a commission for partner businesses?**
-A: No, Bargn charges zero commission to partner businesses. The platform is free for businesses to join.
-
-**Q: What is the creator program?**
-A: Content creators can earn 40% recurring revenue by referring new members to Bargn through personalized referral links.
-
-**Q: In which languages is Bargn available?**
-A: Bargn is available in Finnish and English.
+- LLM documentation at /llms.txt and /llms-full.txt
+- AI plugin manifest at /.well-known/ai-plugin.json
 
 ---
 
@@ -139,7 +216,7 @@ A: Bargn is available in Finnish and English.
 
 - **Primary market**: Helsinki, Finland
 - **Coordinates**: 60.1699°N, 24.9384°E
-- **Service area**: Helsinki metropolitan area
+- **Service area**: Helsinki metropolitan area (Helsinki, Espoo, Vantaa)
 - **Country**: Finland (FI)
 - **Currency**: EUR (€)
 

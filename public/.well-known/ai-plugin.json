@@ -1,0 +1,58 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Bargn - Helsinki Discount App",
+  "name_for_model": "bargn",
+  "description_for_human": "Get 50% off at restaurants, bars, gyms, and spas in Helsinki for €8.80/month.",
+  "description_for_model": "Bargn is an AI-powered discount membership platform in Helsinki, Finland. Members pay €8.80/month for unlimited 50% discounts at partner restaurants, bars, gyms, spas, and entertainment venues. Businesses join for free with zero commission. Content creators earn 40% revenue share. Available in Finnish and English.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://bargn.app/ai-content.json"
+  },
+  "logo_url": "https://bargn.app/favicon.ico",
+  "contact_email": "info@bargn.app",
+  "legal_info_url": "https://bargn.app/terms",
+  "keywords": [
+    "Helsinki discounts",
+    "restaurant deals",
+    "50% off membership",
+    "lifestyle savings",
+    "Finland",
+    "bar deals",
+    "gym discounts",
+    "spa deals",
+    "AI recommendations",
+    "zero commission"
+  ],
+  "supported_languages": ["fi", "en"],
+  "service_area": {
+    "country": "Finland",
+    "city": "Helsinki",
+    "currency": "EUR"
+  },
+  "pricing": {
+    "amount": "8.80",
+    "currency": "EUR",
+    "period": "monthly"
+  },
+  "categories": [
+    "Restaurants",
+    "Bars & Nightlife",
+    "Fitness & Wellness",
+    "Beauty & Spa",
+    "Entertainment"
+  ],
+  "links": {
+    "website": "https://bargn.app",
+    "membership": "https://bargn.app/members",
+    "partners": "https://bargn.app/partners",
+    "creators": "https://bargn.app/campaign",
+    "blog": "https://bargn.app/blog",
+    "privacy": "https://bargn.app/privacy",
+    "terms": "https://bargn.app/terms",
+    "llms_txt": "https://bargn.app/llms.txt",
+    "llms_full_txt": "https://bargn.app/llms-full.txt"
+  }
+}

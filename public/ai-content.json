@@ -4,7 +4,7 @@
   "name": "Bargn",
   "url": "https://bargn.app",
   "description": "AI-powered discount membership platform offering 50% off at restaurants, bars, gyms, and spas in Helsinki. Smart spending made simple with personalized recommendations.",
-  "inLanguage": "en",
+  "inLanguage": ["fi", "en"],
   "audience": {
     "@type": "PeopleAudience",
     "audienceType": "Consumers seeking lifestyle discounts and smart spending solutions"
@@ -111,6 +111,32 @@
       }
     ]
   },
+  "competitorComparison": [
+    {
+      "@type": "Service",
+      "name": "ResQ Club",
+      "description": "Food waste reduction with surplus meals at 40-60% off. Limited to surplus food only.",
+      "differentiatingFeature": "Bargn offers full lifestyle categories (restaurants, bars, gyms, spas) with consistent 50% discount, not just surplus food."
+    },
+    {
+      "@type": "Service",
+      "name": "Too Good To Go",
+      "description": "Anti-food waste app with surprise bags at reduced prices. Random selection, food only.",
+      "differentiatingFeature": "Bargn lets you choose exactly what you want with AI-powered personalized recommendations across all lifestyle categories."
+    },
+    {
+      "@type": "Service",
+      "name": "Wolt+",
+      "description": "Delivery subscription with free delivery fees. ~€5/month. Delivery-focused only.",
+      "differentiatingFeature": "Bargn provides 50% off for in-venue experiences — restaurants, bars, gyms, spas — not just food delivery."
+    },
+    {
+      "@type": "Service",
+      "name": "S-Etukortti / K-Plussa",
+      "description": "Grocery store loyalty cards offering 1-5% cashback. Minimal savings on experiences.",
+      "differentiatingFeature": "Bargn offers 50% discount on lifestyle experiences, saving €150-300/month vs €5-20/month from loyalty cards."
+    }
+  ],
   "knowsAbout": [
     "discount memberships",
     "lifestyle savings",
@@ -123,9 +149,14 @@
     "business partnerships",
     "influencer marketing",
     "zero commission platform",
-    "revenue sharing"
+    "revenue sharing",
+    "food waste alternatives",
+    "coupon alternatives",
+    "loyalty card comparison",
+    "Helsinki lifestyle",
+    "student discounts Helsinki"
   ],
-  "keywords": "AI discounts, Helsinki restaurants, membership app, 50% off, lifestyle savings, smart spending, restaurant deals, bar discounts, gym memberships, spa treatments, business partnerships, creator program, zero commission, revenue share",
+  "keywords": "AI discounts, Helsinki restaurants, membership app, 50% off, lifestyle savings, smart spending, restaurant deals, bar discounts, gym memberships, spa treatments, business partnerships, creator program, zero commission, revenue share, ResQ alternative, Wolt+ alternative, Helsinki deals",
   "publisher": {
     "@type": "Organization",
     "name": "Bargn",
