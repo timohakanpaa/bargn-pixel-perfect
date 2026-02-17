@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import AdminGuard from "@/components/AdminGuard";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { Activity, TrendingUp, Gauge, Zap, Clock } from "lucide-react";
@@ -124,6 +125,7 @@ const Performance = () => {
   ];
 
   return (
+    <AdminGuard>
     <div className="min-h-screen bg-background">
       <Navigation />
       <div className="pt-[132px] pb-24">
@@ -280,6 +282,7 @@ const Performance = () => {
       </div>
       <Footer />
     </div>
+    </AdminGuard>
   );
 };
 
