@@ -55,6 +55,7 @@ const MaterialBank = () => {
   const [imageStyle, setImageStyle] = useState<string>("ugc");
   const [customPrompt, setCustomPrompt] = useState("");
   const [editingMaterial, setEditingMaterial] = useState<ContentMaterial | null>(null);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [filter, setFilter] = useState<string>("all");
   const [suggesting, setSuggesting] = useState(false);
   const [suggestion, setSuggestion] = useState<{ title: string; caption: string } | null>(null);
@@ -153,7 +154,7 @@ const MaterialBank = () => {
       .eq("id", material.id);
     if (!error) {
       toast.success("Tallennettu!");
-      setEditingMaterial(null);
+      setEditDialogOpen(false);
       fetchMaterials();
     } else {
       toast.error("Tallennus epäonnistui");
@@ -411,9 +412,9 @@ const MaterialBank = () => {
                       <Download className="w-3 h-3 mr-1" /> Lataa
                     </Button>
                   )}
-                  <Dialog>
+                  <Dialog open={editDialogOpen && editingMaterial?.id === material.id} onOpenChange={(open) => { setEditDialogOpen(open); if (!open) setEditingMaterial(null); }}>
                     <DialogTrigger asChild>
-                      <Button size="sm" variant="outline" onClick={() => setEditingMaterial({ ...material })}>
+                      <Button size="sm" variant="outline" onClick={() => { setEditingMaterial({ ...material }); setEditDialogOpen(true); }}>
                         <Edit className="w-3 h-3 mr-1" /> Muokkaa
                       </Button>
                     </DialogTrigger>
