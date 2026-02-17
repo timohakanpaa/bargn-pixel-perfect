@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { Sparkles, Download, Trash2, Edit, Image, Copy, Instagram, RefreshCw } from "lucide-react";
+import { Sparkles, Download, Trash2, Edit, Image, Copy, Instagram, RefreshCw, Check } from "lucide-react";
 
 interface ContentMaterial {
   id: string;
@@ -187,6 +187,20 @@ const MaterialBank = () => {
   const copyCaption = (caption: string) => {
     navigator.clipboard.writeText(caption);
     toast.success("Teksti kopioitu leikepöydälle!");
+  };
+
+  const publishMaterial = async (material: ContentMaterial) => {
+    const newStatus = material.status === "published" ? "draft" : "published";
+    const { error } = await supabase
+      .from("content_materials" as any)
+      .update({ status: newStatus } as any)
+      .eq("id", material.id);
+    if (!error) {
+      toast.success(newStatus === "published" ? "Julkaistu!" : "Palautettu luonnokseksi");
+      fetchMaterials();
+    } else {
+      toast.error("Tilan vaihto epäonnistui");
+    }
   };
 
   const downloadImage = async (url: string, title: string) => {
@@ -493,6 +507,13 @@ const MaterialBank = () => {
                     ) : (
                       <><RefreshCw className="w-3 h-3 mr-1" /> Kuva</>
                     )}
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant={material.status === "published" ? "default" : "outline"}
+                    onClick={() => publishMaterial(material)}
+                  >
+                    <Check className="w-3 h-3 mr-1" /> {material.status === "published" ? "Julkaistu" : "Julkaise"}
                   </Button>
                   <Button
                     size="sm"
