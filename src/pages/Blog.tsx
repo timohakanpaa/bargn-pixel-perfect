@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { TrendingUp, Rocket, DollarSign, Clock, Tag, ArrowRight, Sparkles } from "lucide-react";
+import { TrendingUp, Rocket, DollarSign, Clock, Tag, ArrowRight, Sparkles, FileText } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useInView } from "@/hooks/use-in-view";
@@ -13,14 +13,16 @@ import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 import { useArticleSchema } from "@/hooks/use-article-schema";
 import { useMetaTags } from "@/hooks/use-meta-tags";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 
 const Blog = () => {
   useAnalytics();
   useBreadcrumbSchema();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { scrollY } = useScroll();
   const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState("all");
+  const [dbArticles, setDbArticles] = useState<any[]>([]);
   const { ref: heroRef, isInView: heroInView } = useInView();
   const { ref: postsRef, isInView: postsInView } = useInView();
   
@@ -87,6 +89,19 @@ const Blog = () => {
       });
     }
   }, [heroInView]);
+
+  // Fetch published articles from database
+  useEffect(() => {
+    const fetchArticles = async () => {
+      const { data } = await supabase
+        .from('blog_articles')
+        .select('*')
+        .eq('status', 'published')
+        .order('published_at', { ascending: false });
+      if (data) setDbArticles(data);
+    };
+    fetchArticles();
+  }, []);
 
   const categories = [
     { id: "all", label: t("blog.categories.all") },
@@ -354,6 +369,62 @@ const Blog = () => {
             </div>
           </div>
         </section>
+
+        {/* Database Articles */}
+        {dbArticles.length > 0 && (
+          <section className="py-24 bg-background-dark relative">
+            <div className="container mx-auto px-6">
+              <h2 className="text-4xl md:text-5xl font-black text-center mb-12">
+                <span className="bg-gradient-to-r from-[#FF9B7D] to-[#FFE500] bg-clip-text text-transparent">
+                  {language === "fi" ? "Uusimmat artikkelit" : "Latest Articles"}
+                </span>
+              </h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {dbArticles.map((article, index) => (
+                  <motion.article
+                    key={article.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={{ y: -10, scale: 1.02 }}
+                    className="bg-glass backdrop-blur-xl border-2 border-glass rounded-3xl overflow-hidden hover:border-[#E94B96] hover:shadow-[0_0_40px_rgba(233,75,150,0.4)] transition-all duration-300"
+                  >
+                    <div className="h-48 bg-gradient-to-br from-[#8B5CF6] via-[#E94B96] to-[#FF9B7D] flex items-center justify-center">
+                      {article.image_url ? (
+                        <img src={article.image_url} alt={language === "fi" ? article.title_fi : article.title_en} className="w-full h-full object-cover" />
+                      ) : (
+                        <FileText className="w-16 h-16 text-white/60" />
+                      )}
+                    </div>
+                    <div className="p-6">
+                      {article.category && (
+                        <span className="text-[#FF9B7D] text-sm font-semibold uppercase tracking-wider flex items-center gap-1 mb-3">
+                          <Tag className="w-4 h-4" />
+                          {article.category}
+                        </span>
+                      )}
+                      <h3 className="text-xl font-bold mb-3 text-white leading-tight">
+                        {language === "fi" ? article.title_fi : article.title_en}
+                      </h3>
+                      <p className="text-white/70 mb-6 leading-relaxed line-clamp-3">
+                        {language === "fi" ? article.excerpt_fi : article.excerpt_en}
+                      </p>
+                      <Button
+                        variant="ghost"
+                        onClick={() => navigate(`/blog/${article.slug}`)}
+                        className="text-[#FF9B7D] hover:text-[#E94B96] font-bold group"
+                      >
+                        {t('blog.readMore')}
+                        <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </div>
+                  </motion.article>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         <Footer />
       </div>
