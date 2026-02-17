@@ -112,6 +112,25 @@ const Materials = () => {
     toast.success("Teksti kopioitu leikepöydälle!");
   };
 
+  const downloadImage = async (url: string, title: string) => {
+    try {
+      toast.info("Ladataan kuvaa...");
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = blobUrl;
+      a.download = `${title.replace(/[^a-zA-Z0-9äöåÄÖÅ\s-]/g, "").replace(/\s+/g, "-").toLowerCase()}.jpg`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(blobUrl);
+      toast.success("Kuva ladattu!");
+    } catch {
+      toast.error("Kuvan lataus epäonnistui");
+    }
+  };
+
   const deleteMaterial = async (id: string) => {
     const { error } = await supabase
       .from("content_materials" as any)
@@ -324,6 +343,17 @@ const Materials = () => {
                               >
                                 <Copy className="w-3 h-3 mr-2" /> Kopioi teksti
                               </Button>
+                              {material.image_url && (
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => downloadImage(material.image_url!, material.title)}
+                                  className="hover:bg-accent/10 hover:border-accent/40 transition-colors"
+                                  title="Lataa kuva"
+                                >
+                                  <Download className="w-3 h-3" />
+                                </Button>
+                              )}
                               {isAdmin && (
                                 <Button
                                   size="sm"
