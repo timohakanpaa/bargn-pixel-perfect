@@ -12,6 +12,7 @@ import { useArticleSchema } from "@/hooks/use-article-schema";
 import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 import { supabase } from "@/integrations/supabase/client";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const BlogArticle = () => {
   useAnalytics();
@@ -174,7 +175,7 @@ const BlogArticle = () => {
                 [&_tr:last-child_td]:border-b-0
                 [&_blockquote]:border-l-4 [&_blockquote]:border-primary [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:my-6
               ">
-                <ReactMarkdown>{content}</ReactMarkdown>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
               </div>
 
               <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
