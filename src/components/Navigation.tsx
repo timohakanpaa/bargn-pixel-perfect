@@ -65,6 +65,9 @@ const Navigation = () => {
     to: "/about",
     label: t("about")
   }, {
+    to: "/blog",
+    label: t("blog.nav") || "Blog"
+  }, {
     to: "/campaign",
     label: t("campaign")
   }];
@@ -72,10 +75,6 @@ const Navigation = () => {
     to: "/admin",
     label: "Admin Panel",
     icon: ShieldCheck
-  }, {
-    to: "/blog",
-    label: "Blog",
-    icon: FileText
   }, {
     to: "/blog/admin",
     label: "Blog Admin",
