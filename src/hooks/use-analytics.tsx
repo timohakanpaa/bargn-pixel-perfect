@@ -229,7 +229,7 @@ export const useAnalytics = () => {
         page_title: pageTitle || document.title,
         user_agent: navigator.userAgent,
         language,
-        referrer: document.referrer || null,
+        referrer: document.referrer ? document.referrer.slice(0, 500) : null,
         screen_width: window.screen.width,
         screen_height: window.screen.height,
       };
