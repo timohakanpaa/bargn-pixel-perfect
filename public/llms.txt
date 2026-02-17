@@ -1,0 +1,43 @@
+# Bargn
+
+> AI-powered discount membership platform offering 50% off at restaurants, bars, gyms, and spas in Helsinki, Finland.
+
+## About
+
+Bargn is a mobile-first membership app that connects consumers with local businesses through AI-powered personalized 50% discount recommendations. Members pay €8.80/month for unlimited access to deals across Helsinki's restaurants, bars, fitness centers, and spas.
+
+## Core Offerings
+
+- **Consumer Membership**: €8.80/month for unlimited 50% discounts at partner venues
+- **Business Partnership**: Zero-commission platform for businesses to attract new customers
+- **Creator Program**: 40% revenue share for content creators and influencers
+
+## Pages
+
+- [Home](https://bargn.app/): Main landing page with app overview, features, and pricing
+- [Members](https://bargn.app/members): Membership plans and pricing details
+- [Partners](https://bargn.app/partners): B2B partnership information for businesses
+- [Campaign](https://bargn.app/campaign): Creator and influencer partnership program
+- [How It Works](https://bargn.app/how-it-works): Step-by-step guide to using Bargn
+- [About](https://bargn.app/about): Company information and mission
+- [Blog](https://bargn.app/blog): Articles about savings, deals, and smart spending
+- [Privacy Policy](https://bargn.app/privacy): Privacy and data handling policies
+- [Terms of Service](https://bargn.app/terms): Terms and conditions
+- [Cookie Policy](https://bargn.app/cookies): Cookie usage information
+
+## Key Facts
+
+- **Location**: Helsinki, Finland
+- **Languages**: Finnish (fi), English (en)
+- **Price**: €8.80/month membership
+- **Discount**: 50% off at all partner venues
+- **Categories**: Restaurants, Bars & Nightlife, Fitness & Wellness, Beauty & Spa
+- **Commission**: Zero commission for partner businesses
+- **Creator Revenue Share**: 40%
+
+## Contact & Social
+
+- Website: https://bargn.app
+- Instagram: https://www.instagram.com/bargn_app
+- TikTok: https://www.tiktok.com/@bargn_app
+- LinkedIn: https://www.linkedin.com/company/bargn
