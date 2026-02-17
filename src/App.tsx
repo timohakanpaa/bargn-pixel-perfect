@@ -32,6 +32,7 @@ const Terms = lazy(() => import("./pages/Terms"));
 const Cookies = lazy(() => import("./pages/Cookies"));
 const Materials = lazy(() => import("./pages/Materials"));
 const SiteAudit = lazy(() => import("./pages/SiteAudit"));
+const Checkout = lazy(() => import("./pages/Checkout"));
 const AdminPanel = lazy(() => import("./pages/AdminPanel"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -79,6 +80,7 @@ const AppContent = () => {
           <Route path="/cookies" element={<Cookies />} />
           <Route path="/materials" element={<Materials />} />
           <Route path="/site-audit" element={<SiteAudit />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/admin" element={<AdminPanel />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
