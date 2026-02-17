@@ -169,6 +169,146 @@ export type Database = {
         }
         Relationships: []
       }
+      blog_articles: {
+        Row: {
+          author: string | null
+          category: string | null
+          content_en: string
+          content_fi: string
+          created_at: string
+          created_by: string | null
+          excerpt_en: string | null
+          excerpt_fi: string | null
+          id: string
+          image_url: string | null
+          keywords: string[] | null
+          published_at: string | null
+          scheduled_at: string | null
+          slug: string
+          status: string
+          title_en: string
+          title_fi: string
+          updated_at: string
+        }
+        Insert: {
+          author?: string | null
+          category?: string | null
+          content_en?: string
+          content_fi?: string
+          created_at?: string
+          created_by?: string | null
+          excerpt_en?: string | null
+          excerpt_fi?: string | null
+          id?: string
+          image_url?: string | null
+          keywords?: string[] | null
+          published_at?: string | null
+          scheduled_at?: string | null
+          slug: string
+          status?: string
+          title_en?: string
+          title_fi?: string
+          updated_at?: string
+        }
+        Update: {
+          author?: string | null
+          category?: string | null
+          content_en?: string
+          content_fi?: string
+          created_at?: string
+          created_by?: string | null
+          excerpt_en?: string | null
+          excerpt_fi?: string | null
+          id?: string
+          image_url?: string | null
+          keywords?: string[] | null
+          published_at?: string | null
+          scheduled_at?: string | null
+          slug?: string
+          status?: string
+          title_en?: string
+          title_fi?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      blog_prompt_templates: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          is_default: boolean | null
+          name: string
+          prompt_template: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_default?: boolean | null
+          name: string
+          prompt_template: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_default?: boolean | null
+          name?: string
+          prompt_template?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      blog_schedules: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          cron_expression: string | null
+          id: string
+          is_active: boolean | null
+          keywords: string[]
+          language: string
+          last_run_at: string | null
+          next_run_at: string | null
+          prompt_template_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          cron_expression?: string | null
+          id?: string
+          is_active?: boolean | null
+          keywords: string[]
+          language?: string
+          last_run_at?: string | null
+          next_run_at?: string | null
+          prompt_template_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          cron_expression?: string | null
+          id?: string
+          is_active?: boolean | null
+          keywords?: string[]
+          language?: string
+          last_run_at?: string | null
+          next_run_at?: string | null
+          prompt_template_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_schedules_prompt_template_id_fkey"
+            columns: ["prompt_template_id"]
+            isOneToOne: false
+            referencedRelation: "blog_prompt_templates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       conversion_funnels: {
         Row: {
           created_at: string | null
