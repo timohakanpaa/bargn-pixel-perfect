@@ -22,6 +22,7 @@ const About = lazy(() => import("./pages/About"));
 const Blog = lazy(() => import("./pages/Blog"));
 const BlogArticle = lazy(() => import("./pages/BlogArticle"));
 const BlogAdmin = lazy(() => import("./pages/BlogAdmin"));
+const BlogAdminDashboard = lazy(() => import("./pages/BlogAdminDashboard"));
 const Auth = lazy(() => import("./pages/Auth"));
 const Analytics = lazy(() => import("./pages/Analytics"));
 const Funnels = lazy(() => import("./pages/Funnels"));
@@ -65,6 +66,7 @@ const AppContent = () => {
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogArticle />} />
           <Route path="/blog/admin" element={<BlogAdmin />} />
+          <Route path="/blog/admin/dashboard" element={<BlogAdminDashboard />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/funnels" element={<Funnels />} />
