@@ -11,7 +11,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { Plus, Sparkles, Calendar, Edit, Trash2, Eye, Save, Settings, ImageIcon } from "lucide-react";
-import MaterialBank from "@/components/admin/MaterialBank";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
@@ -230,10 +229,9 @@ const BlogAdminDashboard = () => {
           </p>
 
           <Tabs defaultValue="articles" className="space-y-6">
-            <TabsList className="grid grid-cols-4 w-full max-w-2xl mx-auto bg-card border border-border">
+            <TabsList className="grid grid-cols-3 w-full max-w-xl mx-auto bg-card border border-border">
               <TabsTrigger value="articles">Artikkelit</TabsTrigger>
               <TabsTrigger value="content">Sisällöntuotanto</TabsTrigger>
-              <TabsTrigger value="materials">Materiaalit</TabsTrigger>
               <TabsTrigger value="templates">Promptit</TabsTrigger>
             </TabsList>
 
@@ -545,10 +543,7 @@ const BlogAdminDashboard = () => {
               </div>
             </TabsContent>
 
-            {/* MATERIALS TAB */}
-            <TabsContent value="materials">
-              <MaterialBank />
-            </TabsContent>
+
 
             {/* TEMPLATES TAB */}
             <TabsContent value="templates" className="space-y-4">
