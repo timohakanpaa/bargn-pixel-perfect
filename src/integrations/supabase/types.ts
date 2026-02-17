@@ -309,6 +309,48 @@ export type Database = {
           },
         ]
       }
+      content_materials: {
+        Row: {
+          caption: string
+          created_at: string
+          created_by: string | null
+          id: string
+          image_base64: string | null
+          image_url: string | null
+          platform: string
+          status: string
+          theme: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          caption: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          image_base64?: string | null
+          image_url?: string | null
+          platform: string
+          status?: string
+          theme: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          caption?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          image_base64?: string | null
+          image_url?: string | null
+          platform?: string
+          status?: string
+          theme?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       conversion_funnels: {
         Row: {
           created_at: string | null

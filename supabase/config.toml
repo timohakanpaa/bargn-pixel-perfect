@@ -17,3 +17,6 @@ verify_jwt = true
 
 [functions.generate-blog-article]
 verify_jwt = true
+
+[functions.generate-content-material]
+verify_jwt = true
