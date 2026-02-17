@@ -129,24 +129,23 @@ serve(async (req) => {
 
     // Step 1: Generate Finnish caption text
     const captionPrompt = customPrompt ||
-      `Olet sosiaalisen median sisällöntuottaja Bargn-alennussovellukselle. Bargn tarjoaa jäsenilleen 50% alennuksia ravintoloista, aktiviteeteistä ja palveluista Suomessa hintaan 8,80€/kk.
+      `Olet Bargn-alennussovelluksen sosiaalisen median copywriter. Kirjoita VALMIS mainospostaus, EI ohjeita tai ehdotuksia.
 
-Luo ${platform === "tiktok" ? "TikTok" : platform === "instagram" ? "Instagram" : "TikTok ja Instagram"} -postaus aiheesta: "${theme}"
+Bargn: jäsenet saavat 50% alennuksia ravintoloista, aktiviteeteistä ja palveluista. Hinta 8,80€/kk.
 
-Vaatimukset:
-- Kirjoita suomeksi
-- Käytä nuorekasta, energistä ja rentoa tyyliä
-- Sisällytä relevantteja hashtageja (#bargn #säästä #tarjoukset)
-- TikTok: lyhyt, koukuttava, max 150 merkkiä + hashtagit
-- Instagram: kattavampi teksti, max 300 merkkiä + hashtagit  
-- Sisällytä toimintakehotus (CTA)
-- Mainitse Bargn-sovellus luontevasti
+Teema: "${theme}"
+Alusta: ${platform === "tiktok" ? "TikTok" : platform === "instagram" ? "Instagram" : "TikTok ja Instagram"}
 
-Vastaa JSON-muodossa:
-{
-  "title": "Lyhyt otsikko materiaalille",
-  "caption": "Postauksen teksti hashtageineen"
-}`;
+Säännöt:
+- Kirjoita SUORAAN julkaistavissa oleva mainosteksti, EI meta-kommentteja, EI "tässä on ehdotus", EI selityksiä
+- Suomeksi, nuorekas rento tyyli
+- TikTok: max 150 merkkiä + hashtagit
+- Instagram: max 300 merkkiä + hashtagit
+- Sisällytä #bargn #säästä #tarjoukset
+- Sisällytä toimintakehotus
+
+Vastaa VAIN tässä JSON-muodossa, ei mitään muuta:
+{"title": "Lyhyt otsikko", "caption": "Valmis mainosteksti hashtageineen"}`;
 
     console.log("Generating caption for theme:", theme);
 
