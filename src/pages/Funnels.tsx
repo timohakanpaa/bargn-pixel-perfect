@@ -50,6 +50,18 @@ const Funnels = () => {
   const [dropOffData, setDropOffData] = useState<DropOffData[]>([]);
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    if (isAdmin) {
+      fetchFunnels();
+    }
+  }, [isAdmin]);
+
+  useEffect(() => {
+    if (selectedFunnel && isAdmin) {
+      fetchDropOffData(selectedFunnel);
+    }
+  }, [selectedFunnel, isAdmin]);
+
   // Block non-admin access with a friendly message
   if (authLoading) {
     return (
@@ -82,16 +94,6 @@ const Funnels = () => {
       </div>
     );
   }
-
-  useEffect(() => {
-    fetchFunnels();
-  }, []);
-
-  useEffect(() => {
-    if (selectedFunnel) {
-      fetchDropOffData(selectedFunnel);
-    }
-  }, [selectedFunnel]);
 
   const fetchFunnels = async () => {
     try {
