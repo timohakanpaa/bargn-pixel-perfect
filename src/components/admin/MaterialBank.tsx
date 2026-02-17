@@ -33,6 +33,7 @@ const THEMES = [
   { value: "perhe", label: "👨‍👩‍👧‍👦 Perhe-edut" },
   { value: "opiskelijat", label: "🎓 Opiskelijaedut" },
   { value: "treffi-ideat", label: "❤️ Treffi-ideat" },
+  { value: "bargn-mainos", label: "🚀 Bargn-mainos (brändi)" },
 ];
 
 const IMAGE_STYLES = [

@@ -145,9 +145,13 @@ Bargn: jäsenet saavat 50% alennuksia ravintoloista, aktiviteeteistä ja palvelu
 Vastaa AINA ja AINOASTAAN tässä JSON-muodossa, ei yhtään mitään muuta tekstiä ennen tai jälkeen:
 {"title": "Lyhyt otsikko", "caption": "Valmis mainosteksti hashtageineen"}`;
 
+    const bargnBrandVoice = theme.toLowerCase().includes("bargn") 
+      ? ` Käytä Bargnin brändiääntä: röyhkeä, itsevarma, hauska. Esimerkkifraaseja: "Hell Yeah Discounts", "Power Move", "Can't Be Wrong", "Spend it wisely", "Smart move, bro". Sävy on kuin kaveri joka tietää parhaat diilit ja jakaa ne sulle. Ei tylsää mainoskieltä.`
+      : "";
+
     const userMessage = customPrompt
-      ? `Teema: "${theme}". Alusta: ${platform === "tiktok" ? "TikTok" : platform === "instagram" ? "Instagram" : "TikTok ja Instagram"}. Lisäohje: ${customPrompt}`
-      : `Teema: "${theme}". Alusta: ${platform === "tiktok" ? "TikTok (max 150 merkkiä + hashtagit)" : platform === "instagram" ? "Instagram (max 300 merkkiä + hashtagit)" : "TikTok (max 150 merkkiä) ja Instagram (max 300 merkkiä) + hashtagit"}. Kirjoita valmis mainosteksti.`;
+      ? `Teema: "${theme}". Alusta: ${platform === "tiktok" ? "TikTok" : platform === "instagram" ? "Instagram" : "TikTok ja Instagram"}.${bargnBrandVoice} Lisäohje: ${customPrompt}`
+      : `Teema: "${theme}". Alusta: ${platform === "tiktok" ? "TikTok (max 150 merkkiä + hashtagit)" : platform === "instagram" ? "Instagram (max 300 merkkiä + hashtagit)" : "TikTok (max 150 merkkiä) ja Instagram (max 300 merkkiä) + hashtagit"}.${bargnBrandVoice} Kirjoita valmis mainosteksti.`;
 
     console.log("Generating caption for theme:", theme);
 
