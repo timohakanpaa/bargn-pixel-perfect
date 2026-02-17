@@ -491,7 +491,7 @@ const translations: Record<Language, Record<string, string>> = {
     "footer.links.cookies": "Cookie Policy",
     "footer.info.address": "AI2MEE8 OY\nHelsinki, Finland",
     "footer.info.businessId": "Y-tunnus: 3374707-1",
-    "footer.copyright": "© 2024 Bargn. All rights reserved.",
+    "footer.copyright": "© 2025 Bargn. All rights reserved.",
     "footer.tagline": "Discover. Save. Repeat.",
     "chatWidget": "Ask Bargn AI",
     
@@ -956,7 +956,7 @@ const translations: Record<Language, Record<string, string>> = {
     "footer.links.cookies": "Evästekäytäntö",
     "footer.info.address": "AI2MEE8 OY\nHelsinki, Suomi",
     "footer.info.businessId": "Y-tunnus: 3374707-1",
-    "footer.copyright": "© 2024 Bargn. Kaikki oikeudet pidätetään.",
+    "footer.copyright": "© 2025 Bargn. Kaikki oikeudet pidätetään.",
     "footer.tagline": "Löydä. Säästä. Toista.",
     "chatWidget": "Kysy Bargn AI:lta",
     
