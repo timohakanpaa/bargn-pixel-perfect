@@ -15,7 +15,7 @@ serve(async (req) => {
   try {
     // Verify auth
     const authHeader = req.headers.get("Authorization");
-    if (!authHeader) {
+    if (!authHeader?.startsWith("Bearer ")) {
       return new Response(JSON.stringify({ error: "Unauthorized" }), {
         status: 401,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -31,12 +31,14 @@ serve(async (req) => {
       throw new Error("LOVABLE_API_KEY is not configured");
     }
 
-    // Verify user is admin
+    // Verify user with explicit token
+    const token = authHeader.replace("Bearer ", "");
     const anonClient = createClient(supabaseUrl, Deno.env.get("SUPABASE_ANON_KEY")!, {
       global: { headers: { Authorization: authHeader } },
     });
-    const { data: { user }, error: userError } = await anonClient.auth.getUser();
+    const { data: { user }, error: userError } = await anonClient.auth.getUser(token);
     if (userError || !user) {
+      console.error("Auth error:", userError);
       return new Response(JSON.stringify({ error: "Unauthorized" }), {
         status: 401,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
