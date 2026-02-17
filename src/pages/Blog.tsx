@@ -11,11 +11,10 @@ import { getBlogImageUrl } from "@/utils/generateBlogImages";
 import { useAnalytics } from "@/hooks/use-analytics";
 import { useBreadcrumbSchema } from "@/hooks/use-breadcrumb-schema";
 import { useArticleSchema } from "@/hooks/use-article-schema";
-import { useAuth } from "@/hooks/use-auth";
+import { useMetaTags } from "@/hooks/use-meta-tags";
 
 const Blog = () => {
-  const { loading } = useAuth(true); // Require admin access
-  useAnalytics(); // Auto-track page view
+  useAnalytics();
   useBreadcrumbSchema();
   const { t } = useLanguage();
   const { scrollY } = useScroll();
@@ -69,6 +68,13 @@ const Blog = () => {
     }
   ]);
 
+  useMetaTags({
+    title: "Bargn Blog – Savings Tips, Deals & Partner Spotlights",
+    description: "Discover money-saving tips, discount app comparisons, and partner spotlights. Learn how to save up to 50% on restaurants, gyms, and spas in Helsinki.",
+    ogTitle: "Bargn Blog – Smart Savings Made Simple",
+    ogDescription: "Tips, guides, and stories to help you save more with Bargn.",
+  });
+
   useEffect(() => {
     if (heroInView) {
       confetti({
@@ -79,18 +85,6 @@ const Blog = () => {
       });
     }
   }, [heroInView]);
-
-  // Show loading state while checking admin access
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Loading...</p>
-        </div>
-      </div>
-    );
-  }
 
   const categories = [
     { id: "all", label: t("blog.categories.all") },
