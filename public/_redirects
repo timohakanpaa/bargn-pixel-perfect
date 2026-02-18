@@ -1,3 +1,26 @@
+# 301 redirects for ?lang= parameter URLs (old sitemap entries Google indexed)
+/?lang=en  /  301
+/?lang=fi  /  301
+/?lang=sv  /  301
+/members?lang=en  /members  301
+/members?lang=fi  /members  301
+/members?lang=sv  /members  301
+/partners?lang=en  /partners  301
+/partners?lang=fi  /partners  301
+/partners?lang=sv  /partners  301
+/campaign?lang=en  /campaign  301
+/campaign?lang=fi  /campaign  301
+/campaign?lang=sv  /campaign  301
+/how-it-works?lang=en  /how-it-works  301
+/how-it-works?lang=fi  /how-it-works  301
+/how-it-works?lang=sv  /how-it-works  301
+/about?lang=en  /about  301
+/about?lang=fi  /about  301
+/about?lang=sv  /about  301
+/blog?lang=en  /blog  301
+/blog?lang=fi  /blog  301
+/blog?lang=sv  /blog  301
+
 # 301 redirects for old blog articles that Google has indexed
 /blog/exploring-virtual-experiences-in-uusimaa--a-local-s-guide  /blog  301
 /blog/how-bargn-is-changing-the-game  /blog  301
