@@ -2,18 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-  
+
   <url>
     <loc>https://bargn.app/</loc>
-    <lastmod>2026-02-17</lastmod>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://bargn.app/?lang=en" />
-    <xhtml:link rel="alternate" hreflang="fi" href="https://bargn.app/?lang=fi" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://bargn.app/" />
     <image:image>
       <image:loc>https://storage.googleapis.com/gpt-engineer-file-uploads/SWwdRfTou4NwpSgFbdofc5xLsAp1/social-images/social-1763629445250-color.png</image:loc>
       <image:title>Bargn - AI-Powered Discounts</image:title>
@@ -23,117 +19,105 @@
   
   <url>
     <loc>https://bargn.app/members</loc>
-    <lastmod>2026-02-17</lastmod>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://bargn.app/members?lang=en" />
-    <xhtml:link rel="alternate" hreflang="fi" href="https://bargn.app/members?lang=fi" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://bargn.app/members" />
   </url>
   
   <url>
     <loc>https://bargn.app/partners</loc>
-    <lastmod>2026-02-17</lastmod>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://bargn.app/partners?lang=en" />
-    <xhtml:link rel="alternate" hreflang="fi" href="https://bargn.app/partners?lang=fi" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://bargn.app/partners" />
   </url>
   
   <url>
     <loc>https://bargn.app/campaign</loc>
-    <lastmod>2026-02-17</lastmod>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://bargn.app/campaign?lang=en" />
-    <xhtml:link rel="alternate" hreflang="fi" href="https://bargn.app/campaign?lang=fi" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://bargn.app/campaign" />
   </url>
   
   <url>
     <loc>https://bargn.app/how-it-works</loc>
-    <lastmod>2026-02-17</lastmod>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://bargn.app/how-it-works?lang=en" />
-    <xhtml:link rel="alternate" hreflang="fi" href="https://bargn.app/how-it-works?lang=fi" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://bargn.app/how-it-works" />
   </url>
   
   <url>
     <loc>https://bargn.app/about</loc>
-    <lastmod>2026-02-17</lastmod>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>https://bargn.app/blog</loc>
-    <lastmod>2026-02-17</lastmod>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>https://bargn.app/blog/paras-alennussovellus-suomi-2026</loc>
-    <lastmod>2026-02-17</lastmod>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://bargn.app/blog/ravintola-tarjoukset-helsinki-2026</loc>
-    <lastmod>2026-02-17</lastmod>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://bargn.app/blog/tarjoussovellukset-vertailu-2026</loc>
-    <lastmod>2026-02-17</lastmod>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://bargn.app/blog/saasta-50-prosenttia-helsingissa</loc>
-    <lastmod>2026-02-17</lastmod>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://bargn.app/blog/saastovinkit-arki-helsinki-2026</loc>
-    <lastmod>2026-02-17</lastmod>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://bargn.app/privacy</loc>
-    <lastmod>2026-02-17</lastmod>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   
   <url>
     <loc>https://bargn.app/terms</loc>
-    <lastmod>2026-02-17</lastmod>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   
   <url>
     <loc>https://bargn.app/cookies</loc>
-    <lastmod>2026-02-17</lastmod>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <url>
     <loc>https://bargn.app/.well-known/ai-plugin.json</loc>
-    <lastmod>2026-02-17</lastmod>
+    <lastmod>2026-02-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
