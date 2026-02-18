@@ -1,1 +1,10 @@
+# 301 redirects for old blog articles that Google has indexed
+/blog/exploring-virtual-experiences-in-uusimaa--a-local-s-guide  /blog  301
+/blog/how-bargn-is-changing-the-game  /blog  301
+/blog/exploring-digital-festivals-in-finland--a-new-era-of-entertainment  /blog  301
+/blog/how-to-choose-the-best-online-entertainment-options-in-helsinki  /blog  301
+/blog/how-to-choose-the-best-applikaatio-for-virtual-experiences  /blog  301
+/blog/why-discounts-and-offers-matter-in-tough-times  /blog  301
+
+# SPA fallback - must be last
 /*  /index.html  200
