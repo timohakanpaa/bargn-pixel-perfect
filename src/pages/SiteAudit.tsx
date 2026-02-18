@@ -63,7 +63,7 @@ const PAGE_TRANSLATION_KEYS: Record<string, string[]> = {
   ],
   "/partners": [
     "partners.hero.badge", "partners.hero.headline1", "partners.hero.headline2",
-    "partners.hero.body", "partners.stats.partners", "partners.stats.revenue",
+    "partners.hero.body", "partners.stats.activePartners", "partners.stats.commissionFees",
   ],
   "/about": [
     "about.hero.badge", "about.hero.headline1", "about.hero.headline2",
@@ -76,7 +76,7 @@ const PAGE_TRANSLATION_KEYS: Record<string, string[]> = {
   ],
   "/campaign": [
     "campaign.hero.headline", "campaign.hero.subheadline",
-    "campaign.stats.headline", "campaign.process.headline",
+    "campaign.stats.revenueShare", "campaign.process.title",
   ],
 };
 
