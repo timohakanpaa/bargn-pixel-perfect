@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import AdminGuard from "@/components/AdminGuard";
@@ -89,28 +89,57 @@ const EXTERNAL_LINKS = [
   "https://www.tiktok.com/@bargn.app",
 ];
 
+type CheckKey = "links" | "external" | "language" | "images" | "ui";
+
+const CHECK_LABELS: Record<CheckKey, { label: string; icon: React.ReactNode; description: string }> = {
+  links: { label: "Sisäiset linkit", icon: <Link2 className="w-4 h-4" />, description: "Tarkista kaikki sisäiset reitit" },
+  external: { label: "Ulkoiset linkit", icon: <ExternalLink className="w-4 h-4" />, description: "Tarkista ulkoiset linkit" },
+  language: { label: "Käännökset EN/FI", icon: <Globe className="w-4 h-4" />, description: "Tarkista käännösavainten yhtenäisyys" },
+  images: { label: "Kuvat", icon: <Image className="w-4 h-4" />, description: "Tarkista kuvatiedostot" },
+  ui: { label: "UI-yhtenäisyys", icon: <Type className="w-4 h-4" />, description: "Tarkista UI:n yhtenäisyys" },
+};
+
 const SiteAudit = () => {
   const { t, language, setLanguage } = useLanguage();
   const [findings, setFindings] = useState<AuditFinding[]>([]);
   const [isRunning, setIsRunning] = useState(false);
+  const [runningCheck, setRunningCheck] = useState<CheckKey | null>(null);
   const [progress, setProgress] = useState(0);
   const [auditComplete, setAuditComplete] = useState(false);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [scanningId, setScanningId] = useState<string | null>(null);
   const [scanResults, setScanResults] = useState<Record<string, string>>({});
+  const [completedChecks, setCompletedChecks] = useState<Set<CheckKey>>(new Set());
 
   const addFinding = useCallback((finding: Omit<AuditFinding, "id">) => {
     setFindings(prev => [...prev, { ...finding, id: `${Date.now()}-${Math.random()}` }]);
   }, []);
+
+  const runSingleCheck = async (check: CheckKey) => {
+    if (isRunning || runningCheck) return;
+    setRunningCheck(check);
+    setProgress(0);
+    const checkMap: Record<CheckKey, () => Promise<void>> = {
+      links: checkInternalLinks,
+      external: checkExternalLinks,
+      language: checkLanguageConsistency,
+      images: checkImages,
+      ui: checkUIConsistency,
+    };
+    await checkMap[check]();
+    setCompletedChecks(prev => new Set([...prev, check]));
+    setRunningCheck(null);
+    setAuditComplete(true);
+    setProgress(100);
+  };
 
   const runAudit = async () => {
     setIsRunning(true);
     setFindings([]);
     setProgress(0);
     setAuditComplete(false);
+    setCompletedChecks(new Set());
 
-    const steps = 5;
-    
     // Step 1: Check internal links
     setProgress(10);
     await checkInternalLinks();
@@ -134,6 +163,7 @@ const SiteAudit = () => {
 
     setIsRunning(false);
     setAuditComplete(true);
+    setCompletedChecks(new Set<CheckKey>(["links", "external", "language", "images", "ui"]));
   };
 
   const checkInternalLinks = async () => {
@@ -593,32 +623,71 @@ const SiteAudit = () => {
       <div className="pt-[132px] pb-24">
         <div className="container mx-auto px-6">
           {/* Header */}
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
-            <div>
-              <h1 className="text-4xl md:text-5xl font-black mb-2 text-primary">
-                Site Audit
-              </h1>
-              <p className="text-muted-foreground">
-                Tarkista linkit, käännökset, kuvat ja UI:n yhtenäisyys
-              </p>
+          <div className="mb-8">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
+              <div>
+                <h1 className="text-4xl md:text-5xl font-black mb-2 text-primary">
+                  Site Audit
+                </h1>
+                <p className="text-muted-foreground">
+                  Tarkista linkit, käännökset, kuvat ja UI:n yhtenäisyys
+                </p>
+              </div>
+              <Button 
+                onClick={runAudit} 
+                disabled={isRunning || !!runningCheck}
+                size="lg"
+                className="gap-2 shrink-0"
+              >
+                {isRunning ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  <Search className="w-5 h-5" />
+                )}
+                {isRunning ? "Tarkistetaan..." : "Aja kaikki tarkistukset"}
+              </Button>
             </div>
-            <Button 
-              onClick={runAudit} 
-              disabled={isRunning}
-              size="lg"
-              className="gap-2"
-            >
-              {isRunning ? (
-                <Loader2 className="w-5 h-5 animate-spin" />
-              ) : (
-                <Search className="w-5 h-5" />
-              )}
-              {isRunning ? "Tarkistetaan..." : "Aja tarkistus"}
-            </Button>
+
+            {/* Individual check buttons */}
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+              {(Object.keys(CHECK_LABELS) as CheckKey[]).map((check) => {
+                const cfg = CHECK_LABELS[check];
+                const isThisRunning = runningCheck === check;
+                const isDone = completedChecks.has(check);
+                const isDisabled = isRunning || (!!runningCheck && !isThisRunning);
+                return (
+                  <button
+                    key={check}
+                    onClick={() => runSingleCheck(check)}
+                    disabled={isDisabled}
+                    className={`flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all text-sm font-medium
+                      ${isThisRunning ? "border-primary bg-primary/10 text-primary" : ""}
+                      ${isDone && !isThisRunning ? "border-green-500/40 bg-green-500/5 text-green-600" : ""}
+                      ${!isThisRunning && !isDone ? "border-border bg-muted/30 text-muted-foreground hover:border-primary/40 hover:bg-primary/5 hover:text-foreground" : ""}
+                      ${isDisabled ? "opacity-40 cursor-not-allowed" : "cursor-pointer"}
+                    `}
+                  >
+                    <div className="flex items-center gap-1.5">
+                      {isThisRunning ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      ) : isDone ? (
+                        <CheckCircle className="w-4 h-4 text-green-500" />
+                      ) : (
+                        cfg.icon
+                      )}
+                      <span>{cfg.label}</span>
+                    </div>
+                    <span className="text-xs opacity-70 text-center leading-tight">
+                      {isThisRunning ? "Ajetaan..." : isDone ? "Valmis ✓" : cfg.description}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           {/* Progress */}
-          {isRunning && (
+          {(isRunning || runningCheck) && (
             <Card className="mb-8">
               <CardContent className="pt-6">
                 <div className="flex items-center gap-4">
@@ -626,12 +695,13 @@ const SiteAudit = () => {
                   <span className="text-sm font-bold text-muted-foreground w-12 text-right">{progress}%</span>
                 </div>
                 <p className="text-sm text-muted-foreground mt-2">
-                  {progress < 20 && "Tarkistetaan sisäisiä linkkejä..."}
-                  {progress >= 20 && progress < 40 && "Tarkistetaan ulkoisia linkkejä..."}
-                  {progress >= 40 && progress < 60 && "Tarkistetaan käännöksiä EN/FI..."}
-                  {progress >= 60 && progress < 80 && "Tarkistetaan kuvia..."}
-                  {progress >= 80 && progress < 100 && "Tarkistetaan UI:n yhtenäisyyttä..."}
-                  {progress >= 100 && "Valmis!"}
+                  {runningCheck && `Ajetaan: ${CHECK_LABELS[runningCheck].label}...`}
+                  {!runningCheck && progress < 20 && "Tarkistetaan sisäisiä linkkejä..."}
+                  {!runningCheck && progress >= 20 && progress < 40 && "Tarkistetaan ulkoisia linkkejä..."}
+                  {!runningCheck && progress >= 40 && progress < 60 && "Tarkistetaan käännöksiä EN/FI..."}
+                  {!runningCheck && progress >= 60 && progress < 80 && "Tarkistetaan kuvia..."}
+                  {!runningCheck && progress >= 80 && progress < 100 && "Tarkistetaan UI:n yhtenäisyyttä..."}
+                  {!runningCheck && progress >= 100 && "Valmis!"}
                 </p>
               </CardContent>
             </Card>
