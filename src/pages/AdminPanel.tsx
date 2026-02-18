@@ -4,12 +4,13 @@ import Footer from "@/components/Footer";
 import AdminGuard from "@/components/AdminGuard";
 import CheckoutLeads from "@/components/admin/CheckoutLeads";
 import UserRolesManager from "@/components/admin/UserRolesManager";
+import InstagramSettings from "@/components/admin/InstagramSettings";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { 
   Activity, BarChart3, FileText, GitBranch, ShieldCheck, 
-  Palette, User, LogOut, Shield
+  Palette, User, LogOut, Shield, Instagram
 } from "lucide-react";
 
 const adminTools = [
@@ -134,6 +135,22 @@ const AdminPanel = () => {
 
           {/* User Roles */}
           <UserRolesManager />
+
+          {/* Instagram / Some-asetukset */}
+          <div className="mt-10">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Instagram className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-foreground">Some-asetukset</h2>
+                <p className="text-sm text-muted-foreground">Instagram-automaattijulkaisun tunnistetiedot</p>
+              </div>
+            </div>
+            <div className="max-w-2xl">
+              <InstagramSettings />
+            </div>
+          </div>
 
           {/* Quick Links */}
           <Card className="mt-10">
