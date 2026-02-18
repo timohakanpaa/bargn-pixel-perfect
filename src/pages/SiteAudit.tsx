@@ -12,7 +12,7 @@ import {
   RefreshCw, Search, Eye, Type, Loader2, ChevronDown, ChevronRight, 
   Play, ExternalLink, FileCode 
 } from "lucide-react";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useLanguage, translations } from "@/contexts/LanguageContext";
 
 type Severity = "error" | "warning" | "info" | "pass";
 
@@ -206,20 +206,14 @@ const SiteAudit = () => {
   };
 
   const checkLanguageConsistency = async () => {
-    const originalLang = language;
-
     for (const [page, keys] of Object.entries(PAGE_TRANSLATION_KEYS)) {
       for (const key of keys) {
-        // Check EN
-        setLanguage("en");
-        const enValue = t(key);
-        
-        // Check FI
-        setLanguage("fi");
-        const fiValue = t(key);
+        // Read directly from translations object to avoid React state timing issues
+        const enValue = translations.en[key] || key;
+        const fiValue = translations.fi[key] || translations.en[key] || key;
 
         // Check if translation is missing (returns the key itself)
-        if (enValue === key) {
+        if (!translations.en[key]) {
           addFinding({
             category: "language",
             severity: "error",
@@ -230,7 +224,7 @@ const SiteAudit = () => {
           });
         }
 
-        if (fiValue === key) {
+        if (!translations.fi[key]) {
           addFinding({
             category: "language",
             severity: "error",
@@ -242,26 +236,28 @@ const SiteAudit = () => {
         }
 
         // Check if EN and FI are identical (possible untranslated)
-        if (enValue !== key && fiValue !== key && enValue === fiValue && enValue.length > 3) {
+        const enRaw = translations.en[key];
+        const fiRaw = translations.fi[key];
+        if (enRaw && fiRaw && enRaw === fiRaw && enRaw.length > 3) {
           addFinding({
             category: "language",
             severity: "warning",
             title: `Sama teksti EN/FI: ${key}`,
-            description: `"${enValue.substring(0, 60)}..." on identtinen molemmilla kielillä sivulla ${page}. Tarkista onko käännös oikein.`,
+            description: `"${enRaw.substring(0, 60)}..." on identtinen molemmilla kielillä sivulla ${page}. Tarkista onko käännös oikein.`,
             page,
             element: key,
           });
         }
 
         // Check for significant length difference (might indicate incomplete translation)
-        if (enValue !== key && fiValue !== key && enValue.length > 10 && fiValue.length > 10) {
-          const ratio = Math.max(enValue.length, fiValue.length) / Math.min(enValue.length, fiValue.length);
+        if (enRaw && fiRaw && enRaw.length > 10 && fiRaw.length > 10) {
+          const ratio = Math.max(enRaw.length, fiRaw.length) / Math.min(enRaw.length, fiRaw.length);
           if (ratio > 3) {
             addFinding({
               category: "language",
               severity: "warning",
               title: `Suuri pituusero: ${key}`,
-              description: `EN (${enValue.length} merkkiä) vs FI (${fiValue.length} merkkiä) sivulla ${page}. Ratio: ${ratio.toFixed(1)}x. Tarkista käännöksen laatu.`,
+              description: `EN (${enRaw.length} merkkiä) vs FI (${fiRaw.length} merkkiä) sivulla ${page}. Ratio: ${ratio.toFixed(1)}x. Tarkista käännöksen laatu.`,
               page,
               element: key,
             });
@@ -270,8 +266,6 @@ const SiteAudit = () => {
       }
     }
 
-    // Restore original language
-    setLanguage(originalLang);
     await sleep(100);
   };
 
