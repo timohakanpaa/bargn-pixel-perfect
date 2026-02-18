@@ -338,7 +338,9 @@ export type Database = {
           id: string
           image_base64: string | null
           image_url: string | null
+          instagram_post_id: string | null
           platform: string
+          published_to_instagram_at: string | null
           status: string
           theme: string
           title: string
@@ -351,7 +353,9 @@ export type Database = {
           id?: string
           image_base64?: string | null
           image_url?: string | null
+          instagram_post_id?: string | null
           platform: string
+          published_to_instagram_at?: string | null
           status?: string
           theme: string
           title: string
@@ -364,7 +368,9 @@ export type Database = {
           id?: string
           image_base64?: string | null
           image_url?: string | null
+          instagram_post_id?: string | null
           platform?: string
+          published_to_instagram_at?: string | null
           status?: string
           theme?: string
           title?: string
@@ -439,6 +445,42 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      social_accounts: {
+        Row: {
+          access_token: string
+          account_id: string
+          account_name: string | null
+          created_at: string
+          created_by: string | null
+          expires_at: string | null
+          id: string
+          platform: string
+          updated_at: string
+        }
+        Insert: {
+          access_token: string
+          account_id: string
+          account_name?: string | null
+          created_at?: string
+          created_by?: string | null
+          expires_at?: string | null
+          id?: string
+          platform: string
+          updated_at?: string
+        }
+        Update: {
+          access_token?: string
+          account_id?: string
+          account_name?: string | null
+          created_at?: string
+          created_by?: string | null
+          expires_at?: string | null
+          id?: string
+          platform?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       user_roles: {
         Row: {

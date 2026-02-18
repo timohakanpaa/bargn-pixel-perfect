@@ -23,3 +23,6 @@ verify_jwt = false
 
 [functions.scheduled-blog-generate]
 verify_jwt = false
+
+[functions.publish-to-instagram]
+verify_jwt = false
