@@ -6,7 +6,7 @@ import { useAnalytics } from "@/hooks/use-analytics";
 import AppStoreBadges from "@/components/AppStoreBadges";
 import { trackAllPlatforms } from "@/utils/tracking";
 import { useAuth } from "@/hooks/use-auth";
-import appMockup from "@/assets/bargn-app-mockup.png";
+import heroMockup from "@/assets/bargn-hero-mockup.png";
 
 const Hero = () => {
   const { t } = useLanguage();
