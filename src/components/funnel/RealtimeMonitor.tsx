@@ -36,7 +36,7 @@ export const RealtimeMonitor = () => {
   const [stepCounts, setStepCounts] = useState<Map<number, number>>(new Map());
   const [recentActivity, setRecentActivity] = useState<RecentActivity[]>([]);
   const [pulseSteps, setPulseSteps] = useState<Set<number>>(new Set());
-  const activityTimeoutRef = useRef<NodeJS.Timeout>();
+  const activityTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
     fetchFunnels();
