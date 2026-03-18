@@ -1,7 +1,9 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
-// Lazy load below-the-fold components for better performance
 import { lazy, Suspense } from "react";
+import { Button } from "@/components/ui/button";
+import { Zap } from "lucide-react";
+import appMockup from "@/assets/bargn-app-mockup.png";
 
 const Features = lazy(() => import("@/components/Features"));
 const BusinessSection = lazy(() => import("@/components/BusinessSection"));
