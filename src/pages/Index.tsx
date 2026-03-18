@@ -180,12 +180,45 @@ const Index = () => {
           </Suspense>
         </LazyLoadSection>
         
-        {/* Final CTA */}
-        <section className="py-24 text-center">
-          <div className="container mx-auto px-6">
-            <h2 className="text-6xl md:text-7xl font-black mb-16 text-primary">
-              {t("pricingHeadline")}
-            </h2>
+        {/* Final CTA with Phone Mockup */}
+        <section className="py-16 sm:py-24 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-coral-purple opacity-10 blur-[100px] pointer-events-none" />
+          <div className="container mx-auto px-6 max-w-6xl relative z-10">
+            <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+              {/* Left - Text */}
+              <div className="flex-1 text-center lg:text-left">
+                <h2 className="text-4xl sm:text-6xl md:text-7xl font-black mb-4 sm:mb-6 text-primary">
+                  {t("pricingHeadline")}
+                </h2>
+                <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-lg mx-auto lg:mx-0">
+                  {t("heroText")}
+                </p>
+                <Button
+                  asChild
+                  variant="neon"
+                  className="rounded-full px-10 py-7 text-lg sm:text-xl shadow-[0_0_25px_rgba(255,220,74,0.7)] hover:shadow-[0_0_40px_rgba(255,220,74,1)]"
+                >
+                  <a
+                    href="https://buy.stripe.com/fZu9AT5Oobc1fY65Lu3ZK04"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Zap className="mr-2 w-5 h-5 sm:w-6 sm:h-6" />
+                    {t("letsGo")}
+                  </a>
+                </Button>
+              </div>
+              {/* Right - Phone Mockup */}
+              <div className="flex-shrink-0 relative w-[240px] sm:w-[300px] lg:w-[340px]">
+                <div className="absolute inset-0 bg-gradient-coral-purple opacity-40 blur-[60px] rounded-full scale-75" />
+                <img
+                  src={appMockup}
+                  alt="Bargn app"
+                  className="relative z-10 w-full h-auto drop-shadow-[0_0_40px_rgba(239,29,242,0.3)]"
+                  loading="lazy"
+                />
+              </div>
+            </div>
           </div>
         </section>
         
