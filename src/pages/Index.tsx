@@ -184,8 +184,18 @@ const Index = () => {
         <section className="py-16 sm:py-24 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-coral-purple opacity-10 blur-[100px] pointer-events-none" />
           <div className="container mx-auto px-6 max-w-6xl relative z-10">
-            <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
-              {/* Left - Text */}
+            <div className="flex flex-col-reverse lg:flex-row items-center gap-10 lg:gap-16">
+              {/* Left - Phone Mockup */}
+              <div className="flex-shrink-0 relative w-[240px] sm:w-[300px] lg:w-[340px]">
+                <div className="absolute inset-0 bg-gradient-coral-purple opacity-40 blur-[60px] rounded-full scale-75" />
+                <img
+                  src={appMockup}
+                  alt="Bargn app"
+                  className="relative z-10 w-full h-auto drop-shadow-[0_0_40px_rgba(239,29,242,0.3)]"
+                  loading="lazy"
+                />
+              </div>
+              {/* Right - Text */}
               <div className="flex-1 text-center lg:text-left">
                 <h2 className="text-4xl sm:text-6xl md:text-7xl font-black mb-4 sm:mb-6 text-primary">
                   {t("pricingHeadline")}
@@ -207,16 +217,6 @@ const Index = () => {
                     {t("letsGo")}
                   </a>
                 </Button>
-              </div>
-              {/* Right - Phone Mockup */}
-              <div className="flex-shrink-0 relative w-[240px] sm:w-[300px] lg:w-[340px]">
-                <div className="absolute inset-0 bg-gradient-coral-purple opacity-40 blur-[60px] rounded-full scale-75" />
-                <img
-                  src={appMockup}
-                  alt="Bargn app"
-                  className="relative z-10 w-full h-auto drop-shadow-[0_0_40px_rgba(239,29,242,0.3)]"
-                  loading="lazy"
-                />
               </div>
             </div>
           </div>
