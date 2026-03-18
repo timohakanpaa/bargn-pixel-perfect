@@ -106,7 +106,7 @@ const Hero = () => {
             {/* Glow behind phone */}
             <div className="absolute inset-0 bg-gradient-coral-purple opacity-40 blur-[60px] rounded-full scale-75" />
             <img 
-              src={appMockup} 
+              src={heroMockup} 
               alt="Bargn app - 50% discounts at restaurants, bars and gyms in Helsinki"
               className="relative z-10 w-full h-auto drop-shadow-[0_0_40px_rgba(239,29,242,0.3)]"
               loading="eager"
